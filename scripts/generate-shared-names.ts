@@ -69,11 +69,11 @@ writeFileSync(
  * hand-written version this replaced had 28 entries and missed ${shared.length - 28} the data
  * knew about. Re-run after regenerating hut data.
  *
- * Used by the photo searches, which match a hut to a picture BY NAME. A name on
- * this list cannot carry a match alone: Commons declines to search at all
- * (it has no position to corroborate with), and Flickr demands a geotag beside
- * the hut. Without that, a guesthouse in the Valais was shown a Pension
- * Edelweiss in the Harz.
+ * Used by the Commons photo search, which matches a hut to a picture BY NAME.
+ * A name on this list cannot carry a match alone and the search declines
+ * rather than guessing, because a Commons file carries no position to
+ * corroborate with. Without that, a guesthouse in the Valais was shown a
+ * Pension Edelweiss in the Harz and a Haus Edelweiss on the Baltic coast.
  *
  * ${shared.length} names, shared by ${shared.reduce((s, [, n]) => s + n, 0)} of ${byId.size.toLocaleString()} named places.
  */

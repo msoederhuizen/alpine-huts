@@ -2,7 +2,6 @@ import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
 import { fetchCommonsCategoryImages, searchCommonsImages } from './commons';
 import { withCommonsCredits } from './commonsCredits';
-import { fetchFlickrHutPhotos } from './flickr';
 import { fetchSiteImage } from './siteImage';
 import { fetchWikidataPhotoAndCategory } from './wikidata';
 import { fetchWikipediaImage } from './wikipedia';
@@ -12,8 +11,8 @@ function normalize(url: string): string {
   return url.split('?')[0].toLowerCase();
 }
 
-/** Below this many curated photos, fall back to a name-matched Flickr search. */
-const MIN_BEFORE_FLICKR = 4;
+/** Below this many curated photos, fall back to searching Commons by name. */
+const MIN_BEFORE_SEARCH = 4;
 
 /**
  * Gather all web photos *of a hut*, de-duplicated: the OSM `image`, the Wikidata
@@ -67,20 +66,13 @@ export async function fetchHutGallery(
 
   // Commons FILE SEARCH, when the curated links came up thin. Reaches the many
   // photos that exist on Commons but sit in no category and belong to a hut
-  // with no Wikidata entry — measured at 73% of huts against 27% for Flickr.
-  if (photos.length < MIN_BEFORE_FLICKR) {
-    for (const img of await searchCommonsImages(hut.name, signal)) add(img);
-  }
-
-  // Flickr LAST, and only when the curated sources came up thin.
+  // with no Wikidata entry — measured at 73% of huts.
   //
-  // Wikimedia photos are curated to be *of* the hut — a Commons category is
-  // maintained by someone who decided each photo belongs in it. Flickr is
-  // matched by name instead (see src/api/flickr.ts), which is good but weaker,
-  // so it fills gaps rather than competing. Most huts with a Commons category
-  // therefore never make this request at all.
-  if (photos.length < MIN_BEFORE_FLICKR) {
-    for (const img of await fetchFlickrHutPhotos(hut, signal)) add(img);
+  // Last of the Wikimedia routes because it is the weakest: a category is
+  // maintained by somebody who decided each photo belongs in it, while this
+  // matches on the file's name. Most huts with a category never get here.
+  if (photos.length < MIN_BEFORE_SEARCH) {
+    for (const img of await searchCommonsImages(hut.name, signal)) add(img);
   }
 
   // FIRST in the gallery, deliberately. For a hotel or guesthouse this is
@@ -94,8 +86,7 @@ export async function fetchHutGallery(
 
   // One extra request names the photographer and licence for the Wikimedia
   // photos — what CC-BY actually asks for. Best-effort: if it fails, every
-  // photo keeps its source credit and the gallery is unaffected. Flickr photos
-  // already carry theirs from the search response, and the site photo is
-  // credited to its domain rather than a photographer.
+  // photo keeps its source credit and the gallery is unaffected. The site
+  // photo is credited to its domain rather than to a photographer.
   return withCommonsCredits(withSite, signal);
 }

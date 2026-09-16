@@ -57,9 +57,35 @@ export function metresBetween(
  * "Plattkofelhütte - Rifugio Sasso Piatto" and "Plattkofelhütte Rifugio Sasso
  * Piatto" — the same refuge — did not match on a hyphen.
  */
+/**
+ * Letters that are their OWN character rather than an accented base letter, so
+ * NFD does not take them apart and the `[^a-z0-9]` sweep below would delete
+ * them — turning "Straßberghaus" into "stra berghaus".
+ *
+ * ⚠️ That was a real bug and a quiet one: the surviving word "berghaus" is in
+ * GENERIC_LODGING_WORDS, so the hut ended up with NO distinctive word, and the
+ * photo search skipped it entirely rather than showing anything wrong. 127
+ * names in the shipped data contain ß, plus a handful of Norwegian ø and
+ * French œ.
+ *
+ * Umlauts and ordinary accents are NOT here and must not be: ü, é, č, å and the
+ * rest are a base letter plus a combining mark, which NFD separates correctly.
+ */
+const STANDALONE_LETTERS: [RegExp, string][] = [
+  [/ß/g, 'ss'],
+  [/ø/g, 'o'],
+  [/æ/g, 'ae'],
+  [/œ/g, 'oe'],
+  [/đ|ð/g, 'd'],
+  [/þ/g, 'th'],
+  [/ł/g, 'l'],
+  [/ı/g, 'i'],
+];
+
 export function normalizePlaceName(raw: string): string {
-  return raw
-    .toLowerCase()
+  let s = raw.toLowerCase();
+  for (const [re, to] of STANDALONE_LETTERS) s = s.replace(re, to);
+  return s
     .normalize('NFD')
     .replace(/[̀-ͯ]/g, '') // combining accents left by NFD
     .replace(/[^a-z0-9]+/g, ' ')
@@ -115,10 +141,10 @@ function isDistinctiveToken(t: string): boolean {
  * The words in a name that could identify the place on their own — "Lagazuoi"
  * from "Rifugio Lagazuoi", nothing at all from a bare "Rifugio".
  *
- * Exported for the Flickr photo search (`src/api/flickr.ts`), which has the same
+ * Exported for the photo searches (`src/api/commons.ts`), which have the same
  * problem this file was written for: deciding whether two bits of text refer to
  * the same place. A hut whose name yields no distinctive token cannot be
- * verified against a photo caption, so that search declines to guess.
+ * verified against a photo's file name, so that search declines to guess.
  */
 export function distinctiveTokens(normalized: string): string[] {
   return normalized.split(' ').filter(isDistinctiveToken);
