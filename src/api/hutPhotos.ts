@@ -1,3 +1,4 @@
+import { indexedPhotosFor, isIndexed } from '../data/photoIndex';
 import { refugesPhotosFor } from '../data/refugesPhotos';
 import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
@@ -41,20 +42,40 @@ export async function fetchHutGallery(
     }
   };
 
-  // The place's own photo of itself, from its website's og:image. Started NOW
-  // but awaited at the END: it is measured at a median 524 ms and only about
-  // 30% of sites yield anything, so awaiting it here would delay every hut page
-  // for a coin flip. Running it alongside the Wikimedia lookups costs nothing
-  // and it still ends up FIRST in the gallery — see the unshift below.
-  const sitePhoto = fetchSiteImage(hut, signal);
-
   add(resolveHutImage(hut));
 
-  // refuges.info, shipped with the app: no request, works offline, and matched
-  // by COORDINATES rather than name, so it cannot attach another place's photo.
-  // Early on purpose — for a French or Pyrenean hut this often fills the
-  // gallery outright, and every source below is then skipped entirely.
+  // ── Everything shipped with the app, in order. No requests, works offline. ──
+
+  // refuges.info: matched by COORDINATES rather than name, so it cannot attach
+  // another place's photo. The most trustworthy source there is.
   for (const img of refugesPhotosFor(hut.id)) add(img);
+
+  // The build-time index: Commons and the place's own website, already
+  // resolved. This is what the live lookups below used to do on the phone.
+  for (const img of indexedPhotosFor(hut.id)) add(img);
+
+  // ⚠️ AND STOP, if this place was in the index when it was built — whether or
+  // not anything was found. An empty entry means the sweep was already done and
+  // came back empty, which is true for about three quarters of places; redoing
+  // it live would be the slowest path in the app, every time, for nothing.
+  //
+  // Everything below is a FALLBACK for places added since the last index build.
+  // Regenerate with `npm run generate-photo-index` and it stops running at all.
+  if (isIndexed(hut.id)) {
+    void writeCachedPhotos(hut.id, photos);
+    // Only reaches the network if the OSM `image` tag named a Commons file,
+    // whose photographer still has to be looked up. Indexed photos already
+    // carry their credit from the build.
+    return withCommonsCredits(photos, signal);
+  }
+
+  // ── Fallback path only, for places the index has not seen ──────────────────
+
+  // The place's own photo of itself, from its website's og:image. Started NOW
+  // but awaited at the END: it is measured at a median 524 ms and only about
+  // 30% of sites yield anything, so awaiting it here would delay the page for a
+  // coin flip. It still ends up FIRST in the gallery — see the unshift below.
+  const sitePhoto = fetchSiteImage(hut, signal);
 
   let category = hut.wikimediaCommons?.startsWith('Category:')
     ? hut.wikimediaCommons
