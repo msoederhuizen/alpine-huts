@@ -4,6 +4,7 @@ import { COLORS } from '../constants/theme';
 import { useHutCoverPhoto } from '../hooks/useHutCoverPhoto';
 import type { Hut } from '../types/hut';
 import { hutTypeLabel } from '../utils/hutMeta';
+import { displayUri } from '../utils/hutImage';
 
 interface Props {
   hut: Hut;
@@ -46,7 +47,7 @@ export function HutSelectionCard({
 
       <TouchableOpacity style={styles.topRow} onPress={onDetails} activeOpacity={0.7}>
         {photo ? (
-          <Image source={{ uri: photo.url }} style={styles.thumb} />
+          <Image source={{ uri: displayUri(photo) }} style={styles.thumb} />
         ) : (
           <View style={[styles.thumb, styles.thumbPlaceholder]}>
             <Ionicons name="image-outline" size={22} color="#c4c4c4" />

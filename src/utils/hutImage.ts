@@ -23,6 +23,20 @@ export interface HutImage {
    * them the traffic they published the tag for.
    */
   link?: string;
+  /**
+   * A `file://` copy on this phone, once downloaded for an offline route.
+   *
+   * ⚠️ Render `localUri ?? url`, never `localUri` alone — most photos are never
+   * downloaded. `url` is kept alongside so the file can be fetched again if it
+   * is ever missing, and so credits and links still work.
+   */
+  localUri?: string;
+}
+
+/** What to actually put in an `<Image source>`: the downloaded copy when there
+ *  is one, otherwise the web URL. Use this everywhere rather than `.url`. */
+export function displayUri(img: HutImage): string {
+  return img.localUri ?? img.url;
 }
 
 /**

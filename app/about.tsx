@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Stack } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Linking,
   ScrollView,
@@ -13,6 +13,7 @@ import {
 
 import { COLORS, RADIUS, coloredShadow } from '../src/constants/theme';
 import { clearPhotoCache } from '../src/utils/photoCache';
+import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoFiles';
 
 /**
  * About / credits.
@@ -66,6 +67,14 @@ const SOURCES = [
 export default function AboutScreen() {
   const version = Constants.expoConfig?.version ?? '1.0.0';
   const [photosCleared, setPhotosCleared] = useState(false);
+  const [stored, setStored] = useState(0);
+  useEffect(() => {
+    let alive = true;
+    downloadedPhotoBytes().then((n) => alive && setStored(n));
+    return () => {
+      alive = false;
+    };
+  }, []);
   const open = (url: string) => Linking.openURL(url).catch(() => {});
 
   return (
@@ -147,14 +156,22 @@ export default function AboutScreen() {
           <View style={styles.block}>
             <Text style={styles.blockText}>
               Hut photos are remembered on this phone so they appear instantly
-              next time. If one looks wrong or out of date, clear them and
-              they’ll be fetched again.
+              next time. Photos for the huts on your route are downloaded in
+              full, so they still work with no signal.
+            </Text>
+            <Text style={styles.blockText}>
+              {stored > 0
+                ? `${(stored / 1024 / 1024).toFixed(1)} MB downloaded. Clearing frees that space; photos are fetched again when you need them.`
+                : 'If a photo looks wrong or out of date, clear them and they’ll be fetched again.'}
             </Text>
           </View>
           <TouchableOpacity
             style={[styles.linkRow, styles.sourceDivider]}
             onPress={async () => {
-              await clearPhotoCache();
+              // Both halves, or the files would be orphaned on disk with no
+              // cache entry pointing at them.
+              await Promise.all([clearPhotoCache(), clearDownloadedPhotos()]);
+              setStored(0);
               setPhotosCleared(true);
             }}
             activeOpacity={0.7}

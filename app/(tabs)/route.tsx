@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { SacInfoButton } from '../../src/components/SacInfoButton';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
@@ -23,6 +23,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { coloredShadow, COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
 import { useLeg, useRouteLegs } from '../../src/hooks/useRouteLegs';
 import { packLeg } from '../../src/utils/packLeg';
+import { prefetchRoutePhotos } from '../../src/utils/prefetchRoutePhotos';
 import { useSavedTripsStore } from '../../src/store/savedTripsStore';
 import { useTripStore } from '../../src/store/tripStore';
 import type { Hut } from '../../src/types/hut';
@@ -51,6 +52,17 @@ export default function RouteScreen() {
   const router = useRouter();
   const saveTrip = useSavedTripsStore((s) => s.save);
   const legs = useRouteLegs();
+
+  // Pull this route's hut photos onto the phone, quietly, while there is still
+  // signal to do it with. This is the ONLY thing that makes a hut page open
+  // instantly the first time — and the same download is what lets it open at
+  // all in a valley with no reception. Route only, never the map: see
+  // prefetchRoutePhotos. Failure is silent and costs nothing.
+  useFocusEffect(
+    useCallback(() => {
+      void prefetchRoutePhotos(huts);
+    }, [huts]),
+  );
 
   const [saveOpen, setSaveOpen] = useState(false);
   const [tripName, setTripName] = useState('');

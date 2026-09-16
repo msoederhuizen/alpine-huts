@@ -29,7 +29,7 @@ import { getUserPhotos, useHutUserDataStore } from '../../src/store/hutUserDataS
 import { useTripStore } from '../../src/store/tripStore';
 import type { Hut } from '../../src/types/hut';
 import { parseFacilities } from '../../src/utils/facilities';
-import { creditLine, type HutImage } from '../../src/utils/hutImage';
+import { creditLine, displayUri, type HutImage } from '../../src/utils/hutImage';
 import { hutTypeLabel } from '../../src/utils/hutMeta';
 import { deletePhotoFile, savePhoto } from '../../src/utils/photoStorage';
 
@@ -181,7 +181,7 @@ export default function HutDetailScreen() {
           >
             {showCover ? (
               <Image
-                source={{ uri: cover!.url }}
+                source={{ uri: displayUri(cover!) }}
                 style={styles.photo}
                 resizeMode="cover"
                 onError={() => setImageFailed(true)}
@@ -395,7 +395,7 @@ function PhotoGallery({
           renderItem={({ item }) => (
             <View style={[styles.gallerySlide, { width }]}>
               <Image
-                source={{ uri: item.url }}
+                source={{ uri: displayUri(item) }}
                 style={styles.galleryImage}
                 resizeMode="contain"
               />
