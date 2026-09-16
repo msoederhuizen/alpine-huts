@@ -42,13 +42,7 @@ const TYPE_RANK: Record<string, number> = {
 /** How "informative" an element is — used to keep the best of several OSM
  *  elements that map the same physical place. */
 function placeScore(h: Hut): number {
-  // ⚠️ `tagCount`, not `Object.keys(h.tags).length`. Bundled huts carry only the
-  // tags in constants/hutTags.ts, so counting what's left would score a hut by
-  // how many KEPT tags it has rather than how well OSM describes it — and could
-  // hand a tie to the other of two duplicate records, moving a pin. The
-  // generator records the pre-trim count; the fallback covers live Overpass
-  // results and any data generated before trimming existed.
-  let s = (h.tagCount ?? Object.keys(h.tags).length) * 0.01;
+  let s = Object.keys(h.tags).length * 0.01;
   if (h.tags.tourism) s += 4;
   if (ADDR_PLACE_KEYS.some((k) => h.tags[k])) s += 2;
   if (h.tags.ele) s += 1;

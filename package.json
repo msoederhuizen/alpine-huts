@@ -47,7 +47,6 @@
     "web": "expo start --web",
     "generate-pin-icons": "node scripts/generate-pin-icons.cjs",
     "generate-huts": "tsx scripts/generate-huts.ts",
-    "trim-region-tags": "tsx scripts/trim-region-tags.ts",
     "check-routes": "tsx scripts/check-routes.mjs",
     "setup-brouter": "powershell -ExecutionPolicy Bypass -File scripts/setup-brouter.ps1",
     "brouter": "java -Xmx2g -cp brouter/brouter.jar btools.server.RouteServer brouter/segments4 brouter/profiles2 brouter/customprofiles 17777 32",

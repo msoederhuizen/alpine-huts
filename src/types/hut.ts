@@ -44,21 +44,6 @@ export interface Hut {
    * doesn't have. These points shape the leg while leaving the day count alone.
    */
   via?: { lat: number; lon: number }[];
-  /**
-   * OSM tags, REDUCED to the keys in `constants/hutTags.ts` — not the raw set.
-   *
-   * ⚠️ A key that isn't on that list reads as `undefined` here for every hut.
-   * Add it there and re-run `npm run trim-region-tags` rather than working
-   * around it. The full set is still in `assets/data/huts-bundle.json`.
-   */
+  /** All raw OSM tags, kept for later features (contact, capacity, etc.). */
   tags: Record<string, string>;
-  /**
-   * How many tags this element had BEFORE trimming.
-   *
-   * Exists solely so `placeScore` (hooks/useHuts.ts) can keep ranking duplicate
-   * OSM records of one place by how well-described each is. Counting the
-   * trimmed bag would change which duplicate wins. Absent on data generated
-   * before trimming existed, where the live count is still correct.
-   */
-  tagCount?: number;
 }
