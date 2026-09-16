@@ -1,0 +1,10 @@
+process.env.EXPO_PUBLIC_BROUTER_URL ||= 'http://127.0.0.1:17777/brouter';
+process.env.EXPO_PUBLIC_BROUTER_LEG_TIMEOUT_MS ||= '30000';
+const SRC = await import('node:fs').then(m => m.readFileSync('src/api/brouter.ts','utf8'));
+const m = SRC.match(/const SCENIC_PROFILE = `([\s\S]*?)`;/);
+const body = m[1];
+const url = process.env.EXPO_PUBLIC_BROUTER_URL + '/profile';
+const res = await fetch(url, { method:'POST', headers:{'Content-Type':'text/plain'}, body });
+const text = await res.text();
+console.log('POST', url, '->', res.status);
+console.log(text.slice(0, 300));

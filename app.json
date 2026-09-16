@@ -1,0 +1,45 @@
+{
+  "expo": {
+    "name": "Alpine Huts",
+    "slug": "alpine-huts",
+    "scheme": "alpinehuts",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow Alpine Huts to add your own photos of huts from your library.",
+          "cameraPermission": "Allow Alpine Huts to take photos of huts."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Alpine Huts to show your position on the map so you can check you are on the right trail.",
+          "locationWhenInUsePermission": "Allow Alpine Huts to show your position on the map so you can check you are on the right trail.",
+          "isIosBackgroundLocationEnabled": false,
+          "isAndroidBackgroundLocationEnabled": false
+        }
+      ]
+    ]
+  }
+}
