@@ -404,11 +404,6 @@ function legCacheKey(
   return `${p(from.latitude)},${p(from.longitude)}|${p(to.latitude)},${p(to.longitude)}|${profile}${v ? '|via:' + v : ''}`;
 }
 
-/** Wipe the negative cache — for a manual "try again" after a service outage. */
-export function clearUnroutableCache(): void {
-  unroutable.clear();
-}
-
 export async function fetchLeg(
   from: LatLng,
   to: LatLng,

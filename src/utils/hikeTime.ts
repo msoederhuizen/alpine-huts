@@ -119,22 +119,6 @@ export function simplifyProfile(coords: ProfilePoint[]): ProfileVertex[] {
   return out.filter((p, i) => i === 0 || p.d > out[i - 1].d);
 }
 
-/** Total climb and drop over the simplified profile. */
-export function smoothedClimb(coords: ProfilePoint[]): {
-  ascent: number;
-  descent: number;
-} {
-  const pts = simplifyProfile(coords);
-  let ascent = 0;
-  let descent = 0;
-  for (let i = 1; i < pts.length; i++) {
-    const dh = pts[i].e - pts[i - 1].e;
-    if (dh > 0) ascent += dh;
-    else descent -= dh;
-  }
-  return { ascent, descent };
-}
-
 /**
  * Extra time for scrambling ground, by SAC grade.
  *

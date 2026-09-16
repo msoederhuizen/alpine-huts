@@ -114,23 +114,6 @@ export function positionAlongRoute(
   return { distanceM: along, offRouteM: bestDist };
 }
 
-/** Height at a given distance along, interpolated between profile samples. */
-export function elevationAt(flat: number[] | undefined, distanceM: number): number | null {
-  const pts = readElevationProfile(flat);
-  if (pts.length < 2) return null;
-  if (distanceM <= pts[0].d) return pts[0].e;
-  const last = pts[pts.length - 1];
-  if (distanceM >= last.d) return last.e;
-  for (let i = 1; i < pts.length; i++) {
-    if (pts[i].d >= distanceM) {
-      const span = pts[i].d - pts[i - 1].d;
-      const t = span > 0 ? (distanceM - pts[i - 1].d) / span : 0;
-      return pts[i - 1].e + (pts[i].e - pts[i - 1].e) * t;
-    }
-  }
-  return last.e;
-}
-
 /** Flat `[d, e, …]` back into points, for drawing. */
 export function readElevationProfile(flat: number[] | undefined): ProfileSample[] {
   if (!flat || flat.length < 4) return [];
