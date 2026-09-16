@@ -41,19 +41,19 @@ const JUNK_PATH =
   /(logo|icon|favicon|sprite|avatar|flag|button|btn[-_]|arrow|pixel|spacer|placeholder|loader|spinner|badge|award|trip[-_]?advisor|booking|facebook|instagram|whatsapp|payment|banner|\bnav[-_]|visuel|\/plugins?\/|\/themes?\/|generic|stock|default)/i;
 
 /**
- * Smallest a real photograph can plausibly be. Measured failure: a hut served
- * `flag-round-switzerland-300x300.png` — a language-switcher flag, 2 KB — as its
- * og:image, and the app showed a Swiss flag as the photo of the hut.
+ * Smallest long edge a real hut photograph can have.
  *
- * ⚠️ 5 KB, NOT 15. The first attempt used 15 KB and dropped Weinbergerhaus's
- * genuine photograph, which is 8.4 KB — small, but a real picture taken by a
- * named photographer. Icons and flags sit at 1–3 KB, so the floor only has to
- * clear them. Better to admit a small photo than to reject a real one.
+ * ⚠️ PIXELS, NOT BYTES. This was a byte threshold first, and bytes are the
+ * wrong measure twice over: at 15 KB it rejected a genuine photo, and lowering
+ * it to 5 KB then admitted Weinbergerhaus's og:image, which turned out to be a
+ * 150x150 SQUARE THUMBNAIL — small in bytes because it is small in pixels, and
+ * useless as a hero image either way. Reading the real dimensions out of the
+ * file header settles it directly.
  */
-const MIN_PHOTO_BYTES = 5_000;
+const MIN_PHOTO_EDGE = 500;
 
-/** Enough of the file to read a PNG header. */
-const HEADER_BYTES = 2048;
+/** Enough of the file to reach a JPEG's SOF marker past its EXIF block. */
+const HEADER_BYTES = 16_384;
 
 /**
  * Reject graphics masquerading as photographs, by looking at the actual bytes.
@@ -76,22 +76,32 @@ async function looksLikeAPhoto(url: string, signal?: AbortSignal): Promise<boole
     });
     if (!res.ok && res.status !== 206) return true; // can't tell — let it through
 
-    const declared = Number(res.headers.get('content-range')?.split('/')[1] ?? 0);
-    if (declared && declared < MIN_PHOTO_BYTES) return false;
-
     const buf = new Uint8Array(await res.arrayBuffer());
-    const isPng =
-      buf.length > 25 && buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e;
-    if (isPng) {
-      // PNG layout: 8-byte signature, then the IHDR chunk. Colour type sits at
-      // offset 25; 4 is grey+alpha and 6 is RGBA — both mean transparency.
+    if (buf.length < 26) return false; // nothing this small is a photograph
+
+    // PNG: 8-byte signature, then IHDR — width at 16, height at 20, colour type
+    // at 25, all fixed offsets.
+    if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e) {
       const colourType = buf[25];
-      if (colourType === 4 || colourType === 6) return false;
+      if (colourType === 4 || colourType === 6) return false; // alpha ⇒ a logo
+      const be = (o: number) =>
+        ((buf[o] << 24) | (buf[o + 1] << 16) | (buf[o + 2] << 8) | buf[o + 3]) >>> 0;
+      return Math.max(be(16), be(20)) >= MIN_PHOTO_EDGE;
     }
-    // A whole file smaller than the range we asked for, and tiny with it.
-    if (!declared && buf.length < HEADER_BYTES && buf.length < MIN_PHOTO_BYTES) {
-      return false;
+
+    // JPEG: walk to a Start-Of-Frame marker, which carries the real dimensions.
+    // C4, C8 and CC share the range but are Huffman/arithmetic tables, not SOF.
+    for (let i = 2; i < buf.length - 9; i++) {
+      if (buf[i] !== 0xff) continue;
+      const marker = buf[i + 1];
+      if (marker < 0xc0 || marker > 0xcf) continue;
+      if (marker === 0xc4 || marker === 0xc8 || marker === 0xcc) continue;
+      const height = (buf[i + 5] << 8) | buf[i + 6];
+      const width = (buf[i + 7] << 8) | buf[i + 8];
+      return Math.max(width, height) >= MIN_PHOTO_EDGE;
     }
+
+    // Some other format, or SOF beyond the header we read. Not our call.
     return true;
   } catch {
     return true; // unreachable or aborted — not this function's job to decide
@@ -159,6 +169,37 @@ function domainOf(url: string): string {
 }
 
 /**
+ * The BIGGEST image in a `srcset`, not the first one.
+ *
+ * ⚠️ srcset is written smallest-first by convention, so taking entry zero —
+ * which is what this did — systematically picked the lowest resolution the site
+ * offered and then displayed it full-width. That is the same blurriness the Wix
+ * placeholder caused, arrived at a different way, and it affected every site
+ * using responsive images rather than one platform.
+ *
+ * Entries look like `photo-320.jpg 320w, photo-1600.jpg 1600w` or `… 1x, … 2x`.
+ * Ranks by the `w` descriptor where present, else by `x`, else takes the last —
+ * still a better guess than the first.
+ */
+function largestInSrcset(srcset: string): string | null {
+  let best: { url: string; weight: number } | null = null;
+  const entries = srcset.split(',');
+  for (let i = 0; i < entries.length; i++) {
+    const parts = entries[i].trim().split(/\s+/);
+    const url = parts[0];
+    if (!url) continue;
+    const d = parts[1] ?? '';
+    const weight = /(\d+)w$/.test(d)
+      ? Number(/(\d+)w$/.exec(d)![1])
+      : /([\d.]+)x$/.test(d)
+        ? Number(/([\d.]+)x$/.exec(d)![1]) * 1000
+        : i; // no descriptor: later is usually larger
+    if (!best || weight >= best.weight) best = { url, weight };
+  }
+  return best?.url ?? null;
+}
+
+/**
  * The most prominent real photograph among a page's `<img>` tags.
  *
  * ⚠️ WHY THIS IS HERE. Only 25% of guesthouse sites publish `og:image`, but
@@ -183,9 +224,12 @@ function pickPageImage(html: string, pageUrl: string): string | null {
     if (seen > 120) break; // deep in the page is footer territory
 
     // Lazy-loading sites keep the real file in data-src; `src` is a placeholder.
+    // The srcset is read through `largestInSrcset` rather than taking entry
+    // zero, which is the SMALLEST the site offers.
+    const srcset = tag.match(/\ssrcset=["']([^"']+)["']/i)?.[1];
     const src =
       tag.match(/\sdata-(?:src|lazy-src|original)=["']([^"']+)["']/i)?.[1] ??
-      tag.match(/\ssrcset=["']([^"',\s]+)/i)?.[1] ??
+      (srcset ? largestInSrcset(srcset) : null) ??
       tag.match(/\ssrc=["']([^"']+)["']/i)?.[1];
     if (!src || !/\.(jpe?g|png|webp)(\?|$)/i.test(src)) continue;
 
@@ -206,9 +250,52 @@ function pickPageImage(html: string, pageUrl: string): string | null {
   return best?.url ?? null;
 }
 
+/**
+ * Turn a low-quality PLACEHOLDER URL into the real picture.
+ *
+ * ⚠️ Scraping raw HTML gets you what the page loads BEFORE its JavaScript runs,
+ * and modern site builders put a deliberately tiny, deliberately blurred image
+ * there — the real one is swapped in later by script we never execute.
+ *
+ * Measured: Berghaus Toni is a Wix site whose `<img>` declared 980x798 while
+ * pointing at `.../w_147,h_98,...,blur_2,.../`. The app dutifully showed a
+ * 147-pixel blurred thumbnail. The URL literally says `blur_2`.
+ *
+ * Wix keeps the transform in the path, so the fix is to edit it: drop the blur,
+ * raise the size, keep whatever crop the site chose. Stripping the transform
+ * entirely also works but yields the untouched original — 2 MB, and one was
+ * 6 MB, which is not something to download onto a phone for a trail.
+ */
+function upgradePlaceholder(url: string): string {
+  if (!/static\.wixstatic\.com\//i.test(url)) return url;
+  return url.replace(/(\/v1\/[^/]+\/)([^/]+)(\/)/, (_m, head, params, tail) => {
+    const fixed = String(params)
+      .split(',')
+      .filter((p) => !/^blur_/.test(p))
+      .map((p) => (p.startsWith('w_') ? 'w_1200' : p.startsWith('h_') ? 'h_900' : p))
+      .join(',');
+    return `${head}${fixed}${tail}`;
+  });
+}
+
+/**
+ * Still a placeholder after `upgradePlaceholder` had its go.
+ *
+ * Wix is handled properly above because it is everywhere among small hotels,
+ * but every image CDN has its own dialect and there is no point learning them
+ * all. These two markers are near-universal and unambiguous: a URL that asks
+ * for blur, or that asks for a width too small to fill a phone screen, is not
+ * the picture the site wants you to see. Better no photo than a blurred one.
+ */
+function looksLikePlaceholder(url: string): boolean {
+  if (/[/,?&_-]blur[_=-]?\d/i.test(url)) return true;
+  const w = /[/,?&](?:w|width)[_=](\d{2,4})\b/i.exec(url);
+  return !!w && Number(w[1]) < 400;
+}
+
 /** Resolve a possibly-relative image URL against the page it was found on. */
 function absolute(src: string, pageUrl: string): string | null {
-  const s = decodeEntities(src.trim());
+  const s = upgradePlaceholder(decodeEntities(src.trim()));
   if (/^https:\/\//i.test(s)) return s;
   if (/^http:\/\//i.test(s)) return null; // blocked on iOS, see siteUrl
   if (s.startsWith('//')) return `https:${s}`;
@@ -247,31 +334,40 @@ export async function fetchSiteImage(
     // The meta tags live in <head>; searching a whole large document wastes
     // time and risks matching one inside embedded content.
     const head = html.slice(0, 120_000);
-    let candidate: string | null = null;
 
+    /** Name-level rejections. Cheap, so they run before any extra request. */
+    const plausible = (u: string | null): u is string =>
+      !!u && !JUNK_PATH.test(u) && !looksLikePlaceholder(u);
+
+    // ⚠️ JUNK_PATH APPLIES TO og:image TOO. It used to guard only the <img>
+    // fallback, on the assumption that a site's declared og:image is its best
+    // picture of itself. One hut's og:image was a language-switcher flag —
+    // `flag` was already on the list, and the list simply wasn't consulted.
+    let declared: string | null = null;
     for (const re of META_PATTERNS) {
       const raw = head.match(re)?.[1];
       if (!raw) continue;
       const url = absolute(raw, from);
-      // ⚠️ JUNK_PATH APPLIES HERE TOO. It used to guard only the <img> fallback
-      // below, on the assumption that a site's declared og:image is its best
-      // picture of itself. One hut's og:image was a language-switcher flag —
-      // `flag` was already on the list, and the list simply wasn't consulted.
-      if (url && !JUNK_PATH.test(url)) {
-        candidate = url;
+      if (plausible(url)) {
+        declared = url;
         break;
       }
     }
 
-    // No usable meta tag — 60% of sites. Fall back to the best photo on the page.
-    if (!candidate) candidate = pickPageImage(html.slice(0, 400_000), from);
-    if (!candidate) return null;
-
-    // Last gate: look at the bytes, not the name. Catches logos and icons that
-    // no filename rule would have flagged.
-    if (!(await looksLikeAPhoto(candidate, signal))) return null;
-
-    return { url: candidate, credit, link: from };
+    // Try the declared image, then the best one on the page. ⚠️ A REJECTED
+    // og:image MUST FALL THROUGH rather than end the search: Weinbergerhaus
+    // declares a 150x150 thumbnail while its pages carry full-size photographs,
+    // and giving up at the meta tag would have left it with nothing.
+    const hero = pickPageImage(html.slice(0, 400_000), from);
+    for (const candidate of [declared, plausible(hero) ? hero : null]) {
+      if (!candidate) continue;
+      // Last gate: the bytes, not the name. Catches logos and thumbnails no
+      // filename rule would have flagged.
+      if (await looksLikeAPhoto(candidate, signal)) {
+        return { url: candidate, credit, link: from };
+      }
+    }
+    return null;
   } catch {
     // Timed out, offline, TLS refused, or the site is simply down. The gallery
     // carries on with its other sources.
