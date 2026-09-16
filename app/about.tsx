@@ -62,6 +62,13 @@ const SOURCES = [
     licence: 'Individual licences, mostly CC BY-SA',
     url: 'https://commons.wikimedia.org/',
   },
+  {
+    icon: 'camera-outline' as const,
+    name: 'refuges.info',
+    what: 'Photographs of refuges in France, the Pyrenees and the nearby Alps, taken by its contributors.',
+    licence: '© refuges.info contributors · CC BY-SA',
+    url: 'https://www.refuges.info/',
+  },
 ];
 
 export default function AboutScreen() {

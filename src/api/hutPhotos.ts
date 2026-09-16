@@ -1,3 +1,4 @@
+import { refugesPhotosFor } from '../data/refugesPhotos';
 import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
 import { readCachedPhotos, writeCachedPhotos } from '../utils/photoCache';
@@ -48,6 +49,12 @@ export async function fetchHutGallery(
   const sitePhoto = fetchSiteImage(hut, signal);
 
   add(resolveHutImage(hut));
+
+  // refuges.info, shipped with the app: no request, works offline, and matched
+  // by COORDINATES rather than name, so it cannot attach another place's photo.
+  // Early on purpose — for a French or Pyrenean hut this often fills the
+  // gallery outright, and every source below is then skipped entirely.
+  for (const img of refugesPhotosFor(hut.id)) add(img);
 
   let category = hut.wikimediaCommons?.startsWith('Category:')
     ? hut.wikimediaCommons
