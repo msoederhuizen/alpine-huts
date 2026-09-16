@@ -10,7 +10,6 @@ import {
   Modal,
   ScrollView,
   StyleSheet,
-  Switch,
   Text,
   TextInput,
   TouchableOpacity,
@@ -23,7 +22,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchRides } from '../../src/api/lifts';
 import { coloredShadow, COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
 import { ProgressDonut } from '../../src/components/ProgressDonut';
-import { RangeSlider } from '../../src/components/RangeSlider';
+import { DayIssueCard } from '../../src/components/plan/DayIssueCard';
+import { formStyles } from '../../src/components/plan/formStyles';
+import {
+  NumberField,
+  OptionStat,
+  OptionToggle,
+  RangeControl,
+} from '../../src/components/plan/PlanControls';
 import {
   CLASSIC_ROUTES,
   isRouteReady,
@@ -45,8 +51,15 @@ import { useAlternativesStore } from '../../src/store/alternativesStore';
 import { useSelectedRegionsStore } from '../../src/store/selectedRegionsStore';
 import { useTripStore } from '../../src/store/tripStore';
 import type { Hut, HutType } from '../../src/types/hut';
-import { rideDisplayName, rideEmoji, type RideUse } from '../../src/types/ride';
 import { formatDistance, formatElevation } from '../../src/utils/format';
+import {
+  compareRating,
+  donutProgress,
+  ratingIsClean,
+  ratingKey,
+  ratingSummary,
+  rideNote,
+} from '../../src/utils/planRating';
 import {
   SAC_SCALE_DIFFICULTY,
   SAC_SCALE_GRADE,
@@ -90,123 +103,6 @@ interface PlanRouteOption {
   recommended: boolean;
   outcome: PlanOutcome;
 }
-
-/** Order routes best-first (lower = better on each term, left to right):
- *  rule 2 completeness → rule 4 ends at a village → fewest re-walked days →
- *  how badly those days retrace (severity, so a 90%-overlap day always loses to
- *  a 6%-overlap one even at equal day-count — worse than any distance/elevation
- *  miss) → fewest region-revisits → rule-6 whole-trail fit (ascent≻distance≻
- *  descent, over≻under). */
-function ratingKey(o: PlanOutcome, roundtrip: boolean): number[] {
-  return [
-    o.requestedDays - o.plannedDays,
-    !roundtrip && !o.endsAtVillage ? 1 : 0,
-    o.retraceDays,
-    o.retraceSeverity,
-    o.revisitDays,
-    o.fitScore,
-  ];
-}
-
-function compareRating(a: number[], b: number[]): number {
-  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] - b[i];
-  return 0;
-}
-
-/** True when a route hits every target (nothing to warn about). */
-function ratingIsClean(o: PlanOutcome, roundtrip: boolean): boolean {
-  return (
-    o.offTargetDays === 0 &&
-    o.retraceDays === 0 &&
-    o.plannedDays >= o.requestedDays &&
-    (roundtrip || o.endsAtVillage)
-  );
-}
-
-/** One-line, plain-language summary of exactly what the rating weighed. */
-function ratingSummary(o: PlanOutcome, roundtrip: boolean): string {
-  const parts: string[] = [];
-  if (o.plannedDays < o.requestedDays) {
-    parts.push(`${o.plannedDays}/${o.requestedDays} days routed`);
-  }
-  // "2 of 5 days off target" rather than "2 days off target": the bare count
-  // doesn't say whether that's most of the trip or a small part of it, which is
-  // the thing you actually need when comparing alternatives.
-  if (o.offTargetDays > 0) {
-    parts.push(`off target on ${o.offTargetDays} of ${o.plannedDays} days`);
-  }
-  if (o.retraceDays > 0) {
-    parts.push(
-      `${o.retraceDays} of ${o.plannedDays} days re-walk trail`,
-    );
-  }
-  if (!roundtrip && !o.endsAtVillage) parts.push('no village finish');
-  return parts.length ? parts.join(' · ') : 'Meets all your targets';
-}
-
-/**
- * One day whose targets couldn't be met: orange day badge, then a plain sentence
- * naming the day, then the specific reasons.
- *
- * Shared deliberately. The fallback notice and the alternatives carousel used to
- * render this markup separately, and they drifted the moment one of them gained
- * the "Day N" heading — the badge alone reads fine if you built the feature, but
- * a bare orange "3" doesn't tell a new user it means day 3.
- */
-function DayIssueCard({ compromise }: { compromise: DayCompromise }) {
-  return (
-    <View style={styles.dayCard}>
-      <View style={styles.dayBadge}>
-        <Text style={styles.dayBadgeText}>{compromise.day}</Text>
-      </View>
-      <View style={styles.dayIssueList}>
-        <Text style={styles.dayIssueHeading}>
-          Day {compromise.day} doesn’t meet your target
-        </Text>
-        {compromise.issues.map((issue, i) => (
-          <View key={i} style={styles.dayIssueRow}>
-            <View style={styles.dayIssueBullet} />
-            <Text style={styles.dayIssueText}>{issue}</Text>
-          </View>
-        ))}
-      </View>
-    </View>
-  );
-}
-
-/** How many sequential searches the alternatives hunt runs: the balanced route,
- *  then the shorter/longer pair together. The donut divides its sweep between
- *  them so it fills once rather than once per search. */
-const ALT_PHASES = 2;
-
-/** Ring fill, 0–1. For a single route that's just day/total; for the
- *  alternatives hunt it's the completed phases plus progress through the current
- *  one, so the ring only ever advances. */
-function donutProgress(p: {
-  day: number;
-  total: number;
-  phase?: number;
-}): number {
-  if (p.total <= 0) return 0;
-  const within = Math.min(1, p.day / p.total);
-  if (p.phase == null) return within;
-  return Math.min(1, (p.phase + within) / ALT_PHASES);
-}
-
-/** Distinct lifts/trains a route rides, labelled — or null if it's all walking. */
-function rideNote(o: PlanOutcome): string | null {
-  const used = o.legRides.filter((r): r is RideUse => !!r);
-  if (used.length === 0) return null;
-  const seen = new Set<string>();
-  const labels: string[] = [];
-  for (const r of used) {
-    if (seen.has(r.id)) continue;
-    seen.add(r.id);
-    labels.push(`${rideEmoji(r.mode)} ${rideDisplayName(r)}`);
-  }
-  return labels.join('   ');
-}
-
 
 export default function PlanScreen() {
   const { huts, isLoading: hutsLoading } = useHuts();
@@ -385,7 +281,8 @@ export default function PlanScreen() {
      *  main route turned out to need compromises). */
     variantLabel?: string;
     /**
-     * Which search of {@link ALT_PHASES} is running (0-based), for the
+     * Which search of `ALT_PHASES` (see src/utils/planRating.ts) is running
+     * (0-based), for the
      * alternatives hunt. The ring spans ALL the searches as one 0→100% sweep, so
      * it only ever moves forward.
      *
@@ -941,7 +838,7 @@ export default function PlanScreen() {
           </Text>
         </View>
 
-        <Text style={styles.label}>Start point</Text>
+        <Text style={formStyles.label}>Start point</Text>
         <TouchableOpacity
           style={styles.startBtn}
           onPress={() => setPickerOpen(true)}
@@ -1021,7 +918,7 @@ export default function PlanScreen() {
           onMax={onDescentMax}
         />
 
-        <Text style={styles.label}>Stay at</Text>
+        <Text style={formStyles.label}>Stay at</Text>
         <Text style={styles.typesHint}>
           {types.size === 0
             ? 'Pick at least one — the route needs somewhere to stay.'
@@ -1052,7 +949,7 @@ export default function PlanScreen() {
         </View>
 
         <View style={styles.labelRow}>
-          <Text style={[styles.label, styles.labelInRow]}>Hardest trail</Text>
+          <Text style={[formStyles.label, styles.labelInRow]}>Hardest trail</Text>
           {/* No `highlight`: this control is about choosing a ceiling, so the
               sheet shows the whole scale rather than singling one out. */}
           <SacInfoButton size={17} />
@@ -1095,7 +992,7 @@ export default function PlanScreen() {
             so this filters what's KNOWN to be harder rather than guaranteeing
             easy ground. Worth re-surfacing somewhere before release. */}
 
-        <Text style={styles.label}>Trip type</Text>
+        <Text style={formStyles.label}>Trip type</Text>
         <View style={styles.segment}>
           <TouchableOpacity
             style={[styles.segmentBtn, roundtrip && styles.segmentActive]}
@@ -1561,158 +1458,6 @@ export default function PlanScreen() {
   );
 }
 
-function OptionStat({
-  icon,
-  value,
-  label,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  value: string;
-  label: string;
-}) {
-  return (
-    <View style={styles.optionStat}>
-      <Ionicons name={icon} size={16} color="#2f6f4f" />
-      <Text style={styles.optionStatValue}>{value}</Text>
-      <Text style={styles.optionStatLabel}>{label}</Text>
-    </View>
-  );
-}
-
-/** A settings-style row: icon + title + hint on the left, a sliding toggle
- *  switch (the "schuif hendel") on the right. */
-function OptionToggle({
-  icon,
-  title,
-  hint,
-  value,
-  onValueChange,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  title: string;
-  hint: string;
-  value: boolean;
-  onValueChange: (v: boolean) => void;
-}) {
-  return (
-    <TouchableOpacity
-      style={styles.optRow}
-      activeOpacity={0.7}
-      onPress={() => onValueChange(!value)}
-      accessibilityRole="switch"
-      accessibilityState={{ checked: value }}
-    >
-      <View style={[styles.optIconWrap, value && styles.optIconWrapOn]}>
-        <Ionicons name={icon} size={19} color={value ? '#2f6f4f' : '#9aa0a6'} />
-      </View>
-      <View style={styles.optText}>
-        <Text style={styles.optTitle}>{title}</Text>
-        <Text style={styles.optHint}>{hint}</Text>
-      </View>
-      <Switch
-        value={value}
-        onValueChange={onValueChange}
-        trackColor={{ false: '#d9d9d9', true: '#2f6f4f' }}
-        thumbColor="#ffffff"
-        ios_backgroundColor="#d9d9d9"
-        // Keep the switch aligned with the title, not floating mid-hint.
-        style={styles.optSwitch}
-      />
-    </TouchableOpacity>
-  );
-}
-
-function NumberField({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <>
-      <Text style={styles.label}>{label}</Text>
-      <TextInput
-        style={styles.input}
-        value={value}
-        onChangeText={onChange}
-        keyboardType="numeric"
-        returnKeyType="done"
-      />
-    </>
-  );
-}
-
-function RangeControl({
-  label,
-  lo,
-  hi,
-  step,
-  min,
-  max,
-  onMin,
-  onMax,
-}: {
-  label: string;
-  lo: number;
-  hi: number;
-  step: number;
-  min: string;
-  max: string;
-  onMin: (v: string) => void;
-  onMax: (v: string) => void;
-}) {
-  // Feed the slider clamped numbers; fall back to a bound while a field is empty.
-  const toNum = (s: string, fallback: number) => {
-    const n = parseFloat(s);
-    return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : fallback;
-  };
-  return (
-    <>
-      <Text style={styles.label}>{label}</Text>
-      {/* Values sit ABOVE the bar: dragging the thumbs puts your hand over
-          everything below them, which hid the numbers you're setting. */}
-      <View style={styles.rangeRow}>
-        <TextInput
-          style={[styles.input, styles.rangeInput]}
-          value={min}
-          onChangeText={onMin}
-          keyboardType="numeric"
-          returnKeyType="done"
-          placeholder="min"
-          placeholderTextColor="#bbb"
-        />
-        <Text style={styles.rangeDash}>to</Text>
-        <TextInput
-          style={[styles.input, styles.rangeInput]}
-          value={max}
-          onChangeText={onMax}
-          keyboardType="numeric"
-          returnKeyType="done"
-          placeholder="max"
-          placeholderTextColor="#bbb"
-        />
-      </View>
-      <View style={styles.sliderBelow}>
-        <RangeSlider
-          lo={lo}
-          hi={hi}
-          step={step}
-          min={toNum(min, lo)}
-          max={toNum(max, hi)}
-          color="#2f6f4f"
-          onChange={(a, b) => {
-            onMin(String(a));
-            onMax(String(b));
-          }}
-        />
-      </View>
-    </>
-  );
-}
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.bg },
   title: { fontSize: 23, fontWeight: '800', color: COLORS.ink, marginBottom: 22 },
@@ -1730,23 +1475,8 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   labelInRow: { marginTop: 0, marginBottom: 0 },
-  label: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: COLORS.muted,
-    marginTop: 16,
-    marginBottom: 6,
-  },
-  input: {
-    borderWidth: 1.5,
-    borderColor: '#e2e8e4',
-    backgroundColor: COLORS.surface,
-    borderRadius: RADIUS.md,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 16,
-    color: COLORS.ink,
-  },
+  // `label` and `input` live in src/components/plan/formStyles.ts — the
+  // extracted NumberField/RangeControl need them too.
   startBtn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1851,10 +1581,6 @@ const styles = StyleSheet.create({
   menuRouteMeta: { fontSize: 12, color: COLORS.muted, marginTop: 2 },
   startText: { flex: 1, fontSize: 16, color: COLORS.ink },
   startPlaceholder: { color: '#aab4ad' },
-  rangeRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  rangeInput: { flex: 1 },
-  rangeDash: { color: COLORS.muted, fontSize: 13 },
-  sliderBelow: { marginTop: 8 },
   typesHint: { fontSize: 12, color: COLORS.muted, marginBottom: 10 },
   chipRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   chip: {
@@ -1895,26 +1621,6 @@ const styles = StyleSheet.create({
     ...coloredShadow(COLORS.green, 0.09),
   },
   optionsDivider: { height: 1, backgroundColor: '#eef2ef' },
-  optRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 12,
-    paddingVertical: 14,
-  },
-  optIconWrap: {
-    width: 36,
-    height: 36,
-    borderRadius: 12,
-    backgroundColor: '#f0f3f1',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  optIconWrapOn: { backgroundColor: COLORS.greenTint },
-  optText: { flex: 1, paddingTop: 1 },
-  optTitle: { fontSize: 15, fontWeight: '700', color: COLORS.ink },
-  optHint: { fontSize: 12, color: COLORS.muted, marginTop: 3, lineHeight: 17 },
-  // Nudge the switch to sit next to the title rather than centre of the block.
-  optSwitch: { marginTop: 2 },
   generateBtn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -2020,41 +1726,6 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginBottom: 10,
   },
-  dayCard: {
-    flexDirection: 'row',
-    gap: 12,
-    backgroundColor: COLORS.bg,
-    borderRadius: RADIUS.md,
-    padding: 12,
-    marginBottom: 8,
-  },
-  dayBadge: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    backgroundColor: COLORS.trail,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  dayBadgeText: { color: 'white', fontWeight: '700', fontSize: 13 },
-  dayIssueList: { flex: 1, gap: 5 },
-  dayIssueRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 8 },
-  // A small bullet dot, nudged down to sit on the text's first line rather
-  // than centred against the whole (possibly wrapped) block.
-  dayIssueBullet: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: '#b5651d',
-    marginTop: 6,
-  },
-  dayIssueText: { flex: 1, fontSize: 13, color: '#555', lineHeight: 18 },
-  dayIssueHeading: {
-    fontSize: 13.5,
-    fontWeight: '700',
-    color: COLORS.ink,
-    marginBottom: 5,
-  },
   noticeFooterNote: {
     fontSize: 13,
     color: COLORS.muted,
@@ -2157,9 +1828,6 @@ const styles = StyleSheet.create({
     padding: 12,
     marginTop: 14,
   },
-  optionStat: { alignItems: 'center', flex: 1, gap: 2 },
-  optionStatValue: { fontSize: 14, fontWeight: '800', color: COLORS.ink },
-  optionStatLabel: { fontSize: 10, color: COLORS.muted },
   optionTotalLine: {
     fontSize: 12,
     color: COLORS.muted,
