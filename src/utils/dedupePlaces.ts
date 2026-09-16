@@ -112,6 +112,28 @@ function isDistinctiveToken(t: string): boolean {
 }
 
 /**
+ * The words in a name that could identify the place on their own — "Lagazuoi"
+ * from "Rifugio Lagazuoi", nothing at all from a bare "Rifugio".
+ *
+ * Exported for the Flickr photo search (`src/api/flickr.ts`), which has the same
+ * problem this file was written for: deciding whether two bits of text refer to
+ * the same place. A hut whose name yields no distinctive token cannot be
+ * verified against a photo caption, so that search declines to guess.
+ */
+export function distinctiveTokens(normalized: string): string[] {
+  return normalized.split(' ').filter(isDistinctiveToken);
+}
+
+/** True when `text` names the place — every distinctive word of the name
+ *  appears in it, allowing one typo per word, as `sameNamedPlace` does. */
+export function textNamesPlace(text: string, nameTokens: string[]): boolean {
+  if (!nameTokens.length) return false;
+  const words = text.split(' ').filter((t) => t.length >= MIN_TOKEN_LEN);
+  if (!words.length) return false;
+  return nameTokens.every((t) => words.some((w) => withinEdits(t, w, 1)));
+}
+
+/**
  * Whether two normalized names denote the same place.
  *
  * Token containment rather than substring containment, tolerating one typo per
