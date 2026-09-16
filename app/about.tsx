@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { Stack } from 'expo-router';
+import { useState } from 'react';
 import {
   Linking,
   ScrollView,
@@ -11,6 +12,7 @@ import {
 } from 'react-native';
 
 import { COLORS, RADIUS, coloredShadow } from '../src/constants/theme';
+import { clearPhotoCache } from '../src/utils/photoCache';
 
 /**
  * About / credits.
@@ -63,6 +65,7 @@ const SOURCES = [
 
 export default function AboutScreen() {
   const version = Constants.expoConfig?.version ?? '1.0.0';
+  const [photosCleared, setPhotosCleared] = useState(false);
   const open = (url: string) => Linking.openURL(url).catch(() => {});
 
   return (
@@ -137,6 +140,30 @@ export default function AboutScreen() {
               The map background and planning a new route both need a connection.
             </Text>
           </View>
+        </View>
+
+        <Text style={styles.sectionLabel}>Photos</Text>
+        <View style={styles.card}>
+          <View style={styles.block}>
+            <Text style={styles.blockText}>
+              Hut photos are remembered on this phone so they appear instantly
+              next time. If one looks wrong or out of date, clear them and
+              they’ll be fetched again.
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={[styles.linkRow, styles.sourceDivider]}
+            onPress={async () => {
+              await clearPhotoCache();
+              setPhotosCleared(true);
+            }}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="refresh-outline" size={17} color={COLORS.green} />
+            <Text style={styles.linkText}>
+              {photosCleared ? 'Cleared — reopen a hut to reload' : 'Clear saved photos'}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.sectionLabel}>Support</Text>

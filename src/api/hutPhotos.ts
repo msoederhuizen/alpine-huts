@@ -1,5 +1,6 @@
 import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
+import { readCachedPhotos, writeCachedPhotos } from '../utils/photoCache';
 import { fetchCommonsCategoryImages, searchCommonsImages } from './commons';
 import { withCommonsCredits } from './commonsCredits';
 import { fetchSiteImage } from './siteImage';
@@ -23,6 +24,13 @@ export async function fetchHutGallery(
   hut: Hut,
   signal?: AbortSignal,
 ): Promise<HutImage[]> {
+  // Straight out of storage when we've been here before — see photoCache.ts.
+  // This is what makes reopening a hut instant instead of four round trips,
+  // and it matters most for huts with NO photos, where every source is tried
+  // and every one fails.
+  const cached = await readCachedPhotos(hut.id);
+  if (cached) return cached;
+
   const photos: HutImage[] = [];
   const seen = new Set<string>();
   const add = (img?: HutImage | null) => {
@@ -45,18 +53,19 @@ export async function fetchHutGallery(
     ? hut.wikimediaCommons
     : undefined;
 
-  if (hut.wikidata) {
-    const { image, category: wdCategory } = await fetchWikidataPhotoAndCategory(
-      hut.wikidata,
-      signal,
-    );
-    add(image);
-    if (!category && wdCategory) category = `Category:${wdCategory}`;
-  }
-
-  if (hut.wikipedia) {
-    add(await fetchWikipediaImage(hut.wikipedia, signal));
-  }
+  // Wikidata and Wikipedia know nothing about each other, so ask them at the
+  // same time rather than one after the other — one round trip instead of two.
+  const [wd, wp] = await Promise.all([
+    hut.wikidata
+      ? fetchWikidataPhotoAndCategory(hut.wikidata, signal)
+      : Promise.resolve({} as { image?: HutImage; category?: string }),
+    hut.wikipedia
+      ? fetchWikipediaImage(hut.wikipedia, signal)
+      : Promise.resolve(null),
+  ]);
+  add(wd.image);
+  add(wp);
+  if (!category && wd.category) category = `Category:${wd.category}`;
 
   if (category) {
     for (const img of await fetchCommonsCategoryImages(category, signal)) {
@@ -88,5 +97,10 @@ export async function fetchHutGallery(
   // photos — what CC-BY actually asks for. Best-effort: if it fails, every
   // photo keeps its source credit and the gallery is unaffected. The site
   // photo is credited to its domain rather than to a photographer.
-  return withCommonsCredits(withSite, signal);
+  const result = await withCommonsCredits(withSite, signal);
+
+  // Not awaited: the gallery should render now, not after a disk write. An
+  // EMPTY result is cached too — that is the slow case worth remembering.
+  void writeCachedPhotos(hut.id, result);
+  return result;
 }

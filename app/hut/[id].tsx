@@ -63,12 +63,18 @@ export default function HutDetailScreen() {
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
 
-  // Web photos of the hut (OSM + Wikidata + Wikipedia + Commons category).
+  // Web photos of the hut (the site's own photo, OSM, Wikidata, Wikipedia,
+  // Commons category and name search).
+  //
+  // `staleTime: Infinity` because freshness is settled a layer down:
+  // `fetchHutGallery` reads a disk cache with its own TTL, so a refetch here
+  // would only re-read the same entry. Without it React Query re-ran the whole
+  // pipeline an hour after you last looked.
   const { data: webPhotos, isFetching: webFetching } = useQuery({
     queryKey: ['hut-gallery', id],
     queryFn: ({ signal }) => fetchHutGallery(hut as Hut, signal),
     enabled: !!hut,
-    staleTime: 1000 * 60 * 60,
+    staleTime: Infinity,
   });
 
   // Full ordered gallery: the user's photos first, then the web photos.
