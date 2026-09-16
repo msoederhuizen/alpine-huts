@@ -10,6 +10,7 @@ import {
 import { useSelectedRegionsStore } from '../store/selectedRegionsStore';
 import type { Hut } from '../types/hut';
 import { collapseDuplicatePlaces } from '../utils/dedupePlaces';
+import { kmBetween } from '../utils/geo';
 import {
   isFallbackHutName,
   isOvernightCapable,
@@ -53,14 +54,7 @@ function placeScore(h: Hut): number {
 }
 
 function haversineKm(a: Hut, b: Hut): number {
-  const R = 6371;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(b.lat - a.lat);
-  const dLon = toRad(b.lon - a.lon);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return kmBetween(a.lat, a.lon, b.lat, b.lon);
 }
 
 /** The settlement a hut sits in: its `addr:*` place tag if present, else the

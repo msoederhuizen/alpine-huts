@@ -11,6 +11,7 @@
  * per day — which is far more than a ~350 px chart can show and would roughly
  * double what a saved trip costs in storage.
  */
+import { metresBetween } from './geo';
 import type { ProfilePoint } from './hikeTime';
 
 /** Points kept per leg. ~2 px apart on a full-width chart; ~1.4 KB packed. */
@@ -23,15 +24,9 @@ export interface ProfileSample {
   e: number;
 }
 
+/** A ProfilePoint is `[lon, lat, ele?]`, so the coordinates go in reversed. */
 function haversineMeters(a: ProfilePoint, b: ProfilePoint): number {
-  const R = 6371000;
-  const rad = (x: number) => (x * Math.PI) / 180;
-  const dLat = rad(b[1] - a[1]);
-  const dLon = rad(b[0] - a[0]);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(rad(a[1])) * Math.cos(rad(b[1])) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return metresBetween(a[1], a[0], b[1], b[0]);
 }
 
 /**

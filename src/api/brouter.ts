@@ -1,5 +1,6 @@
 import type { LegSegment, RideMode, RideUse } from '../types/ride';
 import { buildElevationProfile } from '../utils/elevationProfile';
+import { metresBetween } from '../utils/geo';
 import { estimateHikeTime, sacTimeFactor } from '../utils/hikeTime';
 import { currentMaxSac } from '../store/preferencesStore';
 import {
@@ -345,16 +346,7 @@ function num(v: string | number | undefined): number {
 
 /** Great-circle distance in metres. */
 function haversineMeters(a: LatLng, b: LatLng): number {
-  const R = 6371000;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(b.latitude - a.latitude);
-  const dLon = toRad(b.longitude - a.longitude);
-  const la1 = toRad(a.latitude);
-  const la2 = toRad(b.latitude);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return metresBetween(a.latitude, a.longitude, b.latitude, b.longitude);
 }
 
 /**

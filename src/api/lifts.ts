@@ -1,5 +1,6 @@
 import type { BBox } from '../constants/region';
 import type { Ride, RideMode } from '../types/ride';
+import { metresBetween } from '../utils/geo';
 import type { LatLng } from './brouter';
 import { fetchElevations } from './elevation';
 
@@ -103,16 +104,7 @@ async function overpassGeom(
 }
 
 function haversineM(a: LatLng, b: LatLng): number {
-  const R = 6371000;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(b.latitude - a.latitude);
-  const dLon = toRad(b.longitude - a.longitude);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(a.latitude)) *
-      Math.cos(toRad(b.latitude)) *
-      Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return metresBetween(a.latitude, a.longitude, b.latitude, b.longitude);
 }
 
 const key4 = (p: LatLng) =>

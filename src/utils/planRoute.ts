@@ -1,6 +1,7 @@
 import { combineRideLeg, isRouterUnavailable, type LatLng, type RouteLeg } from '../api/brouter';
 import type { Hut } from '../types/hut';
 import type { Ride, RideUse } from '../types/ride';
+import { kmBetween, metresBetween } from './geo';
 import { isWithinSacLimit, type SacScale } from './sacScale';
 
 export interface PlanInput {
@@ -129,19 +130,8 @@ const VILLAGE_CANDIDATES = 6;
  *  other half of that fix. */
 const BEAM_WIDTH = 4;
 
-function kmLL(aLat: number, aLon: number, bLat: number, bLon: number): number {
-  const R = 6371;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(bLat - aLat);
-  const dLon = toRad(bLon - aLon);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-}
-
 function haversineKm(a: Hut, b: Hut): number {
-  return kmLL(a.lat, a.lon, b.lat, b.lon);
+  return kmBetween(a.lat, a.lon, b.lat, b.lon);
 }
 
 // ── One-way anti-backtracking ────────────────────────────────────────────────
@@ -168,16 +158,7 @@ function cellKey(lat: number, lon: number): string {
 }
 
 function segMeters(a: LatLng, b: LatLng): number {
-  const R = 6371000;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(b.latitude - a.latitude);
-  const dLon = toRad(b.longitude - a.longitude);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(toRad(a.latitude)) *
-      Math.cos(toRad(b.latitude)) *
-      Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return metresBetween(a.latitude, a.longitude, b.latitude, b.longitude);
 }
 
 /** Grid cells a segment passes through, sampled every ~half-cell so coverage
@@ -458,7 +439,7 @@ export async function planRoute(
     from: Hut,
     to: Hut,
   ): { ride: Ride; enter: LatLng; exit: LatLng } | null => {
-    const directSL = kmLL(from.lat, from.lon, to.lat, to.lon);
+    const directSL = kmBetween(from.lat, from.lon, to.lat, to.lon);
     let best:
       | { walkSL: number; ride: Ride; enter: LatLng; exit: LatLng }
       | null = null;
@@ -467,8 +448,8 @@ export async function planRoute(
         [r.a, r.b],
         [r.b, r.a],
       ] as const) {
-        const w1 = kmLL(from.lat, from.lon, enter.latitude, enter.longitude);
-        const w2 = kmLL(exit.latitude, exit.longitude, to.lat, to.lon);
+        const w1 = kmBetween(from.lat, from.lon, enter.latitude, enter.longitude);
+        const w2 = kmBetween(exit.latitude, exit.longitude, to.lat, to.lon);
         const walkSL = w1 + w2;
         if (w1 > maxSl || w2 > maxSl || walkSL > maxSl) continue;
         if (directSL - walkSL < RIDE_MIN_SHORTCUT) continue;
@@ -488,11 +469,11 @@ export async function planRoute(
   ): Promise<RouteLeg | null> => {
     const { ride, enter, exit } = pick;
     const w1p =
-      kmLL(from.lat, from.lon, enter.latitude, enter.longitude) < 0.06
+      kmBetween(from.lat, from.lon, enter.latitude, enter.longitude) < 0.06
         ? Promise.resolve(emptyWalk(enter))
         : getLeg(from, stationHut(enter));
     const w2p =
-      kmLL(exit.latitude, exit.longitude, to.lat, to.lon) < 0.06
+      kmBetween(exit.latitude, exit.longitude, to.lat, to.lon) < 0.06
         ? Promise.resolve(emptyWalk(exit))
         : getLeg(stationHut(exit), to);
     try {

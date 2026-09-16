@@ -31,6 +31,8 @@
  * deadband total ascent lands within 1% and descent within 3%, and a leg comes
  * out as 5–16 meaningful up/down sections instead of thousands of noisy ones.
  */
+import { metresBetween } from './geo';
+
 export type ProfilePoint = [number, number, number?];
 
 /** A real up/down turning point: cumulative distance (m) and elevation (m). */
@@ -65,17 +67,9 @@ const BREAK_MIN = 5;
 const BREAK_EVERY_MIN = 30;
 const BREAK_FACTOR = 1 + BREAK_MIN / BREAK_EVERY_MIN;
 
+/** A ProfilePoint is `[lon, lat, ele?]`, so the coordinates go in reversed. */
 function haversineMeters(a: ProfilePoint, b: ProfilePoint): number {
-  const R = 6371000;
-  const toRad = (d: number) => (d * Math.PI) / 180;
-  const dLat = toRad(b[1] - a[1]);
-  const dLon = toRad(b[0] - a[0]);
-  const la1 = toRad(a[1]);
-  const la2 = toRad(b[1]);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(la1) * Math.cos(la2) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return metresBetween(a[1], a[0], b[1], b[0]);
 }
 
 /** Walking speed (km/h) on a given gradient (rise ÷ run). */

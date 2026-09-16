@@ -20,6 +20,7 @@
 import { CLASSIC_ROUTES } from '../src/constants/classicRoutes';
 import { searchBundledPlaces } from '../src/data/hutBundle';
 import type { Hut } from '../src/types/hut';
+import { kmBetween } from '../src/utils/geo';
 
 /** Below this two "different" stages are really the same place. */
 const MIN_STAGE_KM = 0.3;
@@ -65,14 +66,7 @@ const REFUGE_WORDS =
 const REFUGE_MIN_ELE = 1200;
 
 function km(a: { lat: number; lon: number }, b: { lat: number; lon: number }): number {
-  const R = 6371;
-  const r = (d: number) => (d * Math.PI) / 180;
-  const dLat = r(b.lat - a.lat);
-  const dLon = r(b.lon - a.lon);
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(r(a.lat)) * Math.cos(r(b.lat)) * Math.sin(dLon / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
+  return kmBetween(a.lat, a.lon, b.lat, b.lon);
 }
 
 /** Strip the noise a guidebook adds: "Rifugio", "Hütte", accents, punctuation. */
