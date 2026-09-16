@@ -138,7 +138,14 @@ interface FlickrPhoto {
  *
  * With no key set, this simply returns nothing and the gallery is unchanged.
  */
-const API_KEY = process.env.EXPO_PUBLIC_FLICKR_API_KEY?.trim();
+const RAW_KEY = process.env.EXPO_PUBLIC_FLICKR_API_KEY?.trim();
+
+/** Placeholder values that mean "not configured yet". Without this check a
+ *  forgotten `your_key_here` would fire a doomed request on every hut opened —
+ *  Flickr answers `stat: "fail"`, we return nothing, and the only evidence is
+ *  the wasted round trip. A real key is 32 hex characters. */
+const API_KEY =
+  RAW_KEY && !/^(your_key_here|changeme|xxx+|<.*>)$/i.test(RAW_KEY) ? RAW_KEY : undefined;
 
 export async function fetchFlickrHutPhotos(
   hut: Hut,
