@@ -23,6 +23,7 @@ import {
   setElevationCache,
 } from '../src/api/overpass';
 import { fetchRides } from '../src/api/lifts';
+import { trimHutTags } from '../src/constants/hutTags';
 import { REGIONS } from '../src/constants/region';
 import { manualPlacesFor } from '../src/constants/manualPlaces';
 import type { Hut } from '../src/types/hut';
@@ -78,6 +79,19 @@ function save(b: Bundle) {
   writeFileSync(OUT, JSON.stringify(b));
 }
 
+/**
+ * A hut as the APP receives it: the same record with its tag bag reduced to the
+ * keys in `constants/hutTags.ts`, plus the pre-trim `tagCount`.
+ *
+ * ⚠️ Only the per-region files are trimmed. The master `huts-bundle.json` keeps
+ * every raw tag, so widening the whitelist later is an edit plus
+ * `npm run trim-region-tags` — never a refetch, which would cost Overpass
+ * throttling and a day of DEM quota.
+ */
+function trimmed(h: Hut): Hut {
+  return { ...h, ...trimHutTags(h.tags) };
+}
+
 /** The app reads ONE file per region (lazy-parsed — see src/data/hutBundle.ts),
  *  so once the full bundle is complete, fan it out into assets/data/regions/. */
 function writePerRegion(b: Bundle) {
@@ -102,9 +116,9 @@ function writePerRegion(b: Bundle) {
     writeFileSync(
       join(dir, `${id}.json`),
       JSON.stringify({
-        core: b.core[id],
-        accommodations: b.accommodations[id],
-        villages: b.villages[id],
+        core: b.core[id].map(trimmed),
+        accommodations: b.accommodations[id].map(trimmed),
+        villages: b.villages[id].map(trimmed),
         // ⚠️ OMITTED, not `[]`, when this region's rides haven't been generated.
         // `bundledRides` treats undefined as "fetch live" and `[]` as "there are
         // genuinely none here" — writing `[]` for an ungenerated region would
