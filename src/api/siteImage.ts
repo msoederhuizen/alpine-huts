@@ -38,7 +38,65 @@ const MAX_BYTES = 2_000_000;
  * hotels serving brand photography that is not this building.
  */
 const JUNK_PATH =
-  /(logo|icon|favicon|sprite|avatar|flag|button|btn[-_]|arrow|pixel|spacer|placeholder|loader|spinner|badge|award|trip[-_]?advisor|booking|facebook|instagram|whatsapp|payment|banner[-_]?ad|\/plugins?\/|\/themes?\/|generic|stock|default)/i;
+  /(logo|icon|favicon|sprite|avatar|flag|button|btn[-_]|arrow|pixel|spacer|placeholder|loader|spinner|badge|award|trip[-_]?advisor|booking|facebook|instagram|whatsapp|payment|banner|\bnav[-_]|visuel|\/plugins?\/|\/themes?\/|generic|stock|default)/i;
+
+/**
+ * Smallest a real photograph can plausibly be. Measured failure: a hut served
+ * `flag-round-switzerland-300x300.png` — a language-switcher flag, 2 KB — as its
+ * og:image, and the app showed a Swiss flag as the photo of the hut.
+ *
+ * ⚠️ 5 KB, NOT 15. The first attempt used 15 KB and dropped Weinbergerhaus's
+ * genuine photograph, which is 8.4 KB — small, but a real picture taken by a
+ * named photographer. Icons and flags sit at 1–3 KB, so the floor only has to
+ * clear them. Better to admit a small photo than to reject a real one.
+ */
+const MIN_PHOTO_BYTES = 5_000;
+
+/** Enough of the file to read a PNG header. */
+const HEADER_BYTES = 2048;
+
+/**
+ * Reject graphics masquerading as photographs, by looking at the actual bytes.
+ *
+ * ⚠️ A PNG WITH AN ALPHA CHANNEL IS A LOGO, NOT A PHOTO. Measured failure:
+ * Berghotel Hahnenmoospass served `schlemmerchalet.png`, a wooden rooster on a
+ * transparent background, and nothing in the file NAME gave it away. Cameras
+ * produce JPEGs; transparency only exists because a designer wanted it.
+ *
+ * Costs one small ranged request for the single image we chose. Anything that
+ * cannot be checked — a server that ignores Range, a network error — is
+ * ACCEPTED, because this is here to catch the obviously-wrong, not to be the
+ * arbiter of what counts as a photograph.
+ */
+async function looksLikeAPhoto(url: string, signal?: AbortSignal): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      signal,
+      headers: { Range: `bytes=0-${HEADER_BYTES - 1}` },
+    });
+    if (!res.ok && res.status !== 206) return true; // can't tell — let it through
+
+    const declared = Number(res.headers.get('content-range')?.split('/')[1] ?? 0);
+    if (declared && declared < MIN_PHOTO_BYTES) return false;
+
+    const buf = new Uint8Array(await res.arrayBuffer());
+    const isPng =
+      buf.length > 25 && buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4e;
+    if (isPng) {
+      // PNG layout: 8-byte signature, then the IHDR chunk. Colour type sits at
+      // offset 25; 4 is grey+alpha and 6 is RGBA — both mean transparency.
+      const colourType = buf[25];
+      if (colourType === 4 || colourType === 6) return false;
+    }
+    // A whole file smaller than the range we asked for, and tiny with it.
+    if (!declared && buf.length < HEADER_BYTES && buf.length < MIN_PHOTO_BYTES) {
+      return false;
+    }
+    return true;
+  } catch {
+    return true; // unreachable or aborted — not this function's job to decide
+  }
+}
 
 /** Words suggesting a real picture of the building or its surroundings, in the
  *  languages of the regions covered. Used to rank, never to reject. */
@@ -189,16 +247,31 @@ export async function fetchSiteImage(
     // The meta tags live in <head>; searching a whole large document wastes
     // time and risks matching one inside embedded content.
     const head = html.slice(0, 120_000);
+    let candidate: string | null = null;
+
     for (const re of META_PATTERNS) {
       const raw = head.match(re)?.[1];
       if (!raw) continue;
       const url = absolute(raw, from);
-      if (url) return { url, credit, link: from };
+      // ⚠️ JUNK_PATH APPLIES HERE TOO. It used to guard only the <img> fallback
+      // below, on the assumption that a site's declared og:image is its best
+      // picture of itself. One hut's og:image was a language-switcher flag —
+      // `flag` was already on the list, and the list simply wasn't consulted.
+      if (url && !JUNK_PATH.test(url)) {
+        candidate = url;
+        break;
+      }
     }
 
-    // No meta tag — 60% of sites. Fall back to the best photo on the page.
-    const hero = pickPageImage(html.slice(0, 400_000), from);
-    return hero ? { url: hero, credit, link: from } : null;
+    // No usable meta tag — 60% of sites. Fall back to the best photo on the page.
+    if (!candidate) candidate = pickPageImage(html.slice(0, 400_000), from);
+    if (!candidate) return null;
+
+    // Last gate: look at the bytes, not the name. Catches logos and icons that
+    // no filename rule would have flagged.
+    if (!(await looksLikeAPhoto(candidate, signal))) return null;
+
+    return { url: candidate, credit, link: from };
   } catch {
     // Timed out, offline, TLS refused, or the site is simply down. The gallery
     // carries on with its other sources.
