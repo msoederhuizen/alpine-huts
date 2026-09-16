@@ -1437,29 +1437,35 @@ export default function MapScreen() {
         </View>
       )}
 
-      {/* Scale bar (bottom-right). Hidden while a hut card or the alternatives
-          strip is up, since those bottom overlays would cover it. */}
-      {!activeHut && altOptions.length <= 1 && (
-        <View style={styles.scaleBarWrap} pointerEvents="none">
-          <ScaleBar camera={camera} mapWidth={mapWidth} />
-        </View>
-      )}
+      {/* Map credits, bottom-RIGHT: the OpenStreetMap attribution stacked above
+          the scale bar.
 
-      {/* ⚠️ REQUIRED, not decoration. The hut and trail data is OpenStreetMap
-          under the ODbL, which asks for the source to be credited where users
-          can see it. Tapping opens About, which carries the full credits.
-          Hidden on the same condition as the scale bar — the bottom overlays
-          would cover it anyway — and About stays reachable from the Saved
-          trips header regardless. */}
+          ⚠️ Both belong on the right, away from the bottom-LEFT corner, which
+          is already spoken for twice over: MapKit draws its own "Apple Maps"
+          legal label there and cannot be moved off it, and our own locate /
+          "Go to route" controls sit there too. The attribution first sat at
+          left:14 bottom:14 — the exact coordinates of `mapControls` — and
+          landed on top of both.
+
+          The attribution itself is REQUIRED, not decoration: hut and trail data
+          is OpenStreetMap under the ODbL, which asks for the source to be
+          credited where users can see it. Tapping opens About and its full
+          credits; About also stays reachable from the Saved trips header, so
+          hiding this behind a hut card costs nothing. */}
       {!activeHut && altOptions.length <= 1 && (
-        <TouchableOpacity
-          style={styles.attribution}
-          onPress={() => router.push('/about')}
-          activeOpacity={0.7}
-          accessibilityLabel="Map data from OpenStreetMap. Open About."
-        >
-          <Text style={styles.attributionText}>© OpenStreetMap</Text>
-        </TouchableOpacity>
+        <View style={styles.mapCredits} pointerEvents="box-none">
+          <TouchableOpacity
+            style={styles.attribution}
+            onPress={() => router.push('/about')}
+            activeOpacity={0.7}
+            accessibilityLabel="Map data from OpenStreetMap. Open About."
+          >
+            <Text style={styles.attributionText}>© OpenStreetMap</Text>
+          </TouchableOpacity>
+          <View pointerEvents="none">
+            <ScaleBar camera={camera} mapWidth={mapWidth} />
+          </View>
+        </View>
       )}
 
       {isError && (
@@ -1641,10 +1647,13 @@ const styles = StyleSheet.create({
     ...coloredShadow(COLORS.green, 0.2),
   },
   loadingPillText: { fontSize: 12, fontWeight: '700', color: COLORS.ink },
+  // ⚠️ Sits HIGHER than the 14px the other bottom overlays use, to clear the
+  // "Apple Maps" legal label MapKit draws in this corner. That label's position
+  // is Apple's and can't be moved, so ours moves instead.
   mapControls: {
     position: 'absolute',
     left: 14,
-    bottom: 14,
+    bottom: 40,
     alignItems: 'flex-start',
     gap: 10,
   },
@@ -1668,13 +1677,17 @@ const styles = StyleSheet.create({
     ...coloredShadow(COLORS.green, 0.3),
   },
   goToRouteText: { color: 'white', fontWeight: '700', fontSize: 13 },
-  scaleBarWrap: { position: 'absolute', right: 14, bottom: 14 },
-  // Bottom-left, mirroring the scale bar. The same faint white wash keeps it
-  // legible over dark terrain without shouting.
-  attribution: {
+  /** The bottom-right stack: attribution on top, scale bar beneath. */
+  mapCredits: {
     position: 'absolute',
-    left: 14,
+    right: 14,
     bottom: 14,
+    alignItems: 'flex-end',
+    gap: 6,
+  },
+  // The same faint white wash the scale bar uses, so the two read as one piece
+  // of map furniture and stay legible over dark terrain.
+  attribution: {
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 3,
