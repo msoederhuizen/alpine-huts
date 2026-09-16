@@ -1,6 +1,6 @@
 import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
-import { fetchCommonsCategoryImages } from './commons';
+import { fetchCommonsCategoryImages, searchCommonsImages } from './commons';
 import { withCommonsCredits } from './commonsCredits';
 import { fetchFlickrHutPhotos } from './flickr';
 import { fetchWikidataPhotoAndCategory } from './wikidata';
@@ -55,6 +55,13 @@ export async function fetchHutGallery(
     for (const img of await fetchCommonsCategoryImages(category, signal)) {
       add(img);
     }
+  }
+
+  // Commons FILE SEARCH, when the curated links came up thin. Reaches the many
+  // photos that exist on Commons but sit in no category and belong to a hut
+  // with no Wikidata entry — measured at 73% of huts against 27% for Flickr.
+  if (photos.length < MIN_BEFORE_FLICKR) {
+    for (const img of await searchCommonsImages(hut.name, signal)) add(img);
   }
 
   // Flickr LAST, and only when the curated sources came up thin.
