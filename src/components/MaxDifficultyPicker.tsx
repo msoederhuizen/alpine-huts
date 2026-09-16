@@ -6,7 +6,6 @@ import {
   SAC_SCALE_DIFFICULTY,
   SAC_SCALE_GRADE,
   SAC_SCALE_ORDER,
-  type SacScale,
 } from '../utils/sacScale';
 import { SacInfoButton } from './SacInfoButton';
 
