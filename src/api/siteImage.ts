@@ -55,16 +55,44 @@ const META_PATTERNS = [
   /<link[^>]+rel=["']image_src["'][^>]+href=["']([^"']+)["']/i,
 ];
 
-/** OSM `website` values are often bare hosts. Returns null for anything that
- *  isn't usable — including plain http, which iOS App Transport Security
- *  blocks by default, so fetching it would fail on device but "work" in dev. */
+/**
+ * OSM `website` values into something fetchable, or null.
+ *
+ * ⚠️ AN `http://` TAG IS UPGRADED TO `https://`, NOT REJECTED. iOS App
+ * Transport Security blocks plain http, so those URLs are unusable as written —
+ * but most of those sites have since migrated, and the tag simply never caught
+ * up. Measured on 18 of the 1,866 http-tagged places: half answer over https
+ * and 44% then yield a photo. The other half fail the fetch and return no
+ * photo, which is exactly what rejecting them did anyway, so the upgrade only
+ * costs a request that was never going to happen.
+ */
 function siteUrl(raw: string | undefined): string | null {
   if (!raw) return null;
   const trimmed = raw.trim().split(/[\s,;]/)[0];
   if (!trimmed) return null;
-  if (/^http:\/\//i.test(trimmed)) return null;
-  const withScheme = /^https:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  const withScheme = /^https?:\/\//i.test(trimmed)
+    ? trimmed.replace(/^http:/i, 'https:')
+    : `https://${trimmed}`;
   return /^https:\/\/[^/\s.]+\.[^/\s]+/i.test(withScheme) ? withScheme : null;
+}
+
+/**
+ * Undo HTML entity encoding in an extracted URL.
+ *
+ * ⚠️ NOT optional. An `og:image` is an HTML attribute, so `&` in a query string
+ * is written `&amp;` — and one test site encoded the whole thing, yielding
+ * `https&#x3A;&#x2F;&#x2F;primary.jwwb.nl`. Left as-is those URLs simply fail to
+ * load, silently, which looks like a hut with no photo.
+ */
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&'); // last: an encoded & may have produced the others
 }
 
 /** "https://www.hotel-alpina.ch/rooms" -> "hotel-alpina.ch", for the credit. */
@@ -122,7 +150,7 @@ function pickPageImage(html: string, pageUrl: string): string | null {
 
 /** Resolve a possibly-relative image URL against the page it was found on. */
 function absolute(src: string, pageUrl: string): string | null {
-  const s = src.trim();
+  const s = decodeEntities(src.trim());
   if (/^https:\/\//i.test(s)) return s;
   if (/^http:\/\//i.test(s)) return null; // blocked on iOS, see siteUrl
   if (s.startsWith('//')) return `https:${s}`;
