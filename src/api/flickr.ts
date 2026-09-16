@@ -63,19 +63,33 @@ const LICENCE_NAME: Record<string, string> = {
 };
 
 /**
- * How far from the hut to look.
+ * ⚠️ THE SEARCH IS DELIBERATELY NOT GEO-BOUNDED. Measured, not assumed.
  *
- * Deliberately tight. The name does the identifying; this circle's job is only
- * to keep a same-named place in the next valley from ever becoming a candidate
- * — and the tighter it is, the less work the name has to do. At 1 km a
- * photograph of a building is still comfortably inside it, while the couple of
- * hundred Berghotels elsewhere in the Alps are not.
+ * The first version passed lat/lon/radius, on the reasoning that a tight circle
+ * would keep a same-named place in the next valley from ever being a candidate.
+ * Against the live API that returned NOTHING for Karwendelhaus,
+ * Blüemlisalphütte and Gjendebu — three of the most photographed huts in the
+ * Alps — because lat/lon/radius makes Flickr search GEOTAGGED PHOTOS ONLY, and
+ * most Flickr photos carry no geotag. The circle was not filtering out the
+ * wrong huts so much as throwing away almost every right one.
  *
- * ⚠️ Passing lat/lon/radius makes this a GEO search, so every result is
- * geotagged and inside the circle. There is no stream of untagged photos
- * arriving on the strength of a title alone.
+ * (The radius is also only advisory: a photo 1028 m away came back from a 1 km
+ * request. So it was never the hard boundary it looked like.)
+ *
+ * So the name carries the identification alone, which is what it was always
+ * really doing, and `geo` is still requested as an EXTRA: photos that happen to
+ * carry a position get ranked by it, and an ambiguous name still demands one as
+ * corroboration — see `CORROBORATION_M`.
  */
-const RADIUS_KM = 1;
+
+/** How close a geotagged photo must sit when the hut's name is one ambiguous
+ *  word. Such a photo must ALSO be geotagged: unverifiable means not shown. */
+const CORROBORATION_M = 400;
+
+/** A photo carrying a REAL position further than this from the hut matched some
+ *  other place of the same name. Deliberately loose — genuine hut photos are
+ *  geotagged from where the photographer stood, several kilometres out. */
+const FAR_M = 50_000;
 
 /** Never flood the gallery — curated Wikimedia photos should stay first. */
 const MAX_PHOTOS = 6;
@@ -107,11 +121,6 @@ const AMBIGUOUS_ALONE = new Set([
   'alpenblick', 'alpenhof', 'miramonti', 'montana', 'cristallo', 'alpes',
   'grand', 'monte', 'blanc',
 ]);
-
-/** How close a photo must sit when the hut's name is one ambiguous word.
- *  Inside the 1 km search circle this still drops the outer band, which is
- *  where a neighbouring building of the same common name would sit. */
-const CORROBORATION_M = 400;
 
 /** Words that suggest the photo shows the BUILDING, not just the area it's
  *  named after. Only ever used to rank, never to admit or reject. */
@@ -164,7 +173,6 @@ export async function fetchFlickrHutPhotos(
     `https://api.flickr.com/services/rest/?method=flickr.photos.search` +
     `&api_key=${encodeURIComponent(API_KEY)}` +
     `&text=${encodeURIComponent(hut.name)}` +
-    `&lat=${hut.lat}&lon=${hut.lon}&radius=${RADIUS_KM}&radius_units=km` +
     `&license=${LICENCES}` +
     `&content_type=1&media=photos&safe_search=1&sort=relevance&per_page=40` +
     `&extras=license,owner_name,geo,tags,url_c,url_m` +
@@ -204,10 +212,21 @@ export async function fetchFlickrHutPhotos(
 
     const lat = Number(p.latitude);
     const lon = Number(p.longitude);
-    const hasGeo = Number.isFinite(lat) && Number.isFinite(lon);
+    // ⚠️ Flickr reports an UNGEOTAGGED photo as latitude 0, longitude 0 — not
+    // as a missing field. Taken at face value that is Null Island, and the
+    // measured effect was photos "6,869 km from the hut" being scored as if
+    // they carried a real position. Treat 0,0 as absent.
+    const hasGeo =
+      Number.isFinite(lat) && Number.isFinite(lon) && (lat !== 0 || lon !== 0);
     const metres = hasGeo
       ? Math.hypot((lat - hut.lat) * 111_320, (lon - hut.lon) * 74_000)
       : Infinity;
+
+    // A REAL position far from the hut means the name matched something else —
+    // the same word on another continent. Generous, because photographers
+    // geotag from where they stood and several genuine Karwendelhaus photos
+    // sit 6 km away; it only catches the wholly unrelated.
+    if (hasGeo && metres > FAR_M) continue;
 
     // The second gate, for weak names only. An ungeotagged photo fails it,
     // which is the intended conservatism: unverifiable means not shown.
