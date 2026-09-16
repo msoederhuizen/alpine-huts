@@ -408,7 +408,19 @@ function PhotoGallery({
         <View style={[styles.galleryFooter, { paddingBottom: insets.bottom + 14 }]}>
           <Text style={styles.galleryMeta}>
             {index + 1} / {photos.length}
-            {current ? ` · ${creditLine(current)}` : ''}
+            {current ? ' · ' : ''}
+            {/* A photo taken from a place's own website is credited to that
+                site and links back to it — see src/api/siteImage.ts. */}
+            {current?.link ? (
+              <Text
+                style={styles.galleryLink}
+                onPress={() => Linking.openURL(current.link!).catch(() => {})}
+              >
+                {creditLine(current)}
+              </Text>
+            ) : (
+              current && creditLine(current)
+            )}
           </Text>
           {isUserPhoto && (
             <TouchableOpacity onPress={() => onRemove(index)} hitSlop={10}>
@@ -587,4 +599,6 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   galleryMeta: { color: 'white', fontSize: 13 },
+  /** Credit for a photo taken from a place's own site — tappable, opens it. */
+  galleryLink: { color: 'white', fontSize: 13, textDecorationLine: 'underline' },
 });

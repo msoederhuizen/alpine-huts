@@ -14,6 +14,15 @@ export interface HutImage {
   author?: string;
   /** Licence short name as Commons states it, e.g. "CC BY-SA 4.0". */
   license?: string;
+  /**
+   * The page this image came from, when it is somebody's own site rather than a
+   * photo archive. Present on images read from a place's `og:image`.
+   *
+   * ⚠️ Keep it. Crediting the domain AND pointing back at the page is what
+   * makes showing a business's own publicity photo defensible, and it sends
+   * them the traffic they published the tag for.
+   */
+  link?: string;
 }
 
 /**
