@@ -72,7 +72,7 @@ export async function fetchHutGallery(
   // maintained by somebody who decided each photo belongs in it, while this
   // matches on the file's name. Most huts with a category never get here.
   if (photos.length < MIN_BEFORE_SEARCH) {
-    for (const img of await searchCommonsImages(hut.name, signal)) add(img);
+    for (const img of await searchCommonsImages(hut, signal)) add(img);
   }
 
   // FIRST in the gallery, deliberately. For a hotel or guesthouse this is

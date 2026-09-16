@@ -1,4 +1,5 @@
 import { SHARED_PLACE_NAMES } from '../constants/sharedNames';
+import type { Hut } from '../types/hut';
 import {
   distinctiveTokens,
   normalizePlaceName,
@@ -69,13 +70,28 @@ export async function fetchCommonsCategoryImages(
  * not evidence of anything, and 9 of 18 search hits are typically rejected.
  */
 export async function searchCommonsImages(
-  hutName: string,
+  hut: Hut,
   signal?: AbortSignal,
   limit = 20,
 ): Promise<HutImage[]> {
+  const hutName = hut.name;
   if (!hutName || isFallbackHutName(hutName)) return [];
   const tokens = distinctiveTokens(normalizePlaceName(hutName));
   if (!tokens.length) return [];
+
+  // ⚠️ A GUESTHOUSE NAMED IN ONE WORD NEVER SEARCHES COMMONS.
+  //
+  // Wikimedia is an encyclopedia and barely holds guesthouses at all — 0.6%
+  // have a Wikipedia article against 23.6% of huts. So a Commons file matching
+  // a one-word hotel name is almost never that hotel; it is whatever else owns
+  // the word. Measured cases: "Emshorn" returned the MOUNTAIN the hotel is
+  // named after, "Igludorf" returned igloo villages in other resorts, and
+  // "GolfHotel" returned golf hotels across Europe.
+  //
+  // Two words are enough to be safe, because both must appear: "Berggasthaus
+  // Aescher-Wildkirchli" and "Golfhotel Riederhof" still work. Huts are
+  // untouched, and they are where this search earns its 73%.
+  if (hut.type === 'guesthouse' && tokens.length === 1) return [];
 
   // ⚠️ A one-word name that many places share identifies none of them, and
   // Commons files carry no position to check against — so this DECLINES rather
