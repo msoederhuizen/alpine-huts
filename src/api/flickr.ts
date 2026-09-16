@@ -13,9 +13,10 @@ import type { HutImage } from '../utils/hutImage';
  * ⚠️ THE HARD PART IS NOT FETCHING, IT IS DECIDING A PHOTO IS OF THE HUT.
  *
  * This app already tried proximity search once — a Wikimedia geosearch around
- * each hut — and it was removed, because "taken within 2 km of a refuge" turns
- * out to describe the valley, the summit above it, a cow, and someone's lunch.
- * Distance answers "near what?", never "of what?".
+ * each hut — and it was removed, because "taken near a refuge" turns out to
+ * describe the valley, the summit above it, a cow, and someone's lunch.
+ * Distance answers "near what?", never "of what?" — so tightening the radius
+ * alone would never have saved it.
  *
  * So the gate here is the NAME, and distance only ranks what the name already
  * admitted:
@@ -61,9 +62,20 @@ const LICENCE_NAME: Record<string, string> = {
   '10': 'Public Domain Mark 1.0',
 };
 
-/** How far from the hut to look. Small: the name does the identifying, this
- *  only keeps a same-named hut in another valley out. */
-const RADIUS_KM = 2;
+/**
+ * How far from the hut to look.
+ *
+ * Deliberately tight. The name does the identifying; this circle's job is only
+ * to keep a same-named place in the next valley from ever becoming a candidate
+ * — and the tighter it is, the less work the name has to do. At 1 km a
+ * photograph of a building is still comfortably inside it, while the couple of
+ * hundred Berghotels elsewhere in the Alps are not.
+ *
+ * ⚠️ Passing lat/lon/radius makes this a GEO search, so every result is
+ * geotagged and inside the circle. There is no stream of untagged photos
+ * arriving on the strength of a title alone.
+ */
+const RADIUS_KM = 1;
 
 /** Never flood the gallery — curated Wikimedia photos should stay first. */
 const MAX_PHOTOS = 6;
@@ -96,8 +108,10 @@ const AMBIGUOUS_ALONE = new Set([
   'grand', 'monte', 'blanc',
 ]);
 
-/** How close a photo must sit when the hut's name is one ambiguous word. */
-const CORROBORATION_M = 600;
+/** How close a photo must sit when the hut's name is one ambiguous word.
+ *  Inside the 1 km search circle this still drops the outer band, which is
+ *  where a neighbouring building of the same common name would sit. */
+const CORROBORATION_M = 400;
 
 /** Words that suggest the photo shows the BUILDING, not just the area it's
  *  named after. Only ever used to rank, never to admit or reject. */
