@@ -391,7 +391,7 @@ export default function PlanScreen() {
         const fallback = unique[0] ?? balancedAll[0];
         setNotice({
           icon: 'alert-circle',
-          iconColor: '#ef6c00',
+          iconColor: COLORS.trail,
           title: 'Closest route',
           items: [
             'This is the closest route to your criteria — some days fall outside your ranges:',
@@ -700,7 +700,7 @@ export default function PlanScreen() {
         // criteria, or see the closest alternatives (the 3-card carousel).
         setNotice({
           icon: 'help-circle',
-          iconColor: '#ef6c00',
+          iconColor: COLORS.trail,
           title: 'No full match',
           items: [
             complete
@@ -846,7 +846,7 @@ export default function PlanScreen() {
           <Ionicons
             name="location-outline"
             size={18}
-            color={start ? '#2f6f4f' : '#aaa'}
+            color={start ? COLORS.green : '#aaa'}
           />
           <Text style={[styles.startText, !start && styles.startPlaceholder]}>
             {start ? start.name : 'Choose a hut or village…'}
@@ -1333,7 +1333,7 @@ export default function PlanScreen() {
                             size={15}
                             color={
                               ratingIsClean(opt.outcome, roundtrip)
-                                ? '#2f6f4f'
+                                ? COLORS.green
                                 : '#b5651d'
                             }
                           />
@@ -1448,7 +1448,7 @@ export default function PlanScreen() {
                 setOptions(null);
               }}
             >
-              <Ionicons name="map-outline" size={17} color="#2f6f4f" />
+              <Ionicons name="map-outline" size={17} color={COLORS.green} />
               <Text style={styles.seeOnMapText}>See on map</Text>
             </TouchableOpacity>
           </View>
@@ -1661,7 +1661,7 @@ const styles = StyleSheet.create({
     ...coloredShadow(COLORS.danger, 0.28),
   },
   cancelPillText: {
-    color: '#ffffff',
+    color: COLORS.surface,
     fontWeight: '700',
     fontSize: 15,
     textAlign: 'center',

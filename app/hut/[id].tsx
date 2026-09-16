@@ -23,7 +23,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fetchHutGallery } from '../../src/api/hutPhotos';
-import { GRADIENT, RADIUS } from '../../src/constants/theme';
+import { COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
 import { bundledHutById } from '../../src/data/hutBundle';
 import { getUserPhotos, useHutUserDataStore } from '../../src/store/hutUserDataStore';
 import { useTripStore } from '../../src/store/tripStore';
@@ -271,7 +271,7 @@ export default function HutDetailScreen() {
                   <Ionicons
                     name={f.available ? f.icon : 'close-circle-outline'}
                     size={18}
-                    color={f.available ? '#2f6f4f' : '#b0b0b0'}
+                    color={f.available ? COLORS.green : '#b0b0b0'}
                   />
                   <Text
                     style={[
@@ -299,7 +299,7 @@ export default function HutDetailScreen() {
                   style={styles.contactRow}
                   onPress={() => Linking.openURL(`tel:${phone}`)}
                 >
-                  <Ionicons name="call-outline" size={16} color="#2f6f4f" />
+                  <Ionicons name="call-outline" size={16} color={COLORS.green} />
                   <Text style={styles.contactText}>{phone}</Text>
                 </TouchableOpacity>
               )}
@@ -308,7 +308,7 @@ export default function HutDetailScreen() {
                   style={styles.contactRow}
                   onPress={() => Linking.openURL(`mailto:${email}`)}
                 >
-                  <Ionicons name="mail-outline" size={16} color="#2f6f4f" />
+                  <Ionicons name="mail-outline" size={16} color={COLORS.green} />
                   <Text style={styles.contactText}>{email}</Text>
                 </TouchableOpacity>
               )}
@@ -432,9 +432,9 @@ function LinkButton({
 }) {
   return (
     <TouchableOpacity style={styles.linkBtn} onPress={onPress}>
-      <Ionicons name={icon} size={18} color="#2f6f4f" />
+      <Ionicons name={icon} size={18} color={COLORS.green} />
       <Text style={styles.linkText}>{label}</Text>
-      <Ionicons name="open-outline" size={15} color="#2f6f4f" />
+      <Ionicons name="open-outline" size={15} color={COLORS.green} />
     </TouchableOpacity>
   );
 }
@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   missingTitle: { fontSize: 17, fontWeight: '600', color: '#444' },
-  link: { color: '#2f6f4f', fontWeight: '600', fontSize: 15 },
+  link: { color: COLORS.green, fontWeight: '600', fontSize: 15 },
   hero: {},
   photo: { width: '100%', height: 240, backgroundColor: '#eee' },
   cameraBtn: {
@@ -494,7 +494,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   body: { padding: 20, gap: 6 },
-  name: { fontSize: 22, fontWeight: '800', color: '#1c1c1e' },
+  name: { fontSize: 22, fontWeight: '800', color: COLORS.ink },
   meta: { fontSize: 15, color: '#666', marginBottom: 12 },
   action: {
     flexDirection: 'row',
@@ -513,10 +513,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: RADIUS.md,
     borderWidth: 1.5,
-    borderColor: '#2f6f4f',
+    borderColor: COLORS.green,
     marginTop: 10,
   },
-  linkText: { color: '#2f6f4f', fontWeight: '600', fontSize: 14 },
+  linkText: { color: COLORS.green, fontWeight: '600', fontSize: 14 },
   sectionTitle: {
     fontSize: 13,
     fontWeight: '700',
@@ -545,7 +545,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 6,
   },
-  contactText: { fontSize: 14, color: '#2f6f4f' },
+  contactText: { fontSize: 14, color: COLORS.green },
   notesInput: {
     minHeight: 80,
     borderWidth: 1,
@@ -553,7 +553,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 12,
     fontSize: 14,
-    color: '#1c1c1e',
+    color: COLORS.ink,
     textAlignVertical: 'top',
   },
   coordRow: {

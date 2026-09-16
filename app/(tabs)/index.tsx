@@ -1061,18 +1061,18 @@ export default function MapScreen() {
           if (segs) {
             lines = segs.map((s) => ({
               coords: s.coordinates,
-              color: s.mode === 'walk' ? '#ef6c00' : '#7c3aed',
+              color: s.mode === 'walk' ? COLORS.trail : '#7c3aed',
               // Same width as the walk line — no compensation for dashing.
               width: 5,
               dash: s.mode === 'walk' ? undefined : [10, 8],
             }));
           } else if (leg.data) {
-            lines = [{ coords: leg.data.coordinates, color: '#ef6c00', width: 5 }];
+            lines = [{ coords: leg.data.coordinates, color: COLORS.trail, width: 5 }];
           } else {
             lines = [
               {
                 coords: [from, to],
-                color: leg.isError ? '#c0392b' : '#9aa0a6',
+                color: leg.isError ? COLORS.danger : '#9aa0a6',
                 width: 3,
                 dash: [8, 6],
               },
@@ -1391,7 +1391,7 @@ export default function MapScreen() {
           surfacing now; the background refresh is intentionally invisible. */}
       {(isLoading || legsLoading) && (
         <View style={styles.badge}>
-          <ActivityIndicator size="small" color="#2f6f4f" />
+          <ActivityIndicator size="small" color={COLORS.green} />
           <Text style={styles.badgeText}>
             {isLoading ? 'Loading huts…' : 'Loading routes…'}
           </Text>

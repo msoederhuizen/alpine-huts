@@ -26,7 +26,7 @@ export function OptionStat({
 }) {
   return (
     <View style={styles.optionStat}>
-      <Ionicons name={icon} size={16} color="#2f6f4f" />
+      <Ionicons name={icon} size={16} color={COLORS.green} />
       <Text style={styles.optionStatValue}>{value}</Text>
       <Text style={styles.optionStatLabel}>{label}</Text>
     </View>
@@ -57,7 +57,7 @@ export function OptionToggle({
       accessibilityState={{ checked: value }}
     >
       <View style={[styles.optIconWrap, value && styles.optIconWrapOn]}>
-        <Ionicons name={icon} size={19} color={value ? '#2f6f4f' : '#9aa0a6'} />
+        <Ionicons name={icon} size={19} color={value ? COLORS.green : '#9aa0a6'} />
       </View>
       <View style={styles.optText}>
         <Text style={styles.optTitle}>{title}</Text>
@@ -66,8 +66,8 @@ export function OptionToggle({
       <Switch
         value={value}
         onValueChange={onValueChange}
-        trackColor={{ false: '#d9d9d9', true: '#2f6f4f' }}
-        thumbColor="#ffffff"
+        trackColor={{ false: '#d9d9d9', true: COLORS.green }}
+        thumbColor={COLORS.surface}
         ios_backgroundColor="#d9d9d9"
         // Keep the switch aligned with the title, not floating mid-hint.
         style={styles.optSwitch}
@@ -156,7 +156,7 @@ export function RangeControl({
           step={step}
           min={toNum(min, lo)}
           max={toNum(max, hi)}
-          color="#2f6f4f"
+          color={COLORS.green}
           onChange={(a, b) => {
             onMin(String(a));
             onMax(String(b));

@@ -144,7 +144,7 @@ export default function RouteScreen() {
                 style={styles.iconBtn}
                 accessibilityLabel={`Remove ${item.name}`}
               >
-                <Ionicons name="trash-outline" size={18} color="#c0392b" />
+                <Ionicons name="trash-outline" size={18} color={COLORS.danger} />
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -155,7 +155,7 @@ export default function RouteScreen() {
                 style={styles.dragHandle}
                 accessibilityLabel="Drag to reorder"
               >
-                <Ionicons name="reorder-three" size={22} color="#4a9d70" />
+                <Ionicons name="reorder-three" size={22} color={COLORS.greenBright} />
               </TouchableOpacity>
             </View>
           </ScaleDecorator>
@@ -197,7 +197,7 @@ export default function RouteScreen() {
           colors={['#eaf4ee', '#dcece2']}
           style={styles.emptyIconWrap}
         >
-          <Ionicons name="trail-sign-outline" size={44} color="#4a9d70" />
+          <Ionicons name="trail-sign-outline" size={44} color={COLORS.greenBright} />
         </LinearGradient>
         <Text style={styles.emptyTitle}>No huts yet</Text>
         <Text style={styles.emptySubtitle}>
@@ -320,7 +320,7 @@ function SummaryStat({
   return (
     <View style={styles.stat}>
       <View style={styles.statIconWrap}>
-        <Ionicons name={icon} size={17} color="#2f6f4f" />
+        <Ionicons name={icon} size={17} color={COLORS.green} />
       </View>
       <Text style={styles.statValue}>{value}</Text>
       <Text style={styles.statLabel}>{label}</Text>
@@ -507,7 +507,7 @@ function RouteSummary() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#f3f7f4' },
+  container: { flex: 1, backgroundColor: COLORS.bg },
   list: { flex: 1 },
   header: {
     flexDirection: 'row',
@@ -522,11 +522,11 @@ const styles = StyleSheet.create({
     // A light lift, not a block of colour — the day/leg cards below stay the
     // visual focus (user feedback: the dark gradient header was "in your
     // face" next to how subtle those are).
-    ...coloredShadow('#2f6f4f', 0.08),
+    ...coloredShadow(COLORS.green, 0.08),
   },
   headerText: { gap: 2 },
-  headerCount: { fontSize: 19, fontWeight: '800', color: '#1c1c1e' },
-  headerHint: { fontSize: 13, color: '#8a978d', fontWeight: '600' },
+  headerCount: { fontSize: 19, fontWeight: '800', color: COLORS.ink },
+  headerHint: { fontSize: 13, color: COLORS.muted, fontWeight: '600' },
   headerActions: { flexDirection: 'row', alignItems: 'center', gap: 14 },
   /**
    * Filled red pill, matching Plan's `cancelPill`.
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
     // a dark scrim where a glow separates it from the background; this sits flat
     // in the header next to Save, where the same glow reads as a red smudge.
   },
-  headerPillGhostText: { fontSize: 13, color: '#ffffff', fontWeight: '800' },
+  headerPillGhostText: { fontSize: 13, color: COLORS.surface, fontWeight: '800' },
   // Save keeps a small gradient accent — it's the one primary action here, and
   // a compact pill (unlike a full-width header fill) reads as an accent, not
   // a dominant block.
@@ -571,9 +571,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: RADIUS.xl,
     padding: 22,
-    ...coloredShadow('#1c1c1e', 0.25),
+    ...coloredShadow(COLORS.ink, 0.25),
   },
-  modalTitle: { fontSize: 19, fontWeight: '800', color: '#1c1c1e' },
+  modalTitle: { fontSize: 19, fontWeight: '800', color: COLORS.ink },
   modalSubtitle: { fontSize: 13, color: '#888', marginTop: 2, marginBottom: 16 },
   input: {
     borderWidth: 1.5,
@@ -583,7 +583,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#1c1c1e',
+    color: COLORS.ink,
   },
   modalButtons: {
     flexDirection: 'row',
@@ -603,7 +603,7 @@ const styles = StyleSheet.create({
     ...coloredShadow(COLORS.danger, 0.28),
   },
   cancelPillText: {
-    color: '#ffffff',
+    color: COLORS.surface,
     fontWeight: '700',
     fontSize: 15,
     textAlign: 'center',
@@ -612,7 +612,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: RADIUS.md,
-    ...coloredShadow('#1f5c3f', 0.3),
+    ...coloredShadow(COLORS.greenDeep, 0.3),
   },
   modalSaveText: { fontSize: 15, color: 'white', fontWeight: '700' },
   summary: {
@@ -622,7 +622,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     padding: 16,
     borderRadius: RADIUS.lg,
-    ...coloredShadow('#2f6f4f', 0.08),
+    ...coloredShadow(COLORS.green, 0.08),
   },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between' },
   stat: { alignItems: 'center', flex: 1, gap: 4 },
@@ -630,15 +630,15 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: '#eaf5ee',
+    backgroundColor: COLORS.greenTint,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  statValue: { fontSize: 16, fontWeight: '800', color: '#1c1c1e' },
-  statLabel: { fontSize: 11, color: '#8a978d', fontWeight: '600' },
+  statValue: { fontSize: 16, fontWeight: '800', color: COLORS.ink },
+  statLabel: { fontSize: 11, color: COLORS.muted, fontWeight: '600' },
   summaryNote: {
     fontSize: 12,
-    color: '#8a978d',
+    color: COLORS.muted,
     textAlign: 'center',
     marginTop: 10,
   },
@@ -652,8 +652,8 @@ const styles = StyleSheet.create({
     borderTopColor: '#e2e8e4',
   },
   scenicText: { flex: 1 },
-  scenicTitle: { fontSize: 14, fontWeight: '700', color: '#1c1c1e' },
-  scenicHint: { fontSize: 11.5, color: '#8a978d', marginTop: 1 },
+  scenicTitle: { fontSize: 14, fontWeight: '700', color: COLORS.ink },
+  scenicHint: { fontSize: 11.5, color: COLORS.muted, marginTop: 1 },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -663,7 +663,7 @@ const styles = StyleSheet.create({
     padding: 14,
     borderRadius: RADIUS.lg,
     gap: 12,
-    ...coloredShadow('#2f6f4f', 0.1),
+    ...coloredShadow(COLORS.green, 0.1),
   },
   rowActive: { shadowOpacity: 0.3, shadowRadius: 18, elevation: 10 },
   orderBadge: {
@@ -675,7 +675,7 @@ const styles = StyleSheet.create({
   },
   orderText: { color: 'white', fontWeight: '800', fontSize: 15 },
   rowText: { flex: 1 },
-  rowName: { fontSize: 16, fontWeight: '700', color: '#1c1c1e' },
+  rowName: { fontSize: 16, fontWeight: '700', color: COLORS.ink },
   rowMeta: { fontSize: 12, color: '#777', marginTop: 2 },
   iconBtn: {
     padding: 7,
@@ -706,14 +706,14 @@ const styles = StyleSheet.create({
   legWithRide: { height: 104 },
   legLine: {
     width: 3,
-    backgroundColor: '#f0b485',
+    backgroundColor: COLORS.trailSoft,
     marginRight: 14,
     borderRadius: 2,
   },
   legBody: { flex: 1, justifyContent: 'center' },
   legChevron: { alignSelf: 'center', marginLeft: 4, marginRight: 2 },
   legDayRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  legDay: { fontSize: 11, fontWeight: '700', color: '#2f6f4f' },
+  legDay: { fontSize: 11, fontWeight: '700', color: COLORS.green },
   /** Deliberately NOT the SAC palette: this is a kit warning, not another
    *  difficulty grade, so it must not read as 'one step harder than orange'. */
   ferrataBadge: {

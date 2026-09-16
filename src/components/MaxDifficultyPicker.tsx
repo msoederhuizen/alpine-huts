@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { COLORS } from '../constants/theme';
 import { usePreferencesStore } from '../store/preferencesStore';
 import {
   SAC_SCALE_COLOR,
@@ -29,7 +30,7 @@ export function MaxDifficultyPicker() {
     <View style={styles.wrap}>
       <View style={styles.header}>
         <View style={styles.iconWrap}>
-          <Ionicons name="trending-up-outline" size={19} color="#2f6f4f" />
+          <Ionicons name="trending-up-outline" size={19} color={COLORS.green} />
         </View>
         <View style={styles.headerText}>
           <View style={styles.titleRow}>
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   selectedLabel: {
     fontSize: 12.5,
     fontWeight: '600',
-    color: '#2f6f4f',
+    color: COLORS.green,
     marginTop: 8,
     textAlign: 'center',
   },

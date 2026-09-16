@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     ...coloredShadow(COLORS.danger, 0.28),
   },
   cancelPillText: {
-    color: '#ffffff',
+    color: COLORS.surface,
     fontWeight: '700',
     fontSize: 15,
     textAlign: 'center',

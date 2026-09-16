@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { COLORS } from '../constants/theme';
 import { useHutCoverPhoto } from '../hooks/useHutCoverPhoto';
 import type { Hut } from '../types/hut';
 import { hutTypeLabel } from '../utils/hutMeta';
@@ -88,9 +89,9 @@ export function HutSelectionCard({
         onPress={onDetails}
         hitSlop={6}
       >
-        <Ionicons name="information-circle-outline" size={16} color="#2f6f4f" />
+        <Ionicons name="information-circle-outline" size={16} color={COLORS.green} />
         <Text style={styles.detailsText}>View details & photo</Text>
-        <Ionicons name="chevron-forward" size={15} color="#2f6f4f" />
+        <Ionicons name="chevron-forward" size={15} color={COLORS.green} />
       </TouchableOpacity>
     </View>
   );
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   thumb: { width: 60, height: 60, borderRadius: 10, backgroundColor: '#eee' },
   thumbPlaceholder: { alignItems: 'center', justifyContent: 'center' },
   topText: { flex: 1 },
-  name: { fontSize: 17, fontWeight: '700', color: '#1c1c1e', marginBottom: 2 },
+  name: { fontSize: 17, fontWeight: '700', color: COLORS.ink, marginBottom: 2 },
   meta: { fontSize: 13, color: '#666' },
   action: {
     flexDirection: 'row',
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
     paddingVertical: 11,
     borderRadius: 10,
   },
-  add: { backgroundColor: '#2f6f4f' },
+  add: { backgroundColor: COLORS.green },
   // Offered only when it's actually possible — see `onCloseLoop` on the Map.
   loopBtn: {
     flexDirection: 'row',
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     paddingVertical: 11,
     borderRadius: 999,
-    backgroundColor: '#ef6c00',
+    backgroundColor: COLORS.trail,
   },
   remove: { backgroundColor: '#b5651d' },
   actionText: { color: 'white', fontWeight: '600', fontSize: 15 },
@@ -154,5 +155,5 @@ const styles = StyleSheet.create({
     paddingTop: 12,
     paddingBottom: 2,
   },
-  detailsText: { color: '#2f6f4f', fontWeight: '600', fontSize: 14 },
+  detailsText: { color: COLORS.green, fontWeight: '600', fontSize: 14 },
 });

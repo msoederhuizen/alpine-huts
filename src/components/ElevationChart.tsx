@@ -240,7 +240,7 @@ export function ElevationChart({
                 strokeDasharray="2 3"
                 opacity={0.5}
               />
-              <Circle cx={x(here.d)} cy={y(here.e)} r={6.5} fill="#ffffff" />
+              <Circle cx={x(here.d)} cy={y(here.e)} r={6.5} fill={COLORS.surface} />
               <Circle cx={x(here.d)} cy={y(here.e)} r={4.5} fill="#1e88e5" />
             </>
           )}
