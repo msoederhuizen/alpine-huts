@@ -295,11 +295,28 @@ export default function MapScreen() {
   /** Latest `applyFrame`, so the effects below can stay dependency-free. */
   const applyFrameRef = useRef<(animated: boolean) => void>(() => {});
 
+  /** The route we last pointed the camera at, so an unchanged one is left alone. */
+  const framedSigRef = useRef(mapSig);
+
   useFocusEffect(
     // ⚠️ Deps MUST stay empty: this is about ARRIVING, not about the route
     // changing. Editing the route while looking at the map updates the trail in
     // place, and re-framing mid-edit would yank the camera out from under you.
     useCallback(() => {
+      // ⚠️ ONLY RE-FRAME WHEN THE ROUTE ACTUALLY CHANGED WHILE WE WERE AWAY.
+      //
+      // This used to re-frame on every focus, and opening a hut's detail page
+      // counts as leaving: closing it snapped the camera back to the whole
+      // route, throwing away wherever the walker had panned and zoomed to. You
+      // tap a hut to look at it, and the map moves when you come back.
+      //
+      // The remount exists for a narrow reason — react-native-maps won't paint
+      // Polyline overlays attached to an off-screen map, so a route edited on
+      // another tab needs a fresh mount to draw its trail. An UNCHANGED route
+      // was already painted, so there is nothing to fix and no reason to move.
+      if (mapSigRef.current === framedSigRef.current) return;
+      framedSigRef.current = mapSigRef.current;
+
       frameIntentRef.current = 'route';
       setMapKey(mapSigRef.current);
       // If the map remounts, `onMapReady` applies this. If it doesn't (route
@@ -321,6 +338,9 @@ export default function MapScreen() {
     }
     frameIntentRef.current = 'region';
     setMapKey(mapSigRef.current);
+    // Record it as framed, or the next focus would see a changed signature and
+    // re-frame all over again — moving the camera off the region just chosen.
+    framedSigRef.current = mapSigRef.current;
     const t = setTimeout(() => applyFrameRef.current(true), 150);
     return () => clearTimeout(t);
   }, [regionKey]);
