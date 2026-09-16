@@ -1,3 +1,4 @@
+import { SHARED_PLACE_NAMES } from '../constants/sharedNames';
 import type { Hut } from '../types/hut';
 import {
   distinctiveTokens,
@@ -96,31 +97,20 @@ const MAX_PHOTOS = 6;
 
 /**
  * Single words that are NOT enough to identify a hut on their own, even though
- * `dedupePlaces` counts them as distinctive.
+ * `dedupePlaces` counts them as distinctive — "Edelweiss" names 57 different
+ * places in this dataset, "Alpina" 69.
  *
- * Found by counting one-word names across the shipped data: "Alpina" is carried
- * by 92 different places, "Edelweiss" by 85, "Bellevue" by 41. A Flickr photo
- * titled "Alpina" could be any of them. The rest are building kinds the shared
- * list happens to miss — "Ricovero" is Italian for shelter, and Aosta is full
- * of them.
- *
- * ⚠️ Kept HERE rather than added to `GENERIC_LODGING_WORDS`, because that set
- * also decides which map pins merge into one. Widening it would change the map,
- * and this problem is the photo search's alone.
+ * ⚠️ GENERATED from the data (see constants/sharedNames.ts), not hand-written.
+ * The hand-written version here had 28 entries and missed 196 more that the
+ * data itself knew about, which is what let junk photos through for
+ * guesthouses. It is deliberately NOT part of `GENERIC_LODGING_WORDS`, because
+ * that set also decides which map pins merge into one.
  *
  * A hut named only one of these still gets photos — it just has to be
  * corroborated by proximity as well, which is the one time distance earns a
  * vote here.
  */
-const AMBIGUOUS_ALONE = new Set([
-  // building kinds missing from dedupePlaces
-  'ricovero', 'agriturismo', 'gastehaus', 'gasthaus', 'residence', 'villa',
-  'berghof', 'malga', 'lovska', 'capanno', 'casotto', 'baracca', 'barma',
-  // proper-ish names shared by dozens of places
-  'alpina', 'edelweiss', 'alpenrose', 'bellevue', 'belvedere', 'panorama',
-  'alpenblick', 'alpenhof', 'miramonti', 'montana', 'cristallo', 'alpes',
-  'grand', 'monte', 'blanc',
-]);
+const AMBIGUOUS_ALONE = SHARED_PLACE_NAMES;
 
 /**
  * Words that suggest the photo shows the BUILDING, not just the area it's

@@ -1,3 +1,4 @@
+import { SHARED_PLACE_NAMES } from '../constants/sharedNames';
 import {
   distinctiveTokens,
   normalizePlaceName,
@@ -78,6 +79,17 @@ export async function searchCommonsImages(
   if (!hutName || isFallbackHutName(hutName)) return [];
   const tokens = distinctiveTokens(normalizePlaceName(hutName));
   if (!tokens.length) return [];
+
+  // ⚠️ A one-word name that many places share identifies none of them, and
+  // Commons files carry no position to check against — so this DECLINES rather
+  // than guesses. Without it, a "Pension Edelweiss" in the Valais was shown a
+  // Pension Edelweiss in the Harz and a Haus Edelweiss on the Baltic coast, and
+  // "Cristallo" was shown Monte Cristallo, the mountain. 57 places are called
+  // Edelweiss; see constants/sharedNames.ts.
+  //
+  // This is why guesthouses suffered and huts did not: 4.2% of guesthouses have
+  // a name like that against 0.9% of huts.
+  if (tokens.length === 1 && SHARED_PLACE_NAMES.has(tokens[0])) return [];
 
   const url =
     `https://commons.wikimedia.org/w/api.php?action=query&format=json` +
