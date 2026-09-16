@@ -1445,6 +1445,23 @@ export default function MapScreen() {
         </View>
       )}
 
+      {/* ⚠️ REQUIRED, not decoration. The hut and trail data is OpenStreetMap
+          under the ODbL, which asks for the source to be credited where users
+          can see it. Tapping opens About, which carries the full credits.
+          Hidden on the same condition as the scale bar — the bottom overlays
+          would cover it anyway — and About stays reachable from the Saved
+          trips header regardless. */}
+      {!activeHut && altOptions.length <= 1 && (
+        <TouchableOpacity
+          style={styles.attribution}
+          onPress={() => router.push('/about')}
+          activeOpacity={0.7}
+          accessibilityLabel="Map data from OpenStreetMap. Open About."
+        >
+          <Text style={styles.attributionText}>© OpenStreetMap</Text>
+        </TouchableOpacity>
+      )}
+
       {isError && (
         <View style={styles.errorCard}>
           <Text style={styles.errorTitle}>Couldn’t load huts</Text>
@@ -1652,6 +1669,18 @@ const styles = StyleSheet.create({
   },
   goToRouteText: { color: 'white', fontWeight: '700', fontSize: 13 },
   scaleBarWrap: { position: 'absolute', right: 14, bottom: 14 },
+  // Bottom-left, mirroring the scale bar. The same faint white wash keeps it
+  // legible over dark terrain without shouting.
+  attribution: {
+    position: 'absolute',
+    left: 14,
+    bottom: 14,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 3,
+    backgroundColor: 'rgba(255,255,255,0.78)',
+  },
+  attributionText: { fontSize: 10.5, fontWeight: '600', color: COLORS.ink },
   // Marker styles (cluster, numMarker, halo, scale bar) live with their
   // components in src/components/map/.
   // Spans the full height (top..bottom) rather than hugging the top, so the

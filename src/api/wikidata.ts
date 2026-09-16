@@ -32,7 +32,11 @@ export async function fetchWikidataImage(
     ?.value;
   if (!filename) return null;
 
-  return { url: commonsFilePathUrl(filename), credit: 'Photo: Wikimedia Commons' };
+  return {
+    url: commonsFilePathUrl(filename),
+    credit: 'Photo: Wikimedia Commons',
+    file: filename,
+  };
 }
 
 /**
@@ -69,7 +73,11 @@ export async function fetchWikidataPhotoAndCategory(
 
   return {
     image: filename
-      ? { url: commonsFilePathUrl(filename), credit: 'Photo: Wikimedia Commons' }
+      ? {
+          url: commonsFilePathUrl(filename),
+          credit: 'Photo: Wikimedia Commons',
+          file: filename,
+        }
       : undefined,
     category: typeof category === 'string' ? category : undefined,
   };

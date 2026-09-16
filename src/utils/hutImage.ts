@@ -4,6 +4,31 @@ export interface HutImage {
   url: string;
   /** Short credit line to show under the photo. */
   credit: string;
+  /**
+   * Commons file name WITHOUT the "File:" prefix, when this photo came from
+   * Wikimedia. Kept so the author and licence can be looked up afterwards —
+   * see `src/api/commonsCredits.ts`.
+   */
+  file?: string;
+  /** Photographer, once looked up. Plain text; the API returns it as HTML. */
+  author?: string;
+  /** Licence short name as Commons states it, e.g. "CC BY-SA 4.0". */
+  license?: string;
+}
+
+/**
+ * The line shown under a photo.
+ *
+ * ⚠️ Most Commons photos are CC-BY or CC-BY-SA, which ask for the
+ * PHOTOGRAPHER and the LICENCE — naming the source alone ("Photo: Wikimedia
+ * Commons") does not satisfy that. So once the lookup has filled `author` and
+ * `license` in, they are what gets shown; `credit` is the fallback for photos
+ * whose details we couldn't fetch, and for non-Wikimedia sources.
+ */
+export function creditLine(img: HutImage): string {
+  if (img.author && img.license) return `${img.author} · ${img.license}`;
+  if (img.author) return `${img.author} · Wikimedia Commons`;
+  return img.credit;
 }
 
 /** Build a Wikimedia Special:FilePath URL for a Commons file name. */
@@ -57,7 +82,11 @@ export function resolveHutImage(hut: Hut): HutImage | null {
   if (image && /^https?:\/\//i.test(image)) {
     const wikiFile = wikimediaFilename(image);
     if (wikiFile) {
-      return { url: commonsFilePathUrl(wikiFile), credit: 'Photo: Wikimedia Commons' };
+      return {
+        url: commonsFilePathUrl(wikiFile),
+        credit: 'Photo: Wikimedia Commons',
+        file: wikiFile,
+      };
     }
     return { url: safeUrl(image), credit: 'Photo via OpenStreetMap' };
   }
@@ -69,9 +98,11 @@ export function resolveHutImage(hut: Hut): HutImage | null {
       : undefined;
 
   if (fileRef) {
+    const name = fileRef.slice('File:'.length);
     return {
-      url: commonsFilePathUrl(fileRef.slice('File:'.length)),
+      url: commonsFilePathUrl(name),
       credit: 'Photo: Wikimedia Commons',
+      file: name,
     };
   }
 

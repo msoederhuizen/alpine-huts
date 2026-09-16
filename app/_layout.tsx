@@ -72,6 +72,14 @@ function AppContent() {
         }}
       />
       <Stack.Screen
+        name="about"
+        options={{
+          presentation: 'modal',
+          headerShown: true,
+          title: 'About',
+        }}
+      />
+      <Stack.Screen
         name="leg/[index]"
         options={{
           presentation: 'modal',

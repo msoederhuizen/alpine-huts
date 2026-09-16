@@ -29,7 +29,7 @@ import { getUserPhotos, useHutUserDataStore } from '../../src/store/hutUserDataS
 import { useTripStore } from '../../src/store/tripStore';
 import type { Hut } from '../../src/types/hut';
 import { parseFacilities } from '../../src/utils/facilities';
-import type { HutImage } from '../../src/utils/hutImage';
+import { creditLine, type HutImage } from '../../src/utils/hutImage';
 import { hutTypeLabel } from '../../src/utils/hutMeta';
 import { deletePhotoFile, savePhoto } from '../../src/utils/photoStorage';
 
@@ -196,7 +196,7 @@ export default function HutDetailScreen() {
 
           {showCover && (
             <Text style={styles.credit} pointerEvents="none">
-              {cover!.credit}
+              {creditLine(cover!)}
             </Text>
           )}
 
@@ -408,7 +408,7 @@ function PhotoGallery({
         <View style={[styles.galleryFooter, { paddingBottom: insets.bottom + 14 }]}>
           <Text style={styles.galleryMeta}>
             {index + 1} / {photos.length}
-            {current?.credit ? ` · ${current.credit}` : ''}
+            {current ? ` · ${creditLine(current)}` : ''}
           </Text>
           {isUserPhoto && (
             <TouchableOpacity onPress={() => onRemove(index)} hitSlop={10}>

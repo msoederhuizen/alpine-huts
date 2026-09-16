@@ -1,6 +1,7 @@
 import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
 import { fetchCommonsCategoryImages } from './commons';
+import { withCommonsCredits } from './commonsCredits';
 import { fetchWikidataPhotoAndCategory } from './wikidata';
 import { fetchWikipediaImage } from './wikipedia';
 
@@ -52,5 +53,8 @@ export async function fetchHutGallery(
     }
   }
 
-  return photos;
+  // One extra request names the photographer and licence for the Wikimedia
+  // photos — what CC-BY actually asks for. Best-effort: if it fails, every
+  // photo keeps its source credit and the gallery is unaffected.
+  return withCommonsCredits(photos, signal);
 }

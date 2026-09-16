@@ -34,7 +34,12 @@ export async function fetchCommonsCategoryImages(
         p.imageinfo?.[0]?.mediatype === 'BITMAP' &&
         /\.(jpe?g|png)$/i.test(p.title ?? ''),
     )
-    .map((p) => p.imageinfo![0].thumburl)
-    .filter((u): u is string => !!u)
-    .map((url) => ({ url, credit: 'Photo: Wikimedia Commons' }));
+    .map((p) => ({ url: p.imageinfo![0].thumburl, title: p.title }))
+    .filter((p): p is { url: string; title: string } => !!p.url && !!p.title)
+    .map(({ url, title }) => ({
+      url,
+      credit: 'Photo: Wikimedia Commons',
+      // Carried so `withCommonsCredits` can name the photographer and licence.
+      file: title.replace(/^File:/, ''),
+    }));
 }

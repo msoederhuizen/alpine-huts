@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Tabs, useRouter } from 'expo-router';
+import { TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { coloredShadow, COLORS } from '../../src/constants/theme';
@@ -25,6 +26,7 @@ export default function TabsLayout() {
   // content (the "Saved trips" label especially, being the longest) crowds
   // against/falls behind that reserved zone instead of sitting above it.
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   return (
     <Tabs
       screenOptions={{
@@ -75,7 +77,23 @@ export default function TabsLayout() {
       />
       <Tabs.Screen
         name="saved"
-        options={{ title: 'Saved trips', tabBarIcon: tabIcon('bookmark') }}
+        options={{
+          title: 'Saved trips',
+          tabBarIcon: tabIcon('bookmark'),
+          // The app's only header-level entry to About, which carries the
+          // OpenStreetMap attribution the data licence requires. The map's
+          // own attribution pill is the other way in.
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => router.push('/about')}
+              hitSlop={12}
+              style={{ paddingRight: 16 }}
+              accessibilityLabel="About this app and its data sources"
+            >
+              <Ionicons name="information-circle-outline" size={23} color={COLORS.ink} />
+            </TouchableOpacity>
+          ),
+        }}
       />
     </Tabs>
   );
