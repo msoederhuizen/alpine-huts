@@ -122,16 +122,34 @@ const AMBIGUOUS_ALONE = new Set([
   'grand', 'monte', 'blanc',
 ]);
 
-/** Words that suggest the photo shows the BUILDING, not just the area it's
- *  named after. Only ever used to rank, never to admit or reject. */
+/**
+ * Words that suggest the photo shows the BUILDING, not just the area it's
+ * named after. Only ever used to rank, never to admit or reject.
+ *
+ * ⚠️ Matches PREFIXES and abbreviations on purpose. An exact `rifugio` missed
+ * both "Rifugi Coldai" and "at Rif. Coldai" — the two genuine hut photos in
+ * that set — while six photos of Lago Coldai, the lake below, scored equally
+ * and outranked them.
+ */
 const LODGING_HINT =
-  /(h(u|ü)tte|huette|rifugio|capanna|cabane|refuge|refugi|refugio|berghaus|gasthaus|baita|koca|koča|bivacco|biwak|chalet|hut)\b/i;
+  /(h(u|ü|ue)tte|rifug|rif\.|capann|cap\.|cabane|refug|berghaus|berggasthaus|gasthaus|baita|malga|ko[cč]a|bivac|biwak|chalet|\bhut\b|\bhuts\b)/i;
+
+/**
+ * At most this many photos from one photographer.
+ *
+ * Measured: Aescher's six slots were filled by one perfect shot and then FIVE
+ * near-identical "Ebenalp" frames from a single Flickr user. A gallery wants
+ * six different views of a hut, not one person's afternoon.
+ */
+const MAX_PER_OWNER = 2;
 
 interface FlickrPhoto {
   id: string;
   title?: string;
   tags?: string;
   license?: string;
+  /** Stable user id; `ownername` is the display name and can repeat. */
+  owner?: string;
   ownername?: string;
   latitude?: string | number;
   longitude?: string | number;
@@ -169,10 +187,25 @@ export async function fetchFlickrHutPhotos(
   // Searching on it would match every refuge in the range.
   if (!tokens.length) return [];
 
+  // ⚠️ SEARCH ON THE LONGEST DISTINCTIVE WORD, NOT THE WHOLE NAME.
+  //
+  // Flickr ANDs every word in `text`, so sending the OSM name demanded that a
+  // photo carry all of it. "Berggasthaus Aescher-Wildkirchli" therefore matched
+  // almost nothing, while nobody titles a photo that way.
+  //
+  // Measured over 9 huts, admitted photos: full name 22, all distinctive words
+  // 138, longest distinctive word alone 178 — eight times the coverage, and
+  // Aescher went from 0 to 42.
+  //
+  // Widening costs no precision, because the GATE below is unchanged: every
+  // distinctive word of the name must still appear in the photo's title or
+  // tags. A wide query only decides how many candidates the gate gets to see.
+  const query = [...tokens].sort((a, b) => b.length - a.length)[0];
+
   const url =
     `https://api.flickr.com/services/rest/?method=flickr.photos.search` +
     `&api_key=${encodeURIComponent(API_KEY)}` +
-    `&text=${encodeURIComponent(hut.name)}` +
+    `&text=${encodeURIComponent(query)}` +
     `&license=${LICENCES}` +
     `&content_type=1&media=photos&safe_search=1&sort=relevance&per_page=40` +
     `&extras=license,owner_name,geo,tags,url_c,url_m` +
@@ -196,7 +229,7 @@ export async function fetchFlickrHutPhotos(
   // those huts additionally require the photo to be geotagged close by.
   const needsCorroboration = tokens.length === 1 && AMBIGUOUS_ALONE.has(tokens[0]);
 
-  const scored: { img: HutImage; score: number }[] = [];
+  const scored: { img: HutImage; score: number; owner: string }[] = [];
 
   for (const p of photos) {
     const src = p.url_c || p.url_m;
@@ -238,10 +271,15 @@ export async function fetchFlickrHutPhotos(
     // Closer is better, but only among photos the name already vouched for.
     if (metres < 300) score += 1.5;
     else if (metres < 1000) score += 0.75;
+    // A real position kilometres out is usually the lake or the summit the hut
+    // is named after, not the hut. Never applied to ungeotagged photos, whose
+    // distance is unknown rather than large.
+    else if (hasGeo && metres > 2000) score -= 0.5;
 
     const licence = LICENCE_NAME[String(p.license)] ?? 'Creative Commons';
     scored.push({
       score,
+      owner: p.owner || p.ownername || '',
       img: {
         url: src,
         credit: 'Photo: Flickr',
@@ -251,8 +289,15 @@ export async function fetchFlickrHutPhotos(
     });
   }
 
-  return scored
-    .sort((a, b) => b.score - a.score)
-    .slice(0, MAX_PHOTOS)
-    .map((s) => s.img);
+  // Best first, then thin out any one photographer — see MAX_PER_OWNER.
+  const perOwner = new Map<string, number>();
+  const out: HutImage[] = [];
+  for (const s of scored.sort((a, b) => b.score - a.score)) {
+    const n = perOwner.get(s.owner) ?? 0;
+    if (s.owner && n >= MAX_PER_OWNER) continue;
+    perOwner.set(s.owner, n + 1);
+    out.push(s.img);
+    if (out.length >= MAX_PHOTOS) break;
+  }
+  return out;
 }
