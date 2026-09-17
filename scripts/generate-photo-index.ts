@@ -16,8 +16,9 @@
  *
  * Run: npm run generate-photo-index          (all places, hours)
  *      PHOTO_INDEX_LIMIT=300 npm run generate-photo-index   (a sample)
+ *      npm run retry-photo-index             (re-attempt the ones that missed)
  */
-import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -30,8 +31,25 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REGIONS = join(ROOT, 'assets', 'data', 'regions');
 const OUT = join(ROOT, 'assets', 'data', 'photo-index.json');
 const REFUGES = join(ROOT, 'assets', 'data', 'refuges-photos.json');
+/** Build scratch, not shipped: which empties this retry pass has already redone. */
+const RETRIED = join(ROOT, 'assets', 'data', 'photo-index-retried.json');
 
 const LIMIT = Number(process.env.PHOTO_INDEX_LIMIT ?? 0);
+
+/**
+ * Re-attempt the places that came back with NOTHING, instead of skipping them.
+ *
+ * ⚠️ WITHOUT THIS, RE-RUNNING THE BUILD IS A NO-OP. An empty entry is recorded
+ * deliberately — it is how the app tells "no photo exists" from "not looked at
+ * yet" — but it also makes a miss permanent, because the resume logic skips
+ * every id already present. A site that was merely down on build night stays
+ * photoless forever.
+ *
+ * Sampled 60 of the 4,195 places that have a website and got no photo: about
+ * one in six yields an image on a straight retry. That is transient failure,
+ * not absent data, and this is the flag that recovers it.
+ */
+const RETRY_EMPTY = process.argv.includes('--retry');
 const MAX_PER_HUT = 4;
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -187,11 +205,25 @@ async function isPhoto(url: string): Promise<boolean> {
     return true;
   }
 }
+/**
+ * ⚠️ FIFTEEN SECONDS, against the app's 4.5.
+ *
+ * `src/api/siteImage.ts` gives up at 4500 ms because a USER is waiting there and
+ * a gallery that hangs is worse than a gallery with one photo missing. Here
+ * nobody is waiting: this runs once, overnight, and a place dropped for slowness
+ * is dropped from the shipped data for every user until the next build.
+ *
+ * Measured on 60 sampled sites: a small share answer between 4.5 s and 15 s —
+ * mountain hotels on modest hosting, which is most of them. Waiting costs a
+ * worker a few seconds; not waiting costs the place its photograph permanently.
+ */
+const SITE_TIMEOUT_MS = 15_000;
+
 async function fromWebsite(hut: Hut): Promise<Photo[]> {
   const page = siteUrl(hut.website);
   if (!page) return [];
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 6000);
+  const timer = setTimeout(() => ctrl.abort(), SITE_TIMEOUT_MS);
   try {
     const res = await fetch(page, { signal: ctrl.signal, redirect: 'follow' });
     if (!res.ok) return [];
@@ -254,9 +286,27 @@ async function main() {
     : {};
   const resumed = Object.keys(index).length;
 
+  /**
+   * A retry pass needs its OWN resume record. The normal pass resumes on "is
+   * this id in the index", which cannot work here: the ids being retried are
+   * precisely the ones already in it. Without this list a crash at 8,000 of
+   * 16,000 would start the whole pass again, and only the ~18% that succeeded
+   * would be skipped.
+   */
+  const retried = new Set<string>(
+    RETRY_EMPTY && existsSync(RETRIED) ? JSON.parse(readFileSync(RETRIED, 'utf8')) : [],
+  );
+
   // refuges.info already ships these; no point paying for them twice.
-  let places = [...byId.values()].filter((h) => !refuges[h.id] && !(h.id in index));
+  let places = [...byId.values()].filter((h) => {
+    if (refuges[h.id]) return false;
+    const already = index[h.id];
+    if (!already) return true; // never looked at
+    // Present but empty: worth another go, once per retry pass.
+    return RETRY_EMPTY && already.length === 0 && !retried.has(h.id);
+  });
   places.sort((a, b) => a.id.localeCompare(b.id));
+  const candidates = places.length; // before LIMIT thins it, for the projection
   if (LIMIT) {
     const step = Math.max(1, Math.floor(places.length / LIMIT));
     places = places.filter((_, i) => i % step === 0).slice(0, LIMIT);
@@ -264,6 +314,11 @@ async function main() {
 
   console.log(`${byId.size.toLocaleString()} places, ${Object.keys(refuges).length.toLocaleString()} already from refuges.info`);
   if (resumed) console.log(`resuming: ${resumed.toLocaleString()} already resolved on disk`);
+  if (RETRY_EMPTY) {
+    const kept = Object.values(index).filter((v) => v.length).length;
+    console.log(`RETRY pass: keeping ${kept.toLocaleString()} existing photos, re-attempting the empties`);
+    if (retried.size) console.log(`  ${retried.size.toLocaleString()} already re-attempted in an earlier pass`);
+  }
   console.log(`resolving ${places.length.toLocaleString()}${LIMIT ? ' (SAMPLE)' : ''}\n`);
   if (!places.length) { console.log('nothing left to do'); return; }
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
@@ -315,40 +370,65 @@ async function main() {
       // because every source is tried and every one fails.
       index[hut.id] = found.slice(0, MAX_PER_HUT);
       if (!found.length) none++;
+      if (RETRY_EMPTY) retried.add(hut.id);
 
       done++;
       if (done % 50 === 0) {
         const rate = done / ((Date.now() - t0) / 1000);
         const left = ((places.length - done) / rate / 60).toFixed(0);
-        const withPhotos = Object.values(index).filter((v) => v.length).length;
+        // In a retry pass the useful number is what this pass RECOVERED, not the
+        // index total — that starts at several thousand and barely moves.
+        const hits = RETRY_EMPTY ? done - none : Object.values(index).filter((v) => v.length).length;
         process.stdout.write(
-          `\r  ${done}/${places.length}  with photos ${withPhotos}  ` +
-          `(${((withPhotos / done) * 100).toFixed(0)}%)  ${rate.toFixed(1)}/s  ~${left} min left   `,
+          `\r  ${done}/${places.length}  ${RETRY_EMPTY ? 'recovered' : 'with photos'} ${hits}  ` +
+          `(${((hits / done) * 100).toFixed(0)}%)  ${rate.toFixed(1)}/s  ~${left} min left   `,
         );
       }
       // Save as we go, so a crash costs minutes rather than the whole run.
-      if (done % 250 === 0) writeFileSync(OUT, JSON.stringify(index));
+      if (done % 250 === 0) {
+        writeFileSync(OUT, JSON.stringify(index));
+        if (RETRY_EMPTY) writeFileSync(RETRIED, JSON.stringify([...retried]));
+      }
     }
   }
 
   await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
 
   writeFileSync(OUT, JSON.stringify(index));
+  // The pass finished, so the scratch list has nothing left to protect.
+  if (RETRY_EMPTY && existsSync(RETRIED)) rmSync(RETRIED);
+
   const kb = JSON.stringify(index).length / 1024;
+  const total = Object.keys(index).length;
   const hit = Object.values(index).filter((v) => v.length).length;
   console.log(`\n\n${'='.repeat(58)}`);
-  console.log(`resolved   ${done.toLocaleString()}`);
-  console.log(`with photo ${hit.toLocaleString()}  ${((hit / done) * 100).toFixed(1)}%   <- the REAL rate`);
+  console.log(`${RETRY_EMPTY ? 're-attempted' : 'resolved  '} ${done.toLocaleString()}`);
+  console.log(`${RETRY_EMPTY ? 'recovered ' : 'with photo'} ${(done - none).toLocaleString()}  ${(((done - none) / done) * 100).toFixed(1)}%   <- the REAL rate`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
-  console.log(`no photo   ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
-  console.log(`index      ${kb.toFixed(0)} KB for ${done.toLocaleString()} places`);
+  console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
+  console.log(`\nINDEX NOW  ${hit.toLocaleString()} of ${total.toLocaleString()} places have a photo  ${((hit / total) * 100).toFixed(1)}%`);
+  console.log(`index      ${kb.toFixed(0)} KB`);
   if (LIMIT) {
-    const full = byId.size - Object.keys(refuges).length;
-    console.log(`\nprojected for all ${full.toLocaleString()}: ` +
-      `${Math.round((hit / done) * full).toLocaleString()} with photos, ` +
-      `${((kb / done) * full / 1024).toFixed(1)} MB index, ` +
-      `${(((Date.now() - t0) / done) * full / 3_600_000).toFixed(1)} h to build`);
+    // This pass's own rate, not the index-wide one — a sample says nothing
+    // about places it never touched.
+    const rate = (done - none) / done;
+    const hours = (((Date.now() - t0) / done) * candidates) / 3_600_000;
+    if (RETRY_EMPTY) {
+      // ⚠️ A retry projects RECOVERY over the empties, not coverage over
+      // everything. Reusing the fresh-build projection here printed an index
+      // size of 829 MB — it was extrapolating the whole index from a sample
+      // that only ever touched the misses.
+      console.log(`\nprojected over all ${candidates.toLocaleString()} empties: ` +
+        `~${Math.round(rate * candidates).toLocaleString()} recovered, ` +
+        `${hours.toFixed(1)} h to run`);
+    } else {
+      const full = byId.size - Object.keys(refuges).length;
+      console.log(`\nprojected for all ${full.toLocaleString()}: ` +
+        `${Math.round(rate * full).toLocaleString()} with photos, ` +
+        `${((kb / done) * full / 1024).toFixed(1)} MB index, ` +
+        `${((((Date.now() - t0) / done) * full) / 3_600_000).toFixed(1)} h to build`);
+    }
   }
   console.log(`-> ${OUT}`);
 }

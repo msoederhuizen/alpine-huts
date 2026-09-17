@@ -46,3 +46,6 @@ yarn-error.*
 # local env (EXPO_PUBLIC_BROUTER_URL etc.)
 .env
 .env.local
+
+# resume scratch for `npm run retry-photo-index`; deleted when the pass finishes
+assets/data/photo-index-retried.json
