@@ -236,8 +236,26 @@ async function main() {
     for (const b of ['core', 'accommodations']) for (const h of d[b] ?? []) if (h.name && !byId.has(h.id)) byId.set(h.id, h);
   }
 
+  /**
+   * ⚠️ RESUMABLE, and it has to be.
+   *
+   * The first full attempt reached 14,550 of 21,576 — about forty minutes —
+   * before the connection collapsed from 6.8/s to 0.3/s and the process died,
+   * and every one of those results was lost because the file was only written
+   * at the end. Thousands of rapid connections exhaust the socket pool on
+   * Windows, so a long run failing partway is the NORMAL case, not the unlucky
+   * one. `generate-huts.ts` learned this already; so does this.
+   *
+   * Re-running skips whatever is already on disk and fills the gaps. Delete
+   * photo-index.json to force a clean rebuild.
+   */
+  const index: Record<string, Photo[]> = existsSync(OUT)
+    ? JSON.parse(readFileSync(OUT, 'utf8'))
+    : {};
+  const resumed = Object.keys(index).length;
+
   // refuges.info already ships these; no point paying for them twice.
-  let places = [...byId.values()].filter((h) => !refuges[h.id]);
+  let places = [...byId.values()].filter((h) => !refuges[h.id] && !(h.id in index));
   places.sort((a, b) => a.id.localeCompare(b.id));
   if (LIMIT) {
     const step = Math.max(1, Math.floor(places.length / LIMIT));
@@ -245,9 +263,9 @@ async function main() {
   }
 
   console.log(`${byId.size.toLocaleString()} places, ${Object.keys(refuges).length.toLocaleString()} already from refuges.info`);
+  if (resumed) console.log(`resuming: ${resumed.toLocaleString()} already resolved on disk`);
   console.log(`resolving ${places.length.toLocaleString()}${LIMIT ? ' (SAMPLE)' : ''}\n`);
-
-  const index: Record<string, Photo[]> = {};
+  if (!places.length) { console.log('nothing left to do'); return; }
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
   const t0 = Date.now();
 
@@ -262,8 +280,14 @@ async function main() {
    * The websites are all DIFFERENT hosts, so concurrency costs them nothing.
    * Commons is the one shared endpoint, which is why each worker still pauses
    * between its own requests.
+   *
+   * ⚠️ FOUR, not six. At six the first full run held 6.8/s for 14,000 places
+   * and then fell to 0.3/s before dying — the signature of Windows running out
+   * of sockets, since each closed connection lingers in TIME_WAIT. Fewer
+   * workers with the same per-worker pause trades a little speed for a run that
+   * finishes.
    */
-  const CONCURRENCY = 6;
+  const CONCURRENCY = 4;
   let next = 0;
 
   async function worker() {
@@ -302,6 +326,8 @@ async function main() {
           `(${((withPhotos / done) * 100).toFixed(0)}%)  ${rate.toFixed(1)}/s  ~${left} min left   `,
         );
       }
+      // Save as we go, so a crash costs minutes rather than the whole run.
+      if (done % 250 === 0) writeFileSync(OUT, JSON.stringify(index));
     }
   }
 
