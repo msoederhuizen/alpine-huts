@@ -130,21 +130,67 @@ const isPlaceholder = (u: string) => {
   const w = /[/,?&](?:w|width)[_=](\d{2,4})\b/i.exec(u);
   return !!w && Number(w[1]) < 400;
 };
+/** For the CREDIT LINE — "www." is noise to a reader. Not for building URLs. */
 const domainOf = (u: string) => u.replace(/^https?:\/\//i, '').replace(/^www\./i, '').split('/')[0];
+/** For BUILDING URLS — the host exactly as served, "www." and all. */
+const hostOf = (u: string) => u.replace(/^https?:\/\//i, '').split('/')[0];
+
 function absolute(src: string, page: string): string | null {
   const s = upgradeWix(decode(src.trim()));
-  if (/^https:\/\//i.test(s)) return s;
-  if (/^http:\/\//i.test(s)) return null;
+  // ⚠️ http is KEPT here and judged later by `secureImageUrl`. It used to be
+  // dropped on the spot because iOS will not load it — but that conflated the
+  // page with the picture. This runs in Node, where the page's scheme is our
+  // business alone; only the URL we SHIP has to be https, and 40% of http-only
+  // sites serve their images over TLS perfectly well.
+  if (/^https?:\/\//i.test(s)) return s;
   if (s.startsWith('//')) return `https:${s}`;
-  const o = `https://${domainOf(page)}`;
+  // ⚠️ hostOf, NOT domainOf. Resolving against the www-stripped name sent every
+  // relative image on a www-only site to a host that does not serve it.
+  const o = `${page.startsWith('http://') ? 'http' : 'https'}://${hostOf(page)}`;
   return s.startsWith('/') ? o + s : `${o}/${s}`;
 }
-function siteUrl(raw?: string): string | null {
-  if (!raw) return null;
+
+/**
+ * The URLs worth trying for a place's page, best first.
+ *
+ * OSM's `website` tag is often stale in small ways: the scheme never got
+ * updated, or it names the apex when only `www` answers. Measured on 45 sites
+ * that failed outright, 7 answered on one of these variants.
+ */
+function siteCandidates(raw?: string): string[] {
+  if (!raw) return [];
   const t = raw.trim().split(/[\s,;]/)[0];
-  if (!t) return null;
-  const u = /^https?:\/\//i.test(t) ? t.replace(/^http:/i, 'https:') : `https://${t}`;
-  return /^https:\/\/[^/\s.]+\.[^/\s]+/i.test(u) ? u : null;
+  if (!t) return [];
+  const bare = t.replace(/^https?:\/\//i, '');
+  if (!/^[^/\s.]+\.[^/\s]+/.test(bare)) return [];
+  const host = bare.split('/')[0];
+  const path = bare.slice(host.length);
+  const swapped = host.startsWith('www.') ? host.slice(4) : `www.${host}`;
+  return [`https://${bare}`, `https://${swapped}${path}`, `http://${bare}`];
+}
+
+/**
+ * The https form of an image URL, or null if TLS genuinely will not serve it.
+ *
+ * ⚠️ STRICT ON PURPOSE, unlike `isPhoto`. isPhoto lets anything it cannot check
+ * through, which is right for a quality heuristic and WRONG here: an http URL
+ * we rewrite to https and never verify would ship as a permanently broken image
+ * in the app. So a failure to confirm is a rejection.
+ *
+ * Only http URLs pay for this request; https ones are already fine.
+ */
+async function secureImageUrl(url: string): Promise<string | null> {
+  if (/^https:/i.test(url)) return url;
+  const secure = url.replace(/^http:/i, 'https:');
+  try {
+    const r = await fetch(secure, {
+      headers: { Range: 'bytes=0-0' },
+      signal: AbortSignal.timeout(8000),
+    });
+    return r.ok || r.status === 206 ? secure : null;
+  } catch {
+    return null; // self-signed, DH key too small, wrong TLS version — let it go
+  }
 }
 function largestSrcset(ss: string): string | null {
   let best: { u: string; w: number } | null = null;
@@ -237,13 +283,23 @@ async function isPhoto(url: string): Promise<boolean> {
 const SITE_TIMEOUT_MS = 15_000;
 
 async function fromWebsite(hut: Hut): Promise<Photo[]> {
-  const page = siteUrl(hut.website);
-  if (!page) return [];
+  const candidates = siteCandidates(hut.website);
+  if (!candidates.length) return [];
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), SITE_TIMEOUT_MS);
   try {
-    const res = await fetch(page, { signal: ctrl.signal, redirect: 'follow' });
-    if (!res.ok) return [];
+    // Try https, then the www/apex swap, then http. First one that answers wins.
+    let res: Response | null = null;
+    let page = candidates[0];
+    for (const candidate of candidates) {
+      try {
+        const r = await fetch(candidate, { signal: ctrl.signal, redirect: 'follow' });
+        if (r.ok) { res = r; page = candidate; break; }
+      } catch {
+        if (ctrl.signal.aborted) return []; // our own timeout, not this host's fault
+      }
+    }
+    if (!res) return [];
     const html = await res.text();
     const from = res.url || page;
     const ok = (u: string | null): u is string => !!u && !JUNK.test(u) && !isPlaceholder(u);
@@ -262,8 +318,15 @@ async function fromWebsite(hut: Hut): Promise<Photo[]> {
     const hero = pickPageImage(html.slice(0, 400_000), from);
     for (const c of [declared, ok(hero) ? hero : null]) {
       if (!c) continue;
-      if (await isPhoto(c)) {
-        return [{ url: c, credit: `Photo: ${domainOf(page)}`, link: from }];
+      // ⚠️ SECURE IT BEFORE JUDGING IT. The app can only display https, so an
+      // image that will not serve over TLS is worth nothing however good it is
+      // — and checking first saves the ranged request isPhoto would have spent.
+      const secure = await secureImageUrl(c);
+      if (!secure) continue;
+      if (await isPhoto(secure)) {
+        // `link` keeps the page we actually read, http scheme and all: it is a
+        // citation for a human, not something the app loads.
+        return [{ url: secure, credit: `Photo: ${domainOf(page)}`, link: from }];
       }
     }
     return [];

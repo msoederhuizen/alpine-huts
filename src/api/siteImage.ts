@@ -333,13 +333,21 @@ function looksLikePlaceholder(url: string): boolean {
   return !!w && Number(w[1]) < 400;
 }
 
+/** The host exactly as served, "www." and all — for building URLs. `domainOf`
+ *  strips it for display and must never be used to resolve one. */
+function hostOf(url: string): string {
+  return url.replace(/^https?:\/\//i, '').split('/')[0];
+}
+
 /** Resolve a possibly-relative image URL against the page it was found on. */
 function absolute(src: string, pageUrl: string): string | null {
   const s = upgradePlaceholder(decodeEntities(src.trim()));
   if (/^https:\/\//i.test(s)) return s;
   if (/^http:\/\//i.test(s)) return null; // blocked on iOS, see siteUrl
   if (s.startsWith('//')) return `https:${s}`;
-  const origin = `https://${domainOf(pageUrl)}`;
+  // ⚠️ hostOf, NOT domainOf. Resolving against the www-stripped name pointed
+  // every relative image on a www-only site at a host that does not serve it.
+  const origin = `https://${hostOf(pageUrl)}`;
   if (s.startsWith('/')) return origin + s;
   return `${origin}/${s}`;
 }
