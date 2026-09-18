@@ -182,10 +182,19 @@ function pickPageImage(html: string, page: string): string | null {
   }
   return best?.u ?? null;
 }
-/** Real pixels, from the file header. Rejects logos and thumbnails. */
+/**
+ * Real pixels, from the file header. Rejects logos and thumbnails.
+ *
+ * ⚠️ Mirrors `looksLikeAPhoto` in src/api/siteImage.ts — keep the two together.
+ * Both read 64 KB and both FOLLOW THE JPEG SEGMENT CHAIN rather than scanning
+ * for the marker bytes. Scanning found the EXIF thumbnail's frame instead of the
+ * image's: a measured 2048x1365 photograph reported 256x171 and was discarded,
+ * as was every other camera photo carrying EXIF. The real marker sat at byte
+ * 31,564, well past the 16 KB this used to read.
+ */
 async function isPhoto(url: string): Promise<boolean> {
   try {
-    const r = await fetch(url, { headers: { Range: 'bytes=0-16383' } });
+    const r = await fetch(url, { headers: { Range: 'bytes=0-65535' } });
     if (!r.ok && r.status !== 206) return true;
     const b = new Uint8Array(await r.arrayBuffer());
     if (b.length < 26) return false;
@@ -194,11 +203,19 @@ async function isPhoto(url: string): Promise<boolean> {
       const be = (o: number) => ((b[o] << 24) | (b[o + 1] << 16) | (b[o + 2] << 8) | b[o + 3]) >>> 0;
       return Math.max(be(16), be(20)) >= 500;
     }
-    for (let i = 2; i < b.length - 9; i++) {
-      if (b[i] !== 0xff) continue;
+    let i = 2;
+    while (i < b.length - 9) {
+      if (b[i] !== 0xff) { i++; continue; }
       const mk = b[i + 1];
-      if (mk < 0xc0 || mk > 0xcf || mk === 0xc4 || mk === 0xc8 || mk === 0xcc) continue;
-      return Math.max((b[i + 7] << 8) | b[i + 8], (b[i + 5] << 8) | b[i + 6]) >= 500;
+      if (mk === 0xff) { i++; continue; }
+      if (mk === 0xd8 || mk === 0x01 || (mk >= 0xd0 && mk <= 0xd7)) { i += 2; continue; }
+      const len = (b[i + 2] << 8) | b[i + 3];
+      if (len < 2) break;
+      if (mk >= 0xc0 && mk <= 0xcf && mk !== 0xc4 && mk !== 0xc8 && mk !== 0xcc) {
+        return Math.max((b[i + 7] << 8) | b[i + 8], (b[i + 5] << 8) | b[i + 6]) >= 500;
+      }
+      if (mk === 0xda) break;
+      i += 2 + len;
     }
     return true;
   } catch {

@@ -52,8 +52,15 @@ const JUNK_PATH =
  */
 const MIN_PHOTO_EDGE = 500;
 
-/** Enough of the file to reach a JPEG's SOF marker past its EXIF block. */
-const HEADER_BYTES = 16_384;
+/**
+ * Enough of the file to reach a JPEG's SOF marker past its EXIF block.
+ *
+ * ⚠️ 64 KB, AND IT HAD TO GROW. At 16 KB this comment was simply wrong: a photo
+ * straight off a camera carries an APP1/EXIF block of 15–18 KB before the image
+ * data even starts, so the real marker sat at byte 31,564 in one measured case
+ * and 19,311 in another. Both were full-size photographs; both were discarded.
+ */
+const HEADER_BYTES = 65_536;
 
 /**
  * Reject graphics masquerading as photographs, by looking at the actual bytes.
@@ -90,15 +97,48 @@ async function looksLikeAPhoto(url: string, signal?: AbortSignal): Promise<boole
     }
 
     // JPEG: walk to a Start-Of-Frame marker, which carries the real dimensions.
-    // C4, C8 and CC share the range but are Huffman/arithmetic tables, not SOF.
-    for (let i = 2; i < buf.length - 9; i++) {
-      if (buf[i] !== 0xff) continue;
+    //
+    // ⚠️ FOLLOW THE SEGMENT CHAIN. DO NOT SCAN FOR THE BYTE PATTERN. This was a
+    // linear search for 0xFF followed by C0–CF, and it found the wrong frame:
+    // an EXIF block contains an embedded THUMBNAIL, that thumbnail is itself a
+    // complete JPEG, and its SOF marker comes first. Measured: a 2048x1365
+    // photograph reported 256x171 — the thumbnail — and was thrown out for being
+    // too small. Every camera photo with EXIF hit this.
+    //
+    // Each marker declares its own length, so stepping segment to segment skips
+    // the EXIF block whole and lands on the real frame.
+    let i = 2; // past the SOI marker
+    while (i < buf.length - 9) {
+      if (buf[i] !== 0xff) {
+        i++;
+        continue;
+      }
       const marker = buf[i + 1];
-      if (marker < 0xc0 || marker > 0xcf) continue;
-      if (marker === 0xc4 || marker === 0xc8 || marker === 0xcc) continue;
-      const height = (buf[i + 5] << 8) | buf[i + 6];
-      const width = (buf[i + 7] << 8) | buf[i + 8];
-      return Math.max(width, height) >= MIN_PHOTO_EDGE;
+      // 0xFF is padding; SOI/TEM/RSTn stand alone and carry no length field.
+      if (marker === 0xff) {
+        i++;
+        continue;
+      }
+      if (marker === 0xd8 || marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) {
+        i += 2;
+        continue;
+      }
+      const length = (buf[i + 2] << 8) | buf[i + 3];
+      if (length < 2) break; // malformed; stop rather than loop forever
+      // C4, C8 and CC share the range but are Huffman/arithmetic tables, not SOF.
+      if (
+        marker >= 0xc0 &&
+        marker <= 0xcf &&
+        marker !== 0xc4 &&
+        marker !== 0xc8 &&
+        marker !== 0xcc
+      ) {
+        const height = (buf[i + 5] << 8) | buf[i + 6];
+        const width = (buf[i + 7] << 8) | buf[i + 8];
+        return Math.max(width, height) >= MIN_PHOTO_EDGE;
+      }
+      if (marker === 0xda) break; // start of scan: no frame header ahead of us
+      i += 2 + length;
     }
 
     // Some other format, or SOF beyond the header we read. Not our call.
