@@ -26,6 +26,7 @@ import { SHARED_PLACE_NAMES } from '../src/constants/sharedNames';
 import type { Hut } from '../src/types/hut';
 import { distinctiveTokens, normalizePlaceName, textNamesPlace } from '../src/utils/dedupePlaces';
 import { isFallbackHutName } from '../src/utils/hutMeta';
+import { resolveWikimedia } from './wikimediaPhotos';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const REGIONS = join(ROOT, 'assets', 'data', 'regions');
@@ -151,6 +152,51 @@ function absolute(src: string, page: string): string | null {
 }
 
 /**
+ * The place's website, looking past the one tag we have always read.
+ *
+ * `overpass.ts` fills `hut.website` from `website` / `contact:website` / `url`,
+ * which covers the semantic tags. It does not cover the language-suffixed forms,
+ * the operator's site, or a URL somebody simply typed into a prose field —
+ * Bivouac Biagio Musso keeps its address in `description`.
+ *
+ * ⚠️ PROSE IS GATED ON THE NAME. A URL in `description` is as likely to be a
+ * newspaper article about the place, or `postdirekt.de` because a mapper looked
+ * up a postcode. Requiring a distinctive word from the place's own name to
+ * appear in the URL throws those out without a blocklist to maintain — and a
+ * blocklist would never have predicted `postdirekt.de` anyway.
+ */
+const URL_TAGS = [
+  'operator:website', 'website:en', 'website:de', 'website:fr', 'website:it',
+  'contact:webseite', 'website:mobile', 'brand:website',
+];
+const PROSE_TAGS = ['description', 'note', 'source'];
+
+/** German writes ö as "oe" in a domain name; NFD stripping gives "o". Both
+ *  spellings have to be accepted or half the Alpine names never match. */
+function urlSpellings(token: string): string[] {
+  const german = token
+    .replace(/ö/g, 'oe').replace(/ä/g, 'ae').replace(/ü/g, 'ue');
+  return german === token ? [token] : [token, german];
+}
+
+function websiteOf(hut: Hut): string | undefined {
+  if (hut.website) return hut.website;
+  for (const key of URL_TAGS) {
+    const v = hut.tags?.[key];
+    if (v?.trim()) return v;
+  }
+  const tokens = distinctiveTokens(normalizePlaceName(hut.name)).flatMap(urlSpellings);
+  if (!tokens.length) return undefined;
+  for (const key of PROSE_TAGS) {
+    const m = String(hut.tags?.[key] ?? '').match(/https?:\/\/[^\s;,)"']+/);
+    if (!m) continue;
+    const url = m[0].toLowerCase();
+    if (tokens.some((t) => t.length >= 4 && url.includes(t))) return m[0];
+  }
+  return undefined;
+}
+
+/**
  * The URLs worth trying for a place's page, best first.
  *
  * OSM's `website` tag is often stale in small ways: the scheme never got
@@ -167,6 +213,29 @@ function siteCandidates(raw?: string): string[] {
   const path = bare.slice(host.length);
   const swapped = host.startsWith('www.') ? host.slice(4) : `www.${host}`;
   return [`https://${bare}`, `https://${swapped}${path}`, `http://${bare}`];
+}
+
+/**
+ * Is another host or scheme worth a second socket?
+ *
+ * ⚠️ EVERY EXTRA ATTEMPT IS A SOCKET, and on Windows a closed one lingers in
+ * TIME_WAIT for minutes. Blindly trying all three variants on every dead domain
+ * took a full run from 5.3/s to 0.4/s and left it seven hours from finishing —
+ * the same exhaustion that killed the very first build, arrived at from a new
+ * direction. So retry only when a different name or scheme could actually fix
+ * the failure we just saw.
+ */
+function worthAnotherTry(err: unknown, next: string | undefined): boolean {
+  if (!next) return false;
+  const code = String(
+    (err as { cause?: { code?: string } })?.cause?.code ?? (err as Error)?.name ?? '',
+  );
+  // A host too slow to answer over https will not be quicker over http.
+  if (/Timeout|Abort/i.test(code)) return false;
+  // DNS has no record for this name at all; only a DIFFERENT hostname can help,
+  // never the same one with the scheme changed.
+  if (code === 'ENOTFOUND') return next.startsWith('https://');
+  return true; // bad certificate, refused connection: another form may serve
 }
 
 /**
@@ -283,20 +352,23 @@ async function isPhoto(url: string): Promise<boolean> {
 const SITE_TIMEOUT_MS = 15_000;
 
 async function fromWebsite(hut: Hut): Promise<Photo[]> {
-  const candidates = siteCandidates(hut.website);
+  const candidates = siteCandidates(websiteOf(hut));
   if (!candidates.length) return [];
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), SITE_TIMEOUT_MS);
   try {
-    // Try https, then the www/apex swap, then http. First one that answers wins.
+    // Try https, then the www/apex swap, then http — but only as far as the
+    // previous failure justifies. See worthAnotherTry.
     let res: Response | null = null;
     let page = candidates[0];
-    for (const candidate of candidates) {
+    for (let i = 0; i < candidates.length; i++) {
       try {
-        const r = await fetch(candidate, { signal: ctrl.signal, redirect: 'follow' });
-        if (r.ok) { res = r; page = candidate; break; }
-      } catch {
+        const r = await fetch(candidates[i], { signal: ctrl.signal, redirect: 'follow' });
+        if (r.ok) { res = r; page = candidates[i]; break; }
+        break; // a 404 or 500 IS the site answering; another scheme won't help
+      } catch (err) {
         if (ctrl.signal.aborted) return []; // our own timeout, not this host's fault
+        if (!worthAnotherTry(err, candidates[i + 1])) break;
       }
     }
     if (!res) return [];
@@ -401,7 +473,24 @@ async function main() {
   }
   console.log(`resolving ${places.length.toLocaleString()}${LIMIT ? ' (SAMPLE)' : ''}\n`);
   if (!places.length) { console.log('nothing left to do'); return; }
+
+  /**
+   * ── Wikimedia first, in bulk ───────────────────────────────────────────────
+   *
+   * Before the per-place loop, because these APIs answer 50 places per request
+   * and the loop's whole shape — one place, one worker, a pause between calls —
+   * is built for hosts that can only be asked about one place at a time. Running
+   * it here costs a couple of minutes for every place in the pass.
+   *
+   * It goes first for a second reason: these are the photos least likely to be
+   * wrong. P18 is bound to the entity, not matched against a name.
+   */
+  console.log('wikimedia (batched):');
+  const wikimedia = await resolveWikimedia(places, (line) => console.log(line));
+  console.log(`  -> ${wikimedia.size.toLocaleString()} places\n`);
+
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
+  let viaWikimedia = 0;
   const t0 = Date.now();
 
   /**
@@ -432,9 +521,19 @@ async function main() {
       const hut = places[i];
       const found: Photo[] = [];
 
-      const c = await commonsByName(hut);
-      if (c.length) { found.push(...c); viaCommons++; }
-      await sleep(180);
+      // Resolved in bulk above. First in the gallery: bound to the entity
+      // rather than matched on a name, so it cannot be another place's hut.
+      const wm = wikimedia.get(hut.id);
+      if (wm?.length) { found.push(...wm); viaWikimedia++; }
+
+      // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
+      // nothing. It matches on a file's NAME, which is exactly the weak link —
+      // no point running it for a place that already has its own P18.
+      if (!found.length) {
+        const c = await commonsByName(hut);
+        if (c.length) { found.push(...c); viaCommons++; }
+        await sleep(180);
+      }
 
       if (found.length < 2) {
         const w = await fromWebsite(hut);
@@ -484,7 +583,8 @@ async function main() {
   console.log(`\n\n${'='.repeat(58)}`);
   console.log(`${RETRY_EMPTY ? 're-attempted' : 'resolved  '} ${done.toLocaleString()}`);
   console.log(`${RETRY_EMPTY ? 'recovered ' : 'with photo'} ${(done - none).toLocaleString()}  ${(((done - none) / done) * 100).toFixed(1)}%   <- the REAL rate`);
-  console.log(`  Commons  ${viaCommons.toLocaleString()}`);
+  console.log(`  wikimedia ${viaWikimedia.toLocaleString()}   (osm tag, P18, wikipedia, category)`);
+  console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
   console.log(`\nINDEX NOW  ${hit.toLocaleString()} of ${total.toLocaleString()} places have a photo  ${((hit / total) * 100).toFixed(1)}%`);
