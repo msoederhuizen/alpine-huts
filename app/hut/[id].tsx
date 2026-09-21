@@ -23,6 +23,8 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fetchHutGallery } from '../../src/api/hutPhotos';
+import { writeCachedPhotos } from '../../src/utils/photoCache';
+import { keepBrowsedPhotos } from '../../src/utils/photoFiles';
 import { COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
 import { bundledHutById } from '../../src/data/hutBundle';
 import { getUserPhotos, useHutUserDataStore } from '../../src/store/hutUserDataStore';
@@ -76,6 +78,21 @@ export default function HutDetailScreen() {
     enabled: !!hut,
     staleTime: Infinity,
   });
+
+  // Keep what you just looked at, so opening this hut again works with no
+  // signal — which is when you actually need it. Deliberately silent: it runs
+  // after the photos are already on screen and changes nothing you can see.
+  useEffect(() => {
+    if (!webPhotos?.length || !id) return;
+    let cancelled = false;
+    void (async () => {
+      const kept = await keepBrowsedPhotos(webPhotos);
+      if (kept && !cancelled) await writeCachedPhotos(id, kept);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [webPhotos, id]);
 
   // Full ordered gallery: the user's photos first, then the web photos.
   const photos: HutImage[] = useMemo(

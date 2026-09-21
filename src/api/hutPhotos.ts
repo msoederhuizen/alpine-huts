@@ -3,6 +3,7 @@ import { refugesPhotosFor } from '../data/refugesPhotos';
 import type { Hut } from '../types/hut';
 import { resolveHutImage, type HutImage } from '../utils/hutImage';
 import { readCachedPhotos, writeCachedPhotos } from '../utils/photoCache';
+import { pruneMissingLocal } from '../utils/photoFiles';
 import { fetchCommonsCategoryImages, searchCommonsImages } from './commons';
 import { withCommonsCredits } from './commonsCredits';
 import { fetchSiteImage } from './siteImage';
@@ -30,8 +31,12 @@ export async function fetchHutGallery(
   // This is what makes reopening a hut instant instead of four round trips,
   // and it matters most for huts with NO photos, where every source is tried
   // and every one fails.
+  //
+  // `pruneMissingLocal` drops any `localUri` whose file the browse cache has
+  // since evicted, so the gallery falls back to the web URL instead of showing
+  // a broken image — see photoFiles.ts.
   const cached = await readCachedPhotos(hut.id);
-  if (cached) return cached;
+  if (cached) return pruneMissingLocal(cached);
 
   const photos: HutImage[] = [];
   const seen = new Set<string>();

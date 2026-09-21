@@ -21,9 +21,10 @@
  *
  * So a candidate must agree on BOTH position and name.
  *
- * Needs the DuckDB CLI — a single standalone binary, no install:
- *   https://duckdb.org/docs/installation/   (or `winget install DuckDB.cli`)
- * Point DUCKDB_PATH at it, or have `duckdb` on PATH.
+ * Needs the DuckDB CLI — a single standalone binary, no installer and no admin
+ * rights. It is looked for in DUCKDB_PATH, then on PATH, then in the per-user
+ * spot this project keeps it (see `findDuckdb`). Get it from
+ * https://duckdb.org/docs/installation/ if it is missing.
  *
  * Run: npm run generate-overture-websites
  */
@@ -112,6 +113,39 @@ function namesAgree(ours: string, theirs: string, metres: number): boolean {
   return a === b || b.includes(a) || a.includes(b);
 }
 
+/**
+ * Where the DuckDB binary actually is.
+ *
+ * ⚠️ PATH IS NOT ENOUGH ON THIS MACHINE. Node here is a portable, non-admin
+ * install and so is DuckDB; both were added to the USER path, but a shell
+ * spawned from an already-running process keeps the environment it inherited
+ * and never sees the change. A script that only tried `duckdb` would fail for
+ * the rest of the session and work perfectly tomorrow, which is a miserable
+ * thing to debug. So the known per-user location is checked too.
+ */
+function findDuckdb(): string | null {
+  const candidates = [
+    process.env.DUCKDB_PATH,
+    'duckdb',
+    process.env.LOCALAPPDATA ? join(process.env.LOCALAPPDATA, 'duckdb', 'duckdb.exe') : undefined,
+    process.env.HOME ? join(process.env.HOME, '.local', 'bin', 'duckdb') : undefined,
+    '/usr/local/bin/duckdb',
+    '/opt/homebrew/bin/duckdb',
+  ].filter((c): c is string => !!c);
+
+  for (const c of candidates) {
+    try {
+      // Bare `duckdb` has to be resolved by the shell, so ask it to run rather
+      // than testing the file — existsSync would say no for a name on PATH.
+      execFileSync(c, ['-c', 'SELECT 1'], { stdio: 'ignore' });
+      return c;
+    } catch {
+      // not here, or not runnable — try the next
+    }
+  }
+  return null;
+}
+
 const csvCell = (v: unknown) => {
   const s = String(v ?? '');
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
@@ -147,7 +181,19 @@ function parseCsv(text: string): Record<string, string>[] {
 }
 
 function main() {
-  const duckdb = process.env.DUCKDB_PATH ?? 'duckdb';
+  // Checked BEFORE the region files are read: finding out that the one external
+  // tool is missing should not cost a minute of parsing first.
+  const duckdb = findDuckdb();
+  if (!duckdb) {
+    console.error(
+      'Could not find the DuckDB CLI.\n' +
+      '  It is a single standalone binary — no installer, no admin rights:\n' +
+      '    https://duckdb.org/docs/installation/\n' +
+      '  Put it on PATH, in %LOCALAPPDATA%\\duckdb\\, or point DUCKDB_PATH at it.',
+    );
+    process.exit(1);
+  }
+  console.log(`duckdb: ${duckdb}`);
 
   // ── Who still needs a website ─────────────────────────────────────────────
   const idx: Record<string, unknown[]> = existsSync(PHOTO_INDEX)
@@ -261,11 +307,14 @@ COPY (
   console.log('querying Overture (this reads only the bbox, ~1 min)...');
   try {
     execFileSync(duckdb, ['-c', `.read ${sqlFile.replace(/\\/g, '/')}`], { stdio: 'inherit' });
-  } catch (e) {
+  } catch {
+    // It ran a moment ago in findDuckdb, so this is the QUERY failing, not a
+    // missing binary — a stale release path or no network, most likely.
     console.error(
-      `\nFAILED to run DuckDB ("${duckdb}").\n` +
-      `  Get the standalone binary from https://duckdb.org/docs/installation/\n` +
-      `  then set DUCKDB_PATH to it, or put it on PATH.\n`,
+      `\nThe Overture query failed.\n` +
+      `  Release in use: ${RELEASE}\n` +
+      `  If that release has been retired, pick a current one from\n` +
+      `  https://docs.overturemaps.org/release/ and update RELEASE.\n`,
     );
     rmSync(work, { recursive: true, force: true });
     process.exit(1);
