@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { COLORS } from '../constants/theme';
 import { useHutCoverPhoto } from '../hooks/useHutCoverPhoto';
@@ -34,6 +35,14 @@ export function HutSelectionCard({
   const kind = hutTypeLabel(hut.type);
   const { photo } = useHutCoverPhoto(hut);
 
+  // ⚠️ The index ships URLs, not bytes, so `photo` is set even with no
+  // connection — and the thumbnail then drew an empty box. The detail screen
+  // has always fallen back to its placeholder; this is the same fallback.
+  // Reset on a new hut, or the previous failure hides the next one's photo.
+  const [failed, setFailed] = useState(false);
+  useEffect(() => setFailed(false), [hut.id]);
+  const showPhoto = !!photo && !failed;
+
   return (
     <View style={styles.card}>
       <TouchableOpacity
@@ -46,8 +55,12 @@ export function HutSelectionCard({
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.topRow} onPress={onDetails} activeOpacity={0.7}>
-        {photo ? (
-          <Image source={{ uri: displayUri(photo) }} style={styles.thumb} />
+        {showPhoto ? (
+          <Image
+            source={{ uri: displayUri(photo) }}
+            style={styles.thumb}
+            onError={() => setFailed(true)}
+          />
         ) : (
           <View style={[styles.thumb, styles.thumbPlaceholder]}>
             <Ionicons name="image-outline" size={22} color="#c4c4c4" />
