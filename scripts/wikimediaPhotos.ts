@@ -284,11 +284,13 @@ export async function resolveWikimedia(
 
   // ── 4. Commons categories, for places still empty ─────────────────────────
   let fromCat = 0;
+  let triedCat = 0;
   const catFor = new Map<string, string[]>(); // hut id -> filenames
   for (const [hutId, cat] of categories) {
     // A curated single image already beat this; a category is the weaker claim,
     // holding whatever anyone filed under the name.
     if (hasP18.has(hutId) || wpFor.has(hutId)) continue;
+    triedCat++;
     const files = await categoryFiles(cat);
     if (files.length) {
       fromCat++;
@@ -297,7 +299,10 @@ export async function resolveWikimedia(
     }
     await sleep(PAUSE_MS);
   }
-  log(`  commons category        ${fromCat}   (of ${categories.size} with a category)`);
+  // ⚠️ The denominator is the places that REACHED this step, not everything
+  // with a category — most of those were already settled by P18 above, and
+  // printing the full count reads like a 5% hit rate on a source doing fine.
+  log(`  commons category        ${fromCat}   (of ${triedCat} that got this far, ${categories.size} have one)`);
 
   // ── 5. One pass for every Commons file's URL, author and licence ──────────
   const info = await commonsFileInfo([...needCredit.keys()]);
