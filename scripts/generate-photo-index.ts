@@ -34,6 +34,8 @@ const OUT = join(ROOT, 'assets', 'data', 'photo-index.json');
 const REFUGES = join(ROOT, 'assets', 'data', 'refuges-photos.json');
 /** Build scratch, not shipped: which empties this retry pass has already redone. */
 const RETRIED = join(ROOT, 'assets', 'data', 'photo-index-retried.json');
+/** Optional, from `npm run generate-overture-websites`. */
+const OVERTURE_SITES = join(ROOT, 'assets', 'data', 'overture-websites.json');
 
 const LIMIT = Number(process.env.PHOTO_INDEX_LIMIT ?? 0);
 
@@ -171,6 +173,15 @@ const URL_TAGS = [
 ];
 const PROSE_TAGS = ['description', 'note', 'source'];
 
+/**
+ * Websites matched from Overture Maps by coordinate AND name — see
+ * scripts/generate-overture-websites.ts. Optional: absent until that has been
+ * run, and the build simply proceeds without them.
+ */
+const OVERTURE: Record<string, { url: string }> = existsSync(OVERTURE_SITES)
+  ? JSON.parse(readFileSync(OVERTURE_SITES, 'utf8'))
+  : {};
+
 /** German writes ö as "oe" in a domain name; NFD stripping gives "o". Both
  *  spellings have to be accepted or half the Alpine names never match. */
 function urlSpellings(token: string): string[] {
@@ -185,6 +196,12 @@ function websiteOf(hut: Hut): string | undefined {
     const v = hut.tags?.[key];
     if (v?.trim()) return v;
   }
+  // Below OSM's own tags — a mapper entered those for THIS object — but above
+  // a URL found loose in prose, because Overture's was matched on position and
+  // name together rather than on a word appearing somewhere in a sentence.
+  const overture = OVERTURE[hut.id]?.url;
+  if (overture) return overture;
+
   const tokens = distinctiveTokens(normalizePlaceName(hut.name)).flatMap(urlSpellings);
   if (!tokens.length) return undefined;
   for (const key of PROSE_TAGS) {

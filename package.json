@@ -47,6 +47,7 @@
     "generate-huts": "tsx scripts/generate-huts.ts",
     "generate-shared-names": "tsx scripts/generate-shared-names.ts",
     "generate-refuges-photos": "tsx scripts/generate-refuges-photos.ts",
+    "generate-overture-websites": "tsx scripts/generate-overture-websites.ts",
     "generate-photo-index": "tsx scripts/generate-photo-index.ts",
     "retry-photo-index": "tsx scripts/generate-photo-index.ts --retry",
     "check-routes": "tsx scripts/check-routes.mjs",
