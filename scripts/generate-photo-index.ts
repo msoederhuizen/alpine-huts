@@ -26,6 +26,7 @@ import { SHARED_PLACE_NAMES } from '../src/constants/sharedNames';
 import type { Hut } from '../src/types/hut';
 import { distinctiveTokens, normalizePlaceName, textNamesPlace } from '../src/utils/dedupePlaces';
 import { isFallbackHutName } from '../src/utils/hutMeta';
+import { resolveOpenDataHub } from './odhPhotos';
 import { resolveWikimedia } from './wikimediaPhotos';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -506,8 +507,17 @@ async function main() {
   const wikimedia = await resolveWikimedia(places, (line) => console.log(line));
   console.log(`  -> ${wikimedia.size.toLocaleString()} places\n`);
 
+  // Open Data Hub, also in bulk. Ranked below Wikimedia because a P18 is an
+  // encyclopedic statement about the entity, while this is a tourism board's
+  // gallery — but above everything else, because it is the only other source
+  // that states a licence and names a photographer instead of leaving us to
+  // rely on a site having published an og:image for sharing.
+  console.log('open data hub (batched):');
+  const odh = await resolveOpenDataHub(places, (line) => process.stdout.write(`${line}\r`));
+  console.log(`\n  -> ${odh.size.toLocaleString()} places\n`);
+
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
-  let viaWikimedia = 0;
+  let viaWikimedia = 0, viaOdh = 0;
   const t0 = Date.now();
 
   /**
@@ -542,6 +552,9 @@ async function main() {
       // rather than matched on a name, so it cannot be another place's hut.
       const wm = wikimedia.get(hut.id);
       if (wm?.length) { found.push(...wm); viaWikimedia++; }
+
+      const od = odh.get(hut.id);
+      if (od?.length) { found.push(...od); viaOdh++; }
 
       // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
       // nothing. It matches on a file's NAME, which is exactly the weak link —
@@ -601,6 +614,7 @@ async function main() {
   console.log(`${RETRY_EMPTY ? 're-attempted' : 'resolved  '} ${done.toLocaleString()}`);
   console.log(`${RETRY_EMPTY ? 'recovered ' : 'with photo'} ${(done - none).toLocaleString()}  ${(((done - none) / done) * 100).toFixed(1)}%   <- the REAL rate`);
   console.log(`  wikimedia ${viaWikimedia.toLocaleString()}   (osm tag, P18, wikipedia, category)`);
+  console.log(`  odh      ${viaOdh.toLocaleString()}   (open data hub, CC BY / CC BY-SA)`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
