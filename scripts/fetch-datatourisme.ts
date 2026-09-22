@@ -65,7 +65,27 @@ async function main() {
     process.exit(1);
   }
   if (!res.ok) {
-    console.error(`HTTP ${res.status}. A 401/403 means the application key is wrong or the flux is not published yet.`);
+    // ⚠️ PRINT WHAT THE SERVER SAID, not a guess at what it meant. This used to
+    // claim a failure implied a bad key; the first real failure was a 503
+    // carrying "Le flux est en cours de programmation" — the feed was simply
+    // still being generated, and the key was fine. The guess cost a detour.
+    const body = await res.text().catch(() => '');
+    console.error(`HTTP ${res.status}`);
+    if (body.trim()) {
+      try {
+        const j = JSON.parse(body);
+        console.error(`  ${j.message ?? body.slice(0, 300)}`);
+      } catch {
+        console.error(`  ${body.replace(/\s+/g, ' ').slice(0, 300)}`);
+      }
+    }
+    if (res.status === 503) {
+      console.error('\n  503 here normally means the flux is still being built. DATAtourisme');
+      console.error('  generates feeds on a schedule and emails you when yours is ready.');
+    }
+    if (res.status === 401 || res.status === 403) {
+      console.error('\n  401/403 is the application key: check it in .env against diffuseur.');
+    }
     process.exit(1);
   }
 
