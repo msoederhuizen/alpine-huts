@@ -26,6 +26,7 @@ import { SHARED_PLACE_NAMES } from '../src/constants/sharedNames';
 import type { Hut } from '../src/types/hut';
 import { distinctiveTokens, normalizePlaceName, textNamesPlace } from '../src/utils/dedupePlaces';
 import { isFallbackHutName } from '../src/utils/hutMeta';
+import { resolveCai } from './caiPhotos';
 import { resolveOpenDataHub } from './odhPhotos';
 import { resolveWikimedia } from './wikimediaPhotos';
 
@@ -516,8 +517,19 @@ async function main() {
   const odh = await resolveOpenDataHub(places, (line) => process.stdout.write(`${line}\r`));
   console.log(`\n  -> ${odh.size.toLocaleString()} places\n`);
 
+  // The Club Alpino Italiano register. Below ODH because it states no licence,
+  // above everything after it because it is matched on position and name and
+  // it is the hut's OWN club describing it.
+  //
+  // ⚠️ It reaches what nothing else does. 107 of its 153 matches are wilderness
+  // huts and bivouacs — the segment Overture manages 1% of, Wikimedia only
+  // covers when notable, and tourism boards ignore entirely.
+  console.log('cai register (paged):');
+  const cai = await resolveCai(places, (line) => process.stdout.write(`${line}\r`));
+  console.log(`\n  -> ${cai.size.toLocaleString()} places\n`);
+
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
-  let viaWikimedia = 0, viaOdh = 0;
+  let viaWikimedia = 0, viaOdh = 0, viaCai = 0;
   const t0 = Date.now();
 
   /**
@@ -555,6 +567,9 @@ async function main() {
 
       const od = odh.get(hut.id);
       if (od?.length) { found.push(...od); viaOdh++; }
+
+      const ci = cai.get(hut.id);
+      if (ci?.length) { found.push(...ci); viaCai++; }
 
       // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
       // nothing. It matches on a file's NAME, which is exactly the weak link —
@@ -615,6 +630,7 @@ async function main() {
   console.log(`${RETRY_EMPTY ? 'recovered ' : 'with photo'} ${(done - none).toLocaleString()}  ${(((done - none) / done) * 100).toFixed(1)}%   <- the REAL rate`);
   console.log(`  wikimedia ${viaWikimedia.toLocaleString()}   (osm tag, P18, wikipedia, category)`);
   console.log(`  odh      ${viaOdh.toLocaleString()}   (open data hub, CC BY / CC BY-SA)`);
+  console.log(`  cai      ${viaCai.toLocaleString()}   (club alpino italiano register)`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
