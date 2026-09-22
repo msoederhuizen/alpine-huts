@@ -49,3 +49,6 @@ yarn-error.*
 
 # resume scratch for `npm run retry-photo-index`; deleted when the pass finishes
 assets/data/photo-index-retried.json
+
+# DATAtourisme raw flux download (build scratch, can be large)
+assets/data/.datatourisme-raw*
