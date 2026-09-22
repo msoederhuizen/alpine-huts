@@ -62,15 +62,18 @@ planner into something else: not.
 `expo-updates` is installed and configured, but it does not yet know where to
 fetch from. That requires an EAS project:
 
+⚠️ The command is `eas-cli`, not `eas` — `npx eas` fails with "could not
+determine executable to run".
+
 ```bash
-npx eas login
-npx eas init          # fills in extra.eas.projectId and updates.url in app.json
+npx eas-cli@latest login
+npx eas-cli@latest init   # writes extra.eas.projectId and updates.url into app.json
 ```
 
 Then build once so the native side contains `expo-updates`:
 
 ```bash
-npx eas build --profile production --platform ios
+npx eas-cli@latest build --profile production --platform ios
 ```
 
 **OTA only works from that build onwards.** The binary currently on any phone
