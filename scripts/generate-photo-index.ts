@@ -27,6 +27,7 @@ import type { Hut } from '../src/types/hut';
 import { distinctiveTokens, normalizePlaceName, textNamesPlace } from '../src/utils/dedupePlaces';
 import { isFallbackHutName } from '../src/utils/hutMeta';
 import { resolveCai } from './caiPhotos';
+import { resolveDatatourisme } from './datatourismePhotos';
 import { resolveOpenDataHub } from './odhPhotos';
 import { resolveWikimedia } from './wikimediaPhotos';
 
@@ -528,8 +529,26 @@ async function main() {
   const cai = await resolveCai(places, (line) => process.stdout.write(`${line}\r`));
   console.log(`\n  -> ${cai.size.toLocaleString()} places\n`);
 
+  /**
+   * DATAtourisme, only when DATATOURISME_DIR points at an extracted flux.
+   *
+   * ⚠️ OPTIONAL BECAUSE IT IS 3 GB OF LOOSE FILES. The flux is an 823 MB zip of
+   * 129,609 JSON documents that has to be unpacked before anything can read it,
+   * and making the ordinary build depend on that would be absurd for what it
+   * returns: measured, 87% of our French places have no DATAtourisme record
+   * within 500 m at all, and the hard ceiling for the rest is ~101 photos.
+   * It covers valley gîtes and hotels, not mountain refuges.
+   */
+  const dtDir = process.env.DATATOURISME_DIR;
+  let datatourisme = new Map<string, Photo[]>();
+  if (dtDir) {
+    console.log('datatourisme (local flux):');
+    datatourisme = await resolveDatatourisme(places, dtDir, (line) => console.log(line));
+    console.log(`  -> ${datatourisme.size.toLocaleString()} places\n`);
+  }
+
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
-  let viaWikimedia = 0, viaOdh = 0, viaCai = 0;
+  let viaWikimedia = 0, viaOdh = 0, viaCai = 0, viaDt = 0;
   const t0 = Date.now();
 
   /**
@@ -570,6 +589,9 @@ async function main() {
 
       const ci = cai.get(hut.id);
       if (ci?.length) { found.push(...ci); viaCai++; }
+
+      const dt = datatourisme.get(hut.id);
+      if (dt?.length) { found.push(...dt); viaDt++; }
 
       // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
       // nothing. It matches on a file's NAME, which is exactly the weak link —
@@ -631,6 +653,7 @@ async function main() {
   console.log(`  wikimedia ${viaWikimedia.toLocaleString()}   (osm tag, P18, wikipedia, category)`);
   console.log(`  odh      ${viaOdh.toLocaleString()}   (open data hub, CC BY / CC BY-SA)`);
   console.log(`  cai      ${viaCai.toLocaleString()}   (club alpino italiano register)`);
+  if (dtDir) console.log(`  dtourism ${viaDt.toLocaleString()}   (datatourisme, Licence Ouverte)`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
