@@ -1,11 +1,12 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { loadRemoteConfig } from '../src/api/remoteConfig';
 import { RegionPicker } from '../src/components/RegionPicker';
 import { COLORS } from '../src/constants/theme';
 import { useSelectedRegionsStore } from '../src/store/selectedRegionsStore';
@@ -22,6 +23,15 @@ import { useSelectedRegionsStore } from '../src/store/selectedRegionsStore';
 // (Photos/notes/routes persist separately via Zustand — unaffected.)
 
 export default function RootLayout() {
+  // Settings that can change without an app release — chiefly the routing
+  // server's address. Deliberately unawaited and un-rendered: it reads a cached
+  // copy, refreshes from the web in the background, and every failure is
+  // swallowed. Nothing on screen waits for it, and the app is unchanged if it
+  // never completes. See src/api/remoteConfig.ts.
+  useEffect(() => {
+    void loadRemoteConfig();
+  }, []);
+
   // One client for the app's lifetime; huts rarely change so cache them long.
   const queryClient = useRef(
     new QueryClient({

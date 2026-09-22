@@ -1,3 +1,4 @@
+import { remoteBrouterUrl } from './remoteConfig';
 import type { LegSegment, RideMode, RideUse } from '../types/ride';
 import { buildElevationProfile } from '../utils/elevationProfile';
 import { metresBetween } from '../utils/geo';
@@ -49,7 +50,7 @@ export interface RouteLeg {
 const PUBLIC_BROUTER_URL = 'https://brouter.de/brouter';
 
 /**
- * Routing server. Point this at a self-hosted BRouter with a `.env` entry:
+ * Routing server, for development, from a `.env` entry:
  *
  *     EXPO_PUBLIC_BROUTER_URL=http://192.168.1.23:17777/brouter
  *
@@ -57,11 +58,32 @@ const PUBLIC_BROUTER_URL = 'https://brouter.de/brouter';
  * `localhost` there means the phone itself. `scripts/setup-brouter.sh` sets the
  * server up; run `npm run brouter` to start it.
  */
-const BROUTER_URL =
+const BUILT_IN_BROUTER_URL =
   process.env.EXPO_PUBLIC_BROUTER_URL?.replace(/\/+$/, '') || PUBLIC_BROUTER_URL;
 
-/** True when we're leaning on the shared community server rather than our own. */
-const USING_PUBLIC_SERVER = BROUTER_URL === PUBLIC_BROUTER_URL;
+/**
+ * ⚠️ A FUNCTION, NOT A CONSTANT, and that is the whole point.
+ *
+ * This used to be `const BROUTER_URL = process.env…`, read once at BUILD time
+ * and frozen into the shipped app. Moving the routing server — or having its
+ * host disappear — then broke route planning for every installed copy, fixable
+ * only by an App Store release that users then had to install. For an app
+ * whose purpose is planning walks, that is the single most fragile thing in it.
+ *
+ * `remoteBrouterUrl()` comes from a JSON file on the project's own site, so the
+ * address can be changed with a `git push` and every copy picks it up on its
+ * next launch. The build-time value remains the fallback, which is what keeps
+ * `npm start` against a laptop working exactly as before.
+ */
+function primaryBase(): string {
+  return remoteBrouterUrl() ?? BUILT_IN_BROUTER_URL;
+}
+
+/** True when we're leaning on the shared community server rather than our own.
+ *  Evaluated per call, since the primary can now change while the app runs. */
+function usingPublicServer(): boolean {
+  return primaryBase() === PUBLIC_BROUTER_URL;
+}
 
 /**
  * Max requests in flight at once, and how we recover when BRouter says no.
@@ -105,8 +127,8 @@ const PRIMARY_RETRY_AFTER_MS = 60_000;
 
 /** Which server this request should use, honouring any active failover. */
 function activeBase(): string {
-  if (USING_PUBLIC_SERVER) return PUBLIC_BROUTER_URL;
-  return Date.now() < primaryDownUntil ? PUBLIC_BROUTER_URL : BROUTER_URL;
+  if (usingPublicServer()) return PUBLIC_BROUTER_URL;
+  return Date.now() < primaryDownUntil ? PUBLIC_BROUTER_URL : primaryBase();
 }
 /** True when we're currently talking to the shared community server. */
 const onPublic = () => activeBase() === PUBLIC_BROUTER_URL;
@@ -477,7 +499,7 @@ export async function fetchLeg(
     // 5xx/0 counts: a 403/429 is throttling, and the public server is where
     // that comes FROM, so failing over on it would make things worse.
     const primaryFailed =
-      !USING_PUBLIC_SERVER &&
+      !usingPublicServer() &&
       !onPublic() &&
       (status === 0 || status >= 500);
     if (primaryFailed) {

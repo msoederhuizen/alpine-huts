@@ -11,6 +11,7 @@ import {
   View,
 } from 'react-native';
 
+import { remoteSupportEmail } from '../src/api/remoteConfig';
 import { COLORS, RADIUS, coloredShadow } from '../src/constants/theme';
 import { clearPhotoCache } from '../src/utils/photoCache';
 import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoFiles';
@@ -33,14 +34,14 @@ import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoF
  * both during review. Served from the repo's `docs/` folder via GitHub Pages,
  * so the same commit that changes the policy publishes it.
  *
- * ⚠️ The support address is COMPILED IN. Changing it later needs an app
- * release, and anyone who does not update keeps writing to the old one —
- * possibly for years. If it is likely to change, point this at the site's
- * `#contact` section instead and edit the address there.
+ * The address below is the FALLBACK. `config.json` on the same site overrides
+ * it at runtime, so it can be changed without an app release — see
+ * src/api/remoteConfig.ts. Keep this value correct anyway: it is what a phone
+ * that has never been online will show.
  */
 const SITE_URL = 'https://msoederhuizen.github.io/alpine-huts/';
 const PRIVACY_URL = `${SITE_URL}privacy.html`;
-const SUPPORT_EMAIL = 'margot.soederhuizen@live.nl';
+const FALLBACK_SUPPORT_EMAIL = 'margot.soederhuizen@live.nl';
 
 const SOURCES = [
   {
@@ -92,6 +93,11 @@ export default function AboutScreen() {
     };
   }, []);
   const open = (url: string) => Linking.openURL(url).catch(() => {});
+
+  // The published address when the phone has seen the web, the compiled-in one
+  // otherwise. Read at render rather than captured, so a change takes effect on
+  // the next launch without any wiring here.
+  const supportEmail = remoteSupportEmail() ?? FALLBACK_SUPPORT_EMAIL;
 
   return (
     <>
@@ -203,11 +209,11 @@ export default function AboutScreen() {
         <View style={styles.card}>
           <TouchableOpacity
             style={styles.linkRow}
-            onPress={() => open(`mailto:${SUPPORT_EMAIL}`)}
+            onPress={() => open(`mailto:${supportEmail}`)}
             activeOpacity={0.7}
           >
             <Ionicons name="mail-outline" size={17} color={COLORS.green} />
-            <Text style={styles.linkText}>{SUPPORT_EMAIL}</Text>
+            <Text style={styles.linkText}>{supportEmail}</Text>
           </TouchableOpacity>
         </View>
 

@@ -1,0 +1,11 @@
+{
+  "_comment": "Settings the Alpine Huts app reads at startup. Edit, commit, push -- every installed copy picks the change up on its next launch, including old versions. See src/api/remoteConfig.ts.",
+  "_brouterUrl": "Routing server base URL. MUST be https (iOS blocks plain http) and MUST NOT end in a slash. Anything malformed is ignored and the app keeps its previous value, so a typo degrades rather than breaks. Leave empty until a permanent host exists.",
+  "brouterUrl": "",
+
+  "_supportEmail": "Shown on the About screen. Changing it here changes it in every installed copy, which is the whole reason this file exists.",
+  "supportEmail": "margot.soederhuizen@live.nl",
+
+  "_notice": "A short message shown to users -- e.g. 'Route planning is down for maintenance'. Leave empty for none. Max 280 characters.",
+  "notice": ""
+}
