@@ -17,6 +17,7 @@
     "expo-location": "~19.0.8",
     "expo-router": "~6.0.24",
     "expo-status-bar": "~3.0.9",
+    "expo-updates": "~29.0.20",
     "react": "19.1.0",
     "react-native": "0.81.5",
     "react-native-draggable-flatlist": "^4.0.3",
@@ -53,8 +54,8 @@
     "check-routes": "tsx scripts/check-routes.mjs",
     "setup-brouter": "powershell -ExecutionPolicy Bypass -File scripts/setup-brouter.ps1",
     "brouter": "java -Xmx2g -cp brouter/brouter.jar btools.server.RouteServer brouter/segments4 brouter/profiles2 brouter/customprofiles 17777 32",
-    "start:lan": "expo start"
+    "start:lan": "expo start",
+    "ota": "eas update --branch production"
   },
   "private": true
 }
-
