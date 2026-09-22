@@ -28,10 +28,19 @@ import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoF
  * add it here at the same time.
  */
 
-/** ⚠️ SET BEFORE SUBMITTING — Apple requires a reachable privacy policy and a
- *  support contact, and both are checked during review. */
-const PRIVACY_URL = 'https://example.com/alpine-huts/privacy';
-const SUPPORT_EMAIL = 'support@example.com';
+/**
+ * Apple requires a reachable privacy policy and a support contact, and checks
+ * both during review. Served from the repo's `docs/` folder via GitHub Pages,
+ * so the same commit that changes the policy publishes it.
+ *
+ * ⚠️ The support address is COMPILED IN. Changing it later needs an app
+ * release, and anyone who does not update keeps writing to the old one —
+ * possibly for years. If it is likely to change, point this at the site's
+ * `#contact` section instead and edit the address there.
+ */
+const SITE_URL = 'https://msoederhuizen.github.io/alpine-huts/';
+const PRIVACY_URL = `${SITE_URL}privacy.html`;
+const SUPPORT_EMAIL = 'margot.soederhuizen@live.nl';
 
 const SOURCES = [
   {
