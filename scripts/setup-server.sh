@@ -11,8 +11,12 @@
 #   3. the firewall actually lets it   (Oracle images block everything but ssh,
 #                                       in iptables as well as in the console)
 #
-# Written for Oracle Cloud's Always Free ARM instance but nothing here is
-# Oracle-specific except the iptables step, which is harmless elsewhere.
+# Works on any current Ubuntu LTS, x86 or ARM: everything comes from the
+# distribution's own repositories rather than pinned versions or third-party
+# apt sources, so a newer release does not break it.
+#
+# The iptables step is only needed on Oracle, whose images block ports a second
+# time on the box itself. It is harmless everywhere else, so it stays.
 #
 #   bash scripts/setup-server.sh routing.yourdomain.com
 #
@@ -44,15 +48,22 @@ echo "==> Routing server for $DOMAIN"
 
 # ── 1. Packages ──────────────────────────────────────────────────────────────
 # Java runs BRouter; Node generates the profiles; the rest are fetch/unpack.
+#
+# ⚠️ UBUNTU'S OWN PACKAGES ONLY — no third-party apt repositories for Java or
+# Node. NodeSource keys its repo on the release codename and can lag months
+# behind a new Ubuntu, which would make this script fail on exactly the newest
+# LTS someone is most likely to have just installed. Ubuntu's `nodejs` is old
+# by Node's standards and entirely sufficient: make-profiles.mjs reads files,
+# edits text and writes files.
+#
+# `default-jre-headless` rather than a pinned version, for the same reason —
+# whatever the distribution considers current will run BRouter.
 echo "==> Packages"
 sudo apt-get update -qq
-sudo apt-get install -y -qq openjdk-21-jre-headless unzip curl ca-certificates
+sudo apt-get install -y -qq default-jre-headless nodejs unzip curl ca-certificates
 
-if ! command -v node >/dev/null 2>&1; then
-  echo "==> Node (for scripts/make-profiles.mjs)"
-  curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-  sudo apt-get install -y -qq nodejs
-fi
+java -version 2>&1 | head -1
+node --version
 
 # ── 2. BRouter itself ────────────────────────────────────────────────────────
 # ~1.2 GB of segments. Resumable, and skipped entirely on a re-run.
@@ -78,7 +89,7 @@ Wants=network-online.target
 Type=simple
 User=$USER
 WorkingDirectory=$BROUTER_DIR
-ExecStart=/usr/bin/java -Xmx2g -cp $BROUTER_DIR/brouter.jar \\
+ExecStart=/usr/bin/java -Xms2g -Xmx2g -cp $BROUTER_DIR/brouter.jar \\
   btools.server.RouteServer \\
   $BROUTER_DIR/segments4 $BROUTER_DIR/profiles2 $BROUTER_DIR/customprofiles \\
   $PORT 16
