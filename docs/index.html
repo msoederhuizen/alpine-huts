@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alpine Huts</title>
+<meta name="description" content="Plan hut-to-hut walks in the Alps and Pyrenees, on real trails, with the data on your phone.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1b1b1b; --muted: #5d5d5d;
+    --rule: #e4e4e4; --accent: #2f6d4f; --card: #f6f7f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14161a; --fg: #e9e9e9; --muted: #a6a6a6;
+      --rule: #2a2d33; --accent: #7fc09b; --card: #1c1f24;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14161a; --fg: #e9e9e9; --muted: #a6a6a6;
+    --rule: #2a2d33; --accent: #7fc09b; --card: #1c1f24;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg); margin: 0; padding: 0 16px;
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 42rem; margin: 0 auto; padding: 4rem 0 5rem; }
+  h1 { font-size: 2.2rem; margin: 0 0 .3rem; line-height: 1.15; }
+  .lede { color: var(--muted); font-size: 1.1rem; margin: 0 0 2.5rem; }
+  h2 { font-size: 1.1rem; color: var(--accent); margin: 2.4rem 0 .6rem; }
+  ul { padding-left: 1.2rem; }
+  li { margin: .35rem 0; }
+  .card {
+    background: var(--card); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 1rem 1.2rem; margin: 1.5rem 0;
+  }
+  .card p { margin: 0; color: var(--muted); }
+  footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Alpine Huts</h1>
+  <p class="lede">Plan hut-to-hut walks in the Alps and Pyrenees, on real trails, with the data already on your phone.</p>
+
+  <h2>What it does</h2>
+  <ul>
+    <li>Over 23,000 huts, refuges, bivouacs and mountain guesthouses across the Alps, Pyrenees and beyond</li>
+    <li>Routes that follow actual paths, with distance, ascent and an honest walking time</li>
+    <li>Difficulty per day on the SAC scale, from a valley stroll to a T6 scramble</li>
+    <li>Cable cars, gondolas and mountain trains, if you would rather not walk up</li>
+    <li>Your own photos and notes for each hut, kept on your phone</li>
+    <li>Hut data works with no signal; photos for your route are downloaded ahead of time</li>
+  </ul>
+
+  <div class="card">
+    <p>No account. No advertising. No tracking. Your location is used to draw your position on the map and never leaves
+    your phone &mdash; see the <a href="privacy.html">privacy policy</a>.</p>
+  </div>
+
+  <h2>Where the data comes from</h2>
+  <p>Hut locations and details come from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>. Photographs
+  come from Wikimedia Commons, refuges.info, Open Data Hub, the Club Alpino Italiano register, and the huts' and hotels'
+  own websites. Every photograph is credited in the app to its source and, where stated, its photographer and licence.</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:REPLACE-WITH-YOUR-EMAIL">REPLACE-WITH-YOUR-EMAIL</a></p>
+
+  <footer>
+    <p><a href="privacy.html">Privacy policy</a></p>
+    <p>Hut information &copy; OpenStreetMap contributors, under the
+    <a href="https://opendatacommons.org/licenses/odbl/">Open Database Licence</a>.</p>
+  </footer>
+</main>
+</body>
+</html>
