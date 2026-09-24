@@ -56,5 +56,9 @@ assets/data/.datatourisme-raw*
 # generated search list; regenerate with npm run export-brave-list
 brave-search-list.csv
 
-# resume scratch for the Openverse sweep
-assets/data/openverse-photos.json.tried
+# Resume scratch for the photo/website sweeps — a plain `{ "way/123": true }`
+# map of "already asked about this one", so an interrupted run doesn't re-spend
+# API calls. Derivable from the results next to it, and it churns on every run.
+# Was openverse-photos.json.tried alone; brave-images and brave-websites write
+# the same file and were left untracked by oversight rather than by decision.
+assets/data/*.json.tried
