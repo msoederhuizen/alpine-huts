@@ -4,7 +4,7 @@ import {
   MOUNTAIN_REFUGE_NAME_RE,
   unnamedHutLabel,
 } from '../utils/hutMeta';
-import { isNonLodgingPoi } from '../utils/lodging';
+import { isNonLodgingPoi, isSubFeatureName } from '../utils/lodging';
 import type { Hut, HutType } from '../types/hut';
 import { fetchElevations } from './elevation';
 
@@ -144,6 +144,9 @@ function isNamedGuesthouse(tags: Record<string, string>): boolean {
   // the source so regenerated bundles are clean; `useHuts` applies the same
   // predicate at runtime for the already-shipped bundle.
   if (isNonLodgingPoi(tags)) return false;
+  // "Teleferica Rifugio Stoppani" contains Rifugio and would pass the keyword
+  // test below — it's the goods cableway, not the hut. See isSubFeatureName.
+  if (isSubFeatureName(name)) return false;
   if (tags.amenity && NON_LODGING_AMENITY.has(tags.amenity)) return false;
   return (
     GUESTHOUSE_NAME_RE.test(name) ||
@@ -188,6 +191,9 @@ function isElevationGatedLodging(tags: Record<string, string>): boolean {
   const name = tags.name?.trim();
   if (!name) return false;
   if (isNonLodgingPoi(tags)) return false;
+  // "Piscina Hotel Union" and "Wellnessbereich Hotel Jagdhof" inherit the parent
+  // hotel's `tourism`/`building` tag, so only the name gives them away.
+  if (isSubFeatureName(name)) return false;
   if (tags.amenity && NON_LODGING_AMENITY.has(tags.amenity)) return false;
   // ⚠️ The holiday-rental exclusion must NOT veto a genuine refuge. It rejects
   // names starting "Chalet…", which is right for a Swiss holiday let but wrong in

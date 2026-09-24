@@ -34,6 +34,7 @@ import { fileURLToPath } from 'node:url';
 
 import { looksLikeAPhoto } from '../src/api/siteImage';
 import { distinctiveTokens, normalizePlaceName } from '../src/utils/dedupePlaces';
+import { isSubFeatureName } from '../src/utils/lodging';
 import { NEVER } from './siteDomain';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -50,18 +51,17 @@ const PAUSE_MS = 1100;
 const BAD_IMAGE = /(mapcarta|openstreetmap|tile\.|staticmap|googleusercontent\/maps|logo|favicon|avatar|sprite)/i;
 
 /**
- * OSM names that describe a FEATURE OF a place rather than the place itself:
- * "Helipad Rifugio Coldai", "Teleferica Rifugio Stoppani", "Strada Lago Combal
- * Rifugio Elisabetta", "Wellnessbereich Hotel Jagdhof".
+ * OSM names that describe a FEATURE OF a place rather than the place itself
+ * ("Helipad Rifugio Coldai", "Teleferica Rifugio Stoppani") now live in
+ * utils/lodging.ts as {@link isSubFeatureName}, because they are excluded from
+ * the dataset itself and not merely from this search.
  *
- * ⚠️ ALL 66 OF THESE ARE TAGGED `guesthouse` IN OSM, so they reach this list
- * looking like accommodation. Searching them is worse than useless: the results
- * are photographs of the refuge, which is a real building that is NOT the thing
- * our record points at, so a good-looking match would hang a hut's photo on a
- * helicopter pad or a cable winch.
+ * They still matter here: searching one is worse than useless, because the
+ * results are photographs of the refuge, which is a real building that is NOT
+ * the thing our record points at — a good-looking match would hang a hut's
+ * photo on a helicopter pad or a cable winch. Kept as a belt-and-braces check
+ * so a stale list (this script reads a CSV snapshot) can't resurrect one.
  */
-const SUB_FEATURE =
-  /^(helipad|strada|teleferica|materialseilbahn|seilbahn|funivia|sentiero|parkplatz|wellnessbereich|piscina|schwimmbad|impianto|bivio|fermata)\b/i;
 
 /**
  * Does `title` name this place?
@@ -188,7 +188,7 @@ async function main() {
   };
 
   const todo = rows.filter(
-    (r) => !tried[r.id] && !SUB_FEATURE.test(r.name.trim()) && eligible(r.name),
+    (r) => !tried[r.id] && !isSubFeatureName(r.name) && eligible(r.name),
   );
 
   console.log(`${rows.length.toLocaleString()} in the list`);

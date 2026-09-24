@@ -82,6 +82,43 @@ export function isNonLodgingPoi(tags: Record<string, string>): boolean {
   return false;
 }
 
+/**
+ * Names that describe a FEATURE OF a place rather than the place itself: the
+ * helipad, goods cableway, access road, footpath, car park or spa wing *of* a
+ * refuge — "Helipad Rifugio Coldai - Civetta", "Teleferica Rifugio Forcella
+ * Pordoi", "Wellnessbereich Hotel Jagdhof". Left in, they become accommodation
+ * pins a user could book a night at, and they duplicate the real refuge nearby.
+ *
+ * ⚠️ WHY A NAME RULE, when {@link NON_LODGING_KEYS} exists precisely so we don't
+ * have to chase Italian words. Because for these the tags do not separate the
+ * two things, and a tag rule here removes real huts. Measured over the shipped
+ * dataset:
+ *
+ *   `aeroway=helipad`        7 rows — but 4 are REFUGES that have a helipad:
+ *                            Češka koča, Refuge du Requin, Refugio Cap de
+ *                            Llauset, Refuge de l'Arpont
+ *   `emergency=landing_site` 6 rows — 3 are refuges, same story
+ *   `public_transport=*`    37 rows — bus stops named after the inn, mixed in
+ *                            with platforms mapped onto the inn itself
+ *
+ * The pad and the refuge carry the SAME tag; only the name says which one the
+ * record points at. Hence a prefix rule, anchored with `^` so it can only fire
+ * on a name that LEADS with the sub-feature — "Berggasthaus Seilbahn" and
+ * "Hotel Bivio" are untouched.
+ *
+ * Verified against all 17 554 shipped accommodations: it matches 68, every one
+ * of them a path, road, cableway, pad, bus stop, pool or spa wing, and no
+ * legitimate lodging. 61 of the 68 already fell to the tag rules above; this
+ * catches the 7 whose tags are missing or inherited from the parent hotel.
+ */
+const SUB_FEATURE_NAME =
+  /^(helipad|strada|teleferica|materialseilbahn|seilbahn|funivia|sentiero|parkplatz|wellnessbereich|piscina|schwimmbad|impianto|bivio|fermata)\b/i;
+
+/** True when the name says this is a sub-feature of a place, not the place. */
+export function isSubFeatureName(name: string | undefined): boolean {
+  return SUB_FEATURE_NAME.test((name ?? '').trim());
+}
+
 /** How close counts as "the same place" for the crowding rule. */
 const CLUSTER_RADIUS_KM = 1;
 /**
@@ -221,7 +258,9 @@ export function cleanAccommodations(
   villages: Hut[] = [],
 ): Hut[] {
   return dropCrowdedLodging(
-    accommodations.filter((h) => !isNonLodgingPoi(h.tags ?? {})),
+    accommodations.filter(
+      (h) => !isNonLodgingPoi(h.tags ?? {}) && !isSubFeatureName(h.name),
+    ),
     villages,
   );
 }

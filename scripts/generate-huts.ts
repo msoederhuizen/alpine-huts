@@ -25,6 +25,7 @@ import {
 import { fetchRides } from '../src/api/lifts';
 import { REGIONS } from '../src/constants/region';
 import { manualPlacesFor } from '../src/constants/manualPlaces';
+import { isSubFeatureName } from '../src/utils/lodging';
 import type { Hut } from '../src/types/hut';
 import type { Ride } from '../src/types/ride';
 
@@ -78,6 +79,26 @@ function save(b: Bundle) {
   writeFileSync(OUT, JSON.stringify(b));
 }
 
+/**
+ * Drop sub-features (the helipad/cableway/access road OF a refuge) on the way
+ * out — see `isSubFeatureName` in utils/lodging.ts.
+ *
+ * ⚠️ Applied HERE, at fan-out, and not to `bundle` itself. The bundle is the
+ * cache of what Overpass returned, and `main()` skips a region that is already
+ * in it (by PRESENCE, see the note on main()), so purging rows from the cache
+ * would make the next run refetch those regions — which is exactly the daily
+ * Overpass/DEM quota this script is built to conserve. Filtering the fan-out
+ * instead re-derives clean region files from the cache with no network calls at
+ * all, and stays idempotent.
+ *
+ * `overpass.ts` applies the same rule at fetch time, so newly fetched regions
+ * never carry these in the first place; this is what cleans the rows banked by
+ * earlier runs.
+ */
+function withoutSubFeatures(huts: Hut[]): Hut[] {
+  return huts.filter((h) => !isSubFeatureName(h.name));
+}
+
 /** The app reads ONE file per region (lazy-parsed — see src/data/hutBundle.ts),
  *  so once the full bundle is complete, fan it out into assets/data/regions/. */
 function writePerRegion(b: Bundle) {
@@ -103,7 +124,11 @@ function writePerRegion(b: Bundle) {
       join(dir, `${id}.json`),
       JSON.stringify({
         core: b.core[id],
-        accommodations: b.accommodations[id],
+        // Only the accommodations need this: `fetchCoreHuts` is a pure tag
+        // lookup (tourism=alpine_hut & co), so a footpath or helipad can't
+        // enter that bucket. It's the NAME-matched accommodation query that
+        // sweeps them in.
+        accommodations: withoutSubFeatures(b.accommodations[id]),
         villages: b.villages[id],
         // ⚠️ OMITTED, not `[]`, when this region's rides haven't been generated.
         // `bundledRides` treats undefined as "fetch live" and `[]` as "there are
@@ -120,8 +145,11 @@ function writePerRegion(b: Bundle) {
   // did — a freshly added country ships as an empty placeholder until generated.
   const counts: Record<string, number> = {};
   for (const id of ids) {
+    // Counted AFTER the sub-feature filter, so the region picker's number
+    // matches what the region file actually holds.
     counts[id] =
-      (b.core[id]?.length ?? 0) + (b.accommodations[id]?.length ?? 0);
+      (b.core[id]?.length ?? 0) +
+      (b.accommodations[id] ? withoutSubFeatures(b.accommodations[id]).length : 0);
   }
   writeFileSync(
     join(dir, '_meta.json'),
