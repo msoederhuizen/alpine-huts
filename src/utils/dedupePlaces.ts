@@ -129,6 +129,12 @@ const GENERIC_LODGING_WORDS = new Set([
   'chalet', 'pension', 'herberge', 'casa', 'maison', 'alm', 'alpe', 'locale',
   'bivacco', 'biwak', 'bivouac', 'shelter', 'unterkunft', 'ostello', 'koca',
   'dom', 'restaurant', 'camping', 'garni', 'auberge', 'gite', 'abrigo',
+  // ⚠️ "étape" and "tappa" are BUILDING TYPES, not names: a gîte d'étape and a
+  // posto tappa are the French and Italian for a staged walkers' lodge, as
+  // generic as "hostel". Counting `etape` as distinctive matched our
+  // "Gîte d'étape le Moulin" in Haute-Savoie to a "Gîte d'Etape du Moulin Vert"
+  // in Arzon, Brittany — 800 km away, and it would have shipped that photo.
+  'etape', 'tappa',
 ]);
 
 /** A single word may stand for a whole place only if it's distinctive: long

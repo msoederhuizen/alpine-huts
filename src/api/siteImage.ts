@@ -75,7 +75,7 @@ const HEADER_BYTES = 65_536;
  * ACCEPTED, because this is here to catch the obviously-wrong, not to be the
  * arbiter of what counts as a photograph.
  */
-async function looksLikeAPhoto(url: string, signal?: AbortSignal): Promise<boolean> {
+export async function looksLikeAPhoto(url: string, signal?: AbortSignal): Promise<boolean> {
   try {
     const res = await fetch(url, {
       signal,
