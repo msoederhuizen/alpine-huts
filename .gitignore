@@ -52,3 +52,9 @@ assets/data/photo-index-retried.json
 
 # DATAtourisme raw flux download (build scratch, can be large)
 assets/data/.datatourisme-raw*
+
+# generated search list; regenerate with npm run export-brave-list
+brave-search-list.csv
+
+# resume scratch for the Openverse sweep
+assets/data/openverse-photos.json.tried

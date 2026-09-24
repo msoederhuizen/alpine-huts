@@ -41,6 +41,8 @@ const RETRIED = join(ROOT, 'assets', 'data', 'photo-index-retried.json');
 const OVERTURE_SITES = join(ROOT, 'assets', 'data', 'overture-websites.json');
 /** Optional, from `scripts/brave-find-websites.ts`. */
 const BRAVE_SITES = join(ROOT, 'assets', 'data', 'brave-websites.json');
+/** Optional, from `npm run generate-openverse-photos`. */
+const OPENVERSE_PHOTOS = join(ROOT, 'assets', 'data', 'openverse-photos.json');
 
 const LIMIT = Number(process.env.PHOTO_INDEX_LIMIT ?? 0);
 
@@ -585,8 +587,27 @@ async function main() {
     console.log(`  -> ${datatourisme.size.toLocaleString()} places\n`);
   }
 
+  /**
+   * Openverse, prepared separately by `npm run generate-openverse-photos`.
+   *
+   * ⚠️ RANKED LAST OF THE CURATED SOURCES. Every other one is confirmed by
+   * POSITION; this is confirmed only by the full name appearing as a phrase,
+   * because Openverse returns no coordinates. That is a weaker claim even at
+   * its strictest, so anything else wins where both have an answer.
+   *
+   * Commercial-safe licences only (CC0, PDM, BY, BY-SA) — the roughly one in
+   * four `by-nc` results are filtered out at collection time so that charging
+   * for the app later needs no archaeology.
+   */
+  const openverse: Record<string, Photo[]> = existsSync(OPENVERSE_PHOTOS)
+    ? JSON.parse(readFileSync(OPENVERSE_PHOTOS, 'utf8'))
+    : {};
+  if (Object.keys(openverse).length) {
+    console.log(`openverse (prepared): ${Object.keys(openverse).length.toLocaleString()} places\n`);
+  }
+
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
-  let viaWikimedia = 0, viaOdh = 0, viaCai = 0, viaDt = 0;
+  let viaWikimedia = 0, viaOdh = 0, viaCai = 0, viaDt = 0, viaOv = 0;
   const t0 = Date.now();
 
   /**
@@ -630,6 +651,9 @@ async function main() {
 
       const dt = datatourisme.get(hut.id);
       if (dt?.length) { found.push(...dt); viaDt++; }
+
+      const ov = openverse[hut.id];
+      if (ov?.length) { found.push(...ov); viaOv++; }
 
       // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
       // nothing. It matches on a file's NAME, which is exactly the weak link —
@@ -692,6 +716,7 @@ async function main() {
   console.log(`  odh      ${viaOdh.toLocaleString()}   (open data hub, CC BY / CC BY-SA)`);
   console.log(`  cai      ${viaCai.toLocaleString()}   (club alpino italiano register)`);
   if (dtDir) console.log(`  dtourism ${viaDt.toLocaleString()}   (datatourisme, Licence Ouverte)`);
+  console.log(`  openverse ${viaOv.toLocaleString()}   (CC0/BY/BY-SA, photographer named)`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
