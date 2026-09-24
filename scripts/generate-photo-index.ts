@@ -39,6 +39,8 @@ const REFUGES = join(ROOT, 'assets', 'data', 'refuges-photos.json');
 const RETRIED = join(ROOT, 'assets', 'data', 'photo-index-retried.json');
 /** Optional, from `npm run generate-overture-websites`. */
 const OVERTURE_SITES = join(ROOT, 'assets', 'data', 'overture-websites.json');
+/** Optional, from `scripts/brave-find-websites.ts`. */
+const BRAVE_SITES = join(ROOT, 'assets', 'data', 'brave-websites.json');
 
 const LIMIT = Number(process.env.PHOTO_INDEX_LIMIT ?? 0);
 
@@ -185,6 +187,16 @@ const OVERTURE: Record<string, { url: string }> = existsSync(OVERTURE_SITES)
   ? JSON.parse(readFileSync(OVERTURE_SITES, 'utf8'))
   : {};
 
+/**
+ * Websites found by web search and then VERIFIED by fetching the page — see
+ * scripts/brave-find-websites.ts. Ranked below Overture because Overture
+ * matched on position and this matched on words, which is the weaker claim
+ * even after the page check.
+ */
+const BRAVE: Record<string, { url: string }> = existsSync(BRAVE_SITES)
+  ? JSON.parse(readFileSync(BRAVE_SITES, 'utf8'))
+  : {};
+
 /** German writes ö as "oe" in a domain name; NFD stripping gives "o". Both
  *  spellings have to be accepted or half the Alpine names never match. */
 function urlSpellings(token: string): string[] {
@@ -204,6 +216,9 @@ function websiteOf(hut: Hut): string | undefined {
   // name together rather than on a word appearing somewhere in a sentence.
   const overture = OVERTURE[hut.id]?.url;
   if (overture) return overture;
+
+  const brave = BRAVE[hut.id]?.url;
+  if (brave) return brave;
 
   const tokens = distinctiveTokens(normalizePlaceName(hut.name)).flatMap(urlSpellings);
   if (!tokens.length) return undefined;
