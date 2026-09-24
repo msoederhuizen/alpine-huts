@@ -22,7 +22,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { distinctiveTokens, normalizePlaceName } from '../src/utils/dedupePlaces';
-import { PORTAL as NOT_OWN_SITE, registrableDomain } from './siteDomain';
+import { NEVER, PORTAL as NOT_OWN_SITE, looksDedicated, registrableDomain } from './siteDomain';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'assets', 'data', 'brave-websites.json');
@@ -124,6 +124,14 @@ interface Found {
   url: string;
   /** What convinced us. Kept so a wrong photo can be traced to its cause. */
   why: string;
+  /**
+   * `own` — the place's own site, its name in the registrable domain.
+   * `directory` — somebody else's page about this one place. Recorded
+   * separately because the photo is not theirs to give and we hold no licence;
+   * keeping the distinction means these can be found and removed later without
+   * touching the rest.
+   */
+  kind?: 'own' | 'directory';
   name: string;
 }
 
@@ -223,30 +231,40 @@ async function main() {
 
     tried[row.id] = true;
 
-    // ⚠️ REQUIRED, not merely scored: at least one distinctive word of the
-    // place's name must be in the hostname. See NOT_OWN_SITE above for the
-    // measured reason — without this, six of seven "successes" were directory
-    // pages about the place rather than the place's own site.
+    // Two acceptable kinds of result, ranked, and nothing else:
     //
-    // Hostname punctuation is flattened first so `berghaus-alpina.at` and
-    // `berghausalpina.at` both match "berghaus" and "alpina".
+    //   own        the place's own site — its name is in the REGISTRABLE
+    //              domain, so `alzarella.com` yes, `x.hotelsintyrol.com` no
+    //   directory  a page ABOUT this one place on somebody else's site
+    //
+    // ⚠️ `directory` is a deliberate choice with a cost. The photo belongs to
+    // whoever uploaded it, not to the site we take it from, and we have no
+    // licence — see the credit and the takedown note in app/about.tsx. It is
+    // accepted only for a page about ONE place: `looksDedicated` rejects
+    // "top 20 huts in Tyrol", whose og:image would be a DIFFERENT hut's photo
+    // attached silently to this one.
     const scored = results
-      .filter((x) => /^https?:\/\//i.test(x.url) && !NOT_OWN_SITE.test(x.url))
+      .filter((x) => /^https?:\/\//i.test(x.url) && !NEVER.test(x.url))
       .map((x, i) => {
-        // The REGISTRABLE domain, not the hostname — see registrableDomain.
         const bare = registrableDomain(hostOf(x.url));
         const host = normalizePlaceName(bare.replace(/[.-]/g, ' '));
         const squashed = bare.replace(/[^a-z0-9]/g, '');
         const inHost = (t: string) => host.includes(t) || squashed.includes(t);
         const hits = tokens.filter(inHost).length;
-        if (!hits) return null; // not this place's own domain
-        const title = normalizePlaceName(x.title);
-        let score = Math.max(0, 3 - i * 0.3) + hits * 3;
-        if (tokens.every(inHost)) score += 4;
-        if (tokens.length && tokens.every((t) => title.includes(t))) score += 2;
-        return { ...x, score };
+        const position = Math.max(0, 3 - i * 0.3);
+
+        if (hits) {
+          let score = position + hits * 3 + 10; // own site always outranks
+          if (tokens.every(inHost)) score += 4;
+          return { ...x, score, kind: 'own' as const };
+        }
+        // Not their domain. Usable only as a dedicated page, and never from a
+        // booking portal — those carry no og:image anyway, verified.
+        if (NOT_OWN_SITE.test(x.url)) return null;
+        if (!looksDedicated(x.url, x.title, tokens)) return null;
+        return { ...x, score: position + 1, kind: 'directory' as const };
       })
-      .filter((x): x is { url: string; title: string; score: number } => !!x)
+      .filter((x): x is { url: string; title: string; score: number; kind: 'own' | 'directory' } => !!x)
       .sort((a, b) => b.score - a.score);
 
     if (!scored.length) {
@@ -258,7 +276,8 @@ async function main() {
         if (await pageNamesPlace(cand.url, tokens)) {
           found[row.id] = {
             url: cand.url.replace(/\/+$/, ''),
-            why: `brave, verified on page (score ${cand.score.toFixed(1)})`,
+            why: `brave ${cand.kind}, verified on page (score ${cand.score.toFixed(1)})`,
+            kind: cand.kind,
             name: row.name,
           };
           accepted++;

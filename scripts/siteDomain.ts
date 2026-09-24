@@ -50,5 +50,39 @@ export function registrableDomain(host: string): string {
  * Every entry here was observed escaping in a real run — this is a record of
  * measured failures, not a guess at what might exist.
  */
+/**
+ * Never usable, whatever the page looks like.
+ *
+ * Narrower than PORTAL on purpose: these are excluded because their "photo" is
+ * not a photograph of the place at all, or because taking it would be plainly
+ * wrong regardless of attribution.
+ *
+ *   mapcarta        an OpenStreetMap mirror — the og:image is a MAP TILE
+ *   search engines  the image belongs to whoever they indexed
+ *   social media    private accounts, and their terms forbid it outright
+ *   wikipedia       we already take these properly, with author and licence
+ */
+export const NEVER =
+  /(mapcarta|google\.|bing\.|duckduckgo|yandex|facebook\.|instagram\.|twitter\.|x\.com|tiktok\.|pinterest\.|youtube\.|wikipedia\.|wikimedia\.|openstreetmap\.|waymarkedtrails)/i;
+
+/**
+ * Is this a page about ONE place, rather than a list of many?
+ *
+ * ⚠️ THE DISTINCTION THAT MAKES DIRECTORY PHOTOS USABLE AT ALL. A page
+ * dedicated to a single hut shows that hut. A "top 20 huts in Tyrol" listing
+ * shows twenty, and its og:image is whichever came first — which would attach
+ * a different hut's photograph, silently.
+ *
+ * A dedicated page almost always carries the place's name in its own URL path
+ * or its title: `wanderlog.com/place/details/15944031/waldhornalm`. A listing
+ * does not.
+ */
+export function looksDedicated(url: string, title: string, tokens: string[]): boolean {
+  if (!tokens.length) return false;
+  const path = url.replace(/^https?:\/\/[^/]+/i, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const t = title.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return tokens.every((tok) => path.includes(tok)) || tokens.every((tok) => t.includes(tok));
+}
+
 export const PORTAL =
   /(hotels?-?in-?tyrol|hotelsintyrol|italianalpshotel|top-hotels-|com-bavaria|ibooked|grisonshotelsweb|cortinadampezzohotels|hotelinveneto|hotels-veneto|slovenia-hotel|swissalpshotels|tripcombined|inn\.fan|at-austria|hotelszermatt|obertauernhotelrooms|hotelrooms|visitdolomiti|tontondesalpes|booking\.com|tripadvisor|expedia|hotels\.com|airbnb|agoda|trivago|hrs\.de|hostelworld|kayak|priceline|yelp|foursquare|gaiagps|wanderlog|mapcarta|peakvisor|mindat|geonames|tracedetrail|visorando|camptocamp|alpenvereinaktiv|bergsteigen\.com|waymarkedtrails|facebook\.|instagram\.|youtube\.|pinterest\.|wikipedia\.|wikimedia\.|openstreetmap\.|komoot\.|outdooractive\.|alltrails\.|wikiloc\.|bergfex\.|refuges\.info|google\.|bing\.)/i;
