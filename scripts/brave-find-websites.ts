@@ -22,6 +22,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { distinctiveTokens, normalizePlaceName } from '../src/utils/dedupePlaces';
+import { PORTAL as NOT_OWN_SITE, registrableDomain } from './siteDomain';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'assets', 'data', 'brave-websites.json');
@@ -58,9 +59,10 @@ const FETCH_TIMEOUT_MS = 12_000;
  *
  * This rejects the valley-portal case (`zillertal.at/berghaus-xyz`) too. That
  * is accepted: such a page's og:image is usually the valley, not the building.
+ *
+ * The domain rules themselves live in ./siteDomain, in ONE copy — the same
+ * logic duplicated across two files had already drifted once here.
  */
-const NOT_OWN_SITE =
-  /(booking\.com|tripadvisor|expedia|hotels\.com|airbnb|agoda|trivago|hrs\.de|hostelworld|kayak|priceline|yelp|foursquare|facebook\.|instagram\.|twitter\.|x\.com|youtube\.|pinterest\.|tiktok\.|wikipedia\.|wikimedia\.|openstreetmap\.|komoot\.|outdooractive\.|alltrails\.|wikiloc\.|bergfex\.|refuges\.info|google\.|bing\.|amazon\.|tripwolf|hikr\.org|gipfelbuch|summitpost|gaiagps|wanderlog|mapcarta|peakvisor|mindat|geonames|tracedetrail|visorando|camptocamp|hüttenholiday|huettenholiday|alpenvereinaktiv|bergsteigen\.com|mountain-forecast|waymarkedtrails|opencaching)/i;
 
 function fromEnvFile(key: string): string | undefined {
   if (!existsSync(ENV)) return undefined;
@@ -100,6 +102,22 @@ function parseCsv(text: string): Record<string, string>[] {
 }
 
 const hostOf = (u: string) => u.replace(/^https?:\/\//i, '').split('/')[0].toLowerCase();
+
+/**
+ * ⚠️ THE SUBDOMAIN IS NOT THE PLACE'S. Booking portals hand each property a
+ * subdomain carrying its name, which sails through a plain hostname check.
+ * Measured escapes from the first full run:
+ *
+ *   gasperlerhof.hotelsintyrol.com
+ *   appart-samson.obertauernhotelrooms.com
+ *   landhaus-scherl.hotels-in-tyrol.com
+ *   bergblick.italianalpshotel.com
+ *
+ * Every one has the property's name in the host and belongs to a portal, so
+ * `registrableDomain` (in ./siteDomain) is what must carry the name — with an
+ * exception for site BUILDERS, where the subdomain genuinely is the business's
+ * own page.
+ */
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 interface Found {
@@ -215,7 +233,8 @@ async function main() {
     const scored = results
       .filter((x) => /^https?:\/\//i.test(x.url) && !NOT_OWN_SITE.test(x.url))
       .map((x, i) => {
-        const bare = hostOf(x.url).replace(/^www\./, '');
+        // The REGISTRABLE domain, not the hostname — see registrableDomain.
+        const bare = registrableDomain(hostOf(x.url));
         const host = normalizePlaceName(bare.replace(/[.-]/g, ' '));
         const squashed = bare.replace(/[^a-z0-9]/g, '');
         const inHost = (t: string) => host.includes(t) || squashed.includes(t);
