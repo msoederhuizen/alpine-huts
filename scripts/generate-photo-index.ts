@@ -314,7 +314,12 @@ function pickPageImage(html: string, page: string): string | null {
   let seen = 0;
   for (const m of html.matchAll(/<img\b[^>]*>/gi)) {
     const tag = m[0];
-    if (++seen > 120) break;
+    // ⚠️ 400, not 120. A site that front-loads its navigation can spend the
+    // first hundred <img> tags on logos and social icons before reaching a
+    // photograph — vayaresorts.com has 78 usable images inside its first 120
+    // tags, but pages built the other way round had their photos cut off.
+    // Position still counts through `score`, so early images remain preferred.
+    if (++seen > 400) break;
     const ss = tag.match(/\ssrcset=["']([^"']+)["']/i)?.[1];
     const src = tag.match(/\sdata-(?:src|lazy-src|original)=["']([^"']+)["']/i)?.[1]
       ?? (ss ? largestSrcset(ss) : null) ?? tag.match(/\ssrc=["']([^"']+)["']/i)?.[1];
@@ -417,12 +422,30 @@ async function fromWebsite(hut: Hut): Promise<Photo[]> {
       /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image(?::url)?["']/i,
       /<meta[^>]+name=["']twitter:image(?::src)?["'][^>]+content=["']([^"']+)["']/i,
     ]) {
-      const raw = html.slice(0, 120_000).match(re)?.[1];
+      // 120 KB was meant to be "the <head>", but a page whose inline CSS runs
+      // past that has its og:image beyond the cut. Same failure as the 400 KB
+      // slice below, one tag earlier.
+      const raw = html.slice(0, 400_000).match(re)?.[1];
       if (!raw) continue;
       const u = absolute(raw, from);
       if (ok(u)) { declared = u; break; }
     }
-    const hero = pickPageImage(html.slice(0, 400_000), from);
+    // ⚠️ THE WHOLE DOCUMENT, not the first 400 KB.
+    //
+    // That slice looked like a sensible guard and was silently discarding
+    // pages full of photographs. Measured on vayaresorts.com: its first
+    // 400 KB contains ZERO <img> tags — all head, inline CSS and scripts —
+    // while the full 1.2 MB holds 379 images, the first usable one at #11.
+    // The extractor reported "no images on the page" and the place was
+    // recorded as having none.
+    //
+    // I had classified that page as JavaScript-rendered and was about to
+    // recommend paying for a rendering scraper to fix it. Rendering it
+    // changed 379 images into 380.
+    //
+    // Scanning a megabyte with a regex costs a millisecond, and the fetch is
+    // already capped at MAX_BYTES, so there is nothing to protect against here.
+    const hero = pickPageImage(html, from);
     for (const c of [declared, ok(hero) ? hero : null]) {
       if (!c) continue;
       // ⚠️ SECURE IT BEFORE JUDGING IT. The app can only display https, so an

@@ -261,7 +261,9 @@ function pickPageImage(html: string, pageUrl: string): string | null {
   for (const m of html.matchAll(/<img\b[^>]*>/gi)) {
     const tag = m[0];
     seen++;
-    if (seen > 120) break; // deep in the page is footer territory
+    // 400, not 120: a site that front-loads navigation can spend a hundred
+    // tags on logos before its first photograph. Position still counts via score.
+    if (seen > 400) break;
 
     // Lazy-loading sites keep the real file in data-src; `src` is a placeholder.
     // The srcset is read through `largestInSrcset` rather than taking entry
@@ -381,7 +383,9 @@ export async function fetchSiteImage(
 
     // The meta tags live in <head>; searching a whole large document wastes
     // time and risks matching one inside embedded content.
-    const head = html.slice(0, 120_000);
+    // 400 KB, not 120. See the matching note in scripts/generate-photo-index.ts:
+    // a page whose inline CSS runs past 120 KB has its og:image beyond the cut.
+    const head = html.slice(0, 400_000);
 
     /** Name-level rejections. Cheap, so they run before any extra request. */
     const plausible = (u: string | null): u is string =>
@@ -406,7 +410,10 @@ export async function fetchSiteImage(
     // og:image MUST FALL THROUGH rather than end the search: Weinbergerhaus
     // declares a 150x150 thumbnail while its pages carry full-size photographs,
     // and giving up at the meta tag would have left it with nothing.
-    const hero = pickPageImage(html.slice(0, 400_000), from);
+    // ⚠️ THE WHOLE DOCUMENT. The 400 KB slice was discarding pages full of
+    // photographs — vayaresorts.com has zero <img> tags in its first 400 KB
+    // and 379 in the full 1.2 MB. The fetch is already capped at MAX_BYTES.
+    const hero = pickPageImage(html, from);
     for (const candidate of [declared, plausible(hero) ? hero : null]) {
       if (!candidate) continue;
       // Last gate: the bytes, not the name. Catches logos and thumbnails no
