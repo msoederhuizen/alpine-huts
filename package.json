@@ -56,7 +56,8 @@
     "brouter": "java -Xmx2g -cp brouter/brouter.jar btools.server.RouteServer brouter/segments4 brouter/profiles2 brouter/customprofiles 17777 32",
     "start:lan": "expo start",
     "ota": "eas update --branch production",
-    "generate-openverse-photos": "tsx scripts/generate-openverse-photos.ts"
+    "generate-openverse-photos": "tsx scripts/generate-openverse-photos.ts",
+    "brave-find-images": "tsx scripts/brave-find-images.ts brave-search-list.csv"
   },
   "private": true
 }
