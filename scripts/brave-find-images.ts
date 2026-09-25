@@ -48,7 +48,25 @@ const PAUSE_MS = 1100;
 
 /** Hosts whose "photo" is not a photograph of the place: map tiles, logos,
  *  avatars. NEVER is shared with the website search — see ./siteDomain. */
-const BAD_IMAGE = /(mapcarta|openstreetmap|tile\.|staticmap|googleusercontent\/maps|logo|favicon|avatar|sprite)/i;
+/**
+ * ⚠️ A MAP IS THE COMMONEST WRONG "PHOTO", AND IT PASSES EVERY OTHER CHECK.
+ * It is a large JPEG, so the byte gate accepts it; it sits on a page named
+ * after the hut, so the name gate accepts it. Measured on a sample of 20
+ * banked results, 2 were maps — 10%, the single largest error class:
+ *
+ *   peakvisor.com/tiles/styles/peaksummer-jpg/static/11.729921,46.186664,14/…
+ *   worldmaps.reliefmaps.io/styles/ReliefMaps/static/auto/1024x512.webp?path=7.44…
+ *
+ * A PAIR OF DECIMAL COORDINATES IN THE URL is the tell that catches both and
+ * generalises to tile servers we have not seen: photographs are not addressed
+ * by latitude.
+ *
+ * `/default/` is here for the same reason — freizeitmonster served
+ * `assets/images/default/others/almhuette-29.jpg`, a stock hut that is not
+ * anyone's hut, from a correctly-named page.
+ */
+const BAD_IMAGE =
+  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite)/i;
 
 /**
  * OSM names that describe a FEATURE OF a place rather than the place itself
@@ -87,15 +105,23 @@ const BAD_IMAGE = /(mapcarta|openstreetmap|tile\.|staticmap|googleusercontent\/m
  * Deliberately NOT edit distance. One letter is the difference between
  * Rifugio Vandelli and Rifugio Vandolli, and between two real neighbouring
  * bergerie; fuzziness here buys recall by attaching wrong buildings.
+ *
+ * ⚠️ WHOLE WORDS ONLY, AND THIS WAS A REAL BUG. Both checks used raw substring
+ * matching, so our "Châlet de la Petite Berge" matched a TripAdvisor photo of
+ * "La Petite Bergerie" — `berge` sits inside `bergerie`. Padding with spaces
+ * for the phrase, and comparing word-for-word for the subsequence, costs
+ * nothing: every near-miss this function was written to recover still passes,
+ * because those differ by inserted filler, not by truncated words.
  */
 function titleNames(title: string, full: string, tokens: string[]): boolean {
-  if (title.includes(full)) return true;
+  if (` ${title} `.includes(` ${full} `)) return true;
   if (tokens.length < 2) return false; // one word in order is not evidence
-  let from = 0;
+  const words = title.split(' ');
+  let at = 0;
   for (const t of tokens) {
-    const at = title.indexOf(t, from);
-    if (at === -1) return false;
-    from = at + t.length;
+    while (at < words.length && words[at] !== t) at++;
+    if (at >= words.length) return false;
+    at++;
   }
   return true;
 }
@@ -163,6 +189,27 @@ async function main() {
   const read = (p: string) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : {});
   const found: Record<string, Found> = read(OUT);
   const tried: Record<string, true> = read(TRIED);
+
+  /**
+   * Re-apply the current filters to everything already banked, and FORGET the
+   * ones that no longer pass so they are searched again.
+   *
+   * ⚠️ FILTERS GET TIGHTER AFTER YOU LOOK AT THE RESULTS, AND THE ALREADY-SAVED
+   * ROWS DO NOT FIX THEMSELVES. Every tightening here came from inspecting a
+   * sample, which means the rows collected before it are exactly the ones
+   * carrying the fault. Dropping them from `found` AND from `tried` is what
+   * makes the next run re-ask; dropping them from `found` alone would leave
+   * them permanently unsearched, which is how a "miss" silently became
+   * unrecoverable earlier in this project.
+   */
+  let dropped = 0;
+  for (const [id, f] of Object.entries(found)) {
+    if (!BAD_IMAGE.test(f.url)) continue;
+    delete found[id];
+    delete tried[id];
+    dropped++;
+  }
+  if (dropped) console.log(`re-checked what was already banked: dropped ${dropped} (maps, stock art) for re-search\n`);
 
   /**
    * The name we actually search on, with any parenthetical dropped.
