@@ -334,20 +334,35 @@ async function main() {
    * three-word phrase matched contiguously is specific enough to trust. The
    * one-and-two-word names stay excluded — that is where guessing starts.
    */
-  const eligible = (raw: string) => {
-    const n = normalizePlaceName(searchName(raw));
-    return distinctiveTokens(n).length >= 2 || n.split(' ').filter(Boolean).length >= 3;
-  };
-
   /** Searched in THIS mode, or by a run predating the mode key. */
   const alreadyTried = (id: string) => Boolean(tried[id] || tried[triedKey(id)]);
 
-  const todo = rows.filter(
-    (r) => !alreadyTried(r.id) && !isSubFeatureName(r.name) && eligible(r.name),
-  );
+  /**
+   * ⚠️ THE LIST DECIDES WHO IS ELIGIBLE. THIS SCRIPT DOES NOT SECOND-GUESS IT.
+   *
+   * There used to be a copy of the rule here — two distinctive words, or three
+   * words of any kind — re-derived from the name. It silently undid the whole
+   * point of `build-search-list --loose`: that run wrote 2,718 single-long-word
+   * names into the CSV, this filter threw every one of them straight back out,
+   * and the pass reported "0 have a two-word name" and exited in a second.
+   *
+   * It cost nothing because nothing was searched, but it would have been easy
+   * to read as "there is nothing left to do" rather than "the two halves
+   * disagree". One rule, in the builder, where the tiers are defined — the same
+   * reason looksLikeAPhoto is imported rather than copied.
+   */
+  const todo = rows.filter((r) => !alreadyTried(r.id) && !isSubFeatureName(r.name));
 
+  const tiers = todo.reduce<Record<string, number>>((a, r) => {
+    const t = r.tier || 'unknown';
+    a[t] = (a[t] ?? 0) + 1;
+    return a;
+  }, {});
   console.log(`${rows.length.toLocaleString()} in the list`);
-  console.log(`${todo.length.toLocaleString()} have a two-word name and have not been searched`);
+  console.log(
+    `${todo.length.toLocaleString()} not yet searched in this mode` +
+      (Object.keys(tiers).length ? `  (${Object.entries(tiers).map(([k, v]) => `${k} ${v}`).join(', ')})` : ''),
+  );
   console.log(`cap: ${MAX_SEARCHES} searches (~$${(MAX_SEARCHES * 0.005).toFixed(2)} beyond the free allowance)\n`);
 
   // `--dry`: show what would be asked, spend nothing. Every run here costs

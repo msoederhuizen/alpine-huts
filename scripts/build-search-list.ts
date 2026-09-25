@@ -42,6 +42,24 @@ const OUT = join(ROOT, 'search-list.csv');
 const LOOSE_MIN_LEN = 8;
 const LOOSE = process.argv.includes('--loose');
 
+/**
+ * `--tier3`: also the names too generic to verify — "Hotel Berghof",
+ * "Pension Anita", "Kuhalm".
+ *
+ * ⚠️ THE QUERY CAN BE NARROWED HERE BUT THE ANSWER CANNOT BE CHECKED, AND THAT
+ * IS THE WHOLE DIFFICULTY. Adding the region to the query does narrow what the
+ * index returns. What it cannot do is verify the result: a photo titled "Hotel
+ * Berghof" passes the name check identically whether it is the right building
+ * or one 300 km away, and the region almost never appears in the page either —
+ * a Tirol hotel's URL says `soelden`, not `tirol`.
+ *
+ * For "Zafernahütte" a title match IS proof, because one building has that
+ * name. Here it is only a coincidence that has not been ruled out. Expect a
+ * rejection rate well above the 37% measured on the strict tier — so test a
+ * couple of hundred and COUNT before buying the rest.
+ */
+const TIER3 = process.argv.includes('--tier3');
+
 const read = (p: string) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : {});
 const REGION_BY_ID = new Map(REGIONS.map((r) => [r.id, r]));
 
@@ -67,6 +85,7 @@ function main() {
   const rows: string[] = [];
   let strict = 0;
   let loose = 0;
+  let short = 0;
 
   for (const h of byId.values()) {
     if (idx[h.id]?.length || ref[h.id]?.length) continue;
@@ -78,8 +97,12 @@ function main() {
     const words = n.split(' ').filter(Boolean).length;
     const isStrict = toks.length >= 2 || words >= 3;
     const isLoose = !isStrict && toks.length === 1 && toks[0].length >= LOOSE_MIN_LEN;
-    if (!isStrict && !(LOOSE && isLoose)) continue;
-    if (isStrict) strict++; else loose++;
+    const isShort = !isStrict && !isLoose;
+    if (isStrict) strict++;
+    else if (isLoose && (LOOSE || TIER3)) loose++;
+    else if (isShort && TIER3) short++;
+    else continue;
+    const tier = isStrict ? 'strict' : isLoose ? 'loose' : 'short';
 
     // Region from the file the place shipped in; the point lookup is only a
     // fallback, and the country always comes from the curated table.
@@ -94,7 +117,7 @@ function main() {
         r?.id ?? '',
         r ? `"${r.name}"` : '',
         r?.country ?? '',
-        isStrict ? 'strict' : 'loose',
+        tier,
       ].join(','),
     );
   }
@@ -108,8 +131,9 @@ function main() {
 
   console.log(`places with no photo, worth searching: ${rows.length.toLocaleString()}`);
   console.log(`  strict (two words, or three)         ${strict.toLocaleString()}`);
-  if (LOOSE) console.log(`  loose  (one word, ${LOOSE_MIN_LEN}+ chars)          ${loose.toLocaleString()}`);
+  if (LOOSE || TIER3) console.log(`  loose  (one word, ${LOOSE_MIN_LEN}+ chars)          ${loose.toLocaleString()}`);
   else console.log(`  (re-run with --loose to add single long words)`);
+  if (TIER3) console.log(`  short  (generic — CANNOT be verified)  ${short.toLocaleString()}`);
   console.log(`\ncost at $5/1000: $${(rows.length * 0.005).toFixed(2)}`);
   console.log(`-> ${OUT}`);
 }
