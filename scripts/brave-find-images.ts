@@ -118,7 +118,31 @@ function placeWords(row: Record<string, string>): string {
  * anyone's hut, from a correctly-named page.
  */
 const BAD_IMAGE =
-  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite|media-amazon|oldthing|ebayimg|etsystatic|alicdn|shopify)/i;
+  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite|media-amazon|oldthing|ebayimg|etsystatic|alicdn|shopify|webcam)/i;
+
+/**
+ * A size written into the URL, where the number is too small to be a photo:
+ * `/square60/`, `/max80x80/`, `_120x90.jpg`, `/s75/`.
+ *
+ * ⚠️ NEEDED BECAUSE THE BYTE CHECK CANNOT BE TRUSTED ALONE. looksLikeAPhoto
+ * asks for the first 64 KB with a Range header and ACCEPTS anything it cannot
+ * measure — deliberately, so an odd server does not cost us a real photo. But
+ * Booking's CDN ignores Range and returns the whole file, so a 60-pixel
+ * thumbnail (`bstatic.com/.../square60/...`) sailed through as unmeasurable and
+ * was banked as a hut's photograph. The URL said "60" the whole time.
+ */
+function tooSmallByName(url: string): boolean {
+  const path = url.split('?')[0].toLowerCase();
+  // Only trust an explicit dimension pair or a known size-word + number.
+  // ⚠️ Not \b around these numbers: `_` is a word character, so `\b` never
+  // fires in `thumb_120x90` and the check silently passed the very shape it
+  // was written for. Digit lookarounds instead.
+  const m = path.match(/(?:square|thumb|small|mini|icon)[-_/]?(\d{1,3})(?![0-9])/) ??
+            path.match(/(?<![0-9])(\d{2,4})x(\d{2,4})(?![0-9])/);
+  if (!m) return false;
+  const nums = m.slice(1).filter(Boolean).map(Number);
+  return nums.length > 0 && Math.max(...nums) < 400;
+}
 
 /**
  * OSM names that describe a FEATURE OF a place rather than the place itself
@@ -256,7 +280,7 @@ async function main() {
    */
   let dropped = 0;
   for (const [id, f] of Object.entries(found)) {
-    if (!BAD_IMAGE.test(f.url)) continue;
+    if (!BAD_IMAGE.test(f.url) && !tooSmallByName(f.url)) continue;
     delete found[id];
     delete tried[id];
     dropped++;
@@ -361,7 +385,7 @@ async function main() {
         const pageWords = normalizePlaceName(page.replace(/[^a-zA-Z0-9]+/g, ' '));
         const img = String(x?.properties?.url ?? x?.thumbnail?.src ?? '');
         if (!img || !/^https:\/\//i.test(img)) return false;
-        if (NEVER.test(page) || BAD_IMAGE.test(img)) return false;
+        if (NEVER.test(page) || BAD_IMAGE.test(img) || tooSmallByName(img)) return false;
         return titleNames(title, full, tokens) || titleNames(pageWords, full, tokens);
       });
 
