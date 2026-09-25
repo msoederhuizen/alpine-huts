@@ -43,6 +43,8 @@ const OVERTURE_SITES = join(ROOT, 'assets', 'data', 'overture-websites.json');
 const BRAVE_SITES = join(ROOT, 'assets', 'data', 'brave-websites.json');
 /** Optional, from `npm run generate-openverse-photos`. */
 const OPENVERSE_PHOTOS = join(ROOT, 'assets', 'data', 'openverse-photos.json');
+/** Optional, from `npm run brave-find-images`. */
+const BRAVE_IMAGES = join(ROOT, 'assets', 'data', 'brave-images.json');
 
 const LIMIT = Number(process.env.PHOTO_INDEX_LIMIT ?? 0);
 
@@ -606,8 +608,30 @@ async function main() {
     console.log(`openverse (prepared): ${Object.keys(openverse).length.toLocaleString()} places\n`);
   }
 
+  /**
+   * Brave image search, prepared by `npm run brave-find-images`.
+   *
+   * ⚠️ RANKED BELOW EVEN OPENVERSE, WHICH IS WHY IT IS LAST IN THIS LIST AND
+   * LAST IN THE PUSH ORDER BELOW. Openverse at least carries a licence and a
+   * photographer. A general web image index carries neither, and its credit
+   * names WHERE WE FOUND the picture rather than who owns it.
+   *
+   * ⚠️ A MEASURED ~20% OF THESE ARE THE WRONG BUILDING, and no filter can get
+   * it much lower: the source has no coordinates, so a correct name in the
+   * wrong country ("Gîte L'Atelier" in Auvers-sur-Oise, 500 km from the Alps)
+   * passes every check there is. Maps, marketplace art and stock placeholders
+   * are filtered at collection time; this residue is the part that needs human
+   * eyes, so treat the file as reviewed input, not as a trusted source.
+   */
+  const braveImages: Record<string, Photo> = existsSync(BRAVE_IMAGES)
+    ? JSON.parse(readFileSync(BRAVE_IMAGES, 'utf8'))
+    : {};
+  if (Object.keys(braveImages).length) {
+    console.log(`brave images (prepared): ${Object.keys(braveImages).length.toLocaleString()} places\n`);
+  }
+
   let done = 0, viaCommons = 0, viaSite = 0, none = 0;
-  let viaWikimedia = 0, viaOdh = 0, viaCai = 0, viaDt = 0, viaOv = 0;
+  let viaWikimedia = 0, viaOdh = 0, viaCai = 0, viaDt = 0, viaOv = 0, viaBrave = 0;
   const t0 = Date.now();
 
   /**
@@ -654,6 +678,11 @@ async function main() {
 
       const ov = openverse[hut.id];
       if (ov?.length) { found.push(...ov); viaOv++; }
+
+      // Last, so anything confirmed by position or by a licensed name match
+      // shows first. One photo per place — this source never gets a gallery.
+      const bi = braveImages[hut.id];
+      if (bi?.url) { found.push(bi); viaBrave++; }
 
       // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
       // nothing. It matches on a file's NAME, which is exactly the weak link —
@@ -717,6 +746,7 @@ async function main() {
   console.log(`  cai      ${viaCai.toLocaleString()}   (club alpino italiano register)`);
   if (dtDir) console.log(`  dtourism ${viaDt.toLocaleString()}   (datatourisme, Licence Ouverte)`);
   console.log(`  openverse ${viaOv.toLocaleString()}   (CC0/BY/BY-SA, photographer named)`);
+  console.log(`  brave     ${viaBrave.toLocaleString()}   (name match only, no licence — ~20% wrong, needs review)`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
