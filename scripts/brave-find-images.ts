@@ -66,7 +66,7 @@ const PAUSE_MS = 1100;
  * anyone's hut, from a correctly-named page.
  */
 const BAD_IMAGE =
-  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite)/i;
+  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite|media-amazon|oldthing|ebayimg|etsystatic|alicdn|shopify)/i;
 
 /**
  * OSM names that describe a FEATURE OF a place rather than the place itself
