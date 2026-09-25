@@ -33,6 +33,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { looksLikeAPhoto } from '../src/api/siteImage';
+import { REGIONS, regionForPoint } from '../src/constants/region';
 import { distinctiveTokens, normalizePlaceName } from '../src/utils/dedupePlaces';
 import { isSubFeatureName } from '../src/utils/lodging';
 import { NEVER } from './siteDomain';
@@ -45,6 +46,57 @@ const ENV = join(ROOT, '.env');
 const LIST = process.argv[2];
 const MAX_SEARCHES = Number(process.argv[3] ?? 1000);
 const PAUSE_MS = 1100;
+
+/**
+ * `--place`: add the region and country to the query.
+ *
+ * ⚠️ AN UNSETTLED TRADE, WHICH IS WHY IT IS A FLAG AND NOT THE DEFAULT. Adding
+ * them should cut the error the bare name cannot: a human review of 437 results
+ * rejected 37%, and the ones no filter can catch are a correct name in the
+ * wrong place — a Rimini beach hotel, a Loire gîte, "Gîte L'Atelier" in
+ * Auvers-sur-Oise. Region and country are exactly the discriminator.
+ *
+ * Against that, Brave ANDs the terms against the hosting page, so a caption
+ * that never names the massif drops out. I ASSERTED that cost when I removed
+ * the region and never measured it — so it stays a flag until the same places
+ * have been run both ways and the two numbers compared.
+ */
+const WITH_PLACE = process.argv.includes('--place');
+
+/**
+ * Geography for a place, from OUR curated region table rather than from the
+ * coordinates directly.
+ *
+ * ⚠️ NEVER RE-DERIVE COUNTRY FROM A BOUNDING BOX. That is how `"Refuge de
+ * Carozzu" Italy` (Corsica) and `"Rifugio Coldai" Austria` (the Dolomites)
+ * happened: the boxes overlap borders, and a confident wrong country is worse
+ * than none. REGIONS carries a hand-checked `country` per region, and the CSV's
+ * own `region` column is our slug, so both are already correct — the only job
+ * here is to look them up.
+ */
+const REGION_BY_ID = new Map(REGIONS.map((r) => [r.id, r]));
+
+function placeWords(row: Record<string, string>): string {
+  const byId = REGION_BY_ID.get((row.region ?? '').trim());
+  const lat = Number(row.lat);
+  const lon = Number(row.lon);
+  const r =
+    byId ??
+    (Number.isFinite(lat) && Number.isFinite(lon) ? regionForPoint(lat, lon) : undefined);
+  if (!r) return '';
+  /**
+   * The region name up to its first conjunction, plus the country.
+   *
+   * ⚠️ THE WHOLE NAME IS TOO MANY TERMS. Brave ANDs each one against the page,
+   * and "Pale di San Martino & Dolomiti Bellunesi Italy" is six — enough to
+   * exclude any page that simply calls the area the Dolomites. Our region names
+   * are compound because the PICKER needs them to be ("Tirol – Ötztal &
+   * Zillertal" tells a walker which valley); a search only needs the head of
+   * it. "Mont Blanc France", "Tirol Austria", "Corsica France".
+   */
+  const head = r.name.split(/\s*[–—&-]\s*/)[0].trim();
+  return `${head} ${r.country}`;
+}
 
 /** Hosts whose "photo" is not a photograph of the place: map tiles, logos,
  *  avatars. NEVER is shared with the website search — see ./siteDomain. */
@@ -219,7 +271,11 @@ async function main() {
    * that, so keeping it guaranteed a miss on a place whose photo was sitting in
    * the first result.
    */
-  const searchName = (raw: string) => raw.replace(/\s*\([^)]*\)/g, '').trim();
+  // ⚠️ Strip the name's own quotes as well as its parenthetical: 'Albergo "Al
+  // Cacciatore"' wrapped in quotes produces '"Albergo "Al Cacciatore""', which
+  // closes the phrase after one word and searches the rest loose.
+  const searchName = (raw: string) =>
+    raw.replace(/\s*\([^)]*\)/g, '').replace(/["“”]/g, '').replace(/\s+/g, ' ').trim();
 
   /**
    * Worth spending a request on.
@@ -242,6 +298,21 @@ async function main() {
   console.log(`${todo.length.toLocaleString()} have a two-word name and have not been searched`);
   console.log(`cap: ${MAX_SEARCHES} searches (~$${(MAX_SEARCHES * 0.005).toFixed(2)} beyond the free allowance)\n`);
 
+  // `--dry`: show what would be asked, spend nothing. Every run here costs
+  // real money, so being able to read the queries first is not a luxury.
+  if (process.argv.includes('--dry')) {
+    console.log(`would search ${Math.min(MAX_SEARCHES, todo.length)} of ${todo.length} eligible`);
+    console.log(WITH_PLACE ? 'mode: name + region + country\n' : 'mode: bare name\n');
+    let missing = 0;
+    for (const row of todo) if (WITH_PLACE && !placeWords(row)) missing++;
+    for (const row of todo.slice(0, 12)) {
+      const w = WITH_PLACE ? placeWords(row) : '';
+      console.log(`  "${searchName(row.name)}"${w ? ` ${w}` : ''}`);
+    }
+    if (WITH_PLACE) console.log(`\nrows with no region resolved: ${missing} of ${todo.length}`);
+    return;
+  }
+
   let searches = 0;
   let accepted = 0;
   let noMatch = 0;
@@ -263,9 +334,13 @@ async function main() {
       // and quietly excludes good photos, because image captions rarely name
       // the massif. Recall comes from the broad query, precision from the
       // full-name check below — not from narrowing the query.
+      // The name stays QUOTED so it is matched as a phrase; the region and
+      // country ride along unquoted, as ordinary narrowing terms.
+      const where = WITH_PLACE ? placeWords(row) : '';
+      const q = where ? `"${clean}" ${where}` : `"${clean}"`;
       const u =
         `https://api.search.brave.com/res/v1/images/search` +
-        `?q=${encodeURIComponent(`"${clean}"`)}&count=20&safesearch=strict`;
+        `?q=${encodeURIComponent(q)}&count=20&safesearch=strict`;
       const r = await fetch(u, {
         headers: { Accept: 'application/json', 'X-Subscription-Token': key },
         signal: AbortSignal.timeout(25_000),
