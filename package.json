@@ -58,7 +58,8 @@
     "ota": "eas update --branch production",
     "generate-openverse-photos": "tsx scripts/generate-openverse-photos.ts",
     "brave-find-images": "tsx scripts/brave-find-images.ts brave-search-list.csv",
-    "merge-prepared-photos": "tsx scripts/merge-prepared-photos.ts"
+    "merge-prepared-photos": "tsx scripts/merge-prepared-photos.ts",
+    "build-search-list": "tsx scripts/build-search-list.ts"
   },
   "private": true
 }

@@ -62,3 +62,5 @@ brave-search-list.csv
 # Was openverse-photos.json.tried alone; brave-images and brave-websites write
 # the same file and were left untracked by oversight rather than by decision.
 assets/data/*.json.tried
+search-list.csv
+unsearchable-places.csv
