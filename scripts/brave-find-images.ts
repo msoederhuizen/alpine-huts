@@ -64,6 +64,26 @@ const PAUSE_MS = 1100;
 const WITH_PLACE = process.argv.includes('--place');
 
 /**
+ * Resume key for a place: the id AND the mode it was searched in.
+ *
+ * ⚠️ THE MODE HAS TO BE PART OF THE KEY OR THE FLAG ABOVE CAN NEVER BE SETTLED.
+ * With a bare id, a place searched one way is skipped forever the other way, so
+ * "the same places run both ways" is unreachable by re-running — the second run
+ * passes straight over them. That is what already happened: ~605 places went
+ * through bare-name, then 3,170 DIFFERENT ones through --place, which compares
+ * two samples rather than two modes. Places differ in how findable they are, so
+ * that difference measures nothing.
+ *
+ * ⚠️ A PLAIN ID ALREADY IN THE FILE BLOCKS BOTH MODES, DELIBERATELY. Those were
+ * written before this key existed, by runs in both modes, and nothing anywhere
+ * records which was which — so calling them one mode would be a guess, and
+ * calling them untried would silently re-spend ~3,300 searches (~$17) the first
+ * time anyone re-ran. They stay spent. Run the A/B on places not yet in the
+ * file; search-list.csv had 2,258 of them when this was written.
+ */
+const triedKey = (id: string) => `${id}:${WITH_PLACE ? 'place' : 'bare'}`;
+
+/**
  * Geography for a place, from OUR curated region table rather than from the
  * coordinates directly.
  *
@@ -282,7 +302,12 @@ async function main() {
   for (const [id, f] of Object.entries(found)) {
     if (!BAD_IMAGE.test(f.url) && !tooSmallByName(f.url)) continue;
     delete found[id];
+    // Every form of the key, or the row stays blocked and "re-ask" silently
+    // becomes "never ask again" — the exact failure this block exists to stop.
+    // The bare `id` is the pre-mode legacy form; see `triedKey`.
     delete tried[id];
+    delete tried[`${id}:bare`];
+    delete tried[`${id}:place`];
     dropped++;
   }
   if (dropped) console.log(`re-checked what was already banked: dropped ${dropped} (maps, stock art) for re-search\n`);
@@ -314,8 +339,11 @@ async function main() {
     return distinctiveTokens(n).length >= 2 || n.split(' ').filter(Boolean).length >= 3;
   };
 
+  /** Searched in THIS mode, or by a run predating the mode key. */
+  const alreadyTried = (id: string) => Boolean(tried[id] || tried[triedKey(id)]);
+
   const todo = rows.filter(
-    (r) => !tried[r.id] && !isSubFeatureName(r.name) && eligible(r.name),
+    (r) => !alreadyTried(r.id) && !isSubFeatureName(r.name) && eligible(r.name),
   );
 
   console.log(`${rows.length.toLocaleString()} in the list`);
@@ -403,7 +431,7 @@ async function main() {
         tooSmall++;
       }
 
-      tried[row.id] = true;
+      tried[triedKey(row.id)] = true;
       if (!hit) { noMatch += candidates.length ? 0 : 1; }
       else {
         found[row.id] = {
@@ -417,7 +445,7 @@ async function main() {
       }
     } catch {
       searches++;
-      tried[row.id] = true;
+      tried[triedKey(row.id)] = true;
     }
 
     if (searches % 25 === 0) {
