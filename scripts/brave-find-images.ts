@@ -137,8 +137,22 @@ function placeWords(row: Record<string, string>): string {
  * `assets/images/default/others/almhuette-29.jpg`, a stock hut that is not
  * anyone's hut, from a correctly-named page.
  */
+/**
+ * ⚠️ STOCK AGENCIES ARE THE ONE CLASS HERE THAT IS A LEGAL PROBLEM, NOT JUST A
+ * WRONG PICTURE. Getty, Dreamstime and Alamy license their images; a comped
+ * preview served into this app is infringement whoever put the URL in the
+ * index. Measured across the whole set: 56 of 3,271, and they reach every tier,
+ * not only the generic one. The worst were a Dreamstime portrait of Angela
+ * Merkel for a place called "Angela" and a Getty photo of a Berlin street sign
+ * for one called "Anton" — but "Chamonix, Mont Blanc" for an alpine resort is
+ * the more dangerous kind, because it looks entirely plausible.
+ *
+ * ⚠️ AND `/maps/` — 42 more. The earlier coordinate rule caught tile servers
+ * addressed by latitude; it did not catch a directory site that renders a
+ * little map per venue and names it `<venue>-map.jpg`.
+ */
 const BAD_IMAGE =
-  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite|media-amazon|oldthing|ebayimg|etsystatic|alicdn|shopify|webcam)/i;
+  /(mapcarta|openstreetmap|reliefmaps|tile\.|\/tiles?\/|\/maps?\/|[-_]map\.(jpg|jpeg|png|webp)|staticmap|googleusercontent\/maps|-?\d+\.\d+,\s*-?\d+\.\d+|\/default\/|placeholder|logo|favicon|avatar|sprite|media-amazon|oldthing|ebayimg|etsystatic|alicdn|shopify|webcam|gettyimages|dreamstime|shutterstock|alamy|istockphoto|depositphotos|123rf|adobestock|stock\.adobe|pond5|vecteezy|freepik)/i;
 
 /**
  * A size written into the URL, where the number is too small to be a photo:
@@ -298,9 +312,24 @@ async function main() {
    * them permanently unsearched, which is how a "miss" silently became
    * unrecoverable earlier in this project.
    */
+  /**
+   * ⚠️ ONE IMAGE CLAIMED BY TWO PLACES IS WRONG FOR AT LEAST ONE OF THEM, AND
+   * NOTHING HERE CAN TELL WHICH. 273 of 3,271 — 8% — shared a URL with another
+   * place: an aggregator's house picture, a chain's stock shot, or two
+   * different names matched to one building.
+   *
+   * Every copy goes. Keeping one at random would be a coin toss dressed up as a
+   * result, and they are freed for another search rather than blacklisted.
+   */
+  const urlCount: Record<string, number> = {};
+  for (const f of Object.values(found)) urlCount[f.url] = (urlCount[f.url] ?? 0) + 1;
+
   let dropped = 0;
+  let droppedDup = 0;
   for (const [id, f] of Object.entries(found)) {
-    if (!BAD_IMAGE.test(f.url) && !tooSmallByName(f.url)) continue;
+    const bad = BAD_IMAGE.test(f.url) || tooSmallByName(f.url);
+    if (!bad && urlCount[f.url] < 2) continue;
+    if (!bad) droppedDup++;
     delete found[id];
     // Every form of the key, or the row stays blocked and "re-ask" silently
     // becomes "never ask again" — the exact failure this block exists to stop.
@@ -310,7 +339,9 @@ async function main() {
     delete tried[`${id}:place`];
     dropped++;
   }
-  if (dropped) console.log(`re-checked what was already banked: dropped ${dropped} (maps, stock art) for re-search\n`);
+  if (dropped) console.log(`re-checked what was banked: dropped ${dropped - droppedDup} (maps, stock agencies, thumbnails)`);
+  if (droppedDup) console.log(`                            dropped ${droppedDup} more whose image another place also claimed`);
+  if (dropped) console.log('  all freed for re-search, not blacklisted\n');
 
   /**
    * The name we actually search on, with any parenthetical dropped.
