@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import { remoteSupportEmail } from '../src/api/remoteConfig';
+import DeleteMyData from '../src/components/DeleteMyData';
 import { COLORS, RADIUS, coloredShadow } from '../src/constants/theme';
 import { clearPhotoCache } from '../src/utils/photoCache';
 import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoFiles';
@@ -139,9 +140,18 @@ export default function AboutScreen() {
         <Text style={styles.sectionLabel}>Your privacy</Text>
         <View style={styles.card}>
           <View style={styles.block}>
+            {/* ⚠️ Keep this in step with docs/privacy.html. It used to say
+                "never uploaded", which stopped being true the moment sharing
+                shipped — and a false claim about data handling in the app
+                itself is worse than a vague one. */}
             <Text style={styles.blockText}>
-              There is no account and no tracking. Your saved trips, your own hut
-              photos and your notes stay on this phone and are never uploaded.
+              There is no sign-up and no tracking. Your saved trips, your own hut
+              photos and your notes stay on this phone.
+            </Text>
+            <Text style={styles.blockText}>
+              If you choose to share a photo or leave a review, that is sent to be
+              checked before anyone else sees it, along with an anonymous id so you
+              can edit or delete it later. Nothing else leaves your phone.
             </Text>
             <Text style={styles.blockText}>
               Your location is used only to show where you are on the map. The
@@ -158,6 +168,12 @@ export default function AboutScreen() {
             <Text style={styles.linkText}>Read the full privacy policy</Text>
             <Ionicons name="open-outline" size={15} color={COLORS.muted} />
           </TouchableOpacity>
+          {/* ⚠️ Apple requires account deletion to be reachable IN THE APP once
+              the app offers account creation — an email address to write to is
+              explicitly not sufficient, and an anonymous account still counts.
+              It renders nothing when the community features are switched off. */}
+          <View style={styles.sourceDivider} />
+          <DeleteMyData />
         </View>
 
         <Text style={styles.sectionLabel}>Offline use</Text>
