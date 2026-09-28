@@ -39,13 +39,26 @@ export default function SharePhoto({
    *
    * Increment this to start the flow; the value itself means nothing.
    */
-  openSignal = 0,
+  openRequest,
   hideTrigger = false,
+  onShared,
 }: {
   hutId: string;
   hutName: string;
-  openSignal?: number;
+  /** Bump `seq` to start the flow; `camera` picks the source. */
+  openRequest?: { seq: number; camera: boolean };
   hideTrigger?: boolean;
+  /**
+   * Called once the photo is accepted for checking, so the hut screen can also
+   * keep a copy on the phone.
+   *
+   * ⚠️ THE LOCAL COPY IS NOT A SECOND FEATURE, IT IS WHAT MAKES SHARING BEARABLE.
+   * A shared photo is invisible to everyone — its own author included — until a
+   * person has approved it. Without this, adding a photo would appear to do
+   * nothing at all for however long moderation takes, which reads as a bug and
+   * invites the same photo being sent three more times.
+   */
+  onShared?: (uri: string) => void;
 }) {
   const [uri, setUri] = useState<string | null>(null);
   const [caption, setCaption] = useState('');
@@ -72,14 +85,14 @@ export default function SharePhoto({
     if (picked) { setUri(picked); setMessage(''); }
   };
 
-  // Start the picker when the parent bumps the signal. The first render is
+  // Start the picker when the parent bumps the sequence. The first render is
   // skipped, or opening a hut page would launch the photo library by itself.
-  const seen = useRef(openSignal);
+  const seen = useRef(openRequest?.seq ?? 0);
   useEffect(() => {
-    if (openSignal === seen.current) return;
-    seen.current = openSignal;
-    void pick(false);
-  }, [openSignal]);
+    if (!openRequest || openRequest.seq === seen.current) return;
+    seen.current = openRequest.seq;
+    void pick(openRequest.camera);
+  }, [openRequest]);
 
   const send = async () => {
     if (!uri) return;
@@ -87,7 +100,9 @@ export default function SharePhoto({
     const outcome = await submitPhoto(hutId, uri, caption);
     setSending(false);
     if (outcome === 'ok') {
-      setMessage('Sent. It will appear once it has been checked.');
+      // Keep a copy on the phone so it shows immediately — see onShared.
+      onShared?.(uri);
+      setMessage('Added. Others will see it once it has been checked.');
       setTimeout(close, 1800);
       return;
     }

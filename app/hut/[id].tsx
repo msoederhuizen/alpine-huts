@@ -1,6 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
-import * as ImagePicker from 'expo-image-picker';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
@@ -66,7 +65,7 @@ export default function HutDetailScreen() {
   const [notesDraft, setNotesDraft] = useState('');
   useEffect(() => setNotesDraft(userData?.notes ?? ''), [userData?.notes, id]);
 
-  const [shareSignal, setShareSignal] = useState(0);
+  const [shareReq, setShareReq] = useState<{ seq: number; camera: boolean } | undefined>();
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
 
@@ -102,7 +101,7 @@ export default function HutDetailScreen() {
   // Full ordered gallery: the user's photos first, then the web photos.
   const photos: HutImage[] = useMemo(
     () => [
-      ...userPhotos.map((url) => ({ url, credit: 'Your photo' })),
+      ...userPhotos.map((url) => ({ url, credit: 'Your photo · shared' })),
       ...(webPhotos ?? []),
     ],
     [userPhotos, webPhotos],
@@ -110,31 +109,16 @@ export default function HutDetailScreen() {
   const cover = photos[0] ?? null;
   const coverLoading = webFetching && photos.length === 0;
 
-  const pickPhoto = async (fromCamera: boolean) => {
-    const perm = fromCamera
-      ? await ImagePicker.requestCameraPermissionsAsync()
-      : await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (!perm.granted) {
-      Alert.alert(
-        'Permission needed',
-        `Please allow ${fromCamera ? 'camera' : 'photo library'} access to add a hut photo.`,
-      );
-      return;
+  /** Keep a copy of a shared photo on the phone so it shows immediately. */
+  const keepLocalCopy = async (uri: string) => {
+    let stored = uri;
+    try {
+      stored = await savePhoto(id, uri);
+    } catch {
+      stored = uri;
     }
-    const result = fromCamera
-      ? await ImagePicker.launchCameraAsync({ quality: 0.7 })
-      : await ImagePicker.launchImageLibraryAsync({ quality: 0.7 });
-    const uri = result.assets?.[0]?.uri;
-    if (!result.canceled && uri) {
-      let stored = uri;
-      try {
-        stored = await savePhoto(id, uri);
-      } catch {
-        stored = uri;
-      }
-      addPhoto(id, stored);
-      setImageFailed(false);
-    }
+    addPhoto(id, stored);
+    setImageFailed(false);
   };
 
   const removeAllUserPhotos = () => {
@@ -151,9 +135,14 @@ export default function HutDetailScreen() {
   };
 
   const onPhotoPress = () => {
+    // ⚠️ EVERY WAY IN HERE SHARES. There is no private-only path any more:
+    // two actions that both begin 'pick a photo' and differ only in a label
+    // is the pair people get wrong, and only one of them could not be undone.
+    // A copy is still kept on the phone so the photo appears at once, but it
+    // is a consequence of sharing rather than an alternative to it.
     const buttons: AlertButton[] = [
-      { text: 'Take photo', onPress: () => pickPhoto(true) },
-      { text: 'Choose from library', onPress: () => pickPhoto(false) },
+      { text: 'Take a photo', onPress: () => setShareReq((r) => ({ seq: (r?.seq ?? 0) + 1, camera: true })) },
+      { text: 'Choose from library', onPress: () => setShareReq((r) => ({ seq: (r?.seq ?? 0) + 1, camera: false })) },
     ];
     if (userPhotos.length > 0) {
       buttons.push({
@@ -162,14 +151,10 @@ export default function HutDetailScreen() {
         onPress: removeAllUserPhotos,
       });
     }
-    // One menu, two clearly different things. Sharing sits below the private
-    // options and names its consequence, because the two are easy to confuse
-    // and only one of them is irreversible.
-    buttons.push({ text: 'Share a photo with other walkers', onPress: () => setShareSignal((n) => n + 1) });
     buttons.push({ text: 'Cancel', style: 'cancel' });
     Alert.alert(
-      'Hut photos',
-      'Photos you add stay on this phone. Sharing sends one to be checked, then shown to everyone.',
+      'Add a photo of this hut',
+      'Photos are shared with other walkers once they have been checked. Yours appears on your phone straight away.',
       buttons,
     );
   };
@@ -383,7 +368,8 @@ export default function HutDetailScreen() {
         hutId={id}
         hutName={hut.name ?? 'this hut'}
         hideTrigger
-        openSignal={shareSignal}
+        openRequest={shareReq}
+        onShared={keepLocalCopy}
       />
 
       <PhotoGallery

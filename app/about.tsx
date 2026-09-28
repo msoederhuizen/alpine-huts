@@ -145,13 +145,13 @@ export default function AboutScreen() {
                 shipped — and a false claim about data handling in the app
                 itself is worse than a vague one. */}
             <Text style={styles.blockText}>
-              There is no sign-up and no tracking. Your saved trips, your own hut
-              photos and your notes stay on this phone.
+              There is no sign-up and no tracking. Your saved trips and your notes
+              stay on this phone.
             </Text>
             <Text style={styles.blockText}>
-              If you choose to share a photo or leave a review, that is sent to be
-              checked before anyone else sees it, along with an anonymous id so you
-              can edit or delete it later. Nothing else leaves your phone.
+              Adding a photo to a hut shares it: it is checked before anyone else sees
+              it, and sent with an anonymous id so you can delete it later. Reviews
+              work the same way. Nothing else leaves your phone.
             </Text>
             <Text style={styles.blockText}>
               Your location is used only to show where you are on the map. The
