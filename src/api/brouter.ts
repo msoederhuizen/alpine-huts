@@ -2,6 +2,7 @@ import { remoteBrouterUrl } from './remoteConfig';
 import type { LegSegment, RideMode, RideUse } from '../types/ride';
 import { buildElevationProfile } from '../utils/elevationProfile';
 import { metresBetween } from '../utils/geo';
+import { readCachedLeg, writeCachedLeg } from '../utils/legCache';
 import { estimateHikeTime, sacTimeFactor } from '../utils/hikeTime';
 import { currentMaxSac } from '../store/preferencesStore';
 import {
@@ -449,6 +450,16 @@ export async function fetchLeg(
   const known = unroutable.get(cacheKey);
   if (known) throw new Error(known);
 
+  /**
+   * ⚠️ BEFORE THE REQUEST, because the huts do not move. The path between two
+   * refuges is the same walk it was last month, so a leg computed once is a
+   * fact rather than a guess with a shelf life. Planning one trip asks for ~63
+   * legs and the Plan tab runs several searches per request; react-query shares
+   * those within a session, but closing the app used to throw all of it away.
+   */
+  const cached = await readCachedLeg(cacheKey);
+  if (cached) return cached;
+
   const url = `${activeBase()}?lonlats=${lonlats}&profile=${profile}&alternativeidx=0&format=geojson`;
 
   // Per-leg timeout so a slow BRouter response can't hang the Route tab or the
@@ -614,7 +625,7 @@ export async function fetchLeg(
   // into this field.
   const elevationProfile = buildElevationProfile(coords);
 
-  return {
+  const leg: RouteLeg = {
     coordinates,
     distance,
     ascent,
@@ -624,6 +635,13 @@ export async function fetchLeg(
     viaFerrata,
     ...(elevationProfile.length ? { profile: elevationProfile } : {}),
   };
+
+  // Keep it for next time. Deliberately not awaited: the walker is waiting on
+  // this leg, and a disk write must not be in front of it. A failed write is a
+  // slower app, never a broken one — see legCache.ts.
+  void writeCachedLeg(cacheKey, leg);
+
+  return leg;
 }
 
 // ── Rides (lifts / mountain trains) ─────────────────────────────────────────
