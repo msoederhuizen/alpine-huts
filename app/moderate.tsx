@@ -51,6 +51,7 @@ const PLACE_REASON: Record<string, string> = {
   closed: 'Permanently closed',
   no_longer_lodging: 'No longer somewhere to stay',
   moved: 'Pin is in the wrong place',
+  photos_wrong: 'Photos are wrong',
   wrong_details: 'Details are wrong',
   other: 'Something else',
 };

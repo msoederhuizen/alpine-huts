@@ -27,6 +27,7 @@ const REASONS: { key: PlaceReason; label: string; hint: string }[] = [
   { key: 'closed', label: 'Permanently closed', hint: 'It is gone, or shut for good' },
   { key: 'no_longer_lodging', label: 'No longer somewhere to stay', hint: 'Still there, but a restaurant, a house, private' },
   { key: 'moved', label: 'In the wrong place on the map', hint: 'The pin is not where the building is' },
+  { key: 'photos_wrong', label: 'The photos are wrong', hint: 'They show a different building or place' },
   { key: 'wrong_details', label: 'Details are wrong', hint: 'Name, phone number, or what it offers' },
   { key: 'other', label: 'Something else', hint: '' },
 ];

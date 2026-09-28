@@ -18,13 +18,35 @@
  */
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 
 import { communityEnabled, submitPhoto } from '../api/community';
 import { COLORS, RADIUS } from '../constants/theme';
 
-export default function SharePhoto({ hutId, hutName }: { hutId: string; hutName: string }) {
+export default function SharePhoto({
+  hutId,
+  hutName,
+  /**
+   * Opened from the hut screen's existing photo menu rather than from a button
+   * of its own.
+   *
+   * ⚠️ TWO BUTTONS THAT BOTH SAY "ADD A PHOTO" IS A WORSE PROBLEM THAN AN EXTRA
+   * TAP. The hero image already offers adding a photo — privately, to your own
+   * phone. A second green button underneath, offering something that looks the
+   * same but publishes to strangers, is exactly the pair a person picks wrongly
+   * when tired. One entry point, two clearly different labels.
+   *
+   * Increment this to start the flow; the value itself means nothing.
+   */
+  openSignal = 0,
+  hideTrigger = false,
+}: {
+  hutId: string;
+  hutName: string;
+  openSignal?: number;
+  hideTrigger?: boolean;
+}) {
   const [uri, setUri] = useState<string | null>(null);
   const [caption, setCaption] = useState('');
   const [sending, setSending] = useState(false);
@@ -50,6 +72,15 @@ export default function SharePhoto({ hutId, hutName }: { hutId: string; hutName:
     if (picked) { setUri(picked); setMessage(''); }
   };
 
+  // Start the picker when the parent bumps the signal. The first render is
+  // skipped, or opening a hut page would launch the photo library by itself.
+  const seen = useRef(openSignal);
+  useEffect(() => {
+    if (openSignal === seen.current) return;
+    seen.current = openSignal;
+    void pick(false);
+  }, [openSignal]);
+
   const send = async () => {
     if (!uri) return;
     setSending(true);
@@ -73,13 +104,15 @@ export default function SharePhoto({ hutId, hutName }: { hutId: string; hutName:
 
   return (
     <>
-      <Pressable style={s.button} onPress={() => pick(false)} onLongPress={() => pick(true)}>
-        <Ionicons name="share-outline" size={17} color={COLORS.green} />
-        <View style={s.buttonText}>
-          <Text style={s.buttonLabel}>Share a photo with other walkers</Text>
-          <Text style={s.buttonHint}>Public once checked · hold to use the camera</Text>
-        </View>
-      </Pressable>
+      {!hideTrigger && (
+        <Pressable style={s.button} onPress={() => pick(false)} onLongPress={() => pick(true)}>
+          <Ionicons name="share-outline" size={17} color={COLORS.green} />
+          <View style={s.buttonText}>
+            <Text style={s.buttonLabel}>Share a photo with other walkers</Text>
+            <Text style={s.buttonHint}>Public once checked · hold to use the camera</Text>
+          </View>
+        </Pressable>
+      )}
 
       <Modal visible={!!uri} transparent animationType="slide" onRequestClose={close}>
         <Pressable style={s.backdrop} onPress={close}>

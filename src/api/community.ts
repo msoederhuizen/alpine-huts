@@ -593,7 +593,13 @@ export async function resolveReport(id: string): Promise<boolean> {
 // closed hut has to be corrected in OpenStreetMap or the next generate-huts run
 // puts it straight back. Hence its own table and its own queue.
 
-export type PlaceReason = 'closed' | 'moved' | 'wrong_details' | 'no_longer_lodging' | 'other';
+export type PlaceReason =
+  | 'closed'
+  | 'moved'
+  | 'wrong_details'
+  | 'no_longer_lodging'
+  | 'photos_wrong'
+  | 'other';
 
 export interface OpenPlaceReport {
   id: string;

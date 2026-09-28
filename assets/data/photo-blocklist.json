@@ -1,0 +1,30 @@
+[
+  {
+    "hutId": "node/1374069421",
+    "name": "Bivacco Chentre Carlo Bionaz Ettore",
+    "url": "*",
+    "why": "Reported wrong by eye, 2026-09-28. All three refuges.info photos. Worth noting because refuges.info matches on POSITION and has been treated as one of the sources that never goes wrong — so either the coordinates disagree or its photos are of the wrong bivouac.",
+    "date": "2026-09-28"
+  },
+  {
+    "hutId": "node/317788666",
+    "name": "Bivacco Combi e Lanza",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Il_Canalino.jpg/1280px-Il_Canalino.jpg",
+    "why": "Reported wrong by eye, 2026-09-28. Commons file name search matched 'Il Canalino' — a couloir, not the bivouac.",
+    "date": "2026-09-28"
+  },
+  {
+    "hutId": "way/926256868",
+    "name": "Nuovo Bivacco delle Guide “Beniamino Farello\"",
+    "url": "*",
+    "why": "Reported wrong by eye, 2026-09-28. From caivarzo.it; the file name says 'interno' (interior) and it is not this bivouac.",
+    "date": "2026-09-28"
+  },
+  {
+    "hutId": "node/13038665913",
+    "name": "Bergfreund",
+    "url": "*",
+    "why": "Reported wrong by eye, 2026-09-28. Matched hotel-bergfreund.ch, a different Bergfreund — the name is shared by several places.",
+    "date": "2026-09-28"
+  }
+]

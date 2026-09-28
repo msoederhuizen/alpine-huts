@@ -5,7 +5,27 @@
       "PowerShell(node -v)",
       "PowerShell(npm -v)",
       "PowerShell(npx --version)",
-      "PowerShell(winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements --silent)"
+      "PowerShell(winget install OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements --silent)",
+      "Bash(git checkout *)",
+      "Bash(node -e ' *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git rev-list *)",
+      "Bash(git merge *)",
+      "Bash(git branch *)",
+      "Bash(git check-ignore *)",
+      "Bash(grep -oiE \"\\(api[_-]?key|bearer|secret|token|BSA[A-Za-z0-9_-]{10,}\\)[\\\\\"'\\\\''： :=]{0,3}[A-Za-z0-9_-]{12,}\" assets/data/brave-images.json assets/data/openverse-photos.json)",
+      "PowerShell(Set-Location \"C:\\\\Users\\\\margot.soederhuizen_\\\\Dev\\\\alpine-huts\"; \"=== file mtimes now ===\"; Get-ChildItem assets\\\\data\\\\brave-images.json, assets\\\\data\\\\brave-images.json.tried, assets\\\\data\\\\openverse-photos.json | Format-Table Name, Length, LastWriteTime -AutoSize; \"\"; \"=== running node / tsx / java processes ===\"; Get-Process -Name node, tsx, java -ErrorAction SilentlyContinue | Select-Object Id, ProcessName, StartTime, @{n='CPU\\(s\\)';e={[math]::Round\\($_.CPU,1\\)}} | Format-Table -AutoSize)",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"Name='node.exe' OR Name='java.exe' OR Name='cmd.exe' OR Name='powershell.exe'\" | Select-Object ProcessId, Name, @{n='Cmd';e={ if \\($_.CommandLine\\) { $_.CommandLine.Substring\\(0, [Math]::Min\\(150, $_.CommandLine.Length\\)\\) } }} | Format-List)",
+      "Bash(powershell -NoProfile -Command 'if \\(Get-CimInstance Win32_Process -Filter \"Name='\\\\''node.exe'\\\\''\" | Where-Object { $_.CommandLine -match '\\\\''brave-find-images'\\\\'' }\\) { exit 0 } else { exit 1 }')",
+      "PowerShell($env:Path = \"$env:LOCALAPPDATA\\\\nodejs-portable;$env:Path\"; Set-Location \"C:\\\\Users\\\\margot.soederhuizen_\\\\Dev\\\\alpine-huts\"; $out = & npx tsc --noEmit --noUnusedLocals --noUnusedParameters 2>&1 | Out-String; if \\($LASTEXITCODE -eq 0\\) { \"tsc CLEAN - exit 0\" } else { \"tsc exit $LASTEXITCODE\"; $out -split \"`n\" | Select-Object -First 15 })",
+      "Bash(bash \"C:/Users/MARGOT~1.SOE/AppData/Local/Temp/claude/C--Users-margot-soederhuizen--OneDrive---Picnic-Technologies-BV-Documenten-4--Claude-Code-1--Hiking-app/ccefe723-eaa9-4cc6-b022-a84b36c8f9a2/scratchpad/watch-brave.sh\")",
+      "Bash(node -e \"const s=require\\('./package.json'\\).scripts;for\\(const [k,v] of Object.entries\\(s\\)\\) if\\(/verify|photo/.test\\(k+v\\)\\) console.log\\('  '+k+': '+v\\)\")",
+      "PowerShell($env:Path = \"$env:LOCALAPPDATA\\\\nodejs-portable;$env:Path\"; node \"C:\\\\Users\\\\MARGOT~1.SOE\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-margot-soederhuizen--OneDrive---Picnic-Technologies-BV-Documenten-4--Claude-Code-1--Hiking-app\\\\ccefe723-eaa9-4cc6-b022-a84b36c8f9a2\\\\scratchpad\\\\verify-coverage.mjs\")",
+      "PowerShell($env:Path = \"$env:LOCALAPPDATA\\\\nodejs-portable;$env:Path\"; node \"C:\\\\Users\\\\MARGOT~1.SOE\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-margot-soederhuizen--OneDrive---Picnic-Technologies-BV-Documenten-4--Claude-Code-1--Hiking-app\\\\ccefe723-eaa9-4cc6-b022-a84b36c8f9a2\\\\scratchpad\\\\dryrun.mjs\")",
+      "PowerShell(\"=== project-related processes ===\"; $p = Get-CimInstance Win32_Process -Filter \"Name='node.exe' OR Name='java.exe'\" | Where-Object { $_.CommandLine -match 'alpine-huts|brouter|brave-find|openverse|verify-photo|generate-huts' }; if \\($p\\) { $p | Select-Object ProcessId, CreationDate, @{n='Cmd';e={ $_.CommandLine.Substring\\(0,[Math]::Min\\(120,$_.CommandLine.Length\\)\\) }} | Format-List } else { \"none\" }; \"\"; \"=== photo-locations.json last written ===\"; Get-ChildItem \"C:\\\\Users\\\\margot.soederhuizen_\\\\Dev\\\\alpine-huts\\\\photo-locations.json\" | Format-Table Name, Length, LastWriteTime -AutoSize; \"now: $\\(Get-Date -Format 'HH:mm:ss'\\)\")",
+      "PowerShell($p = Get-Process -Id 23900 -ErrorAction SilentlyContinue; if \\($p\\) { \"stopping PID 23900: $\\($p.ProcessName\\), up since $\\($p.StartTime\\)\"; Stop-Process -Id 23900 -Force; Start-Sleep -Milliseconds 800 } else { \"PID 23900 not found\" }; \"\"; \"=== confirm gone ===\"; if \\(Get-Process -Id 23900 -ErrorAction SilentlyContinue\\) { \"STILL RUNNING\" } else { \"stopped\" }; \"\"; \"=== port 17777 released? ===\"; try { $c = Invoke-WebRequest -Uri \"http://127.0.0.1:17777/brouter?lonlats=7.96,46.59|7.98,46.62&profile=hiking-t3&format=geojson\" -UseBasicParsing -TimeoutSec 5; \"still answering \\(HTTP $\\($c.StatusCode\\)\\)\" } catch { \"port closed - BRouter is down\" })"
     ]
   }
 }

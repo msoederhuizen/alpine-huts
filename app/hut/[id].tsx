@@ -66,6 +66,7 @@ export default function HutDetailScreen() {
   const [notesDraft, setNotesDraft] = useState('');
   useEffect(() => setNotesDraft(userData?.notes ?? ''), [userData?.notes, id]);
 
+  const [shareSignal, setShareSignal] = useState(0);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [galleryIndex, setGalleryIndex] = useState(0);
 
@@ -161,8 +162,16 @@ export default function HutDetailScreen() {
         onPress: removeAllUserPhotos,
       });
     }
+    // One menu, two clearly different things. Sharing sits below the private
+    // options and names its consequence, because the two are easy to confuse
+    // and only one of them is irreversible.
+    buttons.push({ text: 'Share a photo with other walkers', onPress: () => setShareSignal((n) => n + 1) });
     buttons.push({ text: 'Cancel', style: 'cancel' });
-    Alert.alert('Hut photos', 'Add your own photos of this hut.', buttons);
+    Alert.alert(
+      'Hut photos',
+      'Photos you add stay on this phone. Sharing sends one to be checked, then shown to everyone.',
+      buttons,
+    );
   };
 
   const openGallery = () => {
@@ -358,7 +367,6 @@ export default function HutDetailScreen() {
           {/* Sharing and reviews sit AFTER the private notes, deliberately: the
               screen reads as yours first, and only then offers the public part.
               Both render nothing when the community backend is switched off. */}
-          <SharePhoto hutId={id} hutName={hut.name ?? 'this hut'} />
           <ReportPlace hutId={id} hutName={hut.name ?? 'this place'} />
           <HutReviews hutId={id} />
 
@@ -370,6 +378,13 @@ export default function HutDetailScreen() {
           </View>
         </View>
       </ScrollView>
+
+      <SharePhoto
+        hutId={id}
+        hutName={hut.name ?? 'this hut'}
+        hideTrigger
+        openSignal={shareSignal}
+      />
 
       <PhotoGallery
         visible={galleryOpen}
