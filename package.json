@@ -63,7 +63,8 @@
     "build-search-list": "tsx scripts/build-search-list.ts",
     "verify-photo-locations": "tsx scripts/verify-photo-locations.ts",
     "check-community-backend": "tsx scripts/check-community-backend.ts",
-    "apply-photo-blocklist": "tsx scripts/apply-photo-blocklist.ts"
+    "apply-photo-blocklist": "tsx scripts/apply-photo-blocklist.ts",
+    "warm-leg-cache": "tsx scripts/warm-leg-cache.ts"
   },
   "private": true
 }
