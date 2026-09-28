@@ -60,7 +60,8 @@
     "brave-find-images": "tsx scripts/brave-find-images.ts brave-search-list.csv",
     "merge-prepared-photos": "tsx scripts/merge-prepared-photos.ts",
     "build-search-list": "tsx scripts/build-search-list.ts",
-    "verify-photo-locations": "tsx scripts/verify-photo-locations.ts"
+    "verify-photo-locations": "tsx scripts/verify-photo-locations.ts",
+    "check-community-backend": "tsx scripts/check-community-backend.ts"
   },
   "private": true
 }
