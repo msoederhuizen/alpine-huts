@@ -125,12 +125,104 @@ if ! command -v caddy >/dev/null 2>&1; then
   sudo apt-get install -y -qq caddy
 fi
 
+# ── 4b. The cache that makes one small box cope ──────────────────────────────
+#
+# ⚠️ THIS IS WHAT ANSWERS THE CAPACITY QUESTION, NOT THE APP'S OWN CACHE.
+# Planning one multi-day trip asks for about 63 legs and BRouter is CPU-bound,
+# so a 2-core box serves one or two people planning at once and the rest queue.
+# The app caches legs on the phone, but that helps ONE device: the hundredth
+# person to plan Rifugio X → Rifugio Y still makes the server compute it.
+#
+# The huts do not move, and BRouter is a pure function of its URL — the same
+# lonlats and profile always produce the same geometry. So identical requests
+# are literally identical URLs, and a proxy can answer them from disk without
+# waking the router at all. Compute once, serve forever.
+#
+# ⚠️ NGINX RATHER THAN CADDY, DELIBERATELY. Caddy's standard build has no
+# response cache; adding one means a custom binary with a third-party module.
+# Putting TLS termination — the thing that must never fail to start — on a
+# module that may not survive the next Caddy release is a poor trade for a
+# feature nginx has had built in for fifteen years. Caddy keeps doing what it
+# was chosen for (certificates, automatically) and proxies to nginx.
+#
+#   Caddy :443 (TLS)  →  nginx :8080 (cache)  →  BRouter :17777
+#
+echo "==> nginx (leg cache)"
+command -v nginx >/dev/null 2>&1 || sudo apt-get install -y -qq nginx
+sudo mkdir -p /var/cache/nginx/brouter
+
+sudo tee /etc/nginx/conf.d/brouter-cache.conf >/dev/null <<EOF
+# 5 GB holds a very large number of legs; one is a few hundred coordinate pairs.
+# inactive=365d because an unused leg is still correct — eviction should be
+# driven by SPACE, not by age, or a quiet winter would throw away a summer's
+# worth of computation.
+proxy_cache_path /var/cache/nginx/brouter levels=1:2 keys_zone=brouter:50m
+                 max_size=5g inactive=365d use_temp_path=off;
+
+server {
+	listen 127.0.0.1:8080;
+
+	location / {
+		proxy_pass http://127.0.0.1:$PORT;
+		proxy_cache brouter;
+
+		# The whole request line, so profile and waypoints are part of the
+		# identity. Keying on the path alone would serve a T3 route to
+		# someone who asked for T6.
+		proxy_cache_key "\$request_uri";
+
+		# A year for real answers. Trails are re-mapped over years, and a
+		# stale leg is a slightly wrong line, not a wrong hut.
+		proxy_cache_valid 200 365d;
+
+		# ⚠️ Errors get ONE MINUTE, never a year. BRouter answers 4xx for
+		# "these two points aren't connected" — but it also fails while the
+		# segment files are still loading after a restart. Caching that for
+		# a year would permanently teach the server that reachable huts are
+		# unreachable, and nothing would ever correct it.
+		proxy_cache_valid any 1m;
+
+		# ⚠️ THE SINGLE MOST VALUABLE LINE HERE. Without it, fifty people
+		# asking for the same uncached leg at once produce fifty identical
+		# BRouter computations. With it, one computes and the rest wait for
+		# that answer — which is exactly the burst a popular route creates.
+		proxy_cache_lock on;
+		proxy_cache_lock_timeout 30s;
+
+		# BRouter sends no caching headers of its own, and what it does send
+		# must not be allowed to disable this.
+		proxy_ignore_headers Cache-Control Expires Set-Cookie;
+
+		# Keep serving a known-good answer if BRouter dies or is restarting.
+		proxy_cache_use_stale error timeout updating http_500 http_502 http_503 http_504;
+		proxy_cache_background_update on;
+
+		# So you can SEE whether it is working: HIT, MISS or EXPIRED.
+		add_header X-Cache-Status \$upstream_cache_status always;
+	}
+}
+EOF
+
+# nginx ships a default site on :80 that would fight Caddy for the port.
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo nginx -t && sudo systemctl reload nginx || sudo systemctl restart nginx
+
 sudo tee /etc/caddy/Caddyfile >/dev/null <<EOF
 $DOMAIN {
-	reverse_proxy 127.0.0.1:$PORT
+	# Through the cache, not straight to BRouter — see section 4b.
+	reverse_proxy 127.0.0.1:8080
 }
 EOF
 sudo systemctl reload caddy || sudo systemctl restart caddy
+
+# Prove it, rather than assume it. The second request for the same URL must say
+# HIT; if it says MISS twice the cache is not working and the box will fall over
+# under load exactly as it would have without it.
+echo "==> checking the cache"
+PROBE="http://127.0.0.1:8080/brouter?lonlats=11.0,47.0|11.01,47.01&profile=hiking-t6&alternativeidx=0&format=geojson"
+curl -s -o /dev/null -D - "\$PROBE" | grep -i x-cache-status || true
+curl -s -o /dev/null -D - "\$PROBE" | grep -i x-cache-status || true
+echo "   (the second line should read HIT)"
 
 # ── 5. The firewall nobody expects ───────────────────────────────────────────
 #
