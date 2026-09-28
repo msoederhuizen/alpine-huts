@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
   Linking,
@@ -217,7 +217,20 @@ export default function AboutScreen() {
           </TouchableOpacity>
         </View>
 
-        <Text style={styles.version}>Alpine Huts {version}</Text>
+        {/* ⚠️ A LONG PRESS HIDES THIS SCREEN, IT DOES NOT PROTECT IT. The
+            moderation queue ships in every copy of the app; what keeps people
+            out is is_moderator() and the policies on the server, which return
+            nothing and refuse every write to anyone else. This gesture exists
+            so ordinary users never stumble into a screen that would only
+            confuse them — treating it as a lock would be a mistake. */}
+        <TouchableOpacity
+          onLongPress={() => router.push('/moderate')}
+          delayLongPress={800}
+          activeOpacity={1}
+          accessibilityRole="text"
+        >
+          <Text style={styles.version}>Alpine Huts {version}</Text>
+        </TouchableOpacity>
       </ScrollView>
     </>
   );

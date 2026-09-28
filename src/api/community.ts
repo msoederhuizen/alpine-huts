@@ -405,3 +405,164 @@ export async function deleteMyContent(): Promise<boolean> {
     return false;
   }
 }
+
+// ── moderation ──────────────────────────────────────────────────────────────
+// ⚠️ EVERYTHING BELOW IS GUARDED BY THE SERVER, NOT BY THIS FILE. `is_moderator()`
+// decides, and the policies in 0003_moderation.sql enforce it. The checks here
+// only shape the UI — an ordinary user calling these directly gets nothing back
+// and changes nothing, which is the property that makes shipping them safe.
+
+export interface PendingPhoto {
+  id: string;
+  hutId: string;
+  url: string;
+  caption: string | null;
+  createdAt: string;
+}
+
+export interface PendingReview {
+  id: string;
+  hutId: string;
+  rating: number;
+  comment: string | null;
+  createdAt: string;
+}
+
+export interface OpenReport {
+  id: string;
+  hutId: string;
+  photoUrl: string;
+  reason: ReportReason;
+  detail: string | null;
+  createdAt: string;
+}
+
+/** Is this device a moderator? Server-side; the answer cannot be faked here. */
+export async function amModerator(): Promise<boolean> {
+  const c = db();
+  if (!c) return false;
+  try {
+    await ensureSession();
+    const { data, error } = await c.rpc('is_moderator');
+    return !error && data === true;
+  } catch {
+    return false;
+  }
+}
+
+/** The signed-in id, so you can add yourself to `moderators` the first time. */
+export async function myUserId(): Promise<string | null> {
+  return ensureSession();
+}
+
+export async function pendingPhotos(): Promise<PendingPhoto[]> {
+  const c = db();
+  if (!c) return [];
+  try {
+    const { data, error } = await c
+      .from('photo_submissions')
+      .select('id,hut_id,storage_path,caption,created_at')
+      .eq('status', 'pending')
+      .order('created_at', { ascending: true })
+      .limit(50);
+    if (error || !data?.length) return [];
+    const signed = await c.storage
+      .from('hut-photos')
+      .createSignedUrls(data.map((r) => r.storage_path), 60 * 60);
+    return data.map((r, i) => ({
+      id: String(r.id),
+      hutId: String(r.hut_id),
+      url: signed.data?.[i]?.signedUrl ?? '',
+      caption: r.caption ?? null,
+      createdAt: String(r.created_at),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function pendingReviews(): Promise<PendingReview[]> {
+  const c = db();
+  if (!c) return [];
+  try {
+    const { data, error } = await c
+      .from('hut_reviews')
+      .select('id,hut_id,rating,comment,created_at')
+      .eq('status', 'pending')
+      .order('created_at', { ascending: true })
+      .limit(50);
+    if (error || !data) return [];
+    return data.map((r) => ({
+      id: String(r.id),
+      hutId: String(r.hut_id),
+      rating: Number(r.rating),
+      comment: r.comment ?? null,
+      createdAt: String(r.created_at),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function openReports(): Promise<OpenReport[]> {
+  const c = db();
+  if (!c) return [];
+  try {
+    const { data, error } = await c
+      .from('photo_reports')
+      .select('id,hut_id,photo_url,reason,detail,created_at')
+      .eq('resolved', false)
+      .order('created_at', { ascending: true })
+      .limit(100);
+    if (error || !data) return [];
+    return data.map((r) => ({
+      id: String(r.id),
+      hutId: String(r.hut_id),
+      photoUrl: String(r.photo_url),
+      reason: r.reason as ReportReason,
+      detail: r.detail ?? null,
+      createdAt: String(r.created_at),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+export async function judgePhoto(id: string, approve: boolean): Promise<boolean> {
+  const c = db();
+  if (!c) return false;
+  try {
+    const { error } = await c
+      .from('photo_submissions')
+      .update({ status: approve ? 'approved' : 'rejected', reviewed_at: new Date().toISOString() })
+      .eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+export async function judgeReview(id: string, approve: boolean): Promise<boolean> {
+  const c = db();
+  if (!c) return false;
+  try {
+    const { error } = await c
+      .from('hut_reviews')
+      .update({ status: approve ? 'approved' : 'rejected', reviewed_at: new Date().toISOString() })
+      .eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
+
+export async function resolveReport(id: string): Promise<boolean> {
+  const c = db();
+  if (!c) return false;
+  try {
+    const { error } = await c.from('photo_reports').update({ resolved: true }).eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
