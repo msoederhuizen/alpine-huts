@@ -19,6 +19,7 @@
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import { stripExif } from '../utils/stripExif';
 import 'react-native-url-polyfill/auto';
 
 /**
@@ -308,21 +309,35 @@ export async function submitPhoto(
   hutId: string,
   localUri: string,
   caption = '',
-): Promise<'ok' | 'offline' | 'too_big' | 'failed'> {
+): Promise<'ok' | 'offline' | 'too_big' | 'unsupported' | 'failed'> {
   const c = db();
   if (!c) return 'offline';
   const uid = await ensureSession();
   if (!uid) return 'offline';
   try {
     const res = await fetch(localUri);
-    const blob = await res.blob();
-    if (blob.size > 8 * 1024 * 1024) return 'too_big';
+    const raw = new Uint8Array(await res.arrayBuffer());
+    if (raw.byteLength > 8 * 1024 * 1024) return 'too_big';
 
-    const ext = (blob.type.split('/')[1] ?? 'jpg').replace('jpeg', 'jpg');
-    const path = `${uid}/${hutId.replace('/', '_')}-${Date.now()}.${ext}`;
+    /**
+     * ⚠️ STRIP THE LOCATION BEFORE IT LEAVES THE PHONE, NOT AFTER IT ARRIVES.
+     * A phone photograph carries where it was taken to within a few metres and
+     * often which device took it. Someone sharing a picture of a hut is
+     * offering the picture, not a record of where they slept on a given night.
+     * Deleting it server-side would still mean it arrived, was written to disk
+     * and existed in a backup — "we remove it on receipt" is a promise, not
+     * sending it is a fact.
+     */
+    const { bytes, handled } = stripExif(raw);
+    // Only JPEG is understood by the stripper. Anything else would be uploaded
+    // with its metadata intact, so it is refused rather than quietly shared.
+    if (!handled) return 'unsupported';
 
-    const up = await c.storage.from('hut-photos').upload(path, blob, {
-      contentType: blob.type || 'image/jpeg',
+    const type = 'image/jpeg';
+    const path = `${uid}/${hutId.replace('/', '_')}-${Date.now()}.jpg`;
+
+    const up = await c.storage.from('hut-photos').upload(path, bytes, {
+      contentType: type,
       upsert: false,
     });
     if (up.error) return 'failed';
