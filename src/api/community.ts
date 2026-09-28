@@ -76,6 +76,85 @@ async function ensureSession(): Promise<string | null> {
   }
 }
 
+/**
+ * Why the community features are doing nothing.
+ *
+ * ⚠️ THIS EXISTS BECAUSE FAILING SILENTLY IS RIGHT FOR USERS AND USELESS FOR
+ * DEBUGGING. Every call here returns empty when anything goes wrong, so the app
+ * never breaks up a valley with no signal. The cost is that four completely
+ * different situations look identical from the outside:
+ *
+ *   nothing configured · the phone has no signal · the backend is not serving ·
+ *   there genuinely are no reviews yet
+ *
+ * ⚠️ AND ONE OF THOSE IS ROUTINE: A FREE SUPABASE PROJECT PAUSES ITSELF AFTER 7
+ * DAYS WITH NO REQUESTS. Development happens in bursts, so this WILL happen,
+ * and when it does the app behaves exactly as if this module were broken — no
+ * reviews, uploads that do nothing, no error anywhere. Without this, the
+ * obvious move is to go and read the code.
+ */
+export type BackendState =
+  /** No URL or key compiled in — the feature is simply not switched on. */
+  | 'disabled'
+  /** Answered. Whatever is missing is not the backend's fault. */
+  | 'ok'
+  /** Could not be reached at all: no signal, or DNS could not resolve it. */
+  | 'offline'
+  /** Reached, but refusing to serve — a paused free project looks like this. */
+  | 'unavailable'
+  /** Nothing has been attempted yet this session. */
+  | 'unknown';
+
+let lastState: BackendState = communityEnabled ? 'unknown' : 'disabled';
+
+/** What the last real call saw, so the About screen costs no extra request. */
+export function lastBackendState(): BackendState {
+  return lastState;
+}
+
+function note(ok: boolean, threw: boolean): void {
+  if (!communityEnabled) { lastState = 'disabled'; return; }
+  lastState = ok ? 'ok' : threw ? 'offline' : 'unavailable';
+}
+
+/**
+ * Ask the backend directly. Only from a deliberate tap — never on load.
+ *
+ * The distinction that matters: a `fetch` that THROWS means the request never
+ * arrived (no signal, bad DNS), while a 5xx means the server took the call and
+ * declined it — which is what a paused project does. Those want opposite
+ * responses from a person, so they must not read the same.
+ */
+export async function checkBackend(): Promise<BackendState> {
+  if (!communityEnabled) return (lastState = 'disabled');
+  try {
+    const r = await fetch(`${URL}/rest/v1/`, {
+      headers: { apikey: ANON!, Authorization: `Bearer ${ANON}` },
+      signal: AbortSignal.timeout(8000),
+    });
+    // 401/404 still prove something answered; only 5xx means "not serving".
+    return (lastState = r.status >= 500 ? 'unavailable' : 'ok');
+  } catch {
+    return (lastState = 'offline');
+  }
+}
+
+/** One line for the About screen. Plain words, no codes. */
+export function backendMessage(state: BackendState = lastState): string {
+  switch (state) {
+    case 'disabled':
+      return 'Reviews and photo sharing are not switched on in this build.';
+    case 'ok':
+      return 'Connected.';
+    case 'offline':
+      return 'No connection — reviews and photo sharing need signal.';
+    case 'unavailable':
+      return 'The server is not responding. If this lasts, it may be asleep and need waking.';
+    default:
+      return 'Not checked yet.';
+  }
+}
+
 export interface Review {
   id: string;
   rating: number;
@@ -103,6 +182,7 @@ export async function reviewsFor(hutId: string): Promise<Review[]> {
       .eq('hut_id', hutId)
       .order('created_at', { ascending: false })
       .limit(100);
+    note(!error, false);
     if (error || !data) return [];
     return data.map((r) => ({
       id: String(r.id),
@@ -113,6 +193,7 @@ export async function reviewsFor(hutId: string): Promise<Review[]> {
       status: r.author_id === me ? r.status : undefined,
     }));
   } catch {
+    note(false, true);
     return [];
   }
 }
@@ -161,8 +242,10 @@ export async function submitReview(
       },
       { onConflict: 'hut_id,author_id' },
     );
+    note(!error, false);
     return error ? 'failed' : 'ok';
   } catch {
+    note(false, true);
     return 'failed';
   }
 }
