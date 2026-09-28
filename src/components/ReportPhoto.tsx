@@ -32,10 +32,17 @@ export default function ReportPhoto({
   hutId,
   photoUrl,
   onDone,
+  /**
+   * `badge` floats over a photo; `inline` is a bare icon for a row that already
+   * has its own layout — the full-screen gallery's footer, where an absolutely
+   * positioned pill would sit on top of the credit line.
+   */
+  variant = 'badge',
 }: {
   hutId: string;
   photoUrl: string;
   onDone?: () => void;
+  variant?: 'badge' | 'inline';
 }) {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState<ReportReason | null>(null);
@@ -78,12 +85,16 @@ export default function ReportPhoto({
       <Pressable
         onPress={() => setOpen(true)}
         hitSlop={10}
-        style={s.trigger}
+        style={variant === 'badge' ? s.trigger : undefined}
         accessibilityRole="button"
         accessibilityLabel="Report this photo as wrong"
       >
-        <Ionicons name="flag-outline" size={15} color="#fff" />
-        <Text style={s.triggerText}>Wrong photo?</Text>
+        <Ionicons
+          name="flag-outline"
+          size={variant === 'badge' ? 15 : 21}
+          color={variant === 'badge' ? '#fff' : '#cfd8d3'}
+        />
+        {variant === 'badge' && <Text style={s.triggerText}>Wrong photo?</Text>}
       </Pressable>
 
       <Modal visible={open} transparent animationType="slide" onRequestClose={close}>

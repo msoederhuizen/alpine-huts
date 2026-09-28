@@ -24,6 +24,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fetchHutGallery } from '../../src/api/hutPhotos';
 import HutReviews from '../../src/components/HutReviews';
+import ReportPhoto from '../../src/components/ReportPhoto';
 import SharePhoto from '../../src/components/SharePhoto';
 import { writeCachedPhotos } from '../../src/utils/photoCache';
 import { keepBrowsedPhotos } from '../../src/utils/photoFiles';
@@ -372,6 +373,7 @@ export default function HutDetailScreen() {
         visible={galleryOpen}
         photos={photos}
         index={galleryIndex}
+        hutId={id}
         userPhotoCount={userPhotos.length}
         onIndexChange={setGalleryIndex}
         onClose={() => setGalleryOpen(false)}
@@ -385,6 +387,7 @@ function PhotoGallery({
   visible,
   photos,
   index,
+  hutId,
   userPhotoCount,
   onIndexChange,
   onClose,
@@ -393,6 +396,7 @@ function PhotoGallery({
   visible: boolean;
   photos: HutImage[];
   index: number;
+  hutId: string;
   userPhotoCount: number;
   onIndexChange: (i: number) => void;
   onClose: () => void;
@@ -453,10 +457,24 @@ function PhotoGallery({
               current && creditLine(current)
             )}
           </Text>
-          {isUserPhoto && (
+          {isUserPhoto ? (
             <TouchableOpacity onPress={() => onRemove(index)} hitSlop={10}>
               <Ionicons name="trash-outline" size={22} color="#ff6b6b" />
             </TouchableOpacity>
+          ) : (
+            /* ⚠️ Only on photos the app found, never on the user's own — there
+               is nothing to report about your own picture, and the flag would
+               read as "delete" next to one. These are exactly the ~1,522 found
+               by matching a name against a web image index, where a human
+               review rejected roughly half: the ones that survived are the ones
+               that LOOK right, which is what a wrong building does. */
+            current && (
+              <ReportPhoto
+                variant="inline"
+                hutId={hutId}
+                photoUrl={current.url}
+              />
+            )
           )}
         </View>
       </View>
