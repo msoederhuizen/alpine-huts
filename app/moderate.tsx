@@ -34,15 +34,26 @@ import {
   judgePhoto,
   judgeReview,
   myUserId,
+  openPlaceReports,
   openReports,
   pendingPhotos,
   pendingReviews,
+  resolvePlaceReport,
   resolveReport,
+  type OpenPlaceReport,
   type OpenReport,
   type PendingPhoto,
   type PendingReview,
 } from '../src/api/community';
 import { COLORS, RADIUS, coloredShadow } from '../src/constants/theme';
+
+const PLACE_REASON: Record<string, string> = {
+  closed: 'Permanently closed',
+  no_longer_lodging: 'No longer somewhere to stay',
+  moved: 'Pin is in the wrong place',
+  wrong_details: 'Details are wrong',
+  other: 'Something else',
+};
 
 const REASON_LABEL: Record<string, string> = {
   wrong_place: 'Wrong building',
@@ -58,6 +69,7 @@ export default function Moderate() {
   const [photos, setPhotos] = useState<PendingPhoto[]>([]);
   const [reviews, setReviews] = useState<PendingReview[]>([]);
   const [reports, setReports] = useState<OpenReport[]>([]);
+  const [places, setPlaces] = useState<OpenPlaceReport[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [status, setStatus] = useState('');
@@ -67,10 +79,11 @@ export default function Moderate() {
     setIsMod(mod);
     setUid(id);
     if (mod) {
-      const [p, r, f] = await Promise.all([pendingPhotos(), pendingReviews(), openReports()]);
+      const [p, r, f, pl] = await Promise.all([pendingPhotos(), pendingReviews(), openReports(), openPlaceReports()]);
       setPhotos(p);
       setReviews(r);
       setReports(f);
+      setPlaces(pl);
     }
     setReady(true);
   }, []);
@@ -132,7 +145,7 @@ export default function Moderate() {
     );
   }
 
-  const nothing = !photos.length && !reviews.length && !reports.length;
+  const nothing = !photos.length && !reviews.length && !reports.length && !places.length;
 
   return (
     <>
@@ -146,6 +159,47 @@ export default function Moderate() {
             <Text style={s.title}>Nothing waiting</Text>
             <Text style={s.body}>Pull down to check again.</Text>
           </View>
+        )}
+
+        {/* ⚠️ FIRST, ABOVE THE PHOTOS, DELIBERATELY. A wrong photograph is
+            embarrassing; a hut that closed years ago is someone walking to a
+            locked door at dusk. These are also the only reports that cannot be
+            fixed here — the correction has to reach OpenStreetMap or the next
+            data regeneration puts the place straight back. */}
+        {!!places.length && (
+          <>
+            <Text style={s.section}>Places reported wrong ({places.length})</Text>
+            {places.map((p) => (
+              <View key={p.id} style={[s.card, s.pad]}>
+                <Text style={s.reason}>{PLACE_REASON[p.reason] ?? p.reason}</Text>
+                {!!p.detail && <Text style={s.body}>{p.detail}</Text>}
+                <Text style={s.meta}>{p.hutId}</Text>
+                <Text style={s.hint}>
+                  Check it, then fix it in OpenStreetMap — editing there fixes every map, and is the
+                  only thing that survives the next data rebuild.
+                </Text>
+                <View style={s.row}>
+                  <Pressable
+                    style={[s.button, s.no, busy === p.id && s.buttonOff]}
+                    disabled={busy === p.id}
+                    onPress={() => act(p.id, () => resolvePlaceReport(p.id, false), () =>
+                      setPlaces((x) => x.filter((y) => y.id !== p.id)))}
+                  >
+                    <Text style={s.buttonText}>Dismiss</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[s.button, busy === p.id && s.buttonOff]}
+                    disabled={busy === p.id}
+                    onPress={() => act(p.id, () => resolvePlaceReport(p.id, true), () =>
+                      setPlaces((x) => x.filter((y) => y.id !== p.id)))}
+                  >
+                    <Ionicons name="checkmark" size={16} color="#fff" />
+                    <Text style={s.buttonText}>Fixed in OSM</Text>
+                  </Pressable>
+                </View>
+              </View>
+            ))}
+          </>
         )}
 
         {!!reports.length && (

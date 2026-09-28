@@ -25,6 +25,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { fetchHutGallery } from '../../src/api/hutPhotos';
 import HutReviews from '../../src/components/HutReviews';
 import ReportPhoto from '../../src/components/ReportPhoto';
+import ReportPlace from '../../src/components/ReportPlace';
 import SharePhoto from '../../src/components/SharePhoto';
 import { writeCachedPhotos } from '../../src/utils/photoCache';
 import { keepBrowsedPhotos } from '../../src/utils/photoFiles';
@@ -358,6 +359,7 @@ export default function HutDetailScreen() {
               screen reads as yours first, and only then offers the public part.
               Both render nothing when the community backend is switched off. */}
           <SharePhoto hutId={id} hutName={hut.name ?? 'this hut'} />
+          <ReportPlace hutId={id} hutName={hut.name ?? 'this place'} />
           <HutReviews hutId={id} />
 
           <View style={styles.coordRow}>

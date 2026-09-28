@@ -581,3 +581,94 @@ export async function resolveReport(id: string): Promise<boolean> {
     return false;
   }
 }
+
+// ── reports about the place itself ──────────────────────────────────────────
+// ⚠️ A DIFFERENT PROBLEM FROM A WRONG PHOTO, AND A WORSE ONE. Every other check
+// in this project asks whether a record's photograph is right. None asks
+// whether the record still describes somewhere you can walk to. Gästehaus
+// Ehrenberg is permanently closed and OSM node 6754051402 — untouched since
+// 2019 — still lists it as a guest house. Nothing automatic reaches that.
+//
+// ⚠️ AND IT IS FIXED SOMEWHERE ELSE. A wrong photo is one row to delete; a
+// closed hut has to be corrected in OpenStreetMap or the next generate-huts run
+// puts it straight back. Hence its own table and its own queue.
+
+export type PlaceReason = 'closed' | 'moved' | 'wrong_details' | 'no_longer_lodging' | 'other';
+
+export interface OpenPlaceReport {
+  id: string;
+  hutId: string;
+  reason: PlaceReason;
+  detail: string | null;
+  createdAt: string;
+  fixedUpstream: boolean;
+}
+
+export async function reportPlace(
+  hutId: string,
+  reason: PlaceReason,
+  detail = '',
+): Promise<'ok' | 'offline' | 'already' | 'failed'> {
+  const c = db();
+  if (!c) return 'offline';
+  const uid = await ensureSession();
+  if (!uid) return 'offline';
+  try {
+    const { error } = await c.from('place_reports').insert({
+      hut_id: hutId,
+      reason,
+      detail: detail.trim().slice(0, 500) || null,
+      author_id: uid,
+    });
+    if (!error) { note(true, false); return 'ok'; }
+    return error.code === '23505' ? 'already' : 'failed';
+  } catch {
+    note(false, true);
+    return 'failed';
+  }
+}
+
+export async function openPlaceReports(): Promise<OpenPlaceReport[]> {
+  const c = db();
+  if (!c) return [];
+  try {
+    const { data, error } = await c
+      .from('place_reports')
+      .select('id,hut_id,reason,detail,created_at,fixed_upstream')
+      .eq('resolved', false)
+      .order('created_at', { ascending: true })
+      .limit(100);
+    if (error || !data) return [];
+    return data.map((r) => ({
+      id: String(r.id),
+      hutId: String(r.hut_id),
+      reason: r.reason as PlaceReason,
+      detail: r.detail ?? null,
+      createdAt: String(r.created_at),
+      fixedUpstream: Boolean(r.fixed_upstream),
+    }));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Close a place report.
+ *
+ * `fixedUpstream` records whether the correction actually reached
+ * OpenStreetMap. Resolving without it is a note that the fix is not durable
+ * yet — the next data regeneration will reinstate the place.
+ */
+export async function resolvePlaceReport(id: string, fixedUpstream: boolean): Promise<boolean> {
+  const c = db();
+  if (!c) return false;
+  try {
+    const { error } = await c
+      .from('place_reports')
+      .update({ resolved: true, fixed_upstream: fixedUpstream })
+      .eq('id', id);
+    return !error;
+  } catch {
+    return false;
+  }
+}
