@@ -64,3 +64,5 @@ brave-search-list.csv
 assets/data/*.json.tried
 search-list.csv
 unsearchable-places.csv
+photo-locations.json
+agg-verdicts.json
