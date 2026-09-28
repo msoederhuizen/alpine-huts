@@ -23,6 +23,8 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { fetchHutGallery } from '../../src/api/hutPhotos';
+import HutReviews from '../../src/components/HutReviews';
+import SharePhoto from '../../src/components/SharePhoto';
 import { writeCachedPhotos } from '../../src/utils/photoCache';
 import { keepBrowsedPhotos } from '../../src/utils/photoFiles';
 import { COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
@@ -350,6 +352,12 @@ export default function HutDetailScreen() {
             onBlur={() => setNotes(id, notesDraft)}
             multiline
           />
+
+          {/* Sharing and reviews sit AFTER the private notes, deliberately: the
+              screen reads as yours first, and only then offers the public part.
+              Both render nothing when the community backend is switched off. */}
+          <SharePhoto hutId={id} hutName={hut.name ?? 'this hut'} />
+          <HutReviews hutId={id} />
 
           <View style={styles.coordRow}>
             <Ionicons name="location-outline" size={14} color="#999" />
