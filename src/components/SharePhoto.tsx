@@ -22,6 +22,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, TextInput, View, Image } from 'react-native';
 
 import { communityEnabled, submitPhoto } from '../api/community';
+import { NEEDS_ACCOUNT } from '../constants/copy';
 import { COLORS, RADIUS } from '../constants/theme';
 
 export default function SharePhoto({
@@ -107,7 +108,9 @@ export default function SharePhoto({
       return;
     }
     setMessage(
-      outcome === 'offline'
+      outcome === 'needs_account'
+        ? NEEDS_ACCOUNT
+        : outcome === 'offline'
         ? 'No connection — sharing needs signal.'
         : outcome === 'too_big'
           ? 'That photo is too large. Try one under 8 MB.'

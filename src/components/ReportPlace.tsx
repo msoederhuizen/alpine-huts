@@ -21,6 +21,7 @@ import React, { useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { communityEnabled, reportPlace, type PlaceReason } from '../api/community';
+import { NEEDS_ACCOUNT } from '../constants/copy';
 import { COLORS, RADIUS } from '../constants/theme';
 
 const REASONS: { key: PlaceReason; label: string; hint: string }[] = [
@@ -63,7 +64,11 @@ export default function ReportPlace({ hutId, hutName }: { hutId: string; hutName
       return;
     }
     setMessage(
-      outcome === 'offline' ? 'No connection — this needs signal.' : 'That did not send. Please try again.',
+      outcome === 'needs_account'
+        ? NEEDS_ACCOUNT
+        : outcome === 'offline'
+          ? 'No connection — this needs signal.'
+          : 'That did not send. Please try again.',
     );
   };
 

@@ -70,6 +70,7 @@ import {
   hutTypeShortLabel,
 } from '../../src/utils/hutMeta';
 import { villagesShadowedByHut } from '../../src/utils/dedupePlaces';
+import ReportMissingHut, { type MissingHutSpot } from '../../src/components/ReportMissingHut';
 
 /** Gap between the status bar and the floating search bar. Smaller than the
  *  old header inset, so the bar sits slightly higher than before. */
@@ -433,6 +434,29 @@ export default function MapScreen() {
     setFilterOpen(false);
     if (Date.now() - lastMarkerPress.current > 300) dismissCard();
   }, [dismissCard]);
+
+  /**
+   * Long-press anywhere to report a hut the app does not have.
+   *
+   * ⚠️ THE GESTURE IS THE POINT. A missing hut's hardest field is its POSITION —
+   * mountain huts have no address and nobody types coordinates — so the action
+   * that starts the report is the one that already answers that. Name, type and
+   * photo are all easy once somebody is standing there.
+   *
+   * A long-press rather than a button: it keeps the map uncluttered, and it puts
+   * the report exactly where the hut is instead of where the map is centred.
+   */
+  const [missingSpot, setMissingSpot] = useState<MissingHutSpot | null>(null);
+  const handleMapLongPress = useCallback(
+    (e: { nativeEvent: { coordinate: { latitude: number; longitude: number } } }) => {
+      Keyboard.dismiss();
+      setFilterOpen(false);
+      dismissCard();
+      const { latitude, longitude } = e.nativeEvent.coordinate;
+      setMissingSpot({ lat: latitude, lon: longitude });
+    },
+    [dismissCard],
+  );
 
   // Search across huts/accommodations and villages by name. Deliberately
   // unaffected by the pin filter below — search should always be able to find
@@ -1062,6 +1086,7 @@ export default function MapScreen() {
         onMapReady={handleMapReady}
         onRegionChangeComplete={handleRegionChangeComplete}
         onPress={handleMapPress}
+        onLongPress={handleMapLongPress}
       >
         {legs.flatMap((leg) => {
           const key = `${leg.from.id}->${leg.to.id}`;
@@ -1125,6 +1150,10 @@ export default function MapScreen() {
         {foundPin}
         {haloMarker}
       </MapView>
+
+      {/* Renders nothing until a long-press sets a point, and nothing at all
+          when the community backend is not configured. */}
+      <ReportMissingHut spot={missingSpot} onClose={() => setMissingSpot(null)} />
 
       {/* `box-none` so only the search bar / filter panel take touches and the
           rest of this full-height overlay passes taps through to the map. */}

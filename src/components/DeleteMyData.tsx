@@ -21,12 +21,15 @@ import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { communityEnabled, deleteMyContent } from '../api/community';
+import { communityEnabled, deleteMyAccount, deleteMyContent } from '../api/community';
 import { COLORS, RADIUS } from '../constants/theme';
+
+/** Which of the two deletions the person is partway through confirming. */
+type Choice = 'content' | 'account';
 
 export default function DeleteMyData() {
   const [open, setOpen] = useState(false);
-  const [confirming, setConfirming] = useState(false);
+  const [confirming, setConfirming] = useState<Choice | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState('');
 
@@ -34,27 +37,29 @@ export default function DeleteMyData() {
 
   const close = () => {
     setOpen(false);
-    setConfirming(false);
+    setConfirming(null);
     setDone('');
   };
 
-  const run = async () => {
+  const run = async (what: Choice) => {
     setBusy(true);
-    const ok = await deleteMyContent();
+    const ok = what === 'account' ? await deleteMyAccount() : await deleteMyContent();
     setBusy(false);
     setDone(
       ok
-        ? 'Deleted. Your photographs, reviews and reports have been removed.'
+        ? what === 'account'
+          ? 'Deleted. Your account is gone, along with everything it held. Trips saved on this phone are untouched.'
+          : 'Deleted. Your photographs, reviews and reports have been removed.'
         : 'That did not work — this needs a connection. Please try again with signal.',
     );
-    setConfirming(false);
+    setConfirming(null);
   };
 
   return (
     <>
       <Pressable style={s.row} onPress={() => setOpen(true)}>
         <Ionicons name="trash-outline" size={17} color={COLORS.danger} />
-        <Text style={s.rowText}>Delete everything I have sent</Text>
+        <Text style={s.rowText}>Delete my data or my account</Text>
         <Ionicons name="chevron-forward" size={15} color={COLORS.muted} />
       </Pressable>
 
@@ -73,21 +78,35 @@ export default function DeleteMyData() {
               </>
             ) : confirming ? (
               <>
-                <Text style={s.title}>Delete everything?</Text>
-                <Text style={s.body}>
-                  This removes every photograph, review and report you have sent, including any still
-                  waiting to be checked. It cannot be undone.
+                <Text style={s.title}>
+                  {confirming === 'account' ? 'Delete your account?' : 'Delete everything?'}
                 </Text>
                 <Text style={s.body}>
-                  Photos and notes saved only on this phone are not affected — those are yours and stay
-                  where they are.
+                  {confirming === 'account'
+                    ? 'This removes your account, your email address, and every photograph, review, report and shared route it holds. Any code you have shared stops working. It cannot be undone.'
+                    : 'This removes every photograph, review and report you have sent, including any still waiting to be checked. It cannot be undone.'}
+                </Text>
+                <Text style={s.body}>
+                  {confirming === 'account'
+                    ? 'Your saved trips, notes and your own hut photos live on this phone and are not affected. You will need an account again to save or share a new one.'
+                    : 'Photos and notes saved only on this phone are not affected — those are yours and stay where they are.'}
                 </Text>
                 <View style={s.actions}>
-                  <Pressable onPress={() => setConfirming(false)} hitSlop={8} disabled={busy}>
-                    <Text style={s.cancel}>Keep them</Text>
+                  <Pressable onPress={() => setConfirming(null)} hitSlop={8} disabled={busy}>
+                    <Text style={s.cancel}>{confirming === 'account' ? 'Keep it' : 'Keep them'}</Text>
                   </Pressable>
-                  <Pressable style={[s.danger, busy && s.off]} onPress={run} disabled={busy}>
-                    <Text style={s.dangerText}>{busy ? 'Deleting…' : 'Delete everything'}</Text>
+                  <Pressable
+                    style={[s.danger, busy && s.off]}
+                    onPress={() => run(confirming)}
+                    disabled={busy}
+                  >
+                    <Text style={s.dangerText}>
+                      {busy
+                        ? 'Deleting…'
+                        : confirming === 'account'
+                          ? 'Delete my account'
+                          : 'Delete everything'}
+                    </Text>
                   </Pressable>
                 </View>
               </>
@@ -95,15 +114,28 @@ export default function DeleteMyData() {
               <>
                 <Text style={s.title}>Your contributions</Text>
                 <Text style={s.body}>
-                  If you have sent in photographs or reviews, you can remove them. Anything saved only on
-                  this phone is untouched.
+                  You can remove what you have sent in and keep your account, or remove the account and
+                  everything with it. Anything saved only on this phone is untouched either way.
                 </Text>
-                <Pressable style={s.choice} onPress={() => setConfirming(true)}>
+                <Pressable style={s.choice} onPress={() => setConfirming('content')}>
                   <Ionicons name="trash-outline" size={18} color={COLORS.danger} />
                   <View style={s.choiceText}>
                     <Text style={s.choiceLabel}>Delete everything I have sent</Text>
                     <Text style={s.choiceHint}>
                       Photographs, reviews and reports — permanently
+                    </Text>
+                  </View>
+                </Pressable>
+                {/* ⚠️ Apple requires account deletion to be reachable in the app
+                    once accounts exist — and an account is now needed to save or
+                    share a trip, so this is not optional. See
+                    `delete_my_account()` in 0007_shared_routes.sql. */}
+                <Pressable style={s.choice} onPress={() => setConfirming('account')}>
+                  <Ionicons name="person-remove-outline" size={18} color={COLORS.danger} />
+                  <View style={s.choiceText}>
+                    <Text style={s.choiceLabel}>Delete my account</Text>
+                    <Text style={s.choiceHint}>
+                      The account, your email address, and everything above
                     </Text>
                   </View>
                 </Pressable>

@@ -34,12 +34,15 @@ import {
   judgePhoto,
   judgeReview,
   myUserId,
+  openMissingPlaceReports,
   openPlaceReports,
   openReports,
   pendingPhotos,
   pendingReviews,
+  resolveMissingPlace,
   resolvePlaceReport,
   resolveReport,
+  type MissingPlaceReport,
   type OpenPlaceReport,
   type OpenReport,
   type PendingPhoto,
@@ -71,6 +74,7 @@ export default function Moderate() {
   const [reviews, setReviews] = useState<PendingReview[]>([]);
   const [reports, setReports] = useState<OpenReport[]>([]);
   const [places, setPlaces] = useState<OpenPlaceReport[]>([]);
+  const [missing, setMissing] = useState<MissingPlaceReport[]>([]);
   const [busy, setBusy] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [status, setStatus] = useState('');
@@ -80,11 +84,14 @@ export default function Moderate() {
     setIsMod(mod);
     setUid(id);
     if (mod) {
-      const [p, r, f, pl] = await Promise.all([pendingPhotos(), pendingReviews(), openReports(), openPlaceReports()]);
+      const [p, r, f, pl, ms] = await Promise.all([
+        pendingPhotos(), pendingReviews(), openReports(), openPlaceReports(), openMissingPlaceReports(),
+      ]);
       setPhotos(p);
       setReviews(r);
       setReports(f);
       setPlaces(pl);
+      setMissing(ms);
     }
     setReady(true);
   }, []);
@@ -167,6 +174,52 @@ export default function Moderate() {
             locked door at dusk. These are also the only reports that cannot be
             fixed here — the correction has to reach OpenStreetMap or the next
             data regeneration puts the place straight back. */}
+        {/* ⚠️ ABOVE EVERYTHING, INCLUDING THE WRONG-PLACE REPORTS. Those say a
+            record is stale; these say a hut is absent from the map entirely,
+            which is the one failure no automated check can find — every source
+            this project cross-references only covers regions somebody has
+            published a list for. A person standing in front of an unlisted hut
+            is the only coverage there is for everywhere else. */}
+        {!!missing.length && (
+          <>
+            <Text style={s.section}>Huts reported as missing ({missing.length})</Text>
+            {missing.map((m) => (
+              <View key={m.id} style={[s.card, s.pad]}>
+                <Text style={s.reason}>{m.name}</Text>
+                {!!m.photoUrl && <Image source={{ uri: m.photoUrl }} style={s.shot} resizeMode="cover" />}
+                {!!m.detail && <Text style={s.body}>{m.detail}</Text>}
+                <Text style={s.meta}>
+                  {m.kind === 'unknown' ? 'type not given' : m.kind} · {m.lat.toFixed(5)}, {m.lon.toFixed(5)}
+                  {m.regionId ? ` · ${m.regionId}` : ' · outside every region'}
+                </Text>
+                <Text style={s.hint}>
+                  Check the position, then add it to OpenStreetMap — that is what puts it on the map
+                  here and survives the next data rebuild.
+                </Text>
+                <View style={s.row}>
+                  <Pressable
+                    style={[s.button, s.no, busy === m.id && s.buttonOff]}
+                    disabled={busy === m.id}
+                    onPress={() => act(m.id, () => resolveMissingPlace(m.id, false), () =>
+                      setMissing((x) => x.filter((y) => y.id !== m.id)))}
+                  >
+                    <Text style={s.buttonText}>Dismiss</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[s.button, busy === m.id && s.buttonOff]}
+                    disabled={busy === m.id}
+                    onPress={() => act(m.id, () => resolveMissingPlace(m.id, true), () =>
+                      setMissing((x) => x.filter((y) => y.id !== m.id)))}
+                  >
+                    <Ionicons name="checkmark" size={16} color="#fff" />
+                    <Text style={s.buttonText}>Added to OSM</Text>
+                  </Pressable>
+                </View>
+              </View>
+            ))}
+          </>
+        )}
+
         {!!places.length && (
           <>
             <Text style={s.section}>Places reported wrong ({places.length})</Text>

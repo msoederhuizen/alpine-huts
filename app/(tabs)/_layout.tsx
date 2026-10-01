@@ -80,9 +80,9 @@ export default function TabsLayout() {
         options={{
           title: 'Saved trips',
           tabBarIcon: tabIcon('bookmark'),
-          // The app's only header-level entry to About, which carries the
-          // OpenStreetMap attribution the data licence requires. The map's
-          // own attribution pill is the other way in.
+          // A second way into About, kept alongside the Account tab's own: the
+          // map's attribution pill and this header are both long-standing
+          // routes to the OpenStreetMap credit the data licence requires.
           headerRight: () => (
             <TouchableOpacity
               onPress={() => router.push('/about')}
@@ -94,6 +94,16 @@ export default function TabsLayout() {
             </TouchableOpacity>
           ),
         }}
+      />
+      {/* ⚠️ FIFTH TAB, AND IT EARNS ITS PLACE BY BEING FINDABLE. Reporting a
+          missing hut began as a long-press on the map, which works but nobody
+          discovers — a gesture with no affordance is a feature only its author
+          knows about. Account, sign-in, deletion and About were likewise
+          scattered behind a header icon. One tab makes all of them reachable
+          by looking rather than by knowing. */}
+      <Tabs.Screen
+        name="account"
+        options={{ title: 'Account', tabBarIcon: tabIcon('person-circle') }}
       />
     </Tabs>
   );

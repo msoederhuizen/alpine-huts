@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 
 import { remoteSupportEmail } from '../src/api/remoteConfig';
+import Account from '../src/components/Account';
 import DeleteMyData from '../src/components/DeleteMyData';
+import { PRIVACY_URL } from '../src/constants/links';
 import { COLORS, RADIUS, coloredShadow } from '../src/constants/theme';
 import { clearPhotoCache } from '../src/utils/photoCache';
 import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoFiles';
@@ -32,17 +34,61 @@ import { clearDownloadedPhotos, downloadedPhotoBytes } from '../src/utils/photoF
 
 /**
  * Apple requires a reachable privacy policy and a support contact, and checks
- * both during review. Served from the repo's `docs/` folder via GitHub Pages,
- * so the same commit that changes the policy publishes it.
+ * both during review. The addresses now live in src/constants/links.ts, because
+ * the Account tab links to the policy too and a second copy of the URL is a
+ * second chance for one of them to rot unnoticed.
  *
- * The address below is the FALLBACK. `config.json` on the same site overrides
- * it at runtime, so it can be changed without an app release — see
+ * The email below is the FALLBACK. `config.json` on the same site overrides it
+ * at runtime, so it can be changed without an app release — see
  * src/api/remoteConfig.ts. Keep this value correct anyway: it is what a phone
  * that has never been online will show.
  */
-const SITE_URL = 'https://msoederhuizen.github.io/alpine-huts/';
-const PRIVACY_URL = `${SITE_URL}privacy.html`;
 const FALLBACK_SUPPORT_EMAIL = 'margot.soederhuizen@live.nl';
+
+/**
+ * ⚠️ WHAT THE APP DOES, BEFORE WHERE ITS DATA CAME FROM. This screen was built
+ * as a credits and licence page, and that is still its legal job — but it is
+ * also the only "About" there is, and somebody who taps About wants to know
+ * what the thing in their hand can do. The attribution block below is not
+ * optional; this list is what makes the screen worth opening.
+ */
+const FEATURES = [
+  {
+    icon: 'sparkles-outline' as const,
+    title: 'Plan a hut-to-hut walk',
+    what: 'Say where you want to walk and how far and how much climbing you want in a day. It links huts into a route and offers up to three alternatives to swipe between.',
+  },
+  {
+    icon: 'trail-sign-outline' as const,
+    title: 'Real trails, not straight lines',
+    what: 'Every leg is routed along actual paths, with distance, ascent, walking time, a height profile and the T1–T6 Alpine difficulty grade for the day.',
+  },
+  {
+    icon: 'map-outline' as const,
+    title: 'Every hut on one map',
+    what: 'Staffed huts, unstaffed refuges, bivouacs, mountain guesthouses and the villages between them — with photos, contact details and how to book.',
+  },
+  {
+    icon: 'train-outline' as const,
+    title: 'Lifts and mountain trains',
+    what: 'Let a cable car, gondola, funicular or mountain railway take a climb off the day, and huts that were out of reach come into range.',
+  },
+  {
+    icon: 'cloud-offline-outline' as const,
+    title: 'Works without signal',
+    what: 'Huts, saved trips, their routes and their photos are on the phone. Only planning a new route and the map background need a connection.',
+  },
+  {
+    icon: 'share-social-outline' as const,
+    title: 'Save and share routes',
+    what: 'Keep a plan, reorder its days by dragging, and hand it to a walking partner with an eight-character code they can open on their own phone.',
+  },
+  {
+    icon: 'camera-outline' as const,
+    title: 'Your own notes and photos',
+    what: 'Add photos and notes to any hut, just for you — or send a photo or review in for everyone, and report a hut the map is missing.',
+  },
+];
 
 const SOURCES = [
   {
@@ -80,6 +126,13 @@ const SOURCES = [
     licence: '© refuges.info contributors · CC BY-SA',
     url: 'https://www.refuges.info/',
   },
+  {
+    icon: 'train-outline' as const,
+    name: 'Alpenverein hut register',
+    what: 'Telephone numbers, hut websites and how to reach a hut by train or bus, for the Austrian, German and South Tyrolean club huts.',
+    licence: '© Österreichischer Alpenverein',
+    url: 'https://www.alpenverein.at/huetten/',
+  },
 ];
 
 export default function AboutScreen() {
@@ -109,6 +162,21 @@ export default function AboutScreen() {
           where you want to walk, set how far and how much climbing you want in a
           day, and it links huts into a route along real trails.
         </Text>
+
+        <Text style={styles.sectionLabel}>What it does</Text>
+        <View style={styles.card}>
+          {FEATURES.map((f, i) => (
+            <View key={f.title} style={[styles.source, i > 0 && styles.sourceDivider]}>
+              <View style={styles.sourceIcon}>
+                <Ionicons name={f.icon} size={18} color={COLORS.green} />
+              </View>
+              <View style={styles.sourceText}>
+                <Text style={styles.sourceName}>{f.title}</Text>
+                <Text style={styles.sourceWhat}>{f.what}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
 
         <Text style={styles.sectionLabel}>Where the data comes from</Text>
         <View style={styles.card}>
@@ -142,16 +210,21 @@ export default function AboutScreen() {
           <View style={styles.block}>
             {/* ⚠️ Keep this in step with docs/privacy.html. It used to say
                 "never uploaded", which stopped being true the moment sharing
-                shipped — and a false claim about data handling in the app
-                itself is worse than a vague one. */}
+                shipped, and then "there is no sign-up", which stopped being
+                true when accounts did — a false claim about data handling in
+                the app itself is worse than a vague one. */}
             <Text style={styles.blockText}>
-              There is no sign-up and no tracking. Your saved trips and your notes
-              stay on this phone.
+              There is no tracking and no advertising. Browsing the map and the huts
+              needs no account at all.
             </Text>
             <Text style={styles.blockText}>
-              Adding a photo to a hut shares it: it is checked before anyone else sees
-              it, and sent with an anonymous id so you can delete it later. Reviews
-              work the same way. Nothing else leaves your phone.
+              An account — an email address and a password, nothing else — is needed to
+              save a trip, to share one, and to send in a photo or a review. It exists so
+              that what you keep survives a new phone and what you share can be taken back.
+            </Text>
+            <Text style={styles.blockText}>
+              Anything you send in is checked before anyone else sees it, and you can
+              delete all of it below. Your notes and your own hut photos stay on this phone.
             </Text>
             <Text style={styles.blockText}>
               Your location is used only to show where you are on the map. The
@@ -172,6 +245,11 @@ export default function AboutScreen() {
               the app offers account creation — an email address to write to is
               explicitly not sufficient, and an anonymous account still counts.
               It renders nothing when the community features are switched off. */}
+          {/* Optional: an email and password so contributions survive a new
+              phone. Renders nothing until the community backend is configured,
+              and never blocks contributing — see src/components/Account.tsx. */}
+          <View style={styles.sourceDivider} />
+          <Account />
           <View style={styles.sourceDivider} />
           <DeleteMyData />
         </View>

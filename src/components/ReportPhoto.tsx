@@ -19,6 +19,7 @@ import React, { useState } from 'react';
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { communityEnabled, reportPhoto, type ReportReason } from '../api/community';
+import { NEEDS_ACCOUNT } from '../constants/copy';
 import { COLORS, RADIUS } from '../constants/theme';
 
 const REASONS: { key: ReportReason; label: string; hint: string }[] = [
@@ -73,9 +74,11 @@ export default function ReportPhoto({
       setTimeout(() => { close(); onDone?.(); }, 1500);
     } else {
       setMessage(
-        outcome === 'offline'
-          ? 'No connection — this needs signal.'
-          : 'That did not send. Please try again.',
+        outcome === 'needs_account'
+          ? NEEDS_ACCOUNT
+          : outcome === 'offline'
+            ? 'No connection — this needs signal.'
+            : 'That did not send. Please try again.',
       );
     }
   };

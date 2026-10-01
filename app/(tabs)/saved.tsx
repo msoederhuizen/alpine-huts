@@ -15,6 +15,8 @@ import {
 
 import { useQueryClient } from '@tanstack/react-query';
 
+import { communityEnabled } from '../../src/api/community';
+import ShareTrip from '../../src/components/ShareTrip';
 import { coloredShadow, COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
 import { legQueryOptions } from '../../src/hooks/useRouteLegs';
 import {
@@ -36,6 +38,7 @@ export default function SavedTripsScreen() {
 
   const [renaming, setRenaming] = useState<SavedTrip | null>(null);
   const [renameText, setRenameText] = useState('');
+  const [sharing, setSharing] = useState<SavedTrip | null>(null);
 
   const load = (trip: SavedTrip) => {
     const go = () => {
@@ -106,6 +109,18 @@ export default function SavedTripsScreen() {
           Build a route on the Map, then tap “Save trip” on the Route tab to
           keep it here.
         </Text>
+        {/* An empty Saved tab is exactly where somebody who was handed a code
+            ends up looking, so say where it goes. */}
+        {communityEnabled && (
+          <TouchableOpacity
+            style={styles.emptyLink}
+            onPress={() => router.navigate('/account')}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="download-outline" size={17} color={COLORS.green} />
+            <Text style={styles.emptyLinkText}>Been sent a code? Open a shared route</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -137,7 +152,24 @@ export default function SavedTripsScreen() {
             {item.huts.length} {item.huts.length === 1 ? 'hut' : 'huts'} ·{' '}
             {summary}
           </Text>
+          {/* Shown from the trip itself, not the server — this is the one
+              screen people open with no signal. See `shareCode` in the store. */}
+          {!!item.shareCode && (
+            <Text style={styles.cardShared} numberOfLines={1}>
+              Shared · {item.shareCode}
+            </Text>
+          )}
         </View>
+        {communityEnabled && (
+          <TouchableOpacity
+            onPress={() => setSharing(item)}
+            hitSlop={8}
+            style={styles.cardIcon}
+            accessibilityLabel={`Share ${item.name}`}
+          >
+            <Ionicons name="share-social" size={16} color={COLORS.green} />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={() => openRename(item)}
           hitSlop={8}
@@ -165,6 +197,11 @@ export default function SavedTripsScreen() {
         keyExtractor={(t) => t.id}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
+      />
+
+      <ShareTrip
+        trip={sharing ? (trips.find((t) => t.id === sharing.id) ?? sharing) : null}
+        onClose={() => setSharing(null)}
       />
 
       <Modal
@@ -234,6 +271,7 @@ const styles = StyleSheet.create({
   cardMain: { flex: 1 },
   cardName: { fontSize: 16, fontWeight: '700', color: COLORS.ink },
   cardSummary: { fontSize: 13, color: COLORS.muted, marginTop: 2 },
+  cardShared: { fontSize: 11.5, color: COLORS.green, fontWeight: '700', marginTop: 3, letterSpacing: 0.4 },
   cardIcon: {
     padding: 8,
     borderRadius: 10,
@@ -267,6 +305,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 20,
   },
+  emptyLink: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 14, padding: 8 },
+  emptyLinkText: { fontSize: 14, fontWeight: '700', color: COLORS.green },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(15,25,20,0.5)',

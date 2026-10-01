@@ -25,6 +25,7 @@ import {
   type Rating,
   type Review,
 } from '../api/community';
+import { NEEDS_ACCOUNT } from '../constants/copy';
 import { COLORS, RADIUS, coloredShadow } from '../constants/theme';
 
 const STARS = [1, 2, 3, 4, 5] as const;
@@ -115,9 +116,11 @@ export default function HutReviews({ hutId }: { hutId: string }) {
       load();
     } else {
       setMessage(
-        outcome === 'offline'
-          ? 'No connection. Reviews need signal — try again back in the valley.'
-          : 'That did not send. Please try again.',
+        outcome === 'needs_account'
+          ? NEEDS_ACCOUNT
+          : outcome === 'offline'
+            ? 'No connection. Reviews need signal — try again back in the valley.'
+            : 'That did not send. Please try again.',
       );
     }
   };

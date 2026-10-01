@@ -20,6 +20,7 @@ import DraggableFlatList, {
 } from 'react-native-draggable-flatlist';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { communityEnabled, hasAccountOnThisPhone } from '../../src/api/community';
 import { coloredShadow, COLORS, GRADIENT, RADIUS } from '../../src/constants/theme';
 import { useLeg, useRouteLegs } from '../../src/hooks/useRouteLegs';
 import { packLeg } from '../../src/utils/packLeg';
@@ -67,7 +68,31 @@ export default function RouteScreen() {
   const [saveOpen, setSaveOpen] = useState(false);
   const [tripName, setTripName] = useState('');
 
-  const openSave = () => {
+  /**
+   * ⚠️ SAVING NEEDS AN ACCOUNT, AND THE CHECK IS DELIBERATELY LOCAL. A saved
+   * trip is the thing people share, come back to on a new phone and rely on in
+   * the mountains, which is what the account is for. But it is also the thing
+   * they save with no reception — so this asks `hasAccountOnThisPhone()`, which
+   * reads the session already on disk, and never `accountState()`, which is a
+   * network call that offline would report "no account" and refuse to save a
+   * route somebody just spent an hour building. Signing in needs signal once;
+   * saving after that never does.
+   *
+   * It asks BEFORE the name prompt, not after: making someone name a trip and
+   * then telling them it cannot be kept is the worst order to do this in.
+   */
+  const openSave = async () => {
+    if (communityEnabled && !(await hasAccountOnThisPhone())) {
+      Alert.alert(
+        'Saving a trip needs an account',
+        'An account — an email address and a password — keeps your trips when you change phone, and is what lets you share a route with someone else. It takes a moment and nothing else about you is asked for.',
+        [
+          { text: 'Not now', style: 'cancel' },
+          { text: 'Set one up', onPress: () => router.navigate('/account') },
+        ],
+      );
+      return;
+    }
     const suggested =
       huts.length > 1
         ? `${huts[0].name} → ${huts[huts.length - 1].name}`

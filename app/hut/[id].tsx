@@ -183,6 +183,9 @@ export default function HutDetailScreen() {
   const operator = hut.tags.operator || hut.tags.owner;
   const phone = hut.tags.phone || hut.tags['contact:phone'];
   const email = hut.tags.email || hut.tags['contact:email'];
+  // The person who keeps the hut, as distinct from `operator` — the club that
+  // owns it — which is shown up in the subtitle beside the hut type.
+  const warden = hut.tags['contact:person'];
 
   return (
     <>
@@ -312,9 +315,17 @@ export default function HutDetailScreen() {
           )}
 
           {/* Contact */}
-          {(phone || email) && (
+          {(phone || email || warden) && (
             <>
               <Text style={styles.sectionTitle}>Contact</Text>
+              {/* The hut keeper. Not a link — it is a person's name, not a way
+                  to reach them; the telephone number below is that. */}
+              {warden && (
+                <View style={styles.contactRow}>
+                  <Ionicons name="person-outline" size={16} color={COLORS.green} />
+                  <Text style={styles.contactText}>{warden}</Text>
+                </View>
+              )}
               {phone && (
                 <TouchableOpacity
                   style={styles.contactRow}

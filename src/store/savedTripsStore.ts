@@ -28,6 +28,15 @@ export interface SavedTrip {
    * back to routing on open, exactly as they used to).
    */
   legs?: PackedLeg[];
+  /**
+   * The code this trip has been shared under, once it has been.
+   *
+   * Kept here so the Saved tab can show "shared" without asking the server —
+   * which matters because the Saved tab is the one screen people open with no
+   * signal. The server remains the authority: a code revoked from another phone
+   * still sits here, and finding that out costs a connection.
+   */
+  shareCode?: string;
   createdAt: number;
 }
 
@@ -43,6 +52,10 @@ interface SavedTripsState {
   ) => string;
   rename: (id: string, name: string) => void;
   removeTrip: (id: string) => void;
+  /** Remember (or forget, with null) the code this trip is shared under. */
+  setShareCode: (id: string, code: string | null) => void;
+  /** Take a trip somebody shared and keep it as one of ours. Returns the id. */
+  addTrip: (trip: Omit<SavedTrip, 'id' | 'createdAt'>) => string;
   /** True once the persisted state has been read from storage. */
   _hydrated: boolean;
 }
@@ -79,6 +92,25 @@ export const useSavedTripsStore = create<SavedTripsState>()(
         })),
       removeTrip: (id) =>
         set((state) => ({ trips: state.trips.filter((t) => t.id !== id) })),
+      setShareCode: (id, code) =>
+        set((state) => ({
+          trips: state.trips.map((t) =>
+            t.id === id ? { ...t, shareCode: code ?? undefined } : t,
+          ),
+        })),
+      /**
+       * ⚠️ A RECEIVED TRIP BECOMES AN ORDINARY ONE, AND KEEPS NO CODE. The
+       * sharer can revoke theirs; a copy that quietly pointed back at it would
+       * vanish from under the person who accepted it. From here it is theirs —
+       * renameable, deletable, and shareable again under a code of their own.
+       */
+      addTrip: (trip) => {
+        const id = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+        set((state) => ({
+          trips: [{ ...trip, shareCode: undefined, id, createdAt: Date.now() }, ...state.trips],
+        }));
+        return id;
+      },
     }),
     {
       name: 'alpine-huts.saved-trips',
