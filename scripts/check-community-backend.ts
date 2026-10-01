@@ -73,12 +73,28 @@ async function main() {
       : `HTTP ${reviews.status} — ${JSON.stringify(reviews.body).slice(0, 160)}`,
   );
 
-  // 2. And return nothing, because nothing is approved yet. An EMPTY array is
-  //    the right answer; a row here would mean the read policy is not filtering.
+  /**
+   * 2. And show only APPROVED ones.
+   *
+   * ⚠️ THIS USED TO ASSERT "no reviews at all", WHICH WAS ONLY EVER TRUE BY
+   * ACCIDENT. It was written before anything had been approved, and its own
+   * comment said so — so the day a moderator approved the first review the
+   * check went red while the policy was working perfectly. A test that fails
+   * when the feature starts working teaches people to ignore it.
+   *
+   * What actually matters is that nothing PENDING or REJECTED leaks, so that
+   * is what this asks now. It stays correct however many reviews exist.
+   */
+  const anyReview = await call('hut_reviews?select=status&limit=200');
+  const leaked = Array.isArray(anyReview.body)
+    ? (anyReview.body as { status?: string }[]).filter((r) => r.status !== 'approved')
+    : [];
   record(
-    Array.isArray(reviews.body) && (reviews.body as unknown[]).length === 0,
-    'no reviews are visible to a stranger',
-    Array.isArray(reviews.body) ? `${(reviews.body as unknown[]).length} rows` : 'not an array',
+    Array.isArray(anyReview.body) && leaked.length === 0,
+    'only approved reviews are visible to a stranger',
+    Array.isArray(anyReview.body)
+      ? `${(anyReview.body as unknown[]).length} visible, ${leaked.length} not approved`
+      : 'not an array',
   );
 
   // 3. The ratings view exists and is filtered the same way.
@@ -130,6 +146,60 @@ async function main() {
     reports.status === 200 && Array.isArray(reports.body) && (reports.body as unknown[]).length === 0,
     'photo reports are not public',
     `HTTP ${reports.status}`,
+  );
+
+  /**
+   * 8. Nor are reports of MISSING huts, and this one carries a position.
+   *
+   * ⚠️ A LEAK HERE WOULD BE WORSE THAN THE OTHERS. Every other report says
+   * something about a place the app already shows. This one says "somebody
+   * marked a point on a map", and an unverified "there is a hut here" is
+   * exactly the claim a walker might act on in bad weather. A 404 means
+   * migration 0006 has not been run — not a leak, but worth saying plainly.
+   */
+  const missing = await call('missing_place_reports?select=id&limit=1');
+  record(
+    missing.status === 404 ||
+      (missing.status === 200 && Array.isArray(missing.body) && (missing.body as unknown[]).length === 0),
+    'missing-hut reports are not public',
+    missing.status === 404 ? 'table absent — run migration 0006' : `HTTP ${missing.status}`,
+  );
+
+  /**
+   * 9. Shared routes are not a public list.
+   *
+   * ⚠️ THE ONE TABLE HERE MEANT TO BE READ BY SOMEONE WHO IS NOT ITS AUTHOR,
+   * which makes it the easiest one to get wrong. The code is the secret; a
+   * select policy of `using (true)` would let a stranger list every route
+   * anybody has ever shared, with its author's id, and the code would protect
+   * nothing. So reading goes through open_shared_route() and this asks the
+   * table directly, as a stranger, expecting nothing back.
+   */
+  const shares = await call('shared_routes?select=code&limit=1');
+  const sharesNotYet = shares.status === 404;
+  record(
+    sharesNotYet ||
+      (shares.status === 200 && Array.isArray(shares.body) && (shares.body as unknown[]).length === 0),
+    sharesNotYet ? 'the shared-routes table does not exist yet (0007 not run)' : 'shared routes are not a public list',
+    sharesNotYet ? 'expected until migration 0007 has been run' : `HTTP ${shares.status}`,
+  );
+
+  /**
+   * 10. And a malformed code gets nothing, rather than an error that confirms
+   *     the function is there and worth grinding at.
+   */
+  const guess = await fetch(`${URL_}/rest/v1/rpc/open_shared_route`, {
+    method: 'POST',
+    headers: { apikey: KEY!, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ p_code: 'AAA' }),
+    signal: AbortSignal.timeout(20_000),
+  }).then(async (r) => ({ status: r.status, text: await r.text() }));
+  record(
+    // Anonymous callers have no grant at all (401/403/404); a signed-in caller
+    // would get 200 with an empty array. Both are correct — a row is not.
+    guess.status !== 200 || guess.text.trim() === '[]',
+    'a short code opens nothing',
+    `HTTP ${guess.status} — ${guess.text.slice(0, 80)}`,
   );
 
   const failed = results.filter((r) => !r.ok);
