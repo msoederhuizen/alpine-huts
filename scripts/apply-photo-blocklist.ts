@@ -12,6 +12,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { blocklist, isBlocked } from './photoBlocklist';
+import { BLOCKED_PHOTO_HOSTS, isBlockedPhotoHost } from './lib/photo-sources';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const D = (f: string) => join(ROOT, 'assets', 'data', f);
@@ -27,14 +28,15 @@ function prune(file: string): { removed: number; emptied: number } {
 
   for (const [hutId, value] of Object.entries(data)) {
     if (Array.isArray(value)) {
-      const kept = value.filter((p) => !isBlocked(hutId, p.url));
+      const kept = value.filter((p) => !isBlocked(hutId, p.url) && !isBlockedPhotoHost(p.url));
       if (kept.length === value.length) continue;
       removed += value.length - kept.length;
       if (kept.length) data[hutId] = kept;
       else { delete data[hutId]; emptied++; }
     } else if (value && typeof value === 'object' && 'url' in value) {
       // brave-images.json holds ONE photo per place, not an array.
-      if (!isBlocked(hutId, (value as Photo).url)) continue;
+      const u = (value as Photo).url;
+      if (!isBlocked(hutId, u) && !isBlockedPhotoHost(u)) continue;
       delete data[hutId];
       removed++;
       emptied++;

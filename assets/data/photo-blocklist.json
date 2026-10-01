@@ -26,5 +26,12 @@
     "url": "*",
     "why": "Reported wrong by eye, 2026-09-28. Matched hotel-bergfreund.ch, a different Bergfreund — the name is shared by several places.",
     "date": "2026-09-28"
+  },
+  {
+    "hutId": "way/619115930",
+    "name": "Birkkarspitze Biwak Hütte (OSM: Birkkarhüttl)",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Das_alte_Birkkarh%C3%BCttl_2001-07-05.jpg/1280px-Das_alte_Birkkarh%C3%BCttl_2001-07-05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "why": "The file is literally named \"Das ALTE Birkkarhüttl\" and is dated 2001 — a correctly-matched photo of the hut that used to stand here, not the one that does. A right name and the wrong decade.",
+    "date": "2026-09-29"
   }
 ]

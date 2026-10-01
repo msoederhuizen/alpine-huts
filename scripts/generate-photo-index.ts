@@ -18,9 +18,11 @@
  *      PHOTO_INDEX_LIMIT=300 npm run generate-photo-index   (a sample)
  *      npm run retry-photo-index             (re-attempt the ones that missed)
  */
-import { readFileSync, readdirSync, writeFileSync, existsSync, rmSync } from 'node:fs';
+import { readFileSync, readdirSync, writeFileSync, existsSync, renameSync, rmSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isBlocked } from './photoBlocklist';
+import { isBlockedPhotoHost } from './lib/photo-sources';
 
 import { SHARED_PLACE_NAMES } from '../src/constants/sharedNames';
 import type { Hut } from '../src/types/hut';
@@ -87,7 +89,9 @@ async function commonsByName(hut: Hut): Promise<Photo[]> {
     `&prop=imageinfo&iiprop=url|mediatype|extmetadata` +
     `&iiextmetadatafilter=Artist|LicenseShortName&iiurlwidth=1200&origin=*`;
   try {
-    const res = await fetch(url);
+    // Commons is reliable, but "reliable" is not "cannot stall", and an
+    // untimed fetch here would hold a worker exactly as isPhoto's did.
+    const res = await fetch(url, { signal: AbortSignal.timeout(20_000) });
     if (!res.ok) return [];
     const json = (await res.json()) as any;
     const pages: any[] = json.query?.pages ? Object.values(json.query.pages) : [];
@@ -201,6 +205,18 @@ const BRAVE: Record<string, { url: string }> = existsSync(BRAVE_SITES)
   ? JSON.parse(readFileSync(BRAVE_SITES, 'utf8'))
   : {};
 
+/** Hand-checked contact details — see `scripts/import-hut-database.ts`. */
+const CONTACT_OVERLAY_FILE = join(ROOT, 'assets', 'data', 'hut-contact-overlay.json');
+const CONTACT_OVERLAY: Record<string, { website?: string }> = existsSync(CONTACT_OVERLAY_FILE)
+  ? JSON.parse(readFileSync(CONTACT_OVERLAY_FILE, 'utf8'))
+  : {};
+
+/** The Alpenverein hut register — see `scripts/import-alpenverein.ts`. */
+const AV_OVERLAY_FILE = join(ROOT, 'assets', 'data', 'alpenverein-overlay.json');
+const AV_OVERLAY: Record<string, { website?: string }> = existsSync(AV_OVERLAY_FILE)
+  ? JSON.parse(readFileSync(AV_OVERLAY_FILE, 'utf8'))
+  : {};
+
 /** German writes ö as "oe" in a domain name; NFD stripping gives "o". Both
  *  spellings have to be accepted or half the Alpine names never match. */
 function urlSpellings(token: string): string[] {
@@ -210,11 +226,31 @@ function urlSpellings(token: string): string[] {
 }
 
 function websiteOf(hut: Hut): string | undefined {
+  /**
+   * ⚠️ ABOVE EVERYTHING, INCLUDING OSM'S OWN TAGS. These addresses come from a
+   * spreadsheet the app's author compiled and checked by hand, and they behave
+   * like it: asked for a photo, they answered about 85% of the time, against 5%
+   * for the addresses derived from Overture and from a Brave web search. A
+   * source that good belongs first.
+   */
+  const checked = CONTACT_OVERLAY[hut.id]?.website;
+  if (checked) return checked;
+
   if (hut.website) return hut.website;
   for (const key of URL_TAGS) {
     const v = hut.tags?.[key];
     if (v?.trim()) return v;
   }
+
+  /**
+   * Below OSM's own tags, which a mapper entered for THIS object, and above
+   * Overture's and Brave's, which were derived. The Alpenverein register is
+   * official club data and its addresses are maintained, but unlike the
+   * spreadsheet above nobody has checked them against this app's places, so it
+   * does not get to outrank a tag on the object itself.
+   */
+  const register = AV_OVERLAY[hut.id]?.website;
+  if (register) return register;
   // Below OSM's own tags — a mapper entered those for THIS object — but above
   // a URL found loose in prose, because Overture's was matched on position and
   // name together rather than on a word appearing somewhere in a sentence.
@@ -353,7 +389,22 @@ function pickPageImage(html: string, page: string): string | null {
  */
 async function isPhoto(url: string): Promise<boolean> {
   try {
-    const r = await fetch(url, { headers: { Range: 'bytes=0-65535' } });
+    /**
+     * ⚠️ THE TIMEOUT IS NOT OPTIONAL, AND THIS IS THE CALL THAT PROVED IT. Node's
+     * fetch has NO default timeout, and this one reaches an arbitrary image host
+     * found in somebody's HTML — a server that accepts the connection and then
+     * says nothing holds the worker for ever. Two consecutive runs hung at
+     * 150/162 of the final pass and had to be killed; the places were fine, the
+     * hosts were not.
+     *
+     * Ten seconds, not the fifteen `fromWebsite` allows, because this is a range
+     * request for 64 KB rather than a whole page: a host that cannot manage that
+     * in ten seconds has nothing to offer a phone on a mountain either.
+     */
+    const r = await fetch(url, {
+      headers: { Range: 'bytes=0-65535' },
+      signal: AbortSignal.timeout(10_000),
+    });
     if (!r.ok && r.status !== 206) return true;
     const b = new Uint8Array(await r.arrayBuffer());
     if (b.length < 26) return false;
@@ -630,9 +681,63 @@ async function main() {
     console.log(`brave images (prepared): ${Object.keys(braveImages).length.toLocaleString()} places\n`);
   }
 
-  let done = 0, viaCommons = 0, viaSite = 0, none = 0;
+  let done = 0, viaCommons = 0, viaSite = 0, none = 0, blockedOut = 0;
   let viaWikimedia = 0, viaOdh = 0, viaCai = 0, viaDt = 0, viaOv = 0, viaBrave = 0;
   const t0 = Date.now();
+
+  /**
+   * Checkpointing: on the CLOCK, never on a count of places.
+   *
+   * ⚠️ `done % 250 === 0` LOST A WHOLE PASS. A resumed run only had 162 places
+   * left to do, so the counter never reached 250, nothing was ever written, and
+   * when the process was killed at 150/162 every one of them was gone — the
+   * file on disk was still the checkpoint the run had STARTED from. The bug is
+   * structural rather than a wrong number: a count-based checkpoint protects
+   * nothing in exactly the runs that resume, which are the long ones, which are
+   * the ones that get interrupted.
+   *
+   * Thirty seconds bounds the loss by time instead, for any size of pass. It is
+   * generous beside a run measured in hours and cheap beside the work it saves:
+   * the index is a few megabytes, written a couple of hundred times at most.
+   */
+  const SAVE_EVERY_MS = 30_000;
+  let lastSave = Date.now();
+
+  /**
+   * ⚠️ WRITTEN ASIDE AND RENAMED, NOT WRITTEN OVER. The whole point of a
+   * checkpoint is to survive the process being killed — and a kill landing in
+   * the middle of `writeFileSync` leaves a half-written file, which on the next
+   * run is not a smaller index but an unparseable one. That would turn "lost
+   * ten minutes" into "lost everything", which is the failure the checkpoint
+   * exists to prevent. A rename within the same directory is atomic, so the
+   * file at OUT is always one complete index or the previous one.
+   */
+  function saveProgress(): void {
+    lastSave = Date.now();
+    writeFileSync(`${OUT}.tmp`, JSON.stringify(index));
+    renameSync(`${OUT}.tmp`, OUT);
+    if (RETRY_EMPTY) {
+      writeFileSync(`${RETRIED}.tmp`, JSON.stringify([...retried]));
+      renameSync(`${RETRIED}.tmp`, RETRIED);
+    }
+  }
+
+  /**
+   * Ctrl+C keeps what has been done so far.
+   *
+   * ⚠️ THIS IS A COURTESY, NOT THE SAFETY NET — the 30-second checkpoint above
+   * is. A signal handler only runs for a polite stop: `taskkill /F`, a closed
+   * terminal, a crash and a power cut all skip it entirely, and the run this
+   * was written for ended in one of those. Treating it as the protection would
+   * be the same mistake as trusting the counter.
+   */
+  for (const signal of ['SIGINT', 'SIGTERM'] as const) {
+    process.on(signal, () => {
+      saveProgress();
+      console.log(`\n\nstopped at ${done.toLocaleString()} — progress saved, re-run to resume`);
+      process.exit(130);
+    });
+  }
 
   /**
    * Workers pulling from one shared queue.
@@ -660,44 +765,70 @@ async function main() {
       const i = next++;
       if (i >= places.length) return;
       const hut = places[i];
-      const found: Photo[] = [];
 
-      // Resolved in bulk above. First in the gallery: bound to the entity
-      // rather than matched on a name, so it cannot be another place's hut.
+      /**
+       * ⚠️ THREE TIERS, RANKED BY HOW A PHOTO WAS TIED TO THIS BUILDING. That
+       * is the only thing that predicts whether it is actually the right hut,
+       * and the ranking is deliberate:
+       *
+       *   1. THE HUT'S OWN WEBSITE. Published by the people who run the hut, of
+       *      the hut. There is no matching step to get wrong.
+       *   2. ENTITY-BOUND AND CURATED. Wikidata P18, a Commons category on the
+       *      OSM object, Open Data Hub, CAI, DATAtourisme, Openverse — each
+       *      bound to this place by an identifier or by position, not by words.
+       *      A Commons file-NAME search sits at the bottom of this tier.
+       *   3. A WEB IMAGE SEARCH. Matched on the name alone, which is why a
+       *      human review of these rejected 46% of them.
+       *
+       * ⚠️ THE WEBSITE USED TO BE LAST, and only fetched when fewer than two
+       * photos had been found — so a Brave hit hid a photo from the hut's own
+       * homepage. Always fetching it costs 599 extra requests out of 23,125
+       * places, because almost every place with a website already had fewer
+       * than two photos and was being fetched anyway.
+       */
+      const tier1: Photo[] = [];
+      const tier2: Photo[] = [];
+      const tier3: Photo[] = [];
+
+      const w = await fromWebsite(hut);
+      if (w.length) { tier1.push(...w); viaSite++; }
+      await sleep(180);
+
+      // Resolved in bulk above — bound to the entity rather than matched on a
+      // name, so they cannot be another place's hut.
       const wm = wikimedia.get(hut.id);
-      if (wm?.length) { found.push(...wm); viaWikimedia++; }
+      if (wm?.length) { tier2.push(...wm); viaWikimedia++; }
 
       const od = odh.get(hut.id);
-      if (od?.length) { found.push(...od); viaOdh++; }
+      if (od?.length) { tier2.push(...od); viaOdh++; }
 
       const ci = cai.get(hut.id);
-      if (ci?.length) { found.push(...ci); viaCai++; }
+      if (ci?.length) { tier2.push(...ci); viaCai++; }
 
       const dt = datatourisme.get(hut.id);
-      if (dt?.length) { found.push(...dt); viaDt++; }
+      if (dt?.length) { tier2.push(...dt); viaDt++; }
 
       const ov = openverse[hut.id];
-      if (ov?.length) { found.push(...ov); viaOv++; }
+      if (ov?.length) { tier2.push(...ov); viaOv++; }
 
-      // Last, so anything confirmed by position or by a licensed name match
-      // shows first. One photo per place — this source never gets a gallery.
-      const bi = braveImages[hut.id];
-      if (bi?.url) { found.push(bi); viaBrave++; }
-
-      // ⚠️ Commons file SEARCH only when Wikimedia's curated routes found
-      // nothing. It matches on a file's NAME, which is exactly the weak link —
-      // no point running it for a place that already has its own P18.
-      if (!found.length) {
+      /**
+       * ⚠️ A Commons file-NAME search, so only when nothing stronger exists —
+       * the name is exactly the weak link, and there is no point running it for
+       * a place that already has its own P18 or its own homepage. It still
+       * ranks above the web image search: Commons is a curated library, and a
+       * hit there is at least a photograph somebody catalogued.
+       */
+      if (!tier1.length && !tier2.length) {
         const c = await commonsByName(hut);
-        if (c.length) { found.push(...c); viaCommons++; }
+        if (c.length) { tier2.push(...c); viaCommons++; }
         await sleep(180);
       }
 
-      if (found.length < 2) {
-        const w = await fromWebsite(hut);
-        if (w.length) { found.push(...w); viaSite++; }
-        await sleep(180);
-      }
+      // One photo per place — this source never gets a gallery.
+      const bi = braveImages[hut.id];
+      if (bi?.url) { tier3.push(bi); viaBrave++; }
+
+      const found: Photo[] = [...tier1, ...tier2, ...tier3];
 
       // ⚠️ AN EMPTY ENTRY IS RECORDED TOO, and it earns its bytes. Roughly
       // three quarters of places have no photo anywhere, and without a negative
@@ -705,6 +836,25 @@ async function main() {
       // so it would repeat the full Commons-plus-website sweep on every single
       // view of every one of them. That sweep is the slowest case there is,
       // because every source is tried and every one fails.
+      /**
+       * ⚠️ BOTH BLOCKLISTS, APPLIED HERE, BECAUSE THIS IS THE REBUILD THEY EXIST
+       * TO SURVIVE. `photoBlocklist.ts` opens by saying a correction made by
+       * hand "survives exactly until the next regeneration, which then fetches
+       * the same wrong picture again" — and that this script consults it. It did
+       * not. A full run would have quietly reinstated every photo a person had
+       * looked at and rejected, and every photo from a source excluded on
+       * licensing grounds.
+       *
+       * Filtered at the point of writing rather than inside each source, so no
+       * future source can be added that forgets.
+       */
+      const allowed = found.filter(
+        (p) => !isBlocked(hut.id, p.url) && !isBlockedPhotoHost(p.url),
+      );
+      blockedOut += found.length - allowed.length;
+      found.length = 0;
+      found.push(...allowed);
+
       index[hut.id] = found.slice(0, MAX_PER_HUT);
       if (!found.length) none++;
       if (RETRY_EMPTY) retried.add(hut.id);
@@ -722,16 +872,13 @@ async function main() {
         );
       }
       // Save as we go, so a crash costs minutes rather than the whole run.
-      if (done % 250 === 0) {
-        writeFileSync(OUT, JSON.stringify(index));
-        if (RETRY_EMPTY) writeFileSync(RETRIED, JSON.stringify([...retried]));
-      }
+      if (Date.now() - lastSave >= SAVE_EVERY_MS) saveProgress();
     }
   }
 
   await Promise.all(Array.from({ length: CONCURRENCY }, () => worker()));
 
-  writeFileSync(OUT, JSON.stringify(index));
+  saveProgress();
   // The pass finished, so the scratch list has nothing left to protect.
   if (RETRY_EMPTY && existsSync(RETRIED)) rmSync(RETRIED);
 
@@ -749,6 +896,7 @@ async function main() {
   console.log(`  brave     ${viaBrave.toLocaleString()}   (name match only, no licence — ~20% wrong, needs review)`);
   console.log(`  Commons  ${viaCommons.toLocaleString()}   (name search)`);
   console.log(`  website  ${viaSite.toLocaleString()}`);
+  if (blockedOut) console.log(`  blocked  ${blockedOut.toLocaleString()}   (wrong-photo list + excluded sources)`);
   console.log(`still none ${none.toLocaleString()}  ${((none / done) * 100).toFixed(1)}%`);
   console.log(`\nINDEX NOW  ${hit.toLocaleString()} of ${total.toLocaleString()} places have a photo  ${((hit / total) * 100).toFixed(1)}%`);
   console.log(`index      ${kb.toFixed(0)} KB`);

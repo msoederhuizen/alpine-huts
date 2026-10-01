@@ -36,6 +36,7 @@ import { looksLikeAPhoto } from '../src/api/siteImage';
 import { REGIONS, regionForPoint } from '../src/constants/region';
 import { distinctiveTokens, normalizePlaceName } from '../src/utils/dedupePlaces';
 import { isSubFeatureName } from '../src/utils/lodging';
+import { isBlockedPhotoHost } from './lib/photo-sources';
 import { NEVER } from './siteDomain';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -327,7 +328,9 @@ async function main() {
   let dropped = 0;
   let droppedDup = 0;
   for (const [id, f] of Object.entries(found)) {
-    const bad = BAD_IMAGE.test(f.url) || tooSmallByName(f.url);
+    // A blocked SOURCE is refused here as well as pruned later, so a re-run
+    // cannot quietly reinstate it — see lib/photo-sources.ts.
+    const bad = BAD_IMAGE.test(f.url) || tooSmallByName(f.url) || isBlockedPhotoHost(f.url);
     if (!bad && urlCount[f.url] < 2) continue;
     if (!bad) droppedDup++;
     delete found[id];
@@ -460,6 +463,7 @@ async function main() {
         const img = String(x?.properties?.url ?? x?.thumbnail?.src ?? '');
         if (!img || !/^https:\/\//i.test(img)) return false;
         if (NEVER.test(page) || BAD_IMAGE.test(img) || tooSmallByName(img)) return false;
+        if (isBlockedPhotoHost(img) || isBlockedPhotoHost(page)) return false;
         return titleNames(title, full, tokens) || titleNames(pageWords, full, tokens);
       });
 

@@ -254,7 +254,7 @@ function largestInSrcset(srcset: string): string | null {
  * is excluded outright, tiny declared sizes are dropped, and position in the
  * document counts, because heroes come first and footers come last.
  */
-function pickPageImage(html: string, pageUrl: string): string | null {
+function pickPageImage(html: string, pageUrl: string, tryUpgrade = false): string | null {
   let best: { url: string; score: number } | null = null;
   let seen = 0;
 
@@ -286,7 +286,7 @@ function pickPageImage(html: string, pageUrl: string): string | null {
     if (LIKELY_PHOTO.test(src) || LIKELY_PHOTO.test(alt)) score += 2;
     if (w >= 800 || h >= 500) score += 2;
 
-    const url = absolute(src, pageUrl);
+    const url = absolute(src, pageUrl, tryUpgrade);
     if (url && (!best || score > best.score)) best = { url, score };
   }
   return best?.url ?? null;
@@ -341,11 +341,20 @@ function hostOf(url: string): string {
   return url.replace(/^https?:\/\//i, '').split('/')[0];
 }
 
-/** Resolve a possibly-relative image URL against the page it was found on. */
-function absolute(src: string, pageUrl: string): string | null {
+/**
+ * Resolve a possibly-relative image URL against the page it was found on.
+ *
+ * ⚠️ WHAT COMES OUT IS ALWAYS https, WHATEVER WENT IN. iOS App Transport
+ * Security blocks plain http, so an http image URL is one the app can never
+ * display — storing it would be storing a blank space. `tryUpgrade` lets a
+ * build-time pass rewrite the scheme and find out whether the host serves
+ * https; the byte check downstream is what decides, so a host that does not is
+ * simply rejected a moment later rather than here.
+ */
+function absolute(src: string, pageUrl: string, tryUpgrade = false): string | null {
   const s = upgradePlaceholder(decodeEntities(src.trim()));
   if (/^https:\/\//i.test(s)) return s;
-  if (/^http:\/\//i.test(s)) return null; // blocked on iOS, see siteUrl
+  if (/^http:\/\//i.test(s)) return tryUpgrade ? s.replace(/^http:/i, 'https:') : null;
   if (s.startsWith('//')) return `https:${s}`;
   // ⚠️ hostOf, NOT domainOf. Resolving against the www-stripped name pointed
   // every relative image on a www-only site at a host that does not serve it.
@@ -357,9 +366,26 @@ function absolute(src: string, pageUrl: string): string | null {
 export async function fetchSiteImage(
   hut: Hut,
   signal?: AbortSignal,
+  /**
+   * ⚠️ FOR BUILD-TIME SCRIPTS ONLY. NEVER SET THIS IN THE APP.
+   *
+   * `siteUrl` rewrites every http page to https because iOS blocks plain http,
+   * and in the app that is correct and not negotiable. But a BUILD script is
+   * not bound by ATS, and the distinction matters enormously: 3,129 of the
+   * 3,824 websites Overture found are http-only — small Austrian and Bavarian
+   * guesthouses on old shared hosting that simply do not serve https. Upgrading
+   * their URL made the fetch fail, so a run over 1,132 huts found 2 photos and
+   * looked like an empty seam rather than a scheme mismatch.
+   *
+   * Reading a page over http changes nothing about what the app can display,
+   * because the IMAGE url is still forced to https and still byte-verified. All
+   * this does is let us look.
+   */
+  opts?: { insecurePageFallback?: boolean },
 ): Promise<HutImage | null> {
   const page = siteUrl(hut.website);
   if (!page) return null;
+  const insecure = opts?.insecurePageFallback ? hut.website?.trim().replace(/^https:/i, 'http:') : null;
 
   // Own timeout, chained to the caller's so leaving the screen still cancels.
   const ctrl = new AbortController();
@@ -371,8 +397,22 @@ export async function fetchSiteImage(
     // ⚠️ No User-Agent header. A site that refuses an honest request is saying
     // no, and pretending to be a browser to get past that is not our call to
     // make. Such a site simply yields no photo.
-    const res = await fetch(page, { signal: ctrl.signal, redirect: 'follow' });
-    if (!res.ok) return null;
+    // https first, always. The http retry only happens for a build script that
+    // asked for it, and only when https did not answer at all.
+    let res: Response | null = null;
+    try {
+      res = await fetch(page, { signal: ctrl.signal, redirect: 'follow' });
+    } catch {
+      res = null;
+    }
+    if ((!res || !res.ok) && insecure && insecure !== page) {
+      try {
+        res = await fetch(insecure, { signal: ctrl.signal, redirect: 'follow' });
+      } catch {
+        res = null;
+      }
+    }
+    if (!res || !res.ok) return null;
 
     const length = Number(res.headers.get('content-length') ?? 0);
     if (length > MAX_BYTES) return null;
@@ -399,7 +439,7 @@ export async function fetchSiteImage(
     for (const re of META_PATTERNS) {
       const raw = head.match(re)?.[1];
       if (!raw) continue;
-      const url = absolute(raw, from);
+      const url = absolute(raw, from, Boolean(opts?.insecurePageFallback));
       if (plausible(url)) {
         declared = url;
         break;
@@ -413,7 +453,7 @@ export async function fetchSiteImage(
     // ⚠️ THE WHOLE DOCUMENT. The 400 KB slice was discarding pages full of
     // photographs — vayaresorts.com has zero <img> tags in its first 400 KB
     // and 379 in the full 1.2 MB. The fetch is already capped at MAX_BYTES.
-    const hero = pickPageImage(html, from);
+    const hero = pickPageImage(html, from, Boolean(opts?.insecurePageFallback));
     for (const candidate of [declared, plausible(hero) ? hero : null]) {
       if (!candidate) continue;
       // Last gate: the bytes, not the name. Catches logos and thumbnails no
