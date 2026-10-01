@@ -25,6 +25,8 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { isRefused, recordRejections } from './lib/reviewed-csv';
+
 import type { Hut, HutType } from '../src/types/hut';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -119,9 +121,26 @@ function main() {
   const supersededBy: string[] = [];
   const droppedSites: string[] = [];
 
+  /**
+   * ⚠️ THIS USED TO TEST `=== 'n'` AND MISS "No". The shared `isRefused` has
+   * always accepted both, and this importer quietly did not — so a reviewer who
+   * typed the whole word, as they did in the register file, would have had
+   * every refusal IMPORTED. Two importers reading the same column with two
+   * different ideas of what a refusal is was precisely what reviewed-csv.ts
+   * exists to prevent; it had drifted anyway.
+   */
+  const refusedRows: Array<{ name: string; lat: number; lon: number }> = [];
+
   for (const r of rows.slice(1)) {
     // Blank means yes: the reviewer checked the list and said to assume it.
-    if ((r[C.keep] ?? '').trim().toLowerCase() === 'n') { refused++; continue; }
+    if (isRefused(r[C.keep])) {
+      refused++;
+      const n = (r[C.name] ?? '').trim();
+      const la = Number(r[C.lat]);
+      const lo = Number(r[C.lon]);
+      if (n && Number.isFinite(la) && Number.isFinite(lo)) refusedRows.push({ name: n, lat: la, lon: lo });
+      continue;
+    }
 
     const name = (r[C.name] ?? '').trim();
     const lat = Number(r[C.lat]);
@@ -177,7 +196,9 @@ function main() {
   }
 
   console.log(`${rows.length - 1} reviewed rows`);
-  console.log(`  refused (marked "n")        ${refused}`);
+  const remembered = recordRejections('refuges', refusedRows);
+  console.log(`  refused                     ${refused}`);
+  if (remembered.added) console.log(`  newly remembered refusals   ${remembered.added} (${remembered.total} in all)`);
   if (badType) console.log(`  skipped, unknown type       ${badType}`);
   console.log(`  now covered by OSM, skipped ${nowInOsm}`);
   console.log(`  to add                      ${places.length}`);

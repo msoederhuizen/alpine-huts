@@ -27,6 +27,7 @@ import { fileURLToPath } from 'node:url';
 import { REGIONS } from '../src/constants/region';
 import { appPlaces } from './lib/app-places';
 import { namesALodging } from './lib/place-matcher';
+import { isRejected, readRejections } from './lib/reviewed-csv';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'missing-huts-review.html');
@@ -310,7 +311,20 @@ ${body}
    * on is a spreadsheet: it opens in the tool that is already in use.
    */
   if (process.argv.includes('--csv')) {
-    const needInput = scored.filter((s) => inScope(s) && !s.osm);
+    /**
+     * ⚠️ ALREADY-REFUSED ROWS ARE EXCLUDED, AND THAT IS THE WHOLE POINT OF THE
+     * REJECTIONS FILE. A refused place is never added, so it stays "missing"
+     * and would be listed here again, every run, with an empty `keep?` cell
+     * that means yes. On 2026-10-01 a regenerated version of this CSV held 15
+     * rows and ALL 15 were ones the reviewer had already turned down.
+     *
+     * An empty CSV now honestly means there is nothing left to decide.
+     */
+    const rejected = readRejections();
+    const fresh = scored.filter((s) => inScope(s) && !s.osm);
+    const needInput = fresh.filter((s) => !isRejected(rejected, { name: s.r.name, lat: s.r.lat, lon: s.r.lon }));
+    const skipped = fresh.length - needInput.length;
+    if (skipped) console.log(`\n${skipped} rows left out — already refused in an earlier review`);
     const q = (v: string) => `"${String(v ?? '').replace(/"/g, '""')}"`;
     const guess = (n: string) =>
       /biwak|bivacco|bivouac/i.test(n) ? 'shelter'

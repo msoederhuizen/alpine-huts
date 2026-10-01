@@ -27,6 +27,7 @@ import {
   appOsmPlaces,
   isRealSite,
   isRefused,
+  recordRejections,
   metres,
   readCsv,
   writeRegionPlaces,
@@ -66,8 +67,23 @@ function main() {
   const renamed: string[] = [];
   const oddities: string[] = [];
 
+  /**
+   * ⚠️ A REFUSAL IS RECORDED, NOT JUST OBEYED. Rejected rows stay missing from
+   * the app for ever, so the next `review-missing-huts` lists them again with a
+   * blank cell — and blank means yes. Without remembering them, a reviewer's
+   * work is re-asked every run and silently inverted by the next.
+   */
+  const refusedRows: Array<{ name: string; lat: number; lon: number }> = [];
+
   for (const r of rows) {
-    if (isRefused(r[C.keep])) { refused++; continue; }
+    if (isRefused(r[C.keep])) {
+      refused++;
+      const n = (r[C.name] ?? '').trim();
+      const la = Number(r[C.lat]);
+      const lo = Number(r[C.lon]);
+      if (n && Number.isFinite(la) && Number.isFinite(lo)) refusedRows.push({ name: n, lat: la, lon: lo });
+      continue;
+    }
 
     const original = (r[C.name] ?? '').trim();
     const lat = Number(r[C.lat]);
@@ -161,6 +177,12 @@ function main() {
   }
 
   writeFileSync(OUT, JSON.stringify(places, null, 1));
+  const remembered = recordRejections('register', refusedRows);
+  if (remembered.added) {
+    console.log(`\nremembered ${remembered.added} new refusals (${remembered.total} in all) —`);
+    console.log('  these will no longer be offered for review again');
+  }
+
   const { added, removed } = writeRegionPlaces(PREFIX, places);
   console.log(`\n-> ${OUT}`);
   console.log(`-> region files: removed ${removed} previous entries, wrote ${added}`);

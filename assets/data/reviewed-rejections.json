@@ -1,0 +1,114 @@
+[
+  {
+    "source": "register",
+    "name": "Fozeben-Schihütte",
+    "lat": 47.904249,
+    "lon": 16.007871,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Kramerhütte",
+    "lat": 46.9761,
+    "lon": 13.51136667,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Riesenhütte",
+    "lat": 47.75722222,
+    "lon": 12.26861111,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Appartmenthaus und Almhütten Gutwenger",
+    "lat": 46.81598333,
+    "lon": 12.35395,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Schneeberg Haus",
+    "lat": 47.132,
+    "lon": 13.12768333,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Bliessalm",
+    "lat": 46.70833333,
+    "lon": 13.14845,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Obergraferhof",
+    "lat": 46.80398333,
+    "lon": 12.3938,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Pension Resch-Haslbauer",
+    "lat": 47.8187,
+    "lon": 13.54961667,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Ferienwohnung Jennewein und Almhütte Unterstalleralm",
+    "lat": 46.81473333,
+    "lon": 12.34476667,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Ferienhäuser Raunighof und Duar",
+    "lat": 46.53645,
+    "lon": 14.45925,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Aspach-Hütte",
+    "lat": 47.284056,
+    "lon": 11.334978,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Senfterhaus",
+    "lat": 46.8146,
+    "lon": 12.34056667,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Erbhof Angermann",
+    "lat": 47.83266667,
+    "lon": 13.55591667,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Königsbachalm",
+    "lat": 47.56596667,
+    "lon": 13.01278333,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Haus Bischof",
+    "lat": 47.24198333,
+    "lon": 9.909483333,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "register",
+    "name": "Haus Bergblick",
+    "lat": 47.2422,
+    "lon": 9.911416667,
+    "at": "2026-10-01"
+  }
+]

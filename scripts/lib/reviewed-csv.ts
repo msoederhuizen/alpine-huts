@@ -6,7 +6,7 @@
  * parts that decide what reaches the app: what counts as approval, whether OSM
  * has since covered the place, and how the region files get written.
  */
-import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -47,6 +47,96 @@ export function readCsv(path: string): { head: string[]; rows: string[][] } {
 export function isRefused(cell: string | undefined): boolean {
   const v = (cell ?? '').trim().toLowerCase();
   return v === 'n' || v === 'no';
+}
+
+// ── remembering what a reviewer already said no to ──────────────────────────
+/**
+ * ⚠️ WITHOUT THIS, EVERY REJECTION COMES BACK, BLANK, FOR EVER — AND BLANK
+ * MEANS YES. The review CSVs are generated from "what is missing from the
+ * app". A place the reviewer rejects is never added, so it is still missing,
+ * so the next regeneration lists it again with an empty `keep?` cell. Combined
+ * with the rule directly above, re-running an importer on a freshly generated
+ * file imports precisely the things the reviewer refused.
+ *
+ * Measured on 2026-10-01, which is why this exists: of the 15 rows in a
+ * regenerated `missing-huts-to-check.csv`, ALL 15 were rows the user had
+ * already marked "No" — the holiday apartments, a 487 m valley pension, two
+ * farm B&Bs. Not one was a new candidate. The file looked like a backlog and
+ * was in fact a list of settled questions pointed the wrong way.
+ *
+ * So a refusal is now durable. The review builders exclude anything in here,
+ * which means a regenerated CSV holds only genuinely new candidates and an
+ * EMPTY file honestly means "nothing to do".
+ */
+const REJECTIONS = join(
+  dirname(fileURLToPath(import.meta.url)), '..', '..', 'assets', 'data', 'reviewed-rejections.json',
+);
+
+export interface Rejection {
+  source: string;
+  name: string;
+  lat: number;
+  lon: number;
+  /** When it was refused — so a decision can be found and reversed by hand. */
+  at: string;
+}
+
+/**
+ * ⚠️ POSITION DECIDES, WITH THE NAME ONLY AS A SECOND CHANCE — the same rule
+ * the place matcher follows. Candidates are regenerated from the same source
+ * files each run, so their coordinates are identical and a rounded position is
+ * an exact key. The name check exists only for the case where a source nudges
+ * a point slightly between runs; 150 m is far tighter than the matcher's
+ * limits because this is re-identifying one known row, not finding a match.
+ */
+const NEAR_M = 150;
+const norm = (s: string) =>
+  s.toLowerCase().replace(/ß/g, 'ss').normalize('NFD').replace(/[̀-ͯ]/g, '')
+   .replace(/[^a-z0-9]/g, '');
+
+export function readRejections(): Rejection[] {
+  if (!existsSync(REJECTIONS)) return [];
+  try {
+    return JSON.parse(readFileSync(REJECTIONS, 'utf8')) as Rejection[];
+  } catch {
+    return [];
+  }
+}
+
+/** Is this candidate one the reviewer has already turned down? */
+export function isRejected(
+  rejections: Rejection[],
+  candidate: { name: string; lat: number; lon: number },
+): boolean {
+  const n = norm(candidate.name);
+  return rejections.some((r) => {
+    const d = metres(r.lat, r.lon, candidate.lat, candidate.lon);
+    if (d <= 10) return true;
+    return d <= NEAR_M && norm(r.name) === n;
+  });
+}
+
+/**
+ * Record refusals from a reviewed file, merging with what is already known.
+ *
+ * ⚠️ IT ONLY EVER ADDS. A row absent from this run's CSV is not an approval —
+ * it may simply not have been listed, because OSM has since covered it or the
+ * source changed. Forgetting a refusal must be a deliberate act (editing the
+ * file), never a side effect of running an importer.
+ */
+export function recordRejections(
+  source: string,
+  refused: Array<{ name: string; lat: number; lon: number }>,
+): { added: number; total: number } {
+  const have = readRejections();
+  let added = 0;
+  for (const r of refused) {
+    if (isRejected(have, r)) continue;
+    have.push({ source, name: r.name, lat: r.lat, lon: r.lon, at: new Date().toISOString().slice(0, 10) });
+    added++;
+  }
+  if (added) writeFileSync(REJECTIONS, JSON.stringify(have, null, 2));
+  return { added, total: have.length };
 }
 
 /** Everything the region files hold that did NOT come from a reviewed import. */
