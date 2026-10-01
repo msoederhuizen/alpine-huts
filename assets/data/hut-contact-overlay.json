@@ -1,0 +1,2784 @@
+{
+ "node/11174401522": {
+  "dog": "no"
+ },
+ "way/307677300": {
+  "dog": "no"
+ },
+ "node/11063882922": {
+  "dog": "yes"
+ },
+ "way/483082741": {
+  "dog": "yes"
+ },
+ "way/361297175": {
+  "website": "http://www.capannabasodino.ch",
+  "phone": "0917532797",
+  "operator": "SAC",
+  "warden": "Capannaro Roberto Iori",
+  "ele": "1856"
+ },
+ "node/316985701": {
+  "dog": "no"
+ },
+ "way/222825784": {
+  "dog": "no"
+ },
+ "node/14136893901": {
+  "website": "http://www.mutthornhuette.ch",
+  "phone": "+41338531344",
+  "operator": "SAC",
+  "warden": "Stefanie Künzi",
+  "ele": "2788",
+  "dog": "yes"
+ },
+ "way/130176573": {
+  "warden": "Markus Kegele",
+  "dog": "yes"
+ },
+ "way/91920694": {
+  "warden": "Patrick Rofaeil",
+  "dog": "no"
+ },
+ "way/84131551": {
+  "warden": "Regina Sudra",
+  "dog": "no"
+ },
+ "way/149589020": {
+  "phone": "0043 664 9970 7950",
+  "warden": "Birgit Menzl & Uwe Krauß",
+  "dog": "no"
+ },
+ "way/37576051": {
+  "warden": "Florian Durach",
+  "dog": "yes"
+ },
+ "way/132681267": {
+  "warden": "Schindler Jaro",
+  "dog": "yes",
+  "booking": "https://www.huetten-holiday.com/huts/memminger-huette"
+ },
+ "way/151571078": {
+  "warden": "Maria Fredl und Stefan Schwaiger",
+  "dog": "yes"
+ },
+ "way/166643728": {
+  "warden": "Tobias Müller",
+  "dog": "no"
+ },
+ "node/502559776": {
+  "dog": "no"
+ },
+ "way/85800400": {
+  "operator": "DAV",
+  "warden": "DAV Tübingen",
+  "dog": "no"
+ },
+ "way/183971836": {
+  "warden": "Sophie Scheiber\r\nTel:0720515394",
+  "dog": "no"
+ },
+ "node/1386596359": {
+  "website": "https://www.sac-biel.ch/huetten/winteregg.php",
+  "phone": "+41 79 915 19 16",
+  "warden": "Urs Vogt\r\n+41 79 915 19 16",
+  "dog": "no"
+ },
+ "way/26195857": {
+  "warden": "Georg Messner",
+  "dog": "no"
+ },
+ "way/178691836": {
+  "warden": "Familie Köberle",
+  "dog": "yes"
+ },
+ "node/3335142697": {
+  "phone": "+41763920949",
+  "warden": "Michel Silbernagel\r\nAm Steinweg 28\r\n4106 Therwil"
+ },
+ "way/193448488": {
+  "dog": "no"
+ },
+ "node/389785876": {
+  "website": "https://www.fraganterschutzhaus.at",
+  "phone": "+43 4785 396",
+  "warden": "Bianca Tiefnig und Ingo Martischnig",
+  "dog": "no"
+ },
+ "way/168866551": {
+  "warden": "Tom Burger & Evelyn Matejka",
+  "dog": "yes"
+ },
+ "way/315017276": {
+  "warden": "Hüttenteam"
+ },
+ "way/83896191": {
+  "warden": "Sieglinde Langreiter & Josef Langreiter",
+  "dog": "yes"
+ },
+ "way/27028455": {
+  "warden": "Familie Marlene & Franz Egger",
+  "dog": "yes"
+ },
+ "way/95667789": {
+  "operator": "DAV",
+  "warden": "Raimund Pranger",
+  "dog": "yes"
+ },
+ "node/340560279": {
+  "phone": "+49 1511 7303118"
+ },
+ "way/245457671": {
+  "phone": "+41 78 836 96 49",
+  "warden": "Erika Gerber"
+ },
+ "way/127978113": {
+  "warden": "Stefan & Bernadette Lienbacher"
+ },
+ "way/233647338": {
+  "website": "https://www.alpenverein.at/hochweisssteinhaus/",
+  "phone": "+43 676 746 2886",
+  "warden": "Marian Guggenberger",
+  "dog": "no"
+ },
+ "way/99474431": {
+  "phone": "0043/5243/5058",
+  "operator": "OEAV",
+  "warden": "Hollaus Bernhard und Rainer",
+  "dog": "no"
+ },
+ "way/117172848": {
+  "operator": "SAC",
+  "warden": "Rodolphe Muller"
+ },
+ "way/196574882": {
+  "phone": "+390474 710358",
+  "operator": "AVS",
+  "warden": "Tania und Alex HappacherTel.  +39 0474 646273 oder +39 0474 710358",
+  "dog": "no"
+ },
+ "node/502559908": {
+  "warden": "Claude-André Montandon",
+  "dog": "no"
+ },
+ "way/442266686": {
+  "phone": "+41775282362",
+  "warden": "unbewartet",
+  "dog": "no"
+ },
+ "node/5818255439": {
+  "phone": "+41794526675"
+ },
+ "way/26960869": {
+  "warden": "Claudia & Robert Rackwitz-Hartmann",
+  "dog": "no"
+ },
+ "way/93307290": {
+  "warden": "Harry Lucca",
+  "dog": "no"
+ },
+ "way/92644628": {
+  "website": "https://www.admonterhaus.at/",
+  "phone": "+43 3613 3552",
+  "dog": "no"
+ },
+ "way/210985372": {
+  "phone": "+41 79 534 53 37",
+  "warden": "Unbewartete Privathütte SAC St.Gallen",
+  "dog": "yes"
+ },
+ "way/92455415": {
+  "warden": "Georg Gufler",
+  "dog": "no"
+ },
+ "way/178915377": {
+  "warden": "Melanie und Stefan Neurauter",
+  "dog": "yes"
+ },
+ "way/319654454": {
+  "phone": "+41816641496",
+  "operator": "SAC",
+  "warden": "Daniela Zwyer",
+  "ele": "2276",
+  "dog": "no"
+ },
+ "way/125026512": {
+  "warden": "Marina Lesacher",
+  "dog": "no"
+ },
+ "way/141230346": {
+  "phone": "+43 664 344 88 46",
+  "dog": "yes"
+ },
+ "way/178843525": {
+  "phone": "+43 676 597 54 00",
+  "dog": "yes"
+ },
+ "way/1193035153": {
+  "phone": "+41794090644",
+  "warden": "Rinaldo Amacker",
+  "dog": "no"
+ },
+ "way/338075636": {
+  "warden": "Andrea & Martin Walliser"
+ },
+ "way/131906872": {
+  "warden": "Mariette Schedler"
+ },
+ "way/78318228": {
+  "warden": "Angelika und Sebastian Wolf",
+  "dog": "no"
+ },
+ "node/460355329": {
+  "phone": "+436641448881",
+  "warden": "Rita und Wolfgang Höflehner",
+  "dog": "yes"
+ },
+ "way/84131550": {
+  "website": "https://koerner-huette.at/",
+  "phone": "+436802216024",
+  "warden": "Robin und Marion",
+  "dog": "no"
+ },
+ "way/30725037": {
+  "warden": "Rosa Lohrmann",
+  "dog": "yes"
+ },
+ "node/389785661": {
+  "website": "https://www.nossberger.at",
+  "phone": "0043 676 49 66 931",
+  "warden": "Christian Krüger",
+  "dog": "no"
+ },
+ "node/460361180": {
+  "phone": "+43 676 5336288",
+  "warden": "Karin Weikinger",
+  "dog": "no"
+ },
+ "way/515324206": {
+  "warden": "Martin Nocker"
+ },
+ "node/11136343328": {
+  "operator": "SAC",
+  "warden": "Pauline FERRY",
+  "ele": "2042"
+ },
+ "way/70214928": {
+  "warden": "Tibor Szabo",
+  "dog": "yes"
+ },
+ "way/1442311131": {
+  "website": "https://www.utoelocarno.ch",
+  "phone": "+ 41 79 374 36 71",
+  "operator": "Via-Vallemaggia",
+  "warden": "Esther Perucchi",
+  "ele": "2003",
+  "dog": "no"
+ },
+ "node/251403227": {
+  "dog": "no"
+ },
+ "way/155867948": {
+  "website": "https://www.alpenverein.at/goferhuette/",
+  "phone": "+43 1 4052657",
+  "dog": "yes"
+ },
+ "way/157743419": {
+  "phone": "06606511135",
+  "warden": "Wally Niederfriniger und Sighi Kafmann",
+  "dog": "yes"
+ },
+ "way/230697997": {
+  "dog": "yes"
+ },
+ "way/196887659": {
+  "phone": "+4366473595991",
+  "warden": "Verwaltung Reservierungssystem: Doris Kleinrath - Schriftführer",
+  "dog": "no"
+ },
+ "way/101529896": {
+  "website": "https://www.alpenverein.at/wetterkoglerhaus/",
+  "phone": "+43/3336/4224",
+  "warden": "Veronika Marx",
+  "dog": "yes"
+ },
+ "way/333540675": {
+  "website": "https://www.capannatomeo.ch/",
+  "phone": "0794852388",
+  "operator": "Via-Vallemaggia",
+  "warden": "Patriziato di Broglio",
+  "ele": "1739",
+  "dog": "yes",
+  "name": "Capanna Tomeo"
+ },
+ "way/508275860": {
+  "phone": "+49 160 3314192",
+  "dog": "no"
+ },
+ "way/369686412": {
+  "website": "https://www.alpenverein.at/goldeckhuette/",
+  "phone": "04762 44086",
+  "warden": "Andreas Spivey",
+  "ele": "1945",
+  "dog": "no"
+ },
+ "node/393892579": {
+  "website": "http://www.martellerhuette.com",
+  "phone": "+39 3355687235",
+  "operator": "AVS",
+  "warden": "Familie Nardelli",
+  "dog": "no"
+ },
+ "way/224912722": {
+  "website": "https://www.alpenverein.at/mooshuette/",
+  "phone": "+43 664 124 2000",
+  "warden": "Rudi Saupper",
+  "dog": "yes"
+ },
+ "way/223110652": {
+  "dog": "no"
+ },
+ "way/121599291": {
+  "operator": "CAI-AA",
+  "warden": "Fam. Perathoner",
+  "dog": "yes"
+ },
+ "way/121834831": {
+  "phone": "+39 0471 612024",
+  "operator": "CAI-AA",
+  "dog": "yes"
+ },
+ "way/199514207": {
+  "operator": "CAI-AA",
+  "dog": "yes"
+ },
+ "way/236307264": {
+  "phone": "+43 660 4937045",
+  "dog": "yes"
+ },
+ "node/4987947849": {
+  "operator": "SAC"
+ },
+ "way/198730231": {
+  "phone": "+43 5334 8542",
+  "warden": "Oliver Klahn - Hüttenbetreuung (telefonische Erreichbarkeit: 18:00 - 20:00 Uhr)",
+  "ele": "800",
+  "dog": "no"
+ },
+ "way/84977315": {
+  "warden": "Michael und Peter Scheiber"
+ },
+ "node/12344466461": {
+  "phone": "0790000000",
+  "warden": "Associazione Paesaggio Valle di Lodano",
+  "dog": "no"
+ },
+ "node/13234284428": {
+  "warden": "Patriziato di Giumaglio ID: NL-00001164",
+  "dog": "no"
+ },
+ "node/2470070886": {
+  "phone": "000000000",
+  "dog": "no"
+ },
+ "way/205397267": {
+  "phone": "00436641127153",
+  "warden": "Johanna Köberl"
+ },
+ "way/108831856": {
+  "phone": "+43386124184",
+  "warden": "Maja Ludwig & Lieselotte Schleicher"
+ },
+ "way/84131545": {
+  "warden": "Scherr Martin Berg&Skiführer",
+  "dog": "no"
+ },
+ "node/389785804": {
+  "warden": "Stefan Gottstein",
+  "dog": "no"
+ },
+ "way/104676616": {
+  "warden": "Manuela Kneringer-Schimpfössl",
+  "dog": "no"
+ },
+ "way/163922893": {
+  "warden": "Familie Schöpf",
+  "dog": "no"
+ },
+ "node/843873440": {
+  "website": "http://www.preintaler.at/",
+  "phone": "+436641278335",
+  "operator": "alpGesPreintaler",
+  "warden": "Herwig Hutegger",
+  "dog": "no"
+ },
+ "node/3264446971": {
+  "phone": "00000000000"
+ },
+ "node/880153992": {
+  "operator": "DAV",
+  "warden": "Gerald Zehner",
+  "dog": "no"
+ },
+ "node/502559811": {
+  "phone": "+41(0)77 428 17 34",
+  "warden": "Vuadens Nicolas",
+  "dog": "no"
+ },
+ "way/218924350": {
+  "warden": "Simona Rikenmann und Patrick Untersee"
+ },
+ "way/152004899": {
+  "warden": "Giada Lora",
+  "dog": "yes"
+ },
+ "way/361313812": {
+  "warden": "Vito Procopio",
+  "ele": "1671",
+  "dog": "no"
+ },
+ "node/502559964": {
+  "phone": "+4179 300 66 99"
+ },
+ "way/127882802": {
+  "phone": "+491234567890",
+  "warden": "Hüttenwart Stefan Schiller"
+ },
+ "way/33560058": {
+  "warden": "Reinhard Frohnauer\r\nIrmi Rothfelder\r\nVitus Stolz"
+ },
+ "way/433914931": {
+  "phone": "086529764610",
+  "warden": "Selbstversorgerhütte",
+  "dog": "no"
+ },
+ "way/116588334": {
+  "warden": "Jürgen Dirigo",
+  "dog": "no"
+ },
+ "way/178125170": {
+  "warden": "Anja Holzknecht",
+  "dog": "no"
+ },
+ "refuges/2265": {
+  "phone": "0279662466",
+  "operator": "SAC",
+  "warden": "ZERMATTERS\r\nBAHNHOFSTRASSE 58\r\nCH-3920 ZERMATT\r\n+41 27 966 24 66",
+  "ele": "2975"
+ },
+ "way/230145321": {
+  "operator": "SAC",
+  "warden": "Claudio Filli",
+  "dog": "no"
+ },
+ "way/314268215": {
+  "phone": "+41 79 552 28 91",
+  "warden": "Magdalena Walcher und Adrian Risch",
+  "dog": "no"
+ },
+ "way/169882694": {
+  "website": "https://www.alpenverein.at/salzkammergut/huetten/index.php",
+  "phone": "+43 3622 71148",
+  "warden": "Herbert und Renate Silbermayr",
+  "dog": "no"
+ },
+ "way/93450441": {
+  "warden": "Claudia Essendorfer"
+ },
+ "way/99182939": {
+  "warden": "Diana Socher",
+  "dog": "yes"
+ },
+ "way/152221841": {
+  "website": "https://www.hintergrathuette.com",
+  "phone": "+39 0473 613188",
+  "operator": "AVS",
+  "warden": "Fam. Gutgsell",
+  "dog": "no"
+ },
+ "node/6920077295": {
+  "warden": "Gardiens bénévoles",
+  "dog": "no"
+ },
+ "way/123243724": {
+  "phone": "+49 7531 21794",
+  "warden": "DAV Sektion Konstanz",
+  "dog": "no"
+ },
+ "way/575679939": {
+  "website": "https://www.cas-gruyere.ch/fr/cabanes/cabane-de-bounavaux/",
+  "phone": "+41 79 603 68 78",
+  "operator": "SAC",
+  "warden": "Denis Bossel et Mireille Bella",
+  "dog": "no"
+ },
+ "node/417326836": {
+  "phone": "+436644233823",
+  "warden": "Mathias Keinprecht",
+  "dog": "yes"
+ },
+ "way/78167535": {
+  "website": "https://www.lucknerhuette.at",
+  "phone": "+4348768455",
+  "operator": "OEAV",
+  "warden": "Florian Oberlohr",
+  "dog": "no"
+ },
+ "way/225203557": {
+  "phone": "+41 33 675 13 40",
+  "warden": "SAC",
+  "dog": "no"
+ },
+ "node/7149947625": {
+  "website": "https://www.rifugioscaradra.ch",
+  "phone": "0795501161",
+  "operator": "Via-Vallemaggia",
+  "warden": "Mattia Cima/Tito Maestrani",
+  "ele": "2173"
+ },
+ "node/3657865625": {
+  "phone": "+41 91 759 02 02",
+  "operator": "Via-Vallemaggia",
+  "warden": "Hotel Walser",
+  "dog": "no"
+ },
+ "way/204936607": {
+  "website": "https://www.alpenverein.at/donaulandhuette/",
+  "phone": "+43 1 5138500",
+  "ele": "1440",
+  "dog": "no"
+ },
+ "node/3404653403": {
+  "phone": "+41 79 332 16 86",
+  "warden": "Mattia Brogli",
+  "dog": "no"
+ },
+ "way/409506658": {
+  "website": "https://www.patriziatobiasca.ch/rifugio_lago.html",
+  "phone": "091 862 11 74",
+  "operator": "Via-Vallemaggia",
+  "warden": "Patriziato di Biasca",
+  "dog": "no"
+ },
+ "node/389786089": {
+  "phone": "0043 463 513056",
+  "warden": "Alpenverein Klagenfurt",
+  "dog": "yes"
+ },
+ "node/11250794049": {
+  "operator": "Via-Vallemaggia",
+  "warden": "SAT Lucomagno\r\nCasella Postale 175\r\n6718 Olivone",
+  "ele": "2720",
+  "dog": "no"
+ },
+ "way/138627567": {
+  "phone": "+43 676 7829081",
+  "dog": "yes"
+ },
+ "way/192253929": {
+  "phone": "06605544571",
+  "warden": "Markus Arzberger",
+  "dog": "yes",
+  "booking": "https://www.huetten-holiday.com/huts/defreggerhaus"
+ },
+ "way/156392391": {
+  "warden": "Tanja Zangerl",
+  "ele": "1965",
+  "dog": "no"
+ },
+ "way/122374780": {
+  "warden": "Nicola Albertini",
+  "dog": "no"
+ },
+ "node/512622097": {
+  "warden": "eure Wirtsleute",
+  "dog": "yes"
+ },
+ "way/116240805": {
+  "warden": "Judith Krabbat",
+  "dog": "no"
+ },
+ "way/267672194": {
+  "phone": "+43 664 506 3870",
+  "dog": "no"
+ },
+ "way/240938276": {
+  "warden": "Mariano Lott",
+  "dog": "no"
+ },
+ "way/74495656": {
+  "warden": "Martin Riz",
+  "dog": "no"
+ },
+ "way/1092213079": {
+  "warden": "Jacopo Bernard"
+ },
+ "way/66387405": {
+  "warden": "Emanuele Tessaro",
+  "dog": "yes"
+ },
+ "way/355347068": {
+  "website": "https://www.sat.tn.it/rifugio-casarota-l-ciola/",
+  "warden": "Lorenza Delama",
+  "dog": "no"
+ },
+ "way/61376550": {
+  "phone": "+39 349 338 0173",
+  "warden": "Alberto Bighellini",
+  "dog": "yes"
+ },
+ "node/6592652529": {
+  "warden": "Roberto Manni",
+  "dog": "yes"
+ },
+ "way/38613135": {
+  "website": "https://www.rifugio-tuckett.it/",
+  "phone": "+39 0465 441226",
+  "operator": "SAT",
+  "warden": "Alberto Angeli",
+  "dog": "no"
+ },
+ "way/38564403": {
+  "warden": "Roberto Cornella",
+  "dog": "no"
+ },
+ "way/95877357": {
+  "warden": "Mirco Dezulian",
+  "dog": "no"
+ },
+ "way/94750442": {
+  "warden": "Carmela Caola",
+  "dog": "no"
+ },
+ "way/76139910": {
+  "warden": "Mario Casanova",
+  "dog": "no"
+ },
+ "way/232381119": {
+  "warden": "Lorenzo Iachelini",
+  "dog": "yes"
+ },
+ "node/12389967734": {
+  "warden": "Luciana Zarantonello",
+  "dog": "no"
+ },
+ "way/168314465": {
+  "warden": "Helery & Marcus Winkler",
+  "dog": "yes"
+ },
+ "node/301262877": {
+  "operator": "DAV",
+  "warden": "Lucas Zipper  +436642444338",
+  "dog": "no"
+ },
+ "way/302929835": {
+  "warden": "Riccardo Foti",
+  "dog": "yes"
+ },
+ "node/929434847": {
+  "phone": "+41 91 755 11 62",
+  "operator": "Via-Vallemaggia",
+  "warden": "Andrea Nardecchia",
+  "dog": "no"
+ },
+ "way/133346746": {
+  "phone": "+43 664 662 54 09",
+  "dog": "yes"
+ },
+ "node/1446101218": {
+  "website": "https://www.berghaus-spluegenpass.ch/",
+  "phone": "+41 81 664 12 19",
+  "operator": "SAC",
+  "warden": "Mirjam Baumgartner und Severin Seiler",
+  "ele": "2035",
+  "dog": "yes"
+ },
+ "way/129497954": {
+  "phone": "+43 664 32 62 113",
+  "warden": "DI Anna Potocka-Tonnhofer",
+  "dog": "no"
+ },
+ "way/50302011": {
+  "warden": "Hendrik Eberhardt"
+ },
+ "way/208112913": {
+  "operator": "SAC",
+  "warden": "Guillaume Cretton",
+  "dog": "no"
+ },
+ "node/960531683": {
+  "warden": "Erhard Fischbacher",
+  "dog": "no"
+ },
+ "way/184716169": {
+  "warden": "Pepe Regazzi",
+  "ele": "1734",
+  "dog": "no"
+ },
+ "way/84547654": {
+  "warden": "Beate & Thomas Fankhauser",
+  "dog": "yes"
+ },
+ "way/40719448": {
+  "website": "https://www.tannheimer-huette.at",
+  "phone": "00491714766877",
+  "operator": "DAV",
+  "warden": "Sarah Breidenbach",
+  "dog": "no"
+ },
+ "refuges/3606": {
+  "phone": "+41 76 334 60 79",
+  "operator": "SAC",
+  "warden": "Elodie Gachet",
+  "ele": "1168",
+  "dog": "yes"
+ },
+ "node/301000243": {
+  "website": "https://www.lienzer-huette.at",
+  "phone": "+43 681 104 80988",
+  "operator": "OEAV",
+  "warden": "Christoph Weninger",
+  "dog": "no"
+ },
+ "node/9917584405": {
+  "operator": "AVS",
+  "warden": "Margit Ainhauser",
+  "dog": "yes"
+ },
+ "way/152260076": {
+  "warden": "Bernhard Wöll",
+  "dog": "no"
+ },
+ "way/103209591": {
+  "warden": "Hansjörg Hofer/Christian Hofer",
+  "dog": "yes"
+ },
+ "node/454642322": {
+  "dog": "no"
+ },
+ "way/303244800": {
+  "dog": "no"
+ },
+ "node/3405828416": {
+  "phone": "+41762145138",
+  "warden": "Katrin Vavassori",
+  "dog": "no"
+ },
+ "node/1636573842": {
+  "operator": "OEAV",
+  "dog": "yes"
+ },
+ "way/92645761": {
+  "website": "https://www.liezener-huette.at/",
+  "phone": "+43 664 9235902",
+  "dog": "no"
+ },
+ "way/122409746": {
+  "phone": "+49 173 9894028",
+  "operator": "DAV",
+  "warden": "Luis Schneider & Peter Weiger",
+  "dog": "yes"
+ },
+ "way/26716681": {
+  "warden": "Robert Fankhauser",
+  "dog": "no"
+ },
+ "way/209723442": {
+  "website": "https://dav-hagen.de/unsere-huetten/hagener-huette/",
+  "phone": "+436644036697",
+  "operator": "DAV",
+  "warden": "Johann Aschbacher",
+  "dog": "no"
+ },
+ "way/102461633": {
+  "website": "https://www.sac-zimmerberg.ch/huetten/",
+  "phone": "+41418831517",
+  "operator": "SAC",
+  "warden": "Andrea Furrer",
+  "ele": "2208",
+  "dog": "no"
+ },
+ "way/27870023": {
+  "warden": "Magdalena Kirchmaier",
+  "dog": "yes"
+ },
+ "way/234074505": {
+  "phone": "+41 79 414 90 86",
+  "warden": "Johan Andrey & Céline Gaspoz",
+  "dog": "yes"
+ },
+ "way/75106212": {
+  "warden": "Sonja & Ronny Quärengässer",
+  "dog": "yes"
+ },
+ "node/461016641": {
+  "dog": "no"
+ },
+ "node/925572227": {
+  "warden": "Tamara Eberhart",
+  "dog": "no"
+ },
+ "way/242250125": {
+  "warden": "Christine Denk"
+ },
+ "node/7884886401": {
+  "warden": "Maike Köck & Florian Illmer",
+  "dog": "no"
+ },
+ "way/239039300": {
+  "warden": "Gudrun Schimpfössl & Tenjing Sherpa",
+  "dog": "no"
+ },
+ "way/121901087": {
+  "warden": "Flo Mittermayr",
+  "dog": "no"
+ },
+ "way/255324844": {
+  "warden": "Kati Schmid",
+  "dog": "yes"
+ },
+ "way/246634739": {
+  "website": "https://www.dav-fn.de/huetten/Friedrichshafener-Huette",
+  "warden": "Wolfram und Hedda Walter",
+  "dog": "no"
+ },
+ "way/132367703": {
+  "warden": "Lena Tschögele",
+  "dog": "no"
+ },
+ "way/258281265": {
+  "warden": "Ellen Stritzel",
+  "dog": "no"
+ },
+ "way/187162092": {
+  "warden": "Simon und Iris Bock",
+  "dog": "no"
+ },
+ "way/174663350": {
+  "operator": "DAV",
+  "warden": "Gerhard Walter",
+  "dog": "no"
+ },
+ "way/152613126": {
+  "warden": "Hüttenliebe OG",
+  "dog": "yes"
+ },
+ "way/132073459": {
+  "warden": "Hannah & Fips",
+  "dog": "no"
+ },
+ "way/25804487": {
+  "warden": "Christoph und Ulrike Erd",
+  "dog": "no"
+ },
+ "way/75472593": {
+  "warden": "Dominik und Christine Müller",
+  "dog": "no"
+ },
+ "way/128117135": {
+  "phone": "+ 43 5413 203 00",
+  "warden": "Tabea Kirschner",
+  "dog": "no"
+ },
+ "way/85800043": {
+  "operator": "DAV",
+  "warden": "Stefan Schöpf",
+  "dog": "no"
+ },
+ "way/146174865": {
+  "phone": "+43 664 1975234",
+  "warden": "Fabian & Isabel Beck",
+  "dog": "no"
+ },
+ "way/129023318": {
+  "warden": "NN",
+  "dog": "no"
+ },
+ "way/82294319": {
+  "warden": "Johannes Heel",
+  "dog": "no"
+ },
+ "way/297173189": {
+  "warden": "Ang kami Lama",
+  "dog": "no"
+ },
+ "way/378887261": {
+  "warden": "Markus Jankowitsch",
+  "dog": "yes"
+ },
+ "way/132678903": {
+  "warden": "Florian & Marlies Krismer",
+  "dog": "yes"
+ },
+ "way/85800219": {
+  "warden": "Emil Widmann",
+  "dog": "no"
+ },
+ "way/177277435": {
+  "warden": "Familie Beck",
+  "dog": "yes"
+ },
+ "way/210985370": {
+  "warden": "Egli Hans"
+ },
+ "node/10101322757": {
+  "dog": "no"
+ },
+ "way/208921142": {
+  "dog": "yes"
+ },
+ "way/224085264": {
+  "dog": "no"
+ },
+ "way/1068018323": {
+  "warden": "Alena Placha und Beat Kühnis"
+ },
+ "way/222873495": {
+  "dog": "no"
+ },
+ "node/11371075950": {
+  "website": "http://capannacristallina.casticino.ch",
+  "phone": "+41 91 869 23 30",
+  "operator": "SAC",
+  "warden": "Emanuele Vellati",
+  "ele": "2575",
+  "dog": "no"
+ },
+ "way/281190385": {
+  "phone": "+41325128384",
+  "warden": "Alessandro Barbon / Olaf Stähli",
+  "dog": "no"
+ },
+ "way/241105805": {
+  "dog": "yes"
+ },
+ "node/11225649110": {
+  "phone": "+41 76  408 54 50",
+  "warden": "Markus Thommen und Ernst Strahm",
+  "dog": "no"
+ },
+ "way/300934238": {
+  "warden": "Schwab Silvana & Nicola Passiun da Muntagna GMBH"
+ },
+ "node/9070906905": {
+  "dog": "no"
+ },
+ "way/173798810": {
+  "dog": "no"
+ },
+ "node/502559893": {
+  "dog": "no"
+ },
+ "node/9362492877": {
+  "dog": "no"
+ },
+ "node/458867305": {
+  "dog": "no"
+ },
+ "way/82620359": {
+  "website": "http://www.alpenverein.at/duemlerhuette/",
+  "phone": "+43/7562/8603",
+  "warden": "Harry Höll",
+  "dog": "yes"
+ },
+ "way/151309717": {
+  "warden": "Tshering Lama Sherpa",
+  "dog": "no"
+ },
+ "way/117172849": {
+  "warden": "Préposé : Jean Raymond\r\n- Adjoints : Alain Détraz, Sonia Matthey",
+  "dog": "no"
+ },
+ "way/98328700": {
+  "warden": "Karine Vernez Thomas",
+  "dog": "no"
+ },
+ "way/148049142": {
+  "warden": "Caro Freisleben und Wolfgang Höß",
+  "dog": "yes"
+ },
+ "way/370669072": {
+  "warden": "Pächterfamilie Auer",
+  "dog": "no"
+ },
+ "way/208115673": {
+  "phone": "+41(0) 27 475 13 80",
+  "operator": "SAC",
+  "warden": "Famille Melly",
+  "dog": "no"
+ },
+ "way/238358629": {
+  "phone": "+41 77 446 35 85",
+  "warden": "Clara Chevalley +41 79 672 14 50",
+  "dog": "no"
+ },
+ "way/85804224": {
+  "phone": "+49891400341",
+  "warden": "DAV-Bundesgeschäftsstelle",
+  "dog": "no"
+ },
+ "way/180985122": {
+  "warden": "Fam. Hang",
+  "dog": "yes"
+ },
+ "way/119196451": {
+  "warden": "Thomas Lehner",
+  "dog": "no"
+ },
+ "way/307277777": {
+  "website": "http://www.dav-reutlingen.de/huetten/neue-reutlinger-huette/",
+  "phone": "+497121144860",
+  "warden": "DAV-Sektion Reutlingen",
+  "dog": "no"
+ },
+ "way/553986644": {
+  "phone": "0043 699 13290061",
+  "warden": "Andrea Raneburger",
+  "dog": "yes",
+  "booking": "https://www.huetten-holiday.com/huts/edmund-graf-hutte"
+ },
+ "way/83191775": {
+  "operator": "DAV",
+  "warden": "Michael & Julia Dobler",
+  "dog": "no"
+ },
+ "way/85801026": {
+  "warden": "Olivia Immler",
+  "dog": "no"
+ },
+ "way/81020836": {
+  "phone": "+4361368465",
+  "warden": "Jeannette und Gunnar Niehusen",
+  "dog": "no"
+ },
+ "way/136126326": {
+  "warden": "Wolfgang Heinz",
+  "dog": "yes"
+ },
+ "way/187790403": {
+  "warden": "Irmgard und Heinz Rieger",
+  "dog": "no"
+ },
+ "way/453515563": {
+  "phone": "+43 478 421 345",
+  "operator": "DAV",
+  "warden": "Niklas Meibert",
+  "dog": "no"
+ },
+ "way/124262161": {
+  "warden": "Halie Ezratty und Christian Förtsch",
+  "dog": "no"
+ },
+ "way/166530671": {
+  "dog": "no"
+ },
+ "way/132613067": {
+  "warden": "Fam. Weidinger",
+  "dog": "no"
+ },
+ "way/25384918": {
+  "website": "https://www.meranerhuette.it/",
+  "phone": "+39 328 434 6659",
+  "operator": "AVS",
+  "warden": "Norbert Karnutsch",
+  "ele": "1960",
+  "dog": "no"
+ },
+ "way/95812262": {
+  "warden": "Monika Tabernig",
+  "dog": "no"
+ },
+ "way/173682244": {
+  "warden": "Andy & Julia Kiechle",
+  "dog": "yes"
+ },
+ "way/87312650": {
+  "warden": "Familie Isser",
+  "dog": "no"
+ },
+ "way/132127112": {
+  "warden": "Karin und Juraj",
+  "dog": "yes"
+ },
+ "way/77998863": {
+  "warden": "Thomas LUDWIG",
+  "dog": "yes"
+ },
+ "way/25439465": {
+  "operator": "DAV",
+  "warden": "Martin Falkner",
+  "ele": "2374",
+  "dog": "no"
+ },
+ "node/389786192": {
+  "warden": "Christiane und Philipp Feller",
+  "dog": "no"
+ },
+ "way/477497580": {
+  "operator": "DAV",
+  "warden": "Stefanie Höllrigl",
+  "dog": "no"
+ },
+ "way/29176116": {
+  "warden": "Laura Heiligensetzer und Jeremy Aicher",
+  "dog": "yes"
+ },
+ "way/312596378": {
+  "warden": "Robert",
+  "dog": "yes"
+ },
+ "way/46482588": {
+  "warden": "Kathleen Beutmann",
+  "dog": "yes"
+ },
+ "node/476498599": {
+  "warden": "Reichhold Christof und Maria"
+ },
+ "way/236047957": {
+  "warden": "Theresa und Toni Zwinger"
+ },
+ "way/156083807": {
+  "warden": "-",
+  "dog": "no"
+ },
+ "way/83122437": {
+  "warden": "Seppi & Esther Schwarz",
+  "dog": "no"
+ },
+ "way/330875969": {
+  "warden": "Jill Lucas und Daniel Sidler"
+ },
+ "way/192606112": {
+  "phone": "+43 7257 21008",
+  "warden": "Konrad Forster",
+  "dog": "no"
+ },
+ "way/232173119": {
+  "warden": "Patrick Zangerl",
+  "dog": "no"
+ },
+ "way/326835390": {
+  "phone": "+41 79 355 12 60",
+  "warden": "Christian Nebiker +41 79 753 77 56",
+  "dog": "no"
+ },
+ "way/100510700": {
+  "warden": "Andrea Held und Benjamin Schödel",
+  "dog": "no"
+ },
+ "node/7982402149": {
+  "dog": "no"
+ },
+ "way/124392317": {
+  "dog": "no"
+ },
+ "way/652936211": {
+  "dog": "no"
+ },
+ "way/78158759": {
+  "warden": "Lydia Weißmann und Claudia Girke",
+  "dog": "no"
+ },
+ "way/101968311": {
+  "warden": "Liam Moore & Johannes Erd",
+  "dog": "no"
+ },
+ "way/337193680": {
+  "dog": "no"
+ },
+ "way/279895744": {
+  "warden": "Monika & Beat Gansner"
+ },
+ "way/117889584": {
+  "warden": "Pächter: \r\n\r\nGerhard Baumgartner",
+  "dog": "no"
+ },
+ "way/149548194": {
+  "warden": "Herr Daniel Weber",
+  "dog": "no"
+ },
+ "way/215667342": {
+  "warden": "Teresa Seiwald",
+  "dog": "no"
+ },
+ "way/205397977": {
+  "website": "https://www.alpenverein.at/porzehuette/",
+  "phone": "00436643256452",
+  "warden": "Bernd Fürhapter",
+  "dog": "no"
+ },
+ "way/104360708": {
+  "warden": "Tanja Scharler"
+ },
+ "node/1567490026": {
+  "website": "https://www.sudetendeutschehuette.com/",
+  "phone": "+43720347802",
+  "operator": "DAV",
+  "warden": "Laura Gallonetto & Patrick Juriga",
+  "dog": "no"
+ },
+ "way/391067011": {
+  "warden": "DAV Sektion Schwaben",
+  "dog": "no"
+ },
+ "node/278226693": {
+  "warden": "Nadine und Oliver Hoeft aus Bischofswiesen",
+  "dog": "yes"
+ },
+ "way/124023064": {
+  "warden": "Lukas Kirschner und Angelina Gabl",
+  "dog": "no"
+ },
+ "node/292919704": {
+  "operator": "DAV",
+  "warden": "Anton und Susanne Herrmann",
+  "dog": "no"
+ },
+ "way/141323531": {
+  "warden": "Gabi und Siggi Schneeberger",
+  "dog": "no"
+ },
+ "way/140241574": {
+  "warden": "Kathleen Dammann",
+  "dog": "no"
+ },
+ "way/117878139": {
+  "website": "https://www.plauener-huette.at",
+  "phone": "+436504684308",
+  "operator": "DAV",
+  "warden": "Martin Eberharter",
+  "dog": "no"
+ },
+ "node/13135143793": {
+  "dog": "no"
+ },
+ "way/187225847": {
+  "website": "http://www.zellerhuette.at",
+  "phone": "06644112717",
+  "warden": "Deni Popper",
+  "dog": "yes"
+ },
+ "way/101987039": {
+  "warden": "Reinhard Frühholz",
+  "dog": "no"
+ },
+ "way/60310929": {
+  "warden": "Nadine & Detlef Wildenheim",
+  "dog": "no"
+ },
+ "way/126348573": {
+  "warden": "Matteo und Veronika Bachmann",
+  "dog": "no"
+ },
+ "way/358873985": {
+  "warden": "Silke Lange",
+  "dog": "no"
+ },
+ "way/150245424": {
+  "warden": "Martina und Jürgen Eiter",
+  "dog": "yes"
+ },
+ "way/148755635": {
+  "warden": "Sigl Ulrike",
+  "dog": "yes"
+ },
+ "node/430122613": {
+  "warden": "Harald Anders & Barbara Weiß"
+ },
+ "way/75312949": {
+  "operator": "DAV",
+  "warden": "Nora Rosche und Sarah Doleski, Zirl",
+  "dog": "yes"
+ },
+ "way/279799968": {
+  "warden": "Blöchlinger Ruedi & Brigitta"
+ },
+ "way/328299628": {
+  "dog": "no"
+ },
+ "way/293444439": {
+  "warden": "Karin Bächinger"
+ },
+ "way/93710626": {
+  "phone": "+4369911741087",
+  "warden": "Stephan Jobke",
+  "dog": "yes"
+ },
+ "way/114133557": {
+  "warden": "Beatrix und Peter Reichert"
+ },
+ "way/230698692": {
+  "warden": "-",
+  "dog": "yes"
+ },
+ "way/315247870": {
+  "phone": "+41 81 941 23 36",
+  "warden": "Regina Köhle\r\n+41 79 568 20 16",
+  "dog": "no"
+ },
+ "node/1523330872": {
+  "website": "https://www.cas-moleson.ch/infrastructures/chalet-du-hohberg",
+  "phone": "026 412 11 34",
+  "operator": "SAC",
+  "warden": "Clubistes de la section Moléson du CAS",
+  "ele": "1468",
+  "dog": "no"
+ },
+ "way/1246261424": {
+  "website": "https://www.alpenverein.at/guttenberghaus/index.php",
+  "phone": "004366499256153",
+  "warden": "Patrik Husár & Veronika Husárová",
+  "ele": "2146",
+  "dog": "no"
+ },
+ "node/6617740631": {
+  "warden": "Lachat Marie-Claire (RdR)"
+ },
+ "way/49219041": {
+  "warden": "Ursel & Leo Rein\r\nWeiherstrasse 7 \r\n73326 Deggingen",
+  "dog": "no"
+ },
+ "way/25477186": {
+  "warden": "Familie Kogler",
+  "dog": "no"
+ },
+ "way/86101191": {
+  "warden": "Helmut Ortner",
+  "dog": "no"
+ },
+ "way/136869246": {
+  "warden": "Heinz Bodner"
+ },
+ "way/172653740": {
+  "warden": "Pächterfamilie Rimml- Dobler",
+  "dog": "no"
+ },
+ "way/33558141": {
+  "warden": "Isabel Steinbrück",
+  "dog": "no"
+ },
+ "way/233768517": {
+  "warden": "Familie Brandstätter",
+  "ele": "1880",
+  "dog": "no"
+ },
+ "way/102461531": {
+  "dog": "no"
+ },
+ "way/353073803": {
+  "phone": "+498028905386",
+  "warden": "Michaela Geyer"
+ },
+ "way/163209874": {
+  "warden": "Ira Kreutzer und Sven Bissert",
+  "dog": "no"
+ },
+ "node/8018256030": {
+  "phone": "+39 0472 855230",
+  "operator": "AVS",
+  "warden": "Fam. Leitner"
+ },
+ "way/128630808": {
+  "warden": "Johanna Diem und Lewis Kelly"
+ },
+ "way/265394492": {
+  "website": "http://www.cas-dent-de-lys.ch/?page_id=20",
+  "phone": "+41 27 321 11 16",
+  "operator": "SAC",
+  "warden": "Gilbert Maillard - intendant",
+  "dog": "no"
+ },
+ "node/3405915010": {
+  "warden": "Nadia e Alan Ochsner"
+ },
+ "way/30573888": {
+  "warden": "Siegfried Karl",
+  "dog": "no"
+ },
+ "way/127908485": {
+  "warden": "Peter Pruckner"
+ },
+ "way/168877636": {
+  "warden": "Anton Bauer & Benedikt Vilanek",
+  "dog": "no"
+ },
+ "way/160081047": {
+  "warden": "Uschi Klumaier-Wiebecke & Anton Langer",
+  "booking": "https://www.huetten-holiday.com/huts/hochalm-am-untersberg"
+ },
+ "node/9917556570": {
+  "operator": "AVS",
+  "warden": "Oberhollenzer Stefan  - TIEFRASTENHÜTTE",
+  "dog": "no"
+ },
+ "node/494782696": {
+  "operator": "OEAV",
+  "warden": "Phil Beerhold"
+ },
+ "way/144785838": {
+  "phone": "+436644308060",
+  "warden": "Rebeka Tréfová"
+ },
+ "way/83122401": {
+  "operator": "DAV",
+  "warden": "Helmut und Sabine Kuen",
+  "dog": "yes"
+ },
+ "way/37779558": {
+  "phone": "+43756420602",
+  "warden": "Michael Heinrich GmbH"
+ },
+ "way/336941782": {
+  "warden": "Chatrina & Gigi Murtas"
+ },
+ "way/126087678": {
+  "warden": "Carsten Stahl",
+  "dog": "no"
+ },
+ "way/87676412": {
+  "warden": "Martin und Eva Gruber",
+  "dog": "no"
+ },
+ "node/8857192925": {
+  "phone": "+41 79 541 65 75",
+  "warden": "Jolanda Stettler",
+  "ele": "2783",
+  "dog": "no"
+ },
+ "way/87603129": {
+  "phone": "0041-(0)41-887 13 22",
+  "operator": "SAC",
+  "warden": "Madeleine & Hansruedi Tresch"
+ },
+ "way/222617200": {
+  "website": "https://www.alpenverein.at/ennstalerhuette/",
+  "phone": "+43 664 4901737",
+  "warden": "Burgi und Ernst Brunnmayr",
+  "dog": "yes"
+ },
+ "way/84541388": {
+  "warden": "Anna Kuisle",
+  "dog": "yes"
+ },
+ "way/122902604": {
+  "warden": "Carmen & Florian Scheiber",
+  "dog": "yes"
+ },
+ "way/360293635": {
+  "warden": "Katrin Rödel"
+ },
+ "node/502559916": {
+  "phone": "+41797579916",
+  "warden": "Gerold Bumann",
+  "dog": "no"
+ },
+ "way/119140611": {
+  "phone": "0664 7346 5776",
+  "warden": "Gerald Kammerhuber",
+  "dog": "yes"
+ },
+ "way/293475431": {
+  "warden": "Michiel Smekens",
+  "dog": "no"
+ },
+ "node/9917556569": {
+  "warden": "Simon & Alexa"
+ },
+ "way/230413934": {
+  "website": "https://www.alpenverein.at/rudolfschoberhuette/",
+  "warden": "Toni Piller",
+  "dog": "no"
+ },
+ "way/238450857": {
+  "warden": "Roberto Costa"
+ },
+ "way/253356372": {
+  "operator": "SAC",
+  "warden": "Marisa Sierro",
+  "ele": "2191",
+  "dog": "yes"
+ },
+ "node/3406734808": {
+  "warden": "Team Piansecco - CAS Bellinzona e Valli"
+ },
+ "way/28939679": {
+  "phone": "+43 3853 300",
+  "warden": "Andreas & Leila Hölzl"
+ },
+ "way/35285185": {
+  "warden": "Christine Art",
+  "dog": "no"
+ },
+ "way/598074412": {
+  "website": "https://www.alpenverein.at/gruberschartenbiwak/",
+  "warden": "-",
+  "dog": "no"
+ },
+ "way/135297091": {
+  "warden": "Richard Preyer",
+  "dog": "yes"
+ },
+ "way/139850853": {
+  "phone": "+43 676 4025626",
+  "warden": "-",
+  "dog": "no"
+ },
+ "way/354310675": {
+  "website": "https://www.alpenverein.at/schwarzenberghuette/",
+  "phone": "+43 680 3064319",
+  "warden": "-",
+  "dog": "yes"
+ },
+ "way/29269844": {
+  "warden": "Katrin Stadler",
+  "dog": "yes"
+ },
+ "node/9917747160": {
+  "warden": "-",
+  "dog": "no"
+ },
+ "way/226981814": {
+  "operator": "SAC",
+  "warden": "Patrick und Claudia Hofer",
+  "dog": "no"
+ },
+ "way/138957728": {
+  "dog": "yes"
+ },
+ "way/123303946": {
+  "warden": "Marco Rager",
+  "dog": "yes"
+ },
+ "way/86141335": {
+  "phone": "06765118454",
+  "warden": "Florian Toth",
+  "dog": "yes"
+ },
+ "way/208112909": {
+  "phone": "+41 27 281 17 80",
+  "operator": "SAC",
+  "warden": "Estelle GABRIEL",
+  "dog": "yes"
+ },
+ "way/437909215": {
+  "dog": "yes"
+ },
+ "node/389785744": {
+  "website": "http://www.bonnmatreier-huette.at",
+  "phone": "+436643481006",
+  "warden": "Andreas Rainer",
+  "dog": "yes"
+ },
+ "way/233206648": {
+  "dog": "yes"
+ },
+ "node/389785790": {
+  "website": "https://www.alpenverein.at/etcomptonhuette",
+  "phone": "+436767506886",
+  "warden": "-Andreas Spivey\r\nWaldschenke 145\r\n9640-Kötschach",
+  "dog": "no"
+ },
+ "way/126017358": {
+  "website": "https://www.alpenverein.at/haindlkarhuette",
+  "phone": "+43 6641140046",
+  "operator": "OEAV",
+  "warden": "-Alexander Romich und Sandra Hofer",
+  "dog": "no"
+ },
+ "relation/19659191": {
+  "dog": "yes"
+ },
+ "way/91610989": {
+  "phone": "+43 5254 2763",
+  "warden": "Check-In täglich von 17 - 19 Uhr",
+  "dog": "no"
+ },
+ "way/93450448": {
+  "warden": "Sophia Mpalampanis",
+  "dog": "yes"
+ },
+ "way/174282665": {
+  "warden": "Silvia Klausner u. Leo Bammer",
+  "dog": "no"
+ },
+ "way/232521425": {
+  "warden": "Klaus Dieterstorfer, Susanne Kern",
+  "dog": "yes"
+ },
+ "node/4399549524": {
+  "dog": "yes"
+ },
+ "node/3066966225": {
+  "dog": "yes"
+ },
+ "node/6404589849": {
+  "website": "https://www.berggasthaus-brusti.com/",
+  "phone": "+41 41 871 00 11",
+  "operator": "SAC",
+  "warden": "Dominik Wyrsch",
+  "ele": "1525",
+  "dog": "no"
+ },
+ "way/291482380": {
+  "phone": "079 430 99 91",
+  "operator": "Via-Vallemaggia",
+  "warden": "Patriziato di Prato",
+  "ele": "1651"
+ },
+ "way/81920286": {
+  "phone": "+43 6503622528",
+  "operator": "DAV",
+  "warden": "Enrico Straßner",
+  "dog": "no"
+ },
+ "node/5643719069": {
+  "warden": "Alexander Schrempf, Pyrkerstrasse 51 c , 5630 Bad Hofgastein",
+  "dog": "no"
+ },
+ "node/10048744013": {
+  "dog": "no"
+ },
+ "way/180374199": {
+  "phone": "0792829960",
+  "warden": "Hediger Thomas",
+  "dog": "no"
+ },
+ "node/502559848": {
+  "phone": "+41763040877",
+  "warden": "Tobias Sigrist",
+  "dog": "no"
+ },
+ "way/205171902": {
+  "warden": "-",
+  "dog": "yes"
+ },
+ "node/1349631178": {
+  "dog": "no"
+ },
+ "way/110221196": {
+  "warden": "Dr. Matthias Schmidlin",
+  "dog": "no"
+ },
+ "way/409496893": {
+  "phone": "091 862 11 74",
+  "warden": "Patriziato di Biasca",
+  "dog": "no"
+ },
+ "way/121262261": {
+  "phone": "07563666",
+  "warden": "Gabor PAL & Nikoletta PAL",
+  "dog": "no"
+ },
+ "way/443455690": {
+  "phone": "+41 33 744 36 11",
+  "warden": "Markus Brefin",
+  "dog": "no"
+ },
+ "way/126300840": {
+  "warden": "Peter & Sandrine Fleißner-Rieger",
+  "dog": "no"
+ },
+ "way/142890732": {
+  "website": "https://www.ostpreussenhuette.at",
+  "warden": "Iris Schoch",
+  "dog": "yes"
+ },
+ "way/355326941": {
+  "warden": "Elisa Bettega",
+  "dog": "no"
+ },
+ "way/292970157": {
+  "warden": "Roberta Silva",
+  "dog": "no"
+ },
+ "way/289394722": {
+  "warden": "Ruggero Samaden",
+  "dog": "no"
+ },
+ "way/60888512": {
+  "website": "https://www.sat.tn.it/rifugio-bocca-di-trat-nino-pernici/",
+  "phone": "+39 3292599365",
+  "warden": "Valentina Santoni",
+  "dog": "no"
+ },
+ "way/96109724": {
+  "warden": "Manuela Ferri",
+  "dog": "no"
+ },
+ "way/183878988": {
+  "warden": "Franco Nicolini",
+  "dog": "no"
+ },
+ "way/117966153": {
+  "warden": "Tamara Gleirscher und Florian Blankenhagen",
+  "dog": "no"
+ },
+ "way/187827102": {
+  "warden": "Familie Schatz-Juen",
+  "dog": "no"
+ },
+ "way/232332780": {
+  "phone": "+41 79 534 99 51",
+  "operator": "SAC",
+  "warden": "Familie Garbani",
+  "dog": "no"
+ },
+ "way/326835394": {
+  "operator": "SAC",
+  "warden": "Conny Brawand",
+  "dog": "no"
+ },
+ "way/80751554": {
+  "warden": "Daniel Peyerl",
+  "dog": "no"
+ },
+ "way/169553255": {
+  "warden": "-",
+  "dog": "no"
+ },
+ "way/102017757": {
+  "warden": "Jürgen Schimmelpfennig",
+  "dog": "no"
+ },
+ "node/309758417": {
+  "dog": "no"
+ },
+ "way/92957930": {
+  "website": "https://www.wangenitzseehuette.at",
+  "phone": "00434826229",
+  "operator": "OEAV",
+  "warden": "Kasia und Andrzej"
+ },
+ "way/162004568": {
+  "warden": "Jannik Storf",
+  "dog": "no"
+ },
+ "way/200305337": {
+  "warden": "Anna Menikheim & Andreas Schuhmann GesbR",
+  "dog": "no"
+ },
+ "way/84674198": {
+  "operator": "DAV",
+  "warden": "Karin und Martin Tanzer",
+  "dog": "no"
+ },
+ "way/85718959": {
+  "warden": "Julia Tamborini und Sebastian Archut",
+  "dog": "no"
+ },
+ "way/54807396": {
+  "phone": "+43 732773295",
+  "warden": "unbewirtschaftet",
+  "ele": "757",
+  "dog": "no"
+ },
+ "way/84526831": {
+  "warden": "Thomas Grollmus",
+  "dog": "no"
+ },
+ "node/11203686940": {
+  "operator": "SAC",
+  "dog": "no"
+ },
+ "way/218941198": {
+  "warden": "Christian Rimml",
+  "dog": "yes"
+ },
+ "way/145395030": {
+  "operator": "SAC",
+  "warden": "Sophia Sandkühler & Stefanie Ritter",
+  "dog": "yes"
+ },
+ "way/325823753": {
+  "operator": "SAC",
+  "dog": "no"
+ },
+ "node/13703257734": {
+  "ele": "2123"
+ },
+ "way/509660012": {
+  "phone": "+43 664 6114626"
+ },
+ "node/458799908": {
+  "website": "https://adolf-pichler-huette.at"
+ },
+ "way/168180679": {
+  "website": "https://alpeltalhuette.de",
+  "phone": "+49 8652 63077"
+ },
+ "way/192496838": {
+  "phone": "+43 664 250 19 81",
+  "warden": "Katerina und Michele Gallonetto",
+  "dog": "no"
+ },
+ "way/155094206": {
+  "warden": "Daniel Schütz  +436603424067  telefonisch erreichbar von 08:00 bis 19:00 Uhr",
+  "dog": "no"
+ },
+ "node/309753133": {
+  "website": "https://www.caichivasso.it/bivacco-biagio-musso/",
+  "phone": "+39 338 2076921"
+ },
+ "node/528983385": {
+  "warden": "Christian Deser",
+  "dog": "no"
+ },
+ "node/296163774": {
+  "phone": "+49 172 8909613"
+ },
+ "way/67146529": {
+  "warden": "Sepp & Yvonne Tremml",
+  "dog": "no"
+ },
+ "node/309757022": {
+  "dog": "no"
+ },
+ "way/333351720": {
+  "dog": "no"
+ },
+ "node/2949459124": {
+  "phone": "+41 78 637 01 53"
+ },
+ "node/9917589294": {
+  "website": "https://www.chemnitzerhuette.com/",
+  "phone": "+39 0474 653 244"
+ },
+ "way/30708117": {
+  "ele": "2073"
+ },
+ "way/233382674": {
+  "website": "https://www.alpenbad-ramsau.at",
+  "phone": "+43 3687 81509"
+ },
+ "way/91797593": {
+  "website": "https://www.alpenverein.at/eckberthuette/"
+ },
+ "way/230697483": {
+  "phone": "+43 676 748 11 72"
+ },
+ "node/240030362": {
+  "ele": "999"
+ },
+ "way/613732381": {
+  "phone": "+43 5476 6214"
+ },
+ "node/1621410739": {
+  "warden": "Katharina Schöner & Melwin Lieb",
+  "dog": "no"
+ },
+ "way/92645754": {
+  "phone": "+43 676 9003909"
+ },
+ "way/245210501": {
+  "website": "https://www.hochstadel.at/",
+  "phone": "+43 4710 2778"
+ },
+ "way/32499717": {
+  "warden": "Katerina und Petr Kalina",
+  "dog": "yes"
+ },
+ "way/26959900": {
+  "warden": "Brigitte und Andreas Ruech",
+  "dog": "no"
+ },
+ "way/59484532": {
+  "warden": "Lukas Decker"
+ },
+ "way/154092612": {
+  "phone": "+43 3613 2601"
+ },
+ "way/112282882": {
+  "website": "https://www.linzerhaus.com/",
+  "phone": "+43 7563 237"
+ },
+ "way/125769272": {
+  "website": "https://www.lorea-huette.com/",
+  "phone": "+49 89 438944"
+ },
+ "node/389786152": {
+  "website": "https://www.alpenverein.at/mitterkarbiwak/"
+ },
+ "way/239179174": {
+  "dog": "no"
+ },
+ "node/1817938536": {
+  "website": "https://www.sonnblickbasis.at/",
+  "phone": "+43 6544 8103",
+  "ele": "1598"
+ },
+ "way/168890140": {
+  "website": "https://www.regensburgerhuette.at/",
+  "phone": "+43 664 2025070",
+  "warden": "Familie Tomaselli",
+  "dog": "no"
+ },
+ "way/172609525": {
+  "warden": "Martina und Leonhard Siller"
+ },
+ "way/296983089": {
+  "warden": "Patriziato di Biasca",
+  "ele": "1862",
+  "dog": "no"
+ },
+ "way/115514005": {
+  "website": "https://www.caichiavari.it/rifugio-franco-chiarella/",
+  "phone": "+39 0185 311851",
+  "ele": "2979"
+ },
+ "way/88776857": {
+  "website": "https://www.rinnerhuette.at",
+  "phone": "+43 664 2405181"
+ },
+ "way/323613997": {
+  "dog": "no"
+ },
+ "node/240110461": {
+  "ele": "1279"
+ },
+ "way/827811452": {
+  "warden": "Doris und Christoph Mitterer",
+  "dog": "no"
+ },
+ "node/514017580": {
+  "warden": "Silvia und Orlando Gisler",
+  "dog": "no"
+ },
+ "way/122404162": {
+  "warden": "Christoph Mitterer",
+  "dog": "no"
+ },
+ "way/227108236": {
+  "website": "https://www.spechtensee.com/",
+  "phone": "+43 3688 2666"
+ },
+ "way/36333042": {
+  "warden": "Sebastian Hippe",
+  "dog": "no"
+ },
+ "way/152263569": {
+  "phone": "+39 346 1472278"
+ },
+ "way/39911021": {
+  "warden": "Daum Katharina",
+  "dog": "no"
+ },
+ "way/208708270": {
+  "phone": "+49 571 829 37 03"
+ },
+ "way/1075875288": {
+  "phone": "+43 650 7300159"
+ },
+ "way/92004584": {
+  "website": "https://www.osnabrueckerhuette.at",
+  "phone": "+43 650 4461202"
+ },
+ "way/178754385": {
+  "warden": "Anna Gstrein und Frank Meier"
+ },
+ "node/240098043": {
+  "ele": "1450"
+ },
+ "way/94208773": {
+  "phone": "+43 6563 8221"
+ },
+ "way/143242924": {
+  "phone": "+43 664 9857090"
+ },
+ "register/47.00130,12.59970": {
+  "phone": "+43 680 1163892"
+ },
+ "way/205215988": {
+  "website": "http://www.schmidt-zabierow.at",
+  "phone": "+43 6588 7284",
+  "ele": "1966"
+ },
+ "node/1686207562": {
+  "ele": "1325"
+ },
+ "node/240094782": {
+  "ele": "1356"
+ },
+ "way/117007151": {
+  "phone": "+49 8061 2249"
+ },
+ "way/172579174": {
+  "website": "https://www.prokschhaus.at",
+  "phone": "+43 664 9168824"
+ },
+ "way/237194135": {
+  "phone": "+49 8682 9569294"
+ },
+ "way/168881460": {
+  "website": "https://www.edelweissclub.at/huetten/",
+  "ele": "2349",
+  "name": "Edelweißerhütte"
+ },
+ "way/150204245": {
+  "warden": "Florian Freundl und Karina Rommel",
+  "dog": "yes"
+ },
+ "node/22281426": {
+  "ele": "2374"
+ },
+ "node/240073856": {
+  "ele": "1172"
+ },
+ "node/240069023": {
+  "ele": "1221"
+ },
+ "way/231021223": {
+  "phone": "+43 7255 20620"
+ },
+ "node/389786044": {
+  "phone": "+43 676 4464643"
+ },
+ "way/384109561": {
+  "phone": "+43 650 3710194"
+ },
+ "way/135297090": {
+  "phone": "+43 2662 42962"
+ },
+ "way/124550755": {
+  "website": "https://www.alpenverein.at/ottohaus/",
+  "phone": "+43 2666 52295"
+ },
+ "way/157295582": {
+  "warden": "Sarah & Armin",
+  "dog": "yes"
+ },
+ "node/29749398": {
+  "ele": "557"
+ },
+ "way/47488721": {
+  "website": "https://www.hinterhornalm.at/",
+  "phone": "+43 664 2112745"
+ },
+ "node/2755910091": {
+  "warden": "lanz evi",
+  "dog": "no"
+ },
+ "node/240127924": {
+  "ele": "736"
+ },
+ "way/153767024": {
+  "website": "https://www.alpenverein.at/badenerhuette/",
+  "phone": "+43 664 9155666",
+  "warden": "Flo und Tamara",
+  "dog": "yes"
+ },
+ "node/389786547": {
+  "website": "https://www.alpenverein.at/weissbriacherhuette/",
+  "phone": "+43 650 7517956"
+ },
+ "way/110183140": {
+  "phone": "+43 680 313 5327",
+  "warden": "Ingrid Lindlbauer & Gabriel Povacz"
+ },
+ "way/133346747": {
+  "phone": "+43 664 3575153"
+ },
+ "node/240037821": {
+  "ele": "847"
+ },
+ "way/29176583": {
+  "warden": "Jessi und Udo Weidner",
+  "dog": "yes"
+ },
+ "node/5902609423": {
+  "phone": "+43 5556 73700",
+  "ele": "1500"
+ },
+ "way/144978578": {
+  "website": "https://www.alpe-hohenschwand.de/",
+  "phone": "+49 731 921 6777"
+ },
+ "way/93350207": {
+  "warden": "Herr Kemal Akcay",
+  "dog": "no"
+ },
+ "way/188128101": {
+  "phone": "+49 89 551700-0"
+ },
+ "way/29176581": {
+  "website": "https://de.wikipedia.org/wiki/Alte_Traunsteiner_H%C3%BCtte"
+ },
+ "way/97566645": {
+  "phone": "+49 731 603 07 520"
+ },
+ "node/512618893": {
+  "website": "https://www.dav-aachen.de/einrichtungen/antonrenkhuette",
+  "phone": "+43 664 883 14 262"
+ },
+ "way/136778436": {
+  "phone": "+49 160 7212823"
+ },
+ "way/1134083857": {
+  "website": "https://de.wikipedia.org/wiki/Aschaffenburger_Biwak",
+  "ele": "2135"
+ },
+ "way/60054244": {
+  "website": "https://www.dav-barmen.de/",
+  "phone": "+49 202 643177"
+ },
+ "way/30907084": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/bayerische-wildalm",
+  "phone": "+49 89 2907090"
+ },
+ "way/619115930": {
+  "website": "https://www.alpenverein.at/huetten/?huette_nr=1788"
+ },
+ "way/73233200": {
+  "phone": "+49 89 2907090"
+ },
+ "node/2893026131": {
+  "website": "https://www.alpenverein-muelheim.de/naturschutz/boeseckhuette"
+ },
+ "node/1396763486": {
+  "website": "https://www.alpenverein-coburg.de/",
+  "phone": "+49 9563 307"
+ },
+ "way/136964548": {
+  "phone": "+49 8026 925 33 62",
+  "warden": "Marta Wojcik",
+  "dog": "no"
+ },
+ "way/133284131": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/bergerhuette",
+  "phone": "+49 89 551700",
+  "ele": "1340"
+ },
+ "way/1501773510": {
+  "ele": "2443"
+ },
+ "way/202984899": {
+  "phone": "+43 512 59547"
+ },
+ "way/109151091": {
+  "phone": "+49 8161 131 43"
+ },
+ "way/41697896": {
+  "warden": "Unser Hüttenteam: Niko, Peter, Norbert, Lina, Philip, Florence, Roland, Christian",
+  "dog": "no"
+ },
+ "way/39727697": {
+  "warden": "Corina"
+ },
+ "way/147007448": {
+  "phone": "+49 89 2907090"
+ },
+ "way/132855225": {
+  "phone": "+49 8955 17000"
+ },
+ "way/82169182": {
+  "phone": "+43 664 2204876",
+  "ele": "1970"
+ },
+ "way/618500747": {
+  "phone": "+49 89 29070 90"
+ },
+ "way/171618472": {
+  "phone": "+43 664 6565555"
+ },
+ "way/109898812": {
+  "warden": "Monika Becht",
+  "dog": "no"
+ },
+ "node/530185743": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/jubilaeumsgrathuette",
+  "phone": "+49 89 29070 90"
+ },
+ "way/132457430": {
+  "phone": "+49 8051 96920"
+ },
+ "way/404990771": {
+  "website": "https://www.alpenverein.at/huetten/?huette_nr=0580",
+  "phone": "+43 664 9148021"
+ },
+ "way/247055641": {
+  "phone": "+43 676 3755144"
+ },
+ "way/283396333": {
+  "phone": "+43 664 975 8893"
+ },
+ "way/38589281": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/kloaschaualm",
+  "phone": "+49 89 29070 90"
+ },
+ "way/51008473": {
+  "phone": "+43 677 63033947"
+ },
+ "way/125338464": {
+  "phone": "+43 664 4559469",
+  "warden": "Martin & Edith Aschauer",
+  "dog": "no"
+ },
+ "way/135564755": {
+  "warden": "Andreas und Anschi König",
+  "dog": "no"
+ },
+ "way/100452081": {
+  "warden": "Goran und Thomas"
+ },
+ "way/27715096": {
+  "phone": "+43 668 5072624",
+  "warden": "Michael Faber",
+  "dog": "no"
+ },
+ "way/186256944": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/reitbichlhuette",
+  "phone": "+49 89 29070 90"
+ },
+ "way/184978043": {
+  "warden": "Anita Waibl",
+  "dog": "yes"
+ },
+ "node/530194208": {
+  "website": "https://de.wikipedia.org/wiki/Sch%C3%BCsselkar-Biwak"
+ },
+ "way/220074037": {
+  "phone": "+49 89 55170 00"
+ },
+ "way/217504824": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/troegelhuette",
+  "phone": "+49 89 55170 00"
+ },
+ "way/97575267": {
+  "phone": "+49 175 164 1690"
+ },
+ "way/220074651": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/waxensteinhuette",
+  "phone": "+49 89 55170 00"
+ },
+ "way/120467198": {
+  "warden": "Michael Reitmeir",
+  "dog": "yes"
+ },
+ "way/83122410": {
+  "website": "https://www.alpenverein-muenchen-oberland.de/winkelalm",
+  "phone": "+49 89 55170 00"
+ },
+ "way/189436406": {
+  "website": "https://www.alpenverein.at/ahornalmhuette/"
+ },
+ "way/456556900": {
+  "phone": "+43 676 92 11 299",
+  "ele": "985"
+ },
+ "node/389785715": {
+  "website": "https://www.alpenverein.at/bernhardfesthuette/",
+  "phone": "+43 650 3091998"
+ },
+ "way/147175158": {
+  "website": "https://www.alpenverein.at/braunauerhuette/",
+  "phone": "+43 676 4545120"
+ },
+ "way/135548351": {
+  "website": "https://www.alpenverein.at/drjosefmehrlhuette/",
+  "phone": "+43 4736 320"
+ },
+ "way/129870890": {
+  "website": "https://www.alpenverein.at/erichhuette/"
+ },
+ "node/389785832": {
+  "website": "https://www.alpenverein.at/esebeckhuette/",
+  "phone": "+43 664 455 1987"
+ },
+ "node/3063751728": {
+  "website": "https://www.alpenverein.at/fridokordonhuette/",
+  "phone": "+43 664 3257530"
+ },
+ "node/389785880": {
+  "website": "https://www.gerlitzen-huette.at/",
+  "phone": "+43 676 7572373"
+ },
+ "node/5937430593": {
+  "website": "https://de.wikipedia.org/wiki/Gernot-R%C3%B6hr-Biwak"
+ },
+ "node/393767001": {
+  "website": "https://de.wikipedia.org/wiki/Glockner-Biwak"
+ },
+ "node/389785953": {
+  "website": "https://www.alpenverein.at/gruenseehuette/",
+  "phone": "+43 650 266 33 73"
+ },
+ "way/419513412": {
+  "website": "https://www.alpenverein.at/gruentalkogelhuette/",
+  "phone": "+43 664 9246161"
+ },
+ "node/389785938": {
+  "website": "https://de.wikipedia.org/wiki/G%C3%B6ssnitzkopf-Biwak"
+ },
+ "way/204938483": {
+  "warden": "Alpenverein"
+ },
+ "node/1537321603": {
+  "website": "https://www.alpenverein.at/hochsteinhuette/",
+  "phone": "+43 699 170 74 047"
+ },
+ "node/389786026": {
+  "phone": "+43 463 513056"
+ },
+ "way/172405202": {
+  "phone": "+43 5274 87475"
+ },
+ "way/121270054": {
+  "website": "https://www.alpenverein.at/juliusseitnerhuette/",
+  "phone": "+43 677 61198729",
+  "warden": "Bernhard Schwarz",
+  "dog": "yes"
+ },
+ "node/389786039": {
+  "phone": "+43 316 82 22 66"
+ },
+ "way/442057268": {
+  "phone": "+43 2742 310311"
+ },
+ "node/395214448": {
+  "website": "https://de.wikipedia.org/wiki/Lalidererspitzen-Biwak"
+ },
+ "way/204040735": {
+  "phone": "+43 664 6158379"
+ },
+ "way/640810207": {
+  "warden": "Sabine Grasmann"
+ },
+ "way/85673111": {
+  "website": "https://www.alpenverein.at/losensteinjugendherberge/",
+  "phone": "+43 699 10440414",
+  "ele": "350"
+ },
+ "node/5849855316": {
+  "website": "https://www.loserhuette.at/",
+  "phone": "+43 660 5688998"
+ },
+ "way/680506024": {
+  "warden": "Werner Kuba Mobil +4915156049308",
+  "dog": "no"
+ },
+ "relation/14435621": {
+  "warden": "Bernd Fürhapter",
+  "dog": "no"
+ },
+ "way/310937053": {
+  "website": "https://www.alpenverein.at/ottokandlerhaus/",
+  "phone": "+43 664 5286733"
+ },
+ "way/130664722": {
+  "phone": "+43 3685 23873"
+ },
+ "node/389786196": {
+  "website": "https://www.alpenverein.at/polinikhuette/",
+  "phone": "+43 664 2331079"
+ },
+ "way/143300227": {
+  "website": "https://www.alpenverein.at/prochenberghuette/",
+  "phone": "+43 681 20755801"
+ },
+ "way/215366549": {
+  "website": "https://www.alpenverein.at/reichensteinhuette/",
+  "phone": "+43 664 9836164"
+ },
+ "way/223387409": {
+  "website": "https://www.alpenverein.at/reisseckhuette/",
+  "phone": "+43 664 4128571"
+ },
+ "node/389786305": {
+  "website": "https://de.wikipedia.org/wiki/Rei%C3%9Fkofel-Biwak"
+ },
+ "node/389786238": {
+  "website": "https://www.alpenverein.at/rossberghuette/",
+  "phone": "+43 664 652 75 70"
+ },
+ "way/123065254": {
+  "phone": "+43 664 1462923",
+  "warden": "Clemens Fuxjäger",
+  "dog": "yes"
+ },
+ "way/724669146": {
+  "website": "https://www.alpenverein.at/salmhuette/",
+  "phone": "+43 4824 2089"
+ },
+ "way/287707822": {
+  "website": "https://www.alpenverein.at/scheibenhuette/",
+  "phone": "+43 676 9759424"
+ },
+ "way/124325998": {
+  "website": "https://www.alpenverein-thalgau.at/",
+  "phone": "+43 664 14 45 444"
+ },
+ "way/126091113": {
+  "website": "https://www.alpenverein.at/steinhofberghuette/",
+  "phone": "+43 2746 4019"
+ },
+ "way/95952238": {
+  "website": "https://de.wikipedia.org/wiki/Toni-Adam-Dr.-Obersteiner-Biwak"
+ },
+ "way/125499992": {
+  "website": "https://www.alpenverein.at/tuernitzerhuette/",
+  "phone": "+43 664 5717697"
+ },
+ "way/208861312": {
+  "website": "https://de.wikipedia.org/wiki/Uwe-Anderle-Biwak"
+ },
+ "way/428997687": {
+  "phone": "+43 4242 289584"
+ },
+ "way/124777408": {
+  "website": "https://www.alpenverein.at/vinzenztollingerhuette/",
+  "phone": "+43 5223 56209",
+  "ele": "1229"
+ },
+ "way/141814505": {
+  "website": "https://www.alpenverein.at/wildenseehuette/",
+  "phone": "+43 664 4616004"
+ },
+ "node/389786536": {
+  "website": "https://www.alpenverein.at/wismeyerhaus/",
+  "phone": "+43 6456 7220"
+ },
+ "way/129263669": {
+  "phone": "+43 664 9886801",
+  "warden": "______________"
+ },
+ "way/239985798": {
+  "ele": "1373"
+ },
+ "node/502559712": {
+  "dog": "no"
+ },
+ "way/534858990": {
+  "dog": "no"
+ },
+ "node/502559863": {
+  "phone": "+41 77 4228246"
+ },
+ "way/210985382": {
+  "dog": "no"
+ },
+ "way/387157494": {
+  "phone": "+41 33 673 04 87"
+ },
+ "way/548515389": {
+  "phone": "+41 79 376 86 36"
+ },
+ "way/232482300": {
+  "dog": "no"
+ },
+ "way/1526403578": {
+  "warden": "Stefan Sutter und Familie Naue",
+  "ele": "2520",
+  "dog": "no"
+ },
+ "way/83855898": {
+  "website": "https://www.drei-schuster-huette.com/",
+  "phone": "+39 0474 966610",
+  "warden": "Alfred Innerkofler",
+  "dog": "no"
+ },
+ "node/7823748585": {
+  "website": "https://de.wikipedia.org/wiki/Friedensbiwak"
+ },
+ "node/1779402684": {
+  "website": "https://de.wikipedia.org/wiki/Guido-Lammer-Biwak"
+ },
+ "node/2284467437": {
+  "website": "https://de.wikipedia.org/wiki/G%C3%BCnther-Messner-Hochferner-Biwak"
+ },
+ "node/4390073444": {
+  "website": "https://de.wikipedia.org/wiki/Josef-Pixner-Biwak"
+ },
+ "node/7550810619": {
+  "warden": "Karin & Edwin Heinisch",
+  "dog": "no"
+ },
+ "way/208620122": {
+  "website": "https://www.schlernboedelehuette.it/",
+  "phone": "+39 0471 1885169",
+  "warden": "Verena Wolf Federspieler, Erich Federspieler"
+ },
+ "node/2397050017": {
+  "phone": "+39 0472 765375",
+  "ele": "2348"
+ },
+ "way/371850330": {
+  "website": "https://de.wikipedia.org/wiki/Walter-Brenninger-Biwak"
+ },
+ "way/84679331": {
+  "phone": "+39 0474 972002"
+ },
+ "node/1907077917": {
+  "phone": "+39 330 515900"
+ },
+ "node/439594940": {
+  "ele": "2447"
+ },
+ "node/4809608699": {
+  "website": "https://www.teplitzerhuette.com"
+ },
+ "way/91772155": {
+  "ele": "1420"
+ },
+ "node/476867344": {
+  "phone": "+39 0472 545017"
+ },
+ "way/196279374": {
+  "website": "https://www.lehnberghaus.com",
+  "phone": "+43 660 5212520"
+ },
+ "node/13096389513": {
+  "phone": "+49 8052 5140"
+ },
+ "way/357377878": {
+  "website": "https://www.caivaltellinese.it/wp/i-rifugi/rifugio-marco-e-rosa-de-marchi-agostino-rocca/",
+  "phone": "+39 0342 515370",
+  "ele": "3609"
+ },
+ "way/196574945": {
+  "phone": "+39 337 451517"
+ },
+ "way/147963680": {
+  "website": "https://www.xn--pleisenhtte-0hb.at/"
+ },
+ "way/290506699": {
+  "warden": "Nicole & Artur Naue",
+  "dog": "no"
+ },
+ "way/127960161": {
+  "warden": "Maria & Roland Göppert",
+  "dog": "no"
+ },
+ "node/6652940277": {
+  "dog": "no"
+ },
+ "way/325706853": {
+  "phone": "0793399765",
+  "operator": "SAC",
+  "warden": "Valerio Glisenti",
+  "dog": "no"
+ },
+ "way/295159793": {
+  "phone": "+498362507187",
+  "operator": "DAV",
+  "warden": "DAV-Füssen",
+  "ele": "1600"
+ },
+ "way/256497691": {
+  "phone": "079 607 10 77",
+  "warden": "Peter Baumberger",
+  "dog": "no"
+ },
+ "node/3405937126": {
+  "phone": "0041 79 230 48 79",
+  "warden": "Pietro Zanoli"
+ },
+ "way/616170840": {
+  "dog": "no"
+ },
+ "node/953937784": {
+  "phone": "077 508 54 18",
+  "operator": "Via-Vallemaggia",
+  "warden": "Famiglia Senn",
+  "dog": "no"
+ },
+ "node/13917632701": {
+  "website": "https://www.hohsaashuette.ch/",
+  "phone": "+41 27 957 17 08",
+  "operator": "SAC",
+  "warden": "Familie Urban Burgener\r\nCH-3910 Saas-Grund",
+  "ele": "3142",
+  "dog": "no"
+ },
+ "way/98248138": {
+  "warden": "Laurianne Vaudan",
+  "dog": "no"
+ },
+ "way/74495667": {
+  "warden": "Fabio Bernard",
+  "dog": "no"
+ },
+ "way/42375538": {
+  "website": "https://www.sat.tn.it/rifugio-finonchio-f-lli-filzi/",
+  "warden": "Tommaso Cont",
+  "dog": "no"
+ },
+ "way/74324575": {
+  "warden": "Alessandro Beltrami",
+  "dog": "yes"
+ },
+ "way/228873234": {
+  "phone": "+39 0463751770",
+  "warden": "Manuel Casanova",
+  "dog": "yes"
+ },
+ "node/7181833241": {
+  "operator": "SAC",
+  "warden": "Selina Emmenegger",
+  "ele": "1616",
+  "dog": "no"
+ },
+ "way/43083618": {
+  "warden": "Carmen & Jaro",
+  "dog": "yes"
+ },
+ "way/208621319": {
+  "website": "https://www.louvie.ch",
+  "phone": "+41 27 778 17 40"
+ },
+ "way/237337007": {
+  "ele": "1701"
+ },
+ "node/240028329": {
+  "ele": "1252"
+ },
+ "node/440859974": {
+  "ele": "1471"
+ },
+ "node/299759888": {
+  "ele": "1897"
+ },
+ "node/240051216": {
+  "ele": "1630"
+ },
+ "node/240047919": {
+  "ele": "1788"
+ },
+ "node/290469982": {
+  "ele": "1604"
+ },
+ "node/240105235": {
+  "ele": "1477"
+ },
+ "node/411002702": {
+  "ele": "1302"
+ },
+ "node/597772388": {
+  "ele": "1083"
+ },
+ "node/1373178142": {
+  "ele": "372"
+ },
+ "way/75922177": {
+  "booking": "https://www.huetten-holiday.com/huts/edmund-probst-haus"
+ },
+ "way/75133409": {
+  "booking": "https://www.huetten-holiday.com/huts/kemptner-huette"
+ },
+ "way/103497132": {
+  "booking": "https://www.huetten-holiday.com/huts/matrashaus"
+ },
+ "way/39742124": {
+  "booking": "https://www.huetten-holiday.com/huts/wasseralm"
+ },
+ "way/75318759": {
+  "booking": "https://www.huetten-holiday.com/huts/waltenbergerhaus"
+ },
+ "way/100883955": {
+  "booking": "https://www.huetten-holiday.com/huts/bernhardseck-huette"
+ },
+ "way/252913980": {
+  "booking": "https://www.huetten-holiday.com/huts/furlhuette"
+ },
+ "way/194341853": {
+  "booking": "https://www.huetten-holiday.com/huts/ansbacher-huette"
+ },
+ "way/293407820": {
+  "booking": "https://www.huetten-holiday.com/huts/fischerhuette"
+ },
+ "way/98029976": {
+  "booking": "https://www.huetten-holiday.com/huts/fiderepass-huette"
+ },
+ "way/163539999": {
+  "booking": "https://www.huetten-holiday.com/huts/leutkircher-huette"
+ },
+ "way/91760170": {
+  "booking": "https://www.huetten-holiday.com/huts/gotzenalm"
+ },
+ "way/123146467": {
+  "booking": "https://www.huetten-holiday.com/huts/dr-hugo-beck-haus"
+ },
+ "way/149297576": {
+  "booking": "https://www.huetten-holiday.com/huts/wimbachgrieshutte"
+ },
+ "way/78608844": {
+  "booking": "https://www.huetten-holiday.com/huts/hanauer-huette"
+ },
+ "way/361020925": {
+  "booking": "https://www.huetten-holiday.com/huts/gerachhaus"
+ },
+ "way/82832790": {
+  "booking": "https://www.huetten-holiday.com/huts/emser-hutte"
+ },
+ "way/85800333": {
+  "booking": "https://www.huetten-holiday.com/huts/madlenerhaus"
+ },
+ "way/172576992": {
+  "booking": "https://www.huetten-holiday.com/huts/landawirseehutte"
+ },
+ "way/40772439": {
+  "booking": "https://www.huetten-holiday.com/huts/ostlerhutte"
+ },
+ "way/174962964": {
+  "booking": "https://www.huetten-holiday.com/huts/kenzenhutte"
+ },
+ "way/77928416": {
+  "booking": "https://www.huetten-holiday.com/huts/eisseehutte"
+ },
+ "way/124074836": {
+  "booking": "https://www.huetten-holiday.com/huts/wiener-neustadter-hutte"
+ },
+ "way/147410031": {
+  "warden": "Nadine Müller",
+  "ele": "1200",
+  "dog": "yes",
+  "booking": "https://www.huetten-holiday.com/huts/feldkircher-hutte"
+ },
+ "way/68085020": {
+  "booking": "https://www.huetten-holiday.com/huts/stuhlalm"
+ },
+ "node/206371649": {
+  "booking": "https://www.huetten-holiday.com/huts/vinzenz-biedner-hutte"
+ },
+ "way/121648748": {
+  "website": "https://www.tuxerjochhaus.at",
+  "booking": "https://www.huetten-holiday.com/huts/tuxerjoch-haus"
+ },
+ "way/124510761": {
+  "booking": "https://www.huetten-holiday.com/huts/wiesberghaus"
+ },
+ "way/125812029": {
+  "booking": "https://www.huetten-holiday.com/huts/osterreichische-tribulaunhutte"
+ },
+ "way/150204244": {
+  "booking": "https://www.huetten-holiday.com/huts/toni-lenz-hutte"
+ },
+ "node/13254765572": {
+  "website": "https://edelsberghuette.de",
+  "ele": "1180",
+  "booking": "https://www.huetten-holiday.com/huts/edelsberghutte"
+ },
+ "way/122398641": {
+  "booking": "https://www.huetten-holiday.com/huts/winnebachseehuette"
+ },
+ "way/96841607": {
+  "website": "https://kemptener-naturfreundehaus.de",
+  "booking": "https://www.huetten-holiday.com/huts/kemptener-naturfreundehaus"
+ },
+ "way/37977668": {
+  "booking": "https://www.huetten-holiday.com/huts/kaiserjochhaus"
+ },
+ "node/389786541": {
+  "website": "https://www.winklernerhuette.at",
+  "booking": "https://www.huetten-holiday.com/huts/winklerner-hutte"
+ },
+ "node/517227778": {
+  "website": "https://tegelberghaus.com",
+  "ele": "1707",
+  "booking": "https://www.huetten-holiday.com/huts/tegelberghaus"
+ },
+ "way/131298244": {
+  "booking": "https://www.huetten-holiday.com/huts/skihutte-zams"
+ },
+ "node/2755885910": {
+  "booking": "https://www.huetten-holiday.com/huts/gasthof-hochfirst"
+ }
+}

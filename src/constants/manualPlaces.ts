@@ -38,6 +38,22 @@ export interface ManualPlace extends Hut {
 
 export const MANUAL_PLACES: ManualPlace[] = [
   {
+    id: 'manual/golmerhaus',
+    regionId: 'graubunden-north',
+    name: 'Golmerhaus',
+    lat: 47.0677778,
+    lon: 9.8558333,
+    // No elevation: OSM has none here and a made-up number is worse than none.
+    type: 'guesthouse',
+    bookingUrl: 'https://www.hut-reservation.org/',
+    tags: { name: 'Golmerhaus', tourism: 'guest_house', 'manual:source': 'user' },
+    why:
+      'On the Golm above Vandans (Montafon). Confirmed absent from OSM lodging data ' +
+      'by PROXIMITY to the operator\'s own map pin, not by name: the nearest place of ' +
+      'any kind is the Berghütte Maisäss Golm 437 m away, which is a different house ' +
+      '(matschwitz.at). Added at the user\'s request, 2026-09-29.',
+  },
+  {
     id: 'manual/gwercherwirt',
     regionId: 'bavarian-alps-east',
     name: 'Gasthof Gwercherwirt',

@@ -25,6 +25,7 @@ import {
 import { fetchRides } from '../src/api/lifts';
 import { REGIONS } from '../src/constants/region';
 import { manualPlacesFor } from '../src/constants/manualPlaces';
+import { extentShortfall } from './lib/region-extent';
 import { isSubFeatureName } from '../src/utils/lodging';
 import type { Hut } from '../src/types/hut';
 import type { Ride } from '../src/types/ride';
@@ -329,14 +330,29 @@ async function main() {
 
   // Merge hand-entered places. Done AFTER all fetching so a regeneration can
   // never drop them, and keyed by id so re-running is idempotent.
+  //
+  // ⚠️ TWO SOURCES, DELIBERATELY SEPARATE. `manualPlaces.ts` is the tiny list of
+  // one-offs somebody typed; `refuges-info-places.json` is a reviewed bulk
+  // import from a CC BY-SA source, written by
+  // `scripts/apply-refuges-info-csv.ts`. Both must survive regeneration, so
+  // both are merged here — but keeping them apart is what stops a hundred
+  // imported rows from burying the handful of genuine hand-entries.
+  const REFUGES_PLACES = join(dirname(OUT), 'refuges-info-places.json');
+  const imported: (Hut & { regionId: string })[] = existsSync(REFUGES_PLACES)
+    ? JSON.parse(readFileSync(REFUGES_PLACES, 'utf8'))
+    : [];
+
   for (const r of REGIONS) {
-    const manual = manualPlacesFor(r.id);
-    if (!manual.length || !bundle.accommodations[r.id]) continue;
+    const extra = [
+      ...manualPlacesFor(r.id),
+      ...imported.filter((h) => h.regionId === r.id).map(({ regionId: _r, ...h }) => h),
+    ];
+    if (!extra.length || !bundle.accommodations[r.id]) continue;
     const have = new Set(bundle.accommodations[r.id].map((h) => h.id));
-    const add = manual.filter((h) => !have.has(h.id));
+    const add = extra.filter((h) => !have.has(h.id));
     if (add.length) {
       bundle.accommodations[r.id] = [...bundle.accommodations[r.id], ...add];
-      console.log(`  + ${add.length} manual place(s) merged into ${r.id}`);
+      console.log(`  + ${add.length} added place(s) merged into ${r.id}`);
     }
   }
   save(bundle);
@@ -344,6 +360,27 @@ async function main() {
   // when it matters most, so the next attempt doesn't re-spend the quota.
   saveElevationCache(elevations);
   console.log(`elevation cache: ${elevations.size} points saved`);
+
+  /**
+   * ⚠️ A REGION CAN COME BACK "SUCCESSFUL" AND STILL BE HALF EMPTY. Overpass
+   * answering 200 says the request completed, not that it contained everything
+   * — and the DEM step silently drops candidates when the elevation quota runs
+   * out. That combination truncated five regions' huts by up to 27 km and
+   * nothing noticed for months. See `lib/region-extent.ts`.
+   *
+   * Treated exactly like a fetch failure: the dataset is not stamped complete,
+   * and the message tells you which regions to refetch.
+   */
+  for (const r of REGIONS) {
+    const huts = [...(bundle.core[r.id] ?? []), ...(bundle.accommodations[r.id] ?? [])];
+    const short = extentShortfall(r.id, huts, bundle.villages[r.id] ?? []);
+    if (!short) continue;
+    console.log(
+      `  ⚠ ${r.id}: huts stop ${short.km} km short of its villages on the ${short.side} ` +
+        `side — the fetch looked fine but the data is truncated`,
+    );
+    failed.push(`${r.id}/truncated-${short.side}`);
+  }
 
   // Only stamp generatedAt once everything is present, so a partial run doesn't
   // look complete to the app.

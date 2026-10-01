@@ -1,0 +1,1356 @@
+{
+ "way/26195857": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/276/wizard"
+ },
+ "node/1779402684": {
+  "website": "http://www.alpenverein.it"
+ },
+ "node/7550810619": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/230/wizard"
+ },
+ "way/25384918": {
+  "website": "http://www.meranerhuette.it",
+  "phone": "+39 393 0006447",
+  "ele": "1937",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/126/wizard"
+ },
+ "node/8018256030": {
+  "phone": "+39 0472 855230",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/285/wizard"
+ },
+ "node/9917556569": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/389/wizard"
+ },
+ "node/2755910091": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/257/wizard"
+ },
+ "node/2284467437": {
+  "website": "http://www.alpenverein.it"
+ },
+ "node/2397050017": {
+  "ele": "2348"
+ },
+ "way/371850330": {
+  "phone": "+39 0472 833940"
+ },
+ "way/515324206": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/412/wizard"
+ },
+ "node/393892579": {
+  "website": "http://www.martellerhuette.it",
+  "phone": "+39 0473 744790",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/442/wizard"
+ },
+ "way/83855898": {
+  "website": "http://www.dreischusterhuette.it",
+  "phone": "+39 0474 966610",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/310/wizard"
+ },
+ "way/208620122": {
+  "website": "http://www.schlernboedelehuette.it",
+  "phone": "+39 0471 705345",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/284/wizard"
+ },
+ "way/233382674": {
+  "website": "http://www.alpenbad-ramsau.at",
+  "phone": "+43 3687 81509"
+ },
+ "node/458799908": {
+  "website": "http://www.adolf-pichler-huette.at"
+ },
+ "way/43127929": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/570/wizard"
+ },
+ "way/152263569": {
+  "phone": "+39 346 147 2278"
+ },
+ "node/4809620765": {
+  "website": "http://grohmannhuette.com"
+ },
+ "node/2755885861": {
+  "phone": "+39 0473 932900"
+ },
+ "node/9917584405": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/685/wizard"
+ },
+ "node/494782696": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/303/wizard"
+ },
+ "node/9917589294": {
+  "website": "http://www.chemnitzerhuette.com",
+  "phone": "+39 0474 653244"
+ },
+ "way/123466395": {
+  "phone": "+43 5285 3175"
+ },
+ "way/123233627": {
+  "ele": "1650"
+ },
+ "node/12150010484": {
+  "ele": "1270"
+ },
+ "way/81939902": {
+  "ele": "1625"
+ },
+ "node/9917671909": {
+  "website": "http://www.lenkl.com"
+ },
+ "way/674870317": {
+  "website": "http://www.bergerseehuette.at"
+ },
+ "way/152613092": {
+  "phone": "+43 4875 8820"
+ },
+ "node/281606568": {
+  "website": "http://www.lucknerhaus.at",
+  "phone": "+43 4876 8555"
+ },
+ "way/78167535": {
+  "phone": "+43 4876 8455",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/578/wizard"
+ },
+ "way/43083618": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/733/wizard"
+ },
+ "way/92957930": {
+  "website": "http://www.wangenitzseehuette.at",
+  "phone": "+43 4826 229",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/683/wizard"
+ },
+ "node/460361180": {
+  "phone": "+43 676 5336288",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/410/wizard"
+ },
+ "node/460355329": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/402/wizard"
+ },
+ "way/70732810": {
+  "website": "http://www.hoellensteinhuette.at",
+  "phone": "+43 5287 87696"
+ },
+ "way/110183563": {
+  "website": "http://www.gowilalm.at"
+ },
+ "way/93417928": {
+  "website": "http://www.tiscover.at/almgasthaus-glocknerblick",
+  "phone": "+43 4825 540"
+ },
+ "way/245210501": {
+  "phone": "+43 4710 2778"
+ },
+ "way/177949546": {
+  "phone": "+43 660 6500773"
+ },
+ "node/623556705": {
+  "phone": "+43 3171 260"
+ },
+ "way/116822032": {
+  "phone": "+43 664 4171320",
+  "ele": "1260"
+ },
+ "way/199258345": {
+  "website": "http://www.publish.at/trekking/default.htm",
+  "phone": "+43 4235 5116",
+  "ele": "1692"
+ },
+ "way/84977315": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/476/wizard"
+ },
+ "way/103325526": {
+  "phone": "+39 0474 501837"
+ },
+ "way/99507499": {
+  "website": "http://www.forni2000.com",
+  "phone": "+39 0342 935365"
+ },
+ "way/172896399": {
+  "phone": "+39 0462 601101"
+ },
+ "node/1406215598": {
+  "phone": "+39 0473 231851"
+ },
+ "way/77383435": {
+  "website": "http://www.tabaretta.com",
+  "phone": "+39 0473 613187"
+ },
+ "way/151620601": {
+  "phone": "+39 0342 454053"
+ },
+ "way/60888512": {
+  "phone": "+39 0464 505090"
+ },
+ "way/38613135": {
+  "website": "http://www.rifugio-tuckett.it",
+  "phone": "+39 0465 441226"
+ },
+ "node/925572227": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/222/wizard"
+ },
+ "way/26933413": {
+  "phone": "+43 660 3462100"
+ },
+ "way/142782875": {
+  "website": "http://www.fieberbrunn-tirol.com/hochhoerndl",
+  "phone": "+43 5354 52848"
+ },
+ "way/353073803": {
+  "phone": "089 5517000",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/282/wizard"
+ },
+ "way/384109561": {
+  "phone": "+43 3170 522"
+ },
+ "way/122816127": {
+  "phone": "+43 6414 417"
+ },
+ "node/6821845786": {
+  "ele": "1860"
+ },
+ "node/1520359515": {
+  "phone": "+39 0437 65199",
+  "ele": "1605"
+ },
+ "way/95811805": {
+  "website": "http://www.gasthof-burkert.at",
+  "phone": "+43 5252 6947"
+ },
+ "node/10076571842": {
+  "ele": "1600"
+ },
+ "node/9917556570": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/301/wizard"
+ },
+ "way/84679331": {
+  "phone": "+39 0474 972002"
+ },
+ "node/14067022302": {
+  "ele": "2040"
+ },
+ "way/419513412": {
+  "website": "http://www.alpenverein.at/melk",
+  "phone": "+43 664 9246161"
+ },
+ "way/303518036": {
+  "phone": "+39 0125 366113"
+ },
+ "node/4809608699": {
+  "website": "http://www.teplitzerhuette.com"
+ },
+ "way/198730231": {
+  "phone": "0043 5334 - 85 42",
+  "ele": "800",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/475/wizard"
+ },
+ "way/29176581": {
+  "website": "http://www.alpenverein-traunstein.de"
+ },
+ "way/41697896": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/83/wizard"
+ },
+ "way/433914931": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/536/wizard"
+ },
+ "way/344172648": {
+  "phone": "0043 664 4245824"
+ },
+ "way/152100331": {
+  "phone": "+39 0471 1632320"
+ },
+ "way/76382087": {
+  "website": "http://www.duesseldorferhuette.com"
+ },
+ "way/196574882": {
+  "phone": "+39 0474 710358",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/337/wizard"
+ },
+ "way/152250684": {
+  "phone": "+39 0471 612033"
+ },
+ "node/445042938": {
+  "phone": "+43 660 6799784",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/396/wizard"
+ },
+ "way/38589281": {
+  "phone": "0049 89 290709-0"
+ },
+ "way/136964548": {
+  "phone": "+49 8026 9253362",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/256/wizard"
+ },
+ "way/121834831": {
+  "phone": "+39 0471 724094"
+ },
+ "node/12199546011": {
+  "ele": "2054"
+ },
+ "way/123811150": {
+  "phone": "+39 0462 763428"
+ },
+ "node/298467485": {
+  "website": "http://www.lyfialm.it",
+  "phone": "+39 0473 744708",
+  "ele": "2165"
+ },
+ "node/476867344": {
+  "phone": "+39 339 8451113"
+ },
+ "way/25385356": {
+  "phone": "+39 0473 279477"
+ },
+ "way/61635498": {
+  "website": "http://www.hintereggalm.it"
+ },
+ "way/42321524": {
+  "phone": "+39 0471 839632"
+ },
+ "way/254880745": {
+  "phone": "+39 0474 501093",
+  "ele": "1980"
+ },
+ "node/9070905006": {
+  "ele": "2004"
+ },
+ "node/439594940": {
+  "ele": "2446"
+ },
+ "way/152221841": {
+  "phone": "+39 473 613188"
+ },
+ "node/2941171709": {
+  "phone": "+43 3535 8270"
+ },
+ "node/325814098": {
+  "phone": "+43 3535 8239"
+ },
+ "way/450852499": {
+  "website": "http://www.jagawirt.com",
+  "phone": "+43 3535 8260"
+ },
+ "way/93472005": {
+  "website": "http://www.alt-vent.at"
+ },
+ "way/139931728": {
+  "phone": "+43 5254 8119"
+ },
+ "way/139931718": {
+  "phone": "+43 5254 8129",
+  "ele": "1896"
+ },
+ "way/139931250": {
+  "phone": "+43 5254 8196"
+ },
+ "way/189047242": {
+  "website": "http://www.bergkristall-mallnitz.at",
+  "phone": "+43 4784 20024"
+ },
+ "way/196838273": {
+  "website": "http://www.ankogel.at"
+ },
+ "way/225252122": {
+  "website": "http://www.alpenhof-strenge.at",
+  "phone": "+434715 8842"
+ },
+ "node/3223051237": {
+  "phone": "+43 4716 227"
+ },
+ "node/3273798038": {
+  "website": "http://www.alpenhof-wolayersee.at",
+  "phone": "+43 4715 727"
+ },
+ "way/312848551": {
+  "phone": "+43 5554 20 104"
+ },
+ "way/257762473": {
+  "phone": "+43 5554 5228"
+ },
+ "way/171372493": {
+  "phone": "+43 5279 5390"
+ },
+ "node/10723411055": {
+  "website": "http://www.landhaus-notburga.at",
+  "phone": "+43 5236 330"
+ },
+ "node/5911593326": {
+  "phone": "+43 5236 229"
+ },
+ "node/2864099227": {
+  "website": "http://www.appartements-schmalzerhof.at",
+  "phone": "+43 5236 20736"
+ },
+ "node/10723411067": {
+  "website": "http://www.sportpension-wegscheider.com",
+  "phone": "+43 5236 232"
+ },
+ "node/13152675103": {
+  "ele": "2305"
+ },
+ "node/534414045": {
+  "phone": "+43 660 6464920"
+ },
+ "way/152250683": {
+  "phone": "+39 339 4327101"
+ },
+ "way/827811452": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/261/wizard"
+ },
+ "way/108831856": {
+  "phone": "03861 24184",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/490/wizard"
+ },
+ "way/204936607": {
+  "ele": "1440"
+ },
+ "node/389785776": {
+  "phone": "0463 513056"
+ },
+ "way/509660012": {
+  "phone": "+43 664 2542503"
+ },
+ "way/84131545": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/491/wizard"
+ },
+ "way/92644628": {
+  "website": "http://www.admonterhaus.at",
+  "phone": "+43 664 9203679"
+ },
+ "node/389785661": {
+  "website": "http://www.nossberger.at",
+  "phone": "+43 4825 61043",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/408/wizard"
+ },
+ "way/189436406": {
+  "website": "http://www.alpenvereinkirchdorf.at"
+ },
+ "node/389785669": {
+  "phone": "+43 6479 349"
+ },
+ "way/70214928": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/416/wizard"
+ },
+ "way/28939679": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/411/wizard"
+ },
+ "way/312596378": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/146/wizard"
+ },
+ "way/78158759": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/172/wizard"
+ },
+ "way/231021223": {
+  "phone": "07252 20620"
+ },
+ "way/192496838": {
+  "phone": "+43 4784 20071"
+ },
+ "way/143577673": {
+  "phone": "0676 706 38 36",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/262/wizard"
+ },
+ "way/153767024": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/401/wizard"
+ },
+ "node/5643719069": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/555/wizard"
+ },
+ "node/389785715": {
+  "website": "http://www.alpenverein.at/murau"
+ },
+ "way/168314465": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/649/wizard"
+ },
+ "way/148049142": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/72/wizard"
+ },
+ "node/389785744": {
+  "website": "http://www.bonnmatreier-huette.at",
+  "phone": "+43 4874 5577",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/485/wizard"
+ },
+ "way/121262261": {
+  "phone": "+43 7563 666",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/596/wizard"
+ },
+ "way/147175158": {
+  "website": "http://www.alpenverein.at/braunau-am-inn"
+ },
+ "way/127908485": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/293/wizard"
+ },
+ "way/168877636": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/294/wizard"
+ },
+ "way/135548351": {
+  "phone": "+43 680 23 27 601"
+ },
+ "way/136126326": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/109/wizard"
+ },
+ "way/82620359": {
+  "website": "http://www.duemlerhuette.at",
+  "phone": "+43 7562 8603",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/61/wizard"
+ },
+ "node/389785790": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/488/wizard"
+ },
+ "way/91797593": {
+  "website": "http://www.alpenverein.at/eckberthuette/"
+ },
+ "node/389785804": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/493/wizard"
+ },
+ "way/132613067": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/125/wizard"
+ },
+ "way/553986644": {
+  "phone": "+43 660 8326815"
+ },
+ "way/86101191": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/267/wizard"
+ },
+ "way/222617200": {
+  "phone": "0664 4901737",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/355/wizard"
+ },
+ "node/389785832": {
+  "website": "http://www.alpenverein.at/murau"
+ },
+ "way/119140611": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/383/wizard"
+ },
+ "way/205397267": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/489/wizard"
+ },
+ "node/389785876": {
+  "website": "http://www.fraganterschutzhaus.at",
+  "phone": "+43 4785 396",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/316/wizard"
+ },
+ "way/168866551": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/317/wizard"
+ },
+ "way/84547654": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/675/wizard"
+ },
+ "way/239039300": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/86/wizard"
+ },
+ "way/255324844": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/90/wizard"
+ },
+ "node/3063751728": {
+  "phone": "+43 4733 528"
+ },
+ "way/81020836": {
+  "phone": "+43 6136 8465",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/108/wizard"
+ },
+ "node/389785880": {
+  "website": "http://www.alpenverein.at/villach",
+  "phone": "+43 4242 289584"
+ },
+ "node/393767001": {
+  "website": "http://www.alpenverein.at/glocknerbiwak"
+ },
+ "way/151309717": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/62/wizard"
+ },
+ "way/168530342": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/718/wizard"
+ },
+ "way/155867948": {
+  "website": "http://www.gebirgsverein.at"
+ },
+ "way/85472419": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/106/wizard"
+ },
+ "way/369686412": {
+  "phone": "0676 750 68 86",
+  "ele": "1945"
+ },
+ "way/598074412": {
+  "website": "http://www.alpenverein.at/gruberschartenbiwak/",
+  "phone": "+43 1 4052657"
+ },
+ "way/192606112": {
+  "phone": "07257 21008"
+ },
+ "node/389785953": {
+  "website": "http://www.alpenverein.at/gruenseehuette/"
+ },
+ "way/1246261424": {
+  "phone": "0676 978 56 70",
+  "ele": "2146",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/260/wizard"
+ },
+ "way/135297091": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/424/wizard"
+ },
+ "way/126017358": {
+  "phone": "03611 22115",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/492/wizard"
+ },
+ "way/187162092": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/89/wizard"
+ },
+ "way/144785838": {
+  "phone": "0664 430 80 60",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/306/wizard"
+ },
+ "way/204938483": {
+  "phone": "01 5138500",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/142/wizard"
+ },
+ "way/87676412": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/343/wizard"
+ },
+ "way/93307290": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/356/wizard"
+ },
+ "node/1537321603": {
+  "website": "http://www.hochsteinhütte.at"
+ },
+ "way/233647338": {
+  "phone": "+43 676 7462886",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/328/wizard"
+ },
+ "way/110183140": {
+  "website": "http://www.hofalm.at",
+  "phone": "06803135327",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/503/wizard"
+ },
+ "way/84131551": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/111/wizard"
+ },
+ "way/157743419": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/425/wizard"
+ },
+ "node/417326836": {
+  "phone": "+43 664 4233823",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/577/wizard"
+ },
+ "way/27028455": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/320/wizard"
+ },
+ "way/169882694": {
+  "website": "http://www.alpenverein.at/salzkammergut/huetten/index.php",
+  "phone": "0043 3622 71148",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/556/wizard"
+ },
+ "way/121270054": {
+  "website": "http://www.gebirgsverein.at",
+  "phone": "+43 677 61198729",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/147/wizard"
+ },
+ "way/1425220149": {
+  "phone": "0316 82 22 66"
+ },
+ "node/389786044": {
+  "phone": "+43 676 4464643"
+ },
+ "way/172653740": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/271/wizard"
+ },
+ "node/960531683": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/669/wizard"
+ },
+ "way/35285185": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/415/wizard"
+ },
+ "node/389786089": {
+  "phone": "04228 20516",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/597/wizard"
+ },
+ "way/30573888": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/292/wizard"
+ },
+ "way/172576992": {
+  "phone": "+43 676 7785375"
+ },
+ "way/178843525": {
+  "phone": "+43 676 59 75 400"
+ },
+ "node/301000243": {
+  "website": "http://www.av-lienz.at/lienzer-huette/",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/684/wizard"
+ },
+ "way/92645761": {
+  "website": "http://www.liezener-huette.at",
+  "phone": "+43 664 9235902"
+ },
+ "way/640810207": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/428/wizard"
+ },
+ "way/112282882": {
+  "phone": "+43 664 9172965"
+ },
+ "way/166530671": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/720/wizard"
+ },
+ "node/5849855316": {
+  "website": "http://www.loserhuette.at",
+  "phone": "+43 3622 71202"
+ },
+ "way/233768517": {
+  "ele": "1880",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/273/wizard"
+ },
+ "node/389786152": {
+  "phone": "+43 1 5131003"
+ },
+ "way/232173119": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/160/wizard"
+ },
+ "way/187790403": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/117/wizard"
+ },
+ "way/196887659": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/429/wizard"
+ },
+ "way/154092612": {
+  "phone": "+43 3613 2601"
+ },
+ "relation/14435621": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/300/wizard"
+ },
+ "way/136869246": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/268/wizard"
+ },
+ "way/310937053": {
+  "website": "http://www.alpenverein.at/sankt-poelten"
+ },
+ "way/124550755": {
+  "website": "http://www.raxalpe.com/gastronomie-huetten/ottohaus",
+  "phone": "+43 2666 52295"
+ },
+ "node/389786192": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/141/wizard"
+ },
+ "way/117889584": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/179/wizard"
+ },
+ "way/205397977": {
+  "phone": "0664 325 64 52",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/185/wizard"
+ },
+ "way/37779558": {
+  "phone": "+43 7564 20602",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/336/wizard"
+ },
+ "way/143300227": {
+  "website": "http://www.alpenverein.at/waidhofen-ybbs/huetten"
+ },
+ "way/232521425": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/509/wizard"
+ },
+ "way/680506024": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/545/wizard"
+ },
+ "way/215366549": {
+  "website": "http://www.alpenverein.at/reichensteinhuette/ersatzbau/"
+ },
+ "way/223387409": {
+  "phone": "+43 664 4128571"
+ },
+ "node/389786305": {
+  "website": "http://www.oeav-obergailtal.at",
+  "phone": "+43 4715 8243"
+ },
+ "way/93710626": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/248/wizard"
+ },
+ "node/389786238": {
+  "website": "http://www.alpenverein.at/salzburg-seekirchen/huetten/index.php"
+ },
+ "way/129497954": {
+  "phone": "0664 3262113",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/662/wizard"
+ },
+ "way/123065254": {
+  "phone": "+43 664 1462923"
+ },
+ "way/172405202": {
+  "phone": "+43 5274 87475"
+ },
+ "way/724669146": {
+  "phone": "+43 4824 2089",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/159/wizard"
+ },
+ "way/146174865": {
+  "phone": "0043 664 1975234",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/88/wizard"
+ },
+ "way/124325998": {
+  "phone": "06235 6340"
+ },
+ "way/354310675": {
+  "website": "http://www.alpenverein.at/schwarzenberghuette/",
+  "phone": "+43 680 3064319"
+ },
+ "way/123303946": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/466/wizard"
+ },
+ "way/122404162": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/219/wizard"
+ },
+ "way/26716681": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/714/wizard"
+ },
+ "way/179065440": {
+  "website": "http://www.alpenvereinaktiv.com/de/selbstversorgerhuette/sonnleitnerhuette/6938421/"
+ },
+ "way/86141335": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/469/wizard"
+ },
+ "way/227108236": {
+  "website": "http://www.spechtensee.com",
+  "phone": "+43 3688 2666"
+ },
+ "way/104676616": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/497/wizard"
+ },
+ "way/200305337": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/691/wizard"
+ },
+ "way/83191764": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/184/wizard"
+ },
+ "way/104360708": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/186/wizard"
+ },
+ "way/84131550": {
+  "website": "http://www.koerner-huette.at/",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/403/wizard"
+ },
+ "way/378887261": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/91/wizard"
+ },
+ "way/177277435": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/92/wizard"
+ },
+ "way/125499992": {
+  "website": "http://www.alpenvereinaktiv.com/de/bewirtschaftete-huette/tuernitzer-huette/7025981/",
+  "phone": "+43 664 5717697"
+ },
+ "way/428997687": {
+  "phone": "+43 4242 289584"
+ },
+ "way/124777408": {
+  "ele": "1229"
+ },
+ "way/174282665": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/508/wizard"
+ },
+ "way/101529896": {
+  "website": "http://www.facebook.com/wetterkoglerhaus/",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/434/wizard"
+ },
+ "way/141814505": {
+  "website": "http://www.alpenvereinausseerland.at"
+ },
+ "node/389786541": {
+  "website": "http://www.winklernerhuette.at/",
+  "phone": "+43 660 5017460"
+ },
+ "node/389786536": {
+  "website": "http://www.wismeyerhaus.at",
+  "phone": "+43 6456 7220"
+ },
+ "way/129263669": {
+  "phone": "0650 403 09 15",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/253/wizard"
+ },
+ "way/187225847": {
+  "website": "http://www.zellerhuette.at",
+  "phone": "+43 664 4112717",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/211/wizard"
+ },
+ "way/160081047": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/295/wizard"
+ },
+ "way/25477186": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/266/wizard"
+ },
+ "way/85718959": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/695/wizard"
+ },
+ "way/95952238": {
+  "phone": "+43 3682 22922"
+ },
+ "way/54807396": {
+  "ele": "760"
+ },
+ "way/126091113": {
+  "phone": "+43 2746 4019"
+ },
+ "way/456556900": {
+  "ele": "985"
+ },
+ "way/93350207": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/114/wizard"
+ },
+ "way/78318228": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/395/wizard"
+ },
+ "node/512618893": {
+  "website": "http://www.dav-aachen.de",
+  "phone": "0043 664 88314262"
+ },
+ "way/155094206": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/63/wizard"
+ },
+ "way/242250125": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/235/wizard"
+ },
+ "way/125338464": {
+  "phone": "0043 664 4559469",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/116/wizard"
+ },
+ "way/58802208": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/188/wizard"
+ },
+ "node/292919704": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/201/wizard"
+ },
+ "node/7884886401": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/105/wizard"
+ },
+ "node/1692552899": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/468/wizard"
+ },
+ "way/135564755": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/162/wizard"
+ },
+ "way/215667342": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/181/wizard"
+ },
+ "way/178915377": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/366/wizard"
+ },
+ "node/1396763486": {
+  "website": "http://www.alpenverein-coburg.de"
+ },
+ "way/477497580": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/143/wizard"
+ },
+ "way/128117135": {
+  "phone": "0043 5413 20300",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/115/wizard"
+ },
+ "way/132127112": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/132/wizard"
+ },
+ "way/74144221": {
+  "phone": "0043 6456 7307"
+ },
+ "way/103209591": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/692/wizard"
+ },
+ "node/301262877": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/650/wizard"
+ },
+ "way/95667789": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/323/wizard"
+ },
+ "way/77998863": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/133/wizard"
+ },
+ "way/26960869": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/354/wizard"
+ },
+ "way/121901087": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/97/wizard"
+ },
+ "way/246634739": {
+  "website": "http://www.dav-fn.de",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/217/wizard"
+ },
+ "way/178754385": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/170/wizard"
+ },
+ "way/127882802": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/528/wizard"
+ },
+ "way/149548194": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/180/wizard"
+ },
+ "way/293475431": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/385/wizard"
+ },
+ "way/39727697": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/169/wizard"
+ },
+ "way/83191775": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/100/wizard"
+ },
+ "way/137132960": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/110/wizard"
+ },
+ "way/150050887": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/563/wizard"
+ },
+ "way/358873985": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/223/wizard"
+ },
+ "way/126087678": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/342/wizard"
+ },
+ "way/124262161": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/122/wizard"
+ },
+ "way/83122437": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/154/wizard"
+ },
+ "way/151571078": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/183/wizard"
+ },
+ "way/209723442": {
+  "website": "http://dav-hagen.de",
+  "phone": "0043 664 4036697",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/716/wizard"
+ },
+ "way/119196451": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/82/wizard"
+ },
+ "way/453515563": {
+  "phone": "+43 4784 21345",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/121/wizard"
+ },
+ "way/138957728": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/456/wizard"
+ },
+ "way/171618472": {
+  "phone": "0043 664 6565555",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/152/wizard"
+ },
+ "way/613732381": {
+  "phone": "0043 676 842927486",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/377/wizard"
+ },
+ "way/84541388": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/369/wizard"
+ },
+ "way/122902604": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/370/wizard"
+ },
+ "node/512622097": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/612/wizard"
+ },
+ "way/32499717": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/144/wizard"
+ },
+ "way/174663350": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/191/wizard"
+ },
+ "way/143242924": {
+  "phone": "0043 664 9857090"
+ },
+ "way/130176573": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/95/wizard"
+ },
+ "way/141323531": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/203/wizard"
+ },
+ "way/26959900": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/87/wizard"
+ },
+ "way/59484532": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/178/wizard"
+ },
+ "way/404990771": {
+  "website": "http://dav-kattowitz.eu/schronisko-w-alpach/",
+  "phone": "+43 664 914 8021"
+ },
+ "way/102017757": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/677/wizard"
+ },
+ "way/163922893": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/502/wizard"
+ },
+ "way/156392391": {
+  "ele": "1965",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/606/wizard"
+ },
+ "way/29269844": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/437/wizard"
+ },
+ "way/101987039": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/215/wizard"
+ },
+ "way/92455415": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/365/wizard"
+ },
+ "way/237194135": {
+  "phone": "+49 8682 9569294"
+ },
+ "way/178125170": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/546/wizard"
+ },
+ "way/178691836": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/297/wizard"
+ },
+ "way/125769272": {
+  "website": "http://www.lorea-huette.de",
+  "phone": "0049 89 438944"
+ },
+ "way/46482588": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/148/wizard"
+ },
+ "way/87312650": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/129/wizard"
+ },
+ "way/187827102": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/654/wizard"
+ },
+ "way/132681267": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/140/wizard"
+ },
+ "way/83896191": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/319/wizard"
+ },
+ "way/166643728": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/202/wizard"
+ },
+ "way/172609525": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/124/wizard"
+ },
+ "way/100452081": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/138/wizard"
+ },
+ "way/132073459": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/655/wizard"
+ },
+ "way/39911021": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/119/wizard"
+ },
+ "way/92004584": {
+  "website": "http://www.osnabrueckerhuette.at/",
+  "phone": "0043 650 4461202"
+ },
+ "way/142890732": {
+  "website": "http://www.ostpreussenhuette.at"
+ },
+ "way/33558141": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/272/wizard"
+ },
+ "way/27715096": {
+  "phone": "+43 680 507 26 24",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/232/wizard"
+ },
+ "way/75312949": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/239/wizard"
+ },
+ "way/101968311": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/174/wizard"
+ },
+ "way/117878139": {
+  "website": "http://www.plauener-huette.at",
+  "phone": "0043 650 4684308",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/207/wizard"
+ },
+ "way/163209874": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/283/wizard"
+ },
+ "way/152613126": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/58/wizard"
+ },
+ "way/140241574": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/205/wizard"
+ },
+ "way/168890140": {
+  "website": "http://www.regensburgerhuette.at",
+  "phone": "0043 664 2025070",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/275/wizard"
+ },
+ "way/25439465": {
+  "ele": "2374"
+ },
+ "way/29176116": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/145/wizard"
+ },
+ "way/184978043": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/171/wizard"
+ },
+ "way/85800043": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/309/wizard"
+ },
+ "way/82169182": {
+  "phone": "0043 664 2204876",
+  "ele": "1970"
+ },
+ "way/129023318": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/189/wizard"
+ },
+ "way/122409746": {
+  "phone": "0049 173 9894028"
+ },
+ "way/162004568": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/686/wizard"
+ },
+ "way/36333042": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/57/wizard"
+ },
+ "way/84674198": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/693/wizard"
+ },
+ "way/124023064": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/200/wizard"
+ },
+ "way/297173189": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/192/wizard"
+ },
+ "node/1567490026": {
+  "website": "http://www.sudetendeutsche-huette.de",
+  "phone": "+43 720 347802",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/190/wizard"
+ },
+ "way/117966153": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/648/wizard"
+ },
+ "way/150245424": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/231/wizard"
+ },
+ "node/430122613": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/237/wizard"
+ },
+ "way/100510700": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/163/wizard"
+ },
+ "way/85800400": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/236/wizard"
+ },
+ "way/120467198": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/216/wizard"
+ },
+ "way/81920286": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/541/wizard"
+ },
+ "way/85800219": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/234/wizard"
+ },
+ "way/125026512": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/372/wizard"
+ },
+ "way/50302011": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/667/wizard"
+ },
+ "way/132678903": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/298/wizard"
+ },
+ "way/40719448": {
+  "website": "http://www.dav-kempten.de/huetten/tannheimer-huette",
+  "phone": "0043 676 4348865",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/676/wizard"
+ },
+ "way/85804224": {
+  "phone": "0049 89 1400341",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/79/wizard"
+ },
+ "way/1501773510": {
+  "ele": "2443"
+ },
+ "way/1324526164": {
+  "website": "http://alpenverein-mainz.de/huette-wege-einrichtungen/mainzer-hoehenweg/",
+  "ele": "3247"
+ },
+ "way/91610989": {
+  "phone": "0043 5254 2763",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/495/wizard"
+ },
+ "way/60054244": {
+  "website": "http://www.dav-wuppertal.de"
+ },
+ "way/208708270": {
+  "phone": "0049 571 8293703"
+ },
+ "way/307277777": {
+  "website": "http://www.dav-reutlingen.de/dyncon?cid=125&sid=0&usr=0",
+  "phone": "0049 7121 330940",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/96/wizard"
+ },
+ "way/370669072": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/73/wizard"
+ },
+ "node/357482706": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/73/wizard"
+ },
+ "node/530185743": {
+  "website": "http://www.davplus.de/jubilaeumsgrathuette",
+  "phone": "0049-89-5517000"
+ },
+ "node/476498599": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/149/wizard"
+ },
+ "way/360293635": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/373/wizard"
+ },
+ "way/236047957": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/150/wizard"
+ },
+ "way/173682244": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/128/wizard"
+ },
+ "node/340560279": {
+  "phone": "004915117303118"
+ },
+ "way/128630808": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/287/wizard"
+ },
+ "node/413463931": {
+  "website": "http://www.hirschbichl.at",
+  "phone": "+43 6582 8347",
+  "ele": "1150"
+ },
+ "way/180985122": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/81/wizard"
+ },
+ "node/278226693": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/195/wizard"
+ },
+ "way/150204245": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/84/wizard"
+ },
+ "way/1435198912": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/151/wizard"
+ },
+ "way/25804487": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/270/wizard"
+ },
+ "way/82294319": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/85/wizard"
+ },
+ "way/30725037": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/407/wizard"
+ },
+ "way/80751554": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/666/wizard"
+ },
+ "way/116240805": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/613/wizard"
+ },
+ "way/60310929": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/218/wizard"
+ },
+ "way/67146529": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/210/wizard"
+ },
+ "way/109151091": {
+  "phone": "08161 13143"
+ },
+ "way/37576051": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/139/wizard"
+ },
+ "way/91920694": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/104/wizard"
+ },
+ "way/93450448": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/507/wizard"
+ },
+ "way/97575267": {
+  "phone": "0049 175 1641690",
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/212/wizard"
+ },
+ "way/29176583": {
+  "booking": "https://www.hut-reservation.org/reservation/book-hut/452/wizard"
+ }
+}

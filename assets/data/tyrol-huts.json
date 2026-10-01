@@ -1,0 +1,1583 @@
+[
+ {
+  "name": "Ackerlhütte",
+  "lat": 47.54953,
+  "lon": 12.349443,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/ackerlhuette",
+  "phone": "+43 664 2542503",
+  "email": "lacknermich@gmail.com"
+ },
+ {
+  "name": "Alpenrosehütte",
+  "lat": 47.42,
+  "lon": 12.237777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/alpenrosehuette",
+  "phone": "0043 660 5286240",
+  "email": "info@alpenrosenhuette.at",
+  "site": "https://www.alpenrosenhuette.at"
+ },
+ {
+  "name": "Amberger Hütte",
+  "lat": 47.042222222222,
+  "lon": 11.074166666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/amberger-huette",
+  "phone": "0043 676 9523426",
+  "email": "info@ambergerhuette.at",
+  "site": "https://www.ambergerhuette.at",
+  "elevation": "2135"
+ },
+ {
+  "name": "Anhalter Hütte",
+  "lat": 47.301388888889,
+  "lon": 10.667777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/anhalter-huette",
+  "phone": "0043 660 664 7428",
+  "email": "anhalterhuette@gmail.com",
+  "elevation": "2042"
+ },
+ {
+  "name": "Ansbacher Hütte",
+  "lat": 47.168333333333,
+  "lon": 10.403333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/ansbacher-huette",
+  "phone": "0043 676 842927-136",
+  "email": "ansbacherhuette@gmail.com",
+  "elevation": "2376"
+ },
+ {
+  "name": "Anton-Karg-Haus",
+  "lat": 47.579997,
+  "lon": 12.277527,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/anton-karg-haus",
+  "phone": "+49 1635 6857 28",
+  "email": "info@antonkarghaus.at",
+  "site": "https://www.antonkarghaus.at",
+  "elevation": "829"
+ },
+ {
+  "name": "Anton-Renk-Hütte",
+  "lat": 47.011111111111,
+  "lon": 10.698888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/anton-renk-huette",
+  "phone": "0043 664 88314262",
+  "email": "anton-renk-huette@dav-aachen.de",
+  "site": "https://www.dav-aachen.de",
+  "elevation": "2261"
+ },
+ {
+  "name": "Aschaffenburg Bivouac",
+  "lat": 47.086944444444,
+  "lon": 11.9325,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/aschaffenburg-bivouac",
+  "phone": "0049-6021-24081",
+  "email": "info@alpenverein-aschaffenburg.de",
+  "site": "https://www.alpenverein-aschaffenburg.de",
+  "elevation": "2135"
+ },
+ {
+  "name": "Ascher Hütte",
+  "lat": 47.065833333333,
+  "lon": 10.504722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/ascher-huette",
+  "phone": "0043 (0) 660 3424067",
+  "email": "info@ascherhuette.com",
+  "site": "https://www.ascherhuette.com"
+ },
+ {
+  "name": "Aspach-Hütte",
+  "lat": 47.284056,
+  "lon": 11.334978,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/aspach-huette",
+  "email": "office@alpenverein-ibk.at",
+  "site": "https://www.alpenverein-ibk.at"
+ },
+ {
+  "name": "Augsburg Bivouac",
+  "lat": 47.167222222222,
+  "lon": 10.4475,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/augsburg-bivouac",
+  "phone": "0043 664 6411643 Augsb.Hütte"
+ },
+ {
+  "name": "Augsburger Hütte",
+  "lat": 47.166388888889,
+  "lon": 10.493611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/augsburger-huette",
+  "phone": "0043 664 6411643",
+  "email": "augsburgerhuette@gmx.net",
+  "elevation": "2298"
+ },
+ {
+  "name": "Babenstuberhütte",
+  "lat": 47.561388888889,
+  "lon": 12.301111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/babenstuberhuette"
+ },
+ {
+  "name": "Badener Hütte",
+  "lat": 47.081062,
+  "lon": 12.4256,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/badener-huette",
+  "phone": "+43 664 9155666",
+  "email": "info@badenerhuette.at",
+  "site": "https://www.badenerhuette.at",
+  "elevation": "2608"
+ },
+ {
+  "name": "Barmer Haus",
+  "lat": 46.916388888889,
+  "lon": 12.331388888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/barmer-haus",
+  "phone": "Reservieren:0049 202 281518-20",
+  "email": "wuppertal@dav-wuppertal.de",
+  "site": "https://www.dav-wuppertal.de",
+  "elevation": "1380"
+ },
+ {
+  "name": "Barmer Hütte",
+  "lat": 46.917222222222,
+  "lon": 12.168888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/barmer-huette",
+  "phone": "+39 346 986 8673",
+  "email": "kontakt@barmerhuette.at",
+  "site": "https://www.barmerhuette.at",
+  "elevation": "2610"
+ },
+ {
+  "name": "Bayreuther Hütte",
+  "lat": 47.445,
+  "lon": 11.820833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/bayreuther-huette",
+  "phone": "0043 664 3425103",
+  "email": "info@bayreuther-huette.de",
+  "site": "https://www.bayreuther-huette.de",
+  "elevation": "1600"
+ },
+ {
+  "name": "Berliner Hütte",
+  "lat": 47.024444444444,
+  "lon": 11.813055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/berliner-huette",
+  "phone": "0043 664 88787025",
+  "email": "info@berlinerhuette.at",
+  "site": "https://www.berlinerhuette.at",
+  "elevation": "2042"
+ },
+ {
+  "name": "Bettelwurf Hütte",
+  "lat": 47.338551,
+  "lon": 11.507488,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/bettelwurf-huette",
+  "phone": "+43 664 2036485 (ganzjährig)",
+  "email": "info@bettelwurfhuette.at",
+  "site": "https://www.bettelwurfhuette.at",
+  "elevation": "2077"
+ },
+ {
+  "name": "Birkkarhütte",
+  "lat": 47.411666666667,
+  "lon": 11.435555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/birkkarhuette",
+  "elevation": "2640"
+ },
+ {
+  "name": "Bochumer Hütte",
+  "lat": 47.386666666667,
+  "lon": 12.464722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/bochumer-huette",
+  "phone": "+43 5356 20299",
+  "email": "info@kelchalm.at",
+  "site": "https://www.kelchalm.at"
+ },
+ {
+  "name": "Bonn-Matreier-Hütte",
+  "lat": 47.039053,
+  "lon": 12.427598,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/bonn-matreier-huette",
+  "phone": "+43 664 3481006",
+  "email": "office@bonnmatreier-huette.at",
+  "site": "https://www.bonnmatreier-huette.at",
+  "elevation": "2750"
+ },
+ {
+  "name": "Brandenburger Haus",
+  "lat": 46.844444444444,
+  "lon": 10.778055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/brandenburger-haus",
+  "phone": "+43 670 6026159",
+  "email": "info@brandenburgerhaus.at",
+  "site": "https://www.brandenburgerhaus.at"
+ },
+ {
+  "name": "Braunschweiger Hütte",
+  "lat": 46.935277777778,
+  "lon": 10.909166666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/braunschweiger-huette",
+  "phone": "0043 664 5386191 (nur Winter)",
+  "email": "office@braunschweiger-huette.at",
+  "site": "https://www.braunschweiger-huette.at",
+  "elevation": "2759"
+ },
+ {
+  "name": "Breitenkopfhütte",
+  "lat": 47.361111111111,
+  "lon": 10.981111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/breitenkopfhuette",
+  "phone": "09561 92007 Geschäftsstelle",
+  "email": "alpenverein-coburg@t-online.de"
+ },
+ {
+  "name": "Bremer Hütte",
+  "lat": 46.995,
+  "lon": 11.263333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/bremer-huette",
+  "phone": "+43 664 5947563",
+  "email": "bremerhuette@alpenverein-bremen.de",
+  "site": "https://www.alpenverein-bremen.de"
+ },
+ {
+  "name": "Breslauer Hütte",
+  "lat": 46.868055555556,
+  "lon": 10.879166666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/breslauer-huette",
+  "phone": "0043 664 5300898",
+  "email": "info@breslauerhuette.at",
+  "site": "https://www.breslauerhuette.at",
+  "elevation": "2844"
+ },
+ {
+  "name": "Clarahütte",
+  "lat": 47.015833333333,
+  "lon": 12.245833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/clarahuette",
+  "phone": "0043 664 9758893",
+  "email": "clarahuette@virgental.at",
+  "site": "https://www.virgental.at",
+  "elevation": "2038"
+ },
+ {
+  "name": "Coburger Hütte",
+  "lat": 47.36,
+  "lon": 10.933333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/coburger-huette",
+  "phone": "0043 664 3254714",
+  "email": "office@coburgerhuette.at",
+  "site": "https://www.coburgerhuette.at",
+  "elevation": "1920"
+ },
+ {
+  "name": "Darmstädter Hütte",
+  "lat": 47.053333333333,
+  "lon": 10.246388888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/darmstaedter-huette",
+  "phone": "0043 699 15446314",
+  "email": "darmstaedter.huette@gmx.net",
+  "elevation": "2384"
+ },
+ {
+  "name": "Dortmunder Hütte",
+  "lat": 47.211666666667,
+  "lon": 11.008333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/dortmunder-huette",
+  "phone": "0043 5239 5202",
+  "email": "info@dortmunderhuette.at",
+  "site": "https://www.dortmunderhuette.at",
+  "elevation": "1950"
+ },
+ {
+  "name": "Dresdner Hütte",
+  "lat": 46.998055555556,
+  "lon": 11.139444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/dresdner-huette",
+  "phone": "0043 5226 8112",
+  "email": "info@dresdnerhuette.at",
+  "site": "https://www.dresdnerhuette.at",
+  "elevation": "2308"
+ },
+ {
+  "name": "Edmund-Graf-Hütte",
+  "lat": 47.105989,
+  "lon": 10.355828,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/edmund-graf-huette",
+  "phone": "+43 660 8326815 (ganzjährig)",
+  "email": "info@edmund-graf-huette.com",
+  "site": "https://www.edmund-graf-huette.com",
+  "elevation": "2375"
+ },
+ {
+  "name": "Erfurter Hütte",
+  "lat": 47.441666666667,
+  "lon": 11.763055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/erfurter-huette",
+  "phone": "0043 664 5146833",
+  "email": "info@erfurterhuette.at",
+  "site": "https://www.erfurterhuette.at",
+  "elevation": "1834"
+ },
+ {
+  "name": "Erlanger Hütte",
+  "lat": 47.144722222222,
+  "lon": 10.847222222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/erlanger-huette",
+  "phone": "0043 664 3920268",
+  "email": "rimmlchristian@gmx.at",
+  "elevation": "2550"
+ },
+ {
+  "name": "Essener und Rostocker Hütte",
+  "lat": 47.055,
+  "lon": 12.297777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/essener-und-rostocker-huette",
+  "phone": "0043 4877 5101 -während Saison",
+  "email": "zugast@essener-rostocker-huette.de",
+  "site": "https://www.essener-rostocker-huette.de",
+  "elevation": "2208"
+ },
+ {
+  "name": "Falkenhütte",
+  "lat": 47.399722222222,
+  "lon": 11.498888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/falkenhuette",
+  "email": "info@falkenhuette.at",
+  "site": "https://www.falkenhuette.at",
+  "elevation": "1848"
+ },
+ {
+  "name": "Fidelitashütte",
+  "lat": 46.8057333333333,
+  "lon": 10.9888833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/fidelitashuette",
+  "elevation": "2883"
+ },
+ {
+  "name": "Filmoor-Standschützenhütte",
+  "lat": 46.670633,
+  "lon": 12.534324,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/filmoor-standschuetzenhuette",
+  "phone": "0664 112 71 53",
+  "email": "filmoorhuette@gmx.at",
+  "elevation": "2350"
+ },
+ {
+  "name": "Forchheimer Biwak",
+  "lat": 47.17,
+  "lon": 10.826944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/forchheimer-biwak",
+  "elevation": "2443"
+ },
+ {
+  "name": "Franz-Senn-Hütte",
+  "lat": 47.085042,
+  "lon": 11.168785,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/franz-senn-huette",
+  "phone": "+43 664 4442094",
+  "email": "office@franzsennhuette.at",
+  "site": "https://www.franzsennhuette.at",
+  "elevation": "2147"
+ },
+ {
+  "name": "Frederic-Simms-Hütte",
+  "lat": 47.210277777778,
+  "lon": 10.355555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/frederic-simms-huette",
+  "phone": "0043 664 4840093",
+  "email": "info@dav-simmshuette.de",
+  "site": "https://www.dav-simmshuette.de",
+  "elevation": "2004"
+ },
+ {
+  "name": "Friedl-Mutschlechner-Haus",
+  "lat": 46.8042333333333,
+  "lon": 12.3787333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/friedl-mutschlechner-haus",
+  "phone": "+43 650 9932001",
+  "email": "jugend@alpenverein.it",
+  "site": "https://www.alpenverein.it",
+  "elevation": "1400"
+ },
+ {
+  "name": "Friesenberghaus",
+  "lat": 47.067777777778,
+  "lon": 11.702222222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/friesenberghaus",
+  "phone": "0043 664 164 1933",
+  "email": "friesenberghaus@gmx.at",
+  "elevation": "2498"
+ },
+ {
+  "name": "Fritz-Pflaum-Hütte",
+  "lat": 47.564166666667,
+  "lon": 12.337222222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/fritz-pflaum-huette",
+  "email": "fritzpflaum@alpenverein-bayerland.de",
+  "site": "https://www.alpenverein-bayerland.de",
+  "elevation": "1865"
+ },
+ {
+  "name": "Furtschaglhaus",
+  "lat": 47.001111111111,
+  "lon": 11.747222222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/furtschaglhaus",
+  "phone": "+49 171 7179908",
+  "email": "info@furtschaglhaus.at",
+  "site": "https://www.furtschaglhaus.at",
+  "elevation": "2295"
+ },
+ {
+  "name": "Gamshütte",
+  "lat": 47.129722222222,
+  "lon": 11.795555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gamshuette",
+  "phone": "+43 664 428 29 69",
+  "email": "info@gamshuette.at",
+  "site": "https://www.gamshuette.at",
+  "elevation": "1921"
+ },
+ {
+  "name": "Gaudeamushütte",
+  "lat": 47.549166666667,
+  "lon": 12.324444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gaudeamushuette",
+  "phone": "+39 338 335 6674",
+  "email": "gaudeamus@dav-main-spessart.at",
+  "site": "https://www.dav-main-spessart.at",
+  "elevation": "1270"
+ },
+ {
+  "name": "Gepatschhaus",
+  "lat": 46.901666666667,
+  "lon": 10.737777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gepatschhaus",
+  "phone": "+43 660 4610244",
+  "email": "info@gepatschhaus.at",
+  "site": "https://www.gepatschhaus.at",
+  "elevation": "1928"
+ },
+ {
+  "name": "Geraer Hütte",
+  "lat": 47.043333333333,
+  "lon": 11.628055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/geraer-huette",
+  "phone": "0043 676 9610303 (Sommer)",
+  "email": "info@geraerhuette.at",
+  "site": "https://www.geraerhuette.at",
+  "elevation": "2324"
+ },
+ {
+  "name": "Gernot-Röhr-Biwak",
+  "lat": 46.999301,
+  "lon": 12.732375,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gernot-roehr-biwak",
+  "elevation": "2912"
+ },
+ {
+  "name": "Glorer Hütte",
+  "lat": 47.031111111111,
+  "lon": 12.715555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/glorer-huette",
+  "phone": "0043 664 3032200",
+  "elevation": "2642"
+ },
+ {
+  "name": "Glungezerhütte",
+  "lat": 47.209854,
+  "lon": 11.526794,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/glungezerhuette",
+  "phone": "+43 664 5311 070",
+  "email": "office@glungezer-huette.at",
+  "site": "https://www.glungezer-huette.at",
+  "elevation": "2610"
+ },
+ {
+  "name": "Gössnitzkopf-Biwak",
+  "lat": 46.961867,
+  "lon": 12.746375,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/goessnitzkopf-biwak",
+  "elevation": "2800"
+ },
+ {
+  "name": "Greizer Hütte",
+  "lat": 47.043333333333,
+  "lon": 11.885833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/greizer-huette",
+  "phone": "0043 664 9972 1169",
+  "email": "info@greizerhuette.at",
+  "site": "https://www.greizerhuette.at",
+  "elevation": "2227"
+ },
+ {
+  "name": "Grünseehütte",
+  "lat": 47.129884,
+  "lon": 12.515402,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gruenseehuette",
+  "phone": "+43 650 266 33 73",
+  "email": "gruenseehuette@sektion.alpenverein.at",
+  "site": "https://www.sektion.alpenverein.at",
+  "elevation": "2235"
+ },
+ {
+  "name": "Gruttenhütte",
+  "lat": 47.553333333333,
+  "lon": 12.311111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gruttenhuette",
+  "phone": "+43 5358 43389",
+  "email": "info@gruttenhuette.at",
+  "site": "https://www.gruttenhuette.at",
+  "elevation": "1620"
+ },
+ {
+  "name": "Gufferthütte",
+  "lat": 47.581666666667,
+  "lon": 11.799444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/gufferthuette",
+  "phone": "+43 6641272240",
+  "email": "info@gufferthuette.at",
+  "site": "https://www.gufferthuette.at",
+  "elevation": "1475"
+ },
+ {
+  "name": "Haldenseehaus",
+  "lat": 47.487222222222,
+  "lon": 10.606944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/haldenseehaus",
+  "phone": "+43 5675 20733",
+  "email": "haldenseehaus@dav-gp.de",
+  "site": "https://www.dav-gp.de",
+  "elevation": "1150"
+ },
+ {
+  "name": "Hallerangerhaus",
+  "lat": 47.354722222222,
+  "lon": 11.477222222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hallerangerhaus",
+  "phone": "0043 664 8937583",
+  "email": "info@hallerangerhaus.at",
+  "site": "https://www.hallerangerhaus.at",
+  "elevation": "1768"
+ },
+ {
+  "name": "Hanauer Hütte",
+  "lat": 47.249722222222,
+  "lon": 10.591111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hanauer-huette",
+  "phone": "0043 664 2669149",
+  "email": "info@haus-astoria.com",
+  "site": "https://www.haus-astoria.com",
+  "elevation": "1922"
+ },
+ {
+  "name": "Hans Berger Haus",
+  "lat": 47.5775,
+  "lon": 12.2852,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hans-berger-haus-3",
+  "phone": "0537262575",
+  "email": "info@hansbergerhaus.at",
+  "site": "https://www.hansbergerhaus.at"
+ },
+ {
+  "name": "Hauerseehütte",
+  "lat": 47.058333333333,
+  "lon": 10.9175,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hauerseehuette",
+  "phone": "0043 664 7828637",
+  "email": "hauerseehuette@alpenverein-ludwigsburg.de",
+  "site": "https://www.alpenverein-ludwigsburg.de",
+  "elevation": "2383"
+ },
+ {
+  "name": "Heidelberger Hütte",
+  "lat": 46.909722222222,
+  "lon": 10.259444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/heidelberger-huette",
+  "phone": "0043 5444 21021",
+  "email": "info@heidelberger-huette.at",
+  "site": "https://www.heidelberger-huette.at",
+  "elevation": "2264"
+ },
+ {
+  "name": "Heiterwandhütte",
+  "lat": 47.308888888889,
+  "lon": 10.746666666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/heiterwandhuette",
+  "phone": "0741 23614 (Hüttenwart)",
+  "elevation": "2020"
+ },
+ {
+  "name": "Hermann-von-Barth-Hütte",
+  "lat": 47.309166666667,
+  "lon": 10.398611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hermann-von-barth-huette",
+  "email": "info@alpenverein-duesseldorf.de",
+  "site": "https://www.alpenverein-duesseldorf.de",
+  "elevation": "2131"
+ },
+ {
+  "name": "Hexenseehütte",
+  "lat": 47.018888888889,
+  "lon": 10.481111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hexenseehuette",
+  "email": "info@koelner-haus.at",
+  "site": "https://www.koelner-haus.at",
+  "elevation": "2588"
+ },
+ {
+  "name": "Hildesheimer Hütte",
+  "lat": 46.966111111111,
+  "lon": 11.118888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hildesheimer-huette",
+  "phone": "0043 650 696 4167",
+  "email": "hildesheimerhuette@aol.com",
+  "site": "https://www.aol.com",
+  "elevation": "2899"
+ },
+ {
+  "name": "Hochjoch-Hospiz",
+  "lat": 46.825,
+  "lon": 10.833888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hochjoch-hospiz-4",
+  "phone": "+43 680 30 40 190 (Reserv.)",
+  "email": "apartkreuzspitz-vent@hotmail.com",
+  "elevation": "2413"
+ },
+ {
+  "name": "Hochschober-Hütte",
+  "lat": 46.925179,
+  "lon": 12.699526,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hochschober-huette",
+  "phone": "+43 4853 52163",
+  "email": "info@hochschoberhuette.at",
+  "site": "https://www.hochschoberhuette.at",
+  "elevation": "2322"
+ },
+ {
+  "name": "Hochsteinhütte",
+  "lat": 46.821474,
+  "lon": 12.700294,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hochsteinhuette",
+  "phone": "0699 17074047",
+  "email": "office@cellula.at",
+  "site": "https://www.cellula.at",
+  "elevation": "2023"
+ },
+ {
+  "name": "Hochstubaihütte",
+  "lat": 46.981666666667,
+  "lon": 11.064722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hochstubaihuette",
+  "phone": "0043-676-9243343",
+  "email": "info@hochstubaihuette.at",
+  "site": "https://www.hochstubaihuette.at",
+  "elevation": "3173"
+ },
+ {
+  "name": "Hochwildalm",
+  "lat": 47.40516,
+  "lon": 12.49148,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hochwildalm-3-1",
+  "phone": "+43 664 181 2762",
+  "email": "s.tausz@goingnet.at",
+  "site": "https://www.goingnet.at"
+ },
+ {
+  "name": "Hohenzollernhaus",
+  "lat": 46.901944444444,
+  "lon": 10.634722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/hohenzollernhaus",
+  "phone": "0043 664 5311915",
+  "email": "info@hohenzollernhaus.at",
+  "site": "https://www.hohenzollernhaus.at",
+  "elevation": "2123"
+ },
+ {
+  "name": "Innergschlöss-Alm",
+  "lat": 47.123974,
+  "lon": 12.451539,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/innergschloess-alm",
+  "phone": "0043 650 4026681",
+  "email": "alm.innergschloess@sektion.alpenverein.at",
+  "site": "https://www.sektion.alpenverein.at",
+  "elevation": "1698"
+ },
+ {
+  "name": "Innsbrucker Hütte",
+  "lat": 47.043272,
+  "lon": 11.310953,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/innsbrucker-huette",
+  "phone": "+43 5276 295",
+  "email": "office@innsbrucker-huette.at",
+  "site": "https://www.innsbrucker-huette.at",
+  "elevation": "2369"
+ },
+ {
+  "name": "Jamtalhütte",
+  "lat": 46.886388888889,
+  "lon": 10.176388888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/jamtalhuette",
+  "phone": "0043 5443 8408",
+  "email": "info@jamtalhuette.at",
+  "site": "https://www.jamtalhuette.at",
+  "elevation": "2165"
+ },
+ {
+  "name": "Johannishütte",
+  "lat": 47.06,
+  "lon": 12.334444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/johannishuette",
+  "phone": "0043 4877 5150",
+  "email": "info@johannishuette.at",
+  "site": "https://www.johannishuette.at",
+  "elevation": "2121"
+ },
+ {
+  "name": "Kaiserjochhaus",
+  "lat": 47.173333333333,
+  "lon": 10.325833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kaiserjochhaus",
+  "phone": "0043 664 155 65 33",
+  "email": "info@kaiserjochhaus.at",
+  "site": "https://www.kaiserjochhaus.at",
+  "elevation": "2310"
+ },
+ {
+  "name": "Kalser Tauernhaus",
+  "lat": 47.070833333333,
+  "lon": 12.623888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kalser-tauernhaus",
+  "phone": "0043 664 9857090",
+  "email": "info@kalser-tauernhaus.com",
+  "site": "https://www.kalser-tauernhaus.com",
+  "elevation": "1755"
+ },
+ {
+  "name": "Karl-Fürst-Hütte",
+  "lat": 47.13105,
+  "lon": 12.569709,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/karl-fuerst-huette",
+  "elevation": "2629"
+ },
+ {
+  "name": "Karl-von-Edel-Hütte",
+  "lat": 47.130555555556,
+  "lon": 11.8975,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/karl-von-edel-huette",
+  "phone": "0043 664 9154851",
+  "email": "info@apart-schneeberger.at",
+  "site": "https://www.apart-schneeberger.at",
+  "elevation": "2238"
+ },
+ {
+  "name": "Karlsbader Hütte",
+  "lat": 46.763055555556,
+  "lon": 12.801111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/karlsbader-huette",
+  "phone": "+43 680 5580048",
+  "email": "kontakt@karlsbaderhuette.at",
+  "site": "https://www.karlsbaderhuette.at",
+  "elevation": "2260"
+ },
+ {
+  "name": "Karwendelhaus",
+  "lat": 47.427222222222,
+  "lon": 11.421666666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/karwendelhaus",
+  "phone": "+43 720 983554",
+  "email": "info@karwendelhaus.com",
+  "site": "https://www.karwendelhaus.com",
+  "elevation": "1765"
+ },
+ {
+  "name": "Kasseler Hütte",
+  "lat": 47.059444444444,
+  "lon": 11.948611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kasseler-huette",
+  "phone": "0043 664 4016033",
+  "email": "kasseler-huette@alpenverein-kassel.de",
+  "site": "https://www.alpenverein-kassel.de",
+  "elevation": "2177"
+ },
+ {
+  "name": "Kaufbeurer Haus",
+  "lat": 47.341944444444,
+  "lon": 10.456944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kaufbeurer-haus",
+  "phone": "0049 171 5636569",
+  "elevation": "2007"
+ },
+ {
+  "name": "Kaunergrathütte",
+  "lat": 46.993888888889,
+  "lon": 10.806944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kaunergrathuette",
+  "phone": "+436643501179 (WhatsApp Anruf)",
+  "email": "info@kaunergrathuette.at",
+  "site": "https://www.kaunergrathuette.at",
+  "elevation": "2817"
+ },
+ {
+  "name": "Kellerjochhütte",
+  "lat": 47.316541,
+  "lon": 11.764917,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kellerjochhuette",
+  "phone": "+43 664 172 24 68",
+  "email": "info@kellerjoch.at",
+  "site": "https://www.kellerjoch.at",
+  "elevation": "2237"
+ },
+ {
+  "name": "Kieler Wetterhütte",
+  "lat": 47.051666666667,
+  "lon": 10.290555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kieler-wetterhuette",
+  "phone": "0043 676 3755144 (Niederelbeh.",
+  "elevation": "2809"
+ },
+ {
+  "name": "Kleine-Philipp-Reuter-Hütte",
+  "lat": 47.037222222222,
+  "lon": 12.220833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/kleine-philipp-reuter-huette",
+  "phone": "0043 664 9758893",
+  "elevation": "2692"
+ },
+ {
+  "name": "Kölner Haus",
+  "lat": 47.039722222222,
+  "lon": 10.562777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/koelner-haus",
+  "phone": "0043 5476 6214",
+  "email": "info@koelner-haus.at",
+  "site": "https://www.koelner-haus.at"
+ },
+ {
+  "name": "Konstanzer Hütte",
+  "lat": 47.069444444444,
+  "lon": 10.188888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/konstanzer-huette",
+  "phone": "+43 660 459 21 38",
+  "email": "anfrage-konstanzerhuette@hotmail.com",
+  "elevation": "1688"
+ },
+ {
+  "name": "Lalidererspitzen-Biwak",
+  "lat": 47.390115,
+  "lon": 11.503408,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/lalidererspitzen-biwak",
+  "elevation": "2500"
+ },
+ {
+  "name": "Lamsenjochhütte",
+  "lat": 47.38,
+  "lon": 11.603611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/lamsenjochhuette",
+  "phone": "0043 5244 62063",
+  "email": "info@lamsenjochhuette.at",
+  "site": "https://www.lamsenjochhuette.at",
+  "elevation": "1953"
+ },
+ {
+  "name": "Landsberger Hütte",
+  "lat": 47.444166666667,
+  "lon": 10.514444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/landsberger-huette",
+  "phone": "0043 5675 6282",
+  "email": "servus@landsbergerhuette.at",
+  "site": "https://www.landsbergerhuette.at",
+  "elevation": "1810"
+ },
+ {
+  "name": "Landshuter-Europa-Hütte",
+  "lat": 46.997222222222,
+  "lon": 11.580555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/landshuter-europa-huette",
+  "phone": "0039 3382124738",
+  "email": "info@europahuette.it",
+  "site": "https://www.europahuette.it",
+  "elevation": "2693"
+ },
+ {
+  "name": "Langtalereckhütte",
+  "lat": 46.828611111111,
+  "lon": 10.991944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/langtalereckhuette",
+  "phone": "0043 664 5268655",
+  "email": "langtalereckhuette@alpenverein-karlsruhe.de",
+  "site": "https://www.alpenverein-karlsruhe.de",
+  "elevation": "2450"
+ },
+ {
+  "name": "Leutkircher Hütte",
+  "lat": 47.163055555556,
+  "lon": 10.285555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/leutkircher-huette",
+  "phone": "0043 664 9857849",
+  "email": "info@leutkircher-huette.at",
+  "site": "https://www.leutkircher-huette.at",
+  "elevation": "2251"
+ },
+ {
+  "name": "Lienzer Hütte",
+  "lat": 46.934739,
+  "lon": 12.746638,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/lienzer-huette",
+  "elevation": "1977"
+ },
+ {
+  "name": "Lizumer Hütte",
+  "lat": 47.16673,
+  "lon": 11.640654,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/lizumer-huette",
+  "phone": "+43 664 9272117",
+  "email": "info@lizumerhuette.at",
+  "site": "https://www.lizumerhuette.at",
+  "elevation": "2019"
+ },
+ {
+  "name": "Lorea-Hütte",
+  "lat": 47.346388888889,
+  "lon": 10.791388888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/lorea-huette",
+  "phone": "0049 89 438944 (Tal)",
+  "elevation": "2018"
+ },
+ {
+  "name": "Ludwigsburger Hütte",
+  "lat": 47.114722222222,
+  "lon": 10.823611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/ludwigsburger-huette",
+  "phone": "0043 664 4632543",
+  "email": "info@ludwigsburger-huette.at",
+  "site": "https://www.ludwigsburger-huette.at",
+  "elevation": "1935"
+ },
+ {
+  "name": "Martin-Busch-Hütte",
+  "lat": 46.801111111111,
+  "lon": 10.886944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/martin-busch-huette",
+  "phone": "0043 664 3043151",
+  "email": "info@hotel-vent.at",
+  "site": "https://www.hotel-vent.at",
+  "elevation": "2501"
+ },
+ {
+  "name": "Meißner Haus",
+  "lat": 47.208333333333,
+  "lon": 11.488333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/meissner-haus",
+  "phone": "+43 512 377697",
+  "email": "info@meissner-haus.at",
+  "site": "https://www.meissner-haus.at",
+  "elevation": "1720"
+ },
+ {
+  "name": "Memminger Hütte",
+  "lat": 47.200555555556,
+  "lon": 10.478611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/memminger-huette",
+  "phone": "+43 676 7460208",
+  "email": "info@memmingerhuette.at",
+  "site": "https://www.memmingerhuette.at",
+  "elevation": "2242"
+ },
+ {
+  "name": "Mitterkar-Biwak",
+  "lat": 46.664187,
+  "lon": 12.679444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/mitterkar-biwak",
+  "phone": "+43 1 5131003",
+  "elevation": "1973"
+ },
+ {
+  "name": "Muttekopfhütte",
+  "lat": 47.262388,
+  "lon": 10.669738,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/muttekopfhuette",
+  "phone": "+43 664 1236928",
+  "email": "info@muttekopf.at",
+  "site": "https://www.muttekopf.at",
+  "elevation": "1934"
+ },
+ {
+  "name": "Nauderer Hütte",
+  "lat": 46.878055555556,
+  "lon": 10.548333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/nauderer-huette",
+  "elevation": "1910"
+ },
+ {
+  "name": "Neue Alplhütte",
+  "lat": 47.341388888889,
+  "lon": 11.018333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-alplhuette"
+ },
+ {
+  "name": "Neue Bamberger Hütte",
+  "lat": 47.308888888889,
+  "lon": 12.150555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-bamberger-huette",
+  "phone": "0043 664 4559469",
+  "email": "bambergerhuette@alpenverein-bamberg.de",
+  "site": "https://www.alpenverein-bamberg.de",
+  "elevation": "1761"
+ },
+ {
+  "name": "Neue Bielefelder Hütte",
+  "lat": 47.207222222222,
+  "lon": 10.933055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-bielefelder-huette",
+  "phone": "0043 5252 6926",
+  "email": "bielefelder-huette@gmx.at",
+  "elevation": "2150"
+ },
+ {
+  "name": "Neue Magdeburger Hütte",
+  "lat": 47.288888888889,
+  "lon": 11.296666666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-magdeburger-huette",
+  "phone": "0043 5238 88790",
+  "email": "info@magdeburger-huette.at",
+  "site": "https://www.magdeburger-huette.at",
+  "elevation": "1637"
+ },
+ {
+  "name": "Neue Prager Hütte",
+  "lat": 47.123055555556,
+  "lon": 12.392222222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-prager-huette",
+  "email": "info@neue-prager-huette.at",
+  "site": "https://www.neue-prager-huette.at",
+  "elevation": "2796"
+ },
+ {
+  "name": "Neue Regensburger Hütte",
+  "lat": 47.054722222222,
+  "lon": 11.198333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-regensburger-huette",
+  "phone": "0043 664 2025070",
+  "email": "info@regensburgerhuette.at",
+  "site": "https://www.regensburgerhuette.at",
+  "elevation": "2286"
+ },
+ {
+  "name": "Neue Reichenberger Hütte",
+  "lat": 46.971294,
+  "lon": 12.279448,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/neue-reichenberger-huette",
+  "phone": "+49 151 560 49 308",
+  "email": "neue-reichenbergerhuette@gmx.at",
+  "elevation": "2586"
+ },
+ {
+  "name": "Niederelbehütte",
+  "lat": 47.0625,
+  "lon": 10.316111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/niederelbehuette",
+  "phone": "0043 676 4152355",
+  "email": "info@niederelbehuette.at",
+  "site": "https://www.niederelbehuette.at",
+  "elevation": "2310"
+ },
+ {
+  "name": "Nördlinger Hütte",
+  "lat": 47.32,
+  "lon": 11.236666666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/noerdlinger-huette",
+  "phone": "+43 664 9142262",
+  "email": "wirt@noerdlingerhuette.at",
+  "site": "https://www.noerdlingerhuette.at",
+  "elevation": "2238"
+ },
+ {
+  "name": "Nürnberger Hütte",
+  "lat": 46.993611111111,
+  "lon": 11.217777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/nuernberger-huette",
+  "phone": "0043 664 1657461 (Jun-Sept)",
+  "email": "info@nuernbergerhuette.at",
+  "site": "https://www.nuernbergerhuette.at",
+  "elevation": "2278"
+ },
+ {
+  "name": "Oberlandhütte",
+  "lat": 47.379444444444,
+  "lon": 12.3075,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/oberlandhuette",
+  "phone": "0043 5357 8113",
+  "email": "info@oberlandhuette.at",
+  "site": "https://www.oberlandhuette.at",
+  "elevation": "1014"
+ },
+ {
+  "name": "Obstansersee Hütte",
+  "lat": 46.684367,
+  "lon": 12.493746,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/obstansersee-huette",
+  "phone": "+43 664 932 978 99",
+  "email": "info@bodner.tirol",
+  "site": "https://www.bodner.tirol",
+  "elevation": "2300"
+ },
+ {
+  "name": "Olpererhütte",
+  "lat": 47.041944444444,
+  "lon": 11.688333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/olpererhuette",
+  "phone": "0043 664 4176566",
+  "email": "info@olpererhuette.de",
+  "site": "https://www.olpererhuette.de",
+  "elevation": "2388"
+ },
+ {
+  "name": "Otto-Mayr-Hütte",
+  "lat": 47.509444444444,
+  "lon": 10.618611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/otto-mayr-huette",
+  "phone": "+49-160-4592237",
+  "email": "ottomayrhuette@gmail.com",
+  "elevation": "1530"
+ },
+ {
+  "name": "Padasterjochhaus",
+  "lat": 47.08071,
+  "lon": 11.36354,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/padasterjochhaus",
+  "phone": "0699 111 75 352",
+  "email": "padasterjochhaus@naturfreunde.at",
+  "site": "https://www.naturfreunde.at"
+ },
+ {
+  "name": "Peter-Anich-Hütte",
+  "lat": 47.266263,
+  "lon": 11.055257,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/peter-anich-huette",
+  "phone": "+43 676 9241536",
+  "email": "peteranich-huette@gmx.at",
+  "elevation": "1909"
+ },
+ {
+  "name": "Pfeishütte",
+  "lat": 47.330048,
+  "lon": 11.425486,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/pfeishuette",
+  "phone": "+43 512 552906",
+  "email": "info@pfeishuette.at",
+  "site": "https://www.pfeishuette.at",
+  "elevation": "1922"
+ },
+ {
+  "name": "Pforzheimerhütte",
+  "lat": 47.154722222222,
+  "lon": 11.0725,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/pforzheimerhuette",
+  "phone": "0043 699 13294581",
+  "email": "pforzheimerhuette@alpenverein-pforzheim.de",
+  "site": "https://www.alpenverein-pforzheim.de",
+  "elevation": "2308"
+ },
+ {
+  "name": "Plauener Hütte",
+  "lat": 47.118333333333,
+  "lon": 12.096111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/plauener-huette",
+  "phone": "0043 650 4684308",
+  "email": "info@plauener-huette.at",
+  "site": "https://www.plauener-huette.at",
+  "elevation": "2363"
+ },
+ {
+  "name": "Porzehütte",
+  "lat": 46.659753,
+  "lon": 12.582222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/porzehuette",
+  "phone": "0664 325 64 52",
+  "email": "info@porzehuette.at",
+  "site": "https://www.porzehuette.at",
+  "elevation": "1942"
+ },
+ {
+  "name": "Potsdamer Hütte",
+  "lat": 47.143055555556,
+  "lon": 11.208611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/potsdamer-huette",
+  "phone": "0043 676 6020560",
+  "email": "potsdamerhuette@gmx.at",
+  "elevation": "2020"
+ },
+ {
+  "name": "Ramolhaus",
+  "lat": 46.829444444444,
+  "lon": 10.969722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/ramolhaus",
+  "phone": "0043 5256 6223",
+  "email": "info@edelweiss-gurgl.com",
+  "site": "https://www.edelweiss-gurgl.com",
+  "elevation": "3006"
+ },
+ {
+  "name": "Rastkogelhütte",
+  "lat": 47.232222222222,
+  "lon": 11.788333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/rastkogelhuette",
+  "phone": "0043-680-22 57 124",
+  "email": "rastkogelhuette@t-online.de",
+  "elevation": "2124"
+ },
+ {
+  "name": "Rauhekopfhütte",
+  "lat": 46.87,
+  "lon": 10.763055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/rauhekopfhuette",
+  "phone": "0043 664 2067006",
+  "email": "rauhekopfhuette@dav-frankfurtmain.de",
+  "site": "https://www.dav-frankfurtmain.de",
+  "elevation": "2731"
+ },
+ {
+  "name": "Reuttener Hütte",
+  "lat": 47.404859,
+  "lon": 10.691013,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/reuttener-huette",
+  "phone": "+43 676 88601155",
+  "email": "oeav.reuttenerhuette@gmail.com",
+  "elevation": "1740"
+ },
+ {
+  "name": "Rheinland-Pfalz-Biwak",
+  "lat": 46.966944444444,
+  "lon": 10.904722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/rheinland-pfalz-biwak",
+  "elevation": "3247"
+ },
+ {
+  "name": "Riffelseehütte",
+  "lat": 46.961111111111,
+  "lon": 10.8575,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/riffelseehuette",
+  "phone": "0043 664 3950062",
+  "email": "info@riffelseehuette.com",
+  "site": "https://www.riffelseehuette.com",
+  "elevation": "2293"
+ },
+ {
+  "name": "Rüsselsheimer Hütte",
+  "lat": 46.994166666667,
+  "lon": 10.888055555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/ruesselsheimer-huette",
+  "phone": "0043 5413 20300",
+  "email": "info@ruesselsheimerhuette.at",
+  "site": "https://www.ruesselsheimerhuette.at",
+  "elevation": "2323"
+ },
+ {
+  "name": "Schüsselkar-Biwak",
+  "lat": 47.396944444444,
+  "lon": 11.119444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/schuesselkar-biwak",
+  "phone": "08821 2701 (Sektion)",
+  "elevation": "2536"
+ },
+ {
+  "name": "Schweinfurter Hütte",
+  "lat": 47.158055555556,
+  "lon": 11.02,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/schweinfurter-huette",
+  "phone": "0043 5255 50029",
+  "elevation": "2028"
+ },
+ {
+  "name": "Seewaldhütte",
+  "lat": 47.526944444444,
+  "lon": 11.661111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/seewaldhuette",
+  "phone": "0043 664 3537019",
+  "elevation": "1582"
+ },
+ {
+  "name": "Siegerlandhütte",
+  "lat": 46.940833333333,
+  "lon": 11.147777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/siegerlandhuette",
+  "phone": "0049 173 9894028",
+  "email": "info@siegerlandhuette.de",
+  "site": "https://www.siegerlandhuette.de",
+  "elevation": "2710"
+ },
+ {
+  "name": "Sillianer Hütte",
+  "lat": 46.705974,
+  "lon": 12.406408,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/sillianer-huette",
+  "email": "marco.rager@sillianer-huette.at",
+  "site": "https://www.sillianer-huette.at",
+  "elevation": "2447"
+ },
+ {
+  "name": "Solsteinhaus",
+  "lat": 47.308153,
+  "lon": 11.288375,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/solsteinhaus",
+  "phone": "+43 664 3336531",
+  "email": "robert@fankhauser.at",
+  "site": "https://www.fankhauser.at",
+  "elevation": "1806"
+ },
+ {
+  "name": "Spitzsteinhaus",
+  "lat": 47.704444444444,
+  "lon": 12.243333333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/spitzsteinhaus",
+  "phone": "0043 5373 8330",
+  "email": "info@spitzsteinhaus.de",
+  "site": "https://www.spitzsteinhaus.de",
+  "elevation": "1252"
+ },
+ {
+  "name": "Starkenburger Hütte",
+  "lat": 47.126944444444,
+  "lon": 11.279444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/starkenburger-huette",
+  "phone": "0664 5035420",
+  "email": "office@starkenburgerhuette.at",
+  "site": "https://www.starkenburgerhuette.at",
+  "elevation": "2237"
+ },
+ {
+  "name": "Steinseehütte",
+  "lat": 47.226122,
+  "lon": 10.587251,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/steinseehuette",
+  "phone": "+43 (0)660 4917124",
+  "email": "info@steinseehuette.at",
+  "site": "https://www.steinseehuette.at",
+  "elevation": "2061"
+ },
+ {
+  "name": "Straubinger Haus",
+  "lat": 47.620277777778,
+  "lon": 12.499444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/straubinger-haus",
+  "phone": "+43 664 35 16 194",
+  "email": "info@straubingerhaus.at",
+  "site": "https://www.straubingerhaus.at"
+ },
+ {
+  "name": "Stripsenjochhaus",
+  "lat": 47.576935,
+  "lon": 12.310583,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/stripsenjochhaus",
+  "phone": "+43 664 4321790",
+  "email": "office@stripsenjoch.at",
+  "site": "https://www.stripsenjoch.at",
+  "elevation": "1580"
+ },
+ {
+  "name": "Stüdlhütte",
+  "lat": 47.054722222222,
+  "lon": 12.680833333333,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/stuedlhuette",
+  "phone": "0043 4876 8209",
+  "email": "info@stuedlhuette.at",
+  "site": "https://www.stuedlhuette.at",
+  "elevation": "2801"
+ },
+ {
+  "name": "Stuttgarter Hütte",
+  "lat": 47.180277777778,
+  "lon": 10.204722222222,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/stuttgarter-huette",
+  "phone": "0043 676 7580250",
+  "email": "stuttgarterhuette@alpenverein-schwaben.de",
+  "site": "https://www.alpenverein-schwaben.de",
+  "elevation": "2310"
+ },
+ {
+  "name": "Sudetendeutsche Hütte",
+  "lat": 47.049166666667,
+  "lon": 12.576111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/sudetendeutsche-huette",
+  "phone": "+43 720 347802",
+  "email": "sudetendeutschehuette@alpenverein-schwaben.de",
+  "site": "https://www.alpenverein-schwaben.de",
+  "elevation": "2656"
+ },
+ {
+  "name": "Sulzenauhütte",
+  "lat": 46.995833333333,
+  "lon": 11.181666666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/sulzenauhuette",
+  "phone": "+43(0)5226 24320",
+  "email": "info@sulzenauhuette.at",
+  "site": "https://www.sulzenauhuette.at",
+  "elevation": "2191"
+ },
+ {
+  "name": "Talhütte Zwieselstein",
+  "lat": 46.939166666667,
+  "lon": 11.026944444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/talhuette-zwieselstein",
+  "phone": "0043 5254 2763",
+  "email": "info@alpenverein-regensburg.de",
+  "site": "https://www.alpenverein-regensburg.de",
+  "elevation": "1472"
+ },
+ {
+  "name": "Tannheimer Hütte",
+  "lat": 47.495555555556,
+  "lon": 10.619444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/tannheimer-huette",
+  "phone": "0043 676 4348865",
+  "email": "info@tannheimer-huette.at",
+  "site": "https://www.tannheimer-huette.at",
+  "elevation": "1760"
+ },
+ {
+  "name": "Taschachhaus",
+  "lat": 46.909444444444,
+  "lon": 10.8175,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/taschachhaus",
+  "phone": "0043 664 1384465",
+  "email": "office@taschachhaus.com",
+  "site": "https://www.taschachhaus.com",
+  "elevation": "2434"
+ },
+ {
+  "name": "Tölzer Hütte",
+  "lat": 47.504166666667,
+  "lon": 11.492777777778,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/toelzer-huette",
+  "phone": "+49 0160-1450618",
+  "email": "info@toelzer-huette.at",
+  "site": "https://www.toelzer-huette.at"
+ },
+ {
+  "name": "Tribulaunhütte",
+  "lat": 47.00205,
+  "lon": 11.34665,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/tribulaunhuette",
+  "phone": "0664 4050951",
+  "email": "info@tribulaunhuette.at",
+  "site": "https://www.tribulaunhuette.at"
+ },
+ {
+  "name": "Vernagthütte",
+  "lat": 46.853611111111,
+  "lon": 10.823888888889,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/vernagthuette",
+  "phone": "0043 664 7980757",
+  "email": "info@vernagt-scheiber.at",
+  "site": "https://www.vernagt-scheiber.at",
+  "elevation": "2755"
+ },
+ {
+  "name": "Verpeilhütte",
+  "lat": 47.021111111111,
+  "lon": 10.779166666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/verpeilhuette",
+  "phone": "0043-650-5656540",
+  "email": "info@verpeilhuette.at",
+  "site": "https://www.verpeilhuette.at",
+  "elevation": "2025"
+ },
+ {
+  "name": "Vinzenz-Biedner-Hütte",
+  "lat": 46.86547,
+  "lon": 12.80954,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/vinzenz-biedner-huette",
+  "phone": "0699 1279 2433",
+  "email": "naturfreunde.neumair@aon.at"
+ },
+ {
+  "name": "Vinzenz-Tollinger-Hütte",
+  "lat": 47.256827,
+  "lon": 11.548464,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/vinzenz-tollinger-huette",
+  "phone": "+43 5223 56209",
+  "email": "office@alpenverein-hall.at",
+  "site": "https://www.alpenverein-hall.at",
+  "elevation": "1229"
+ },
+ {
+  "name": "Voldertalhütte",
+  "lat": 47.22465,
+  "lon": 11.55104,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/voldertalhuette-4",
+  "phone": "00436649161335",
+  "email": "dominique.rott@gmail.com"
+ },
+ {
+  "name": "Vorderkaiserfeldenhütte",
+  "lat": 47.605833333333,
+  "lon": 12.239166666667,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/vorderkaiserfeldenhuette",
+  "email": "info@vorderkaiserfeldenhuette.at",
+  "site": "https://www.vorderkaiserfeldenhuette.at",
+  "elevation": "1384"
+ },
+ {
+  "name": "Weidener Hütte",
+  "lat": 47.223611111111,
+  "lon": 11.708611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/weidener-huette",
+  "phone": "0043-664-88109940",
+  "email": "info@weidener-huette.at",
+  "site": "https://www.weidener-huette.at",
+  "elevation": "1799"
+ },
+ {
+  "name": "Westfalenhaus",
+  "lat": 47.107777777778,
+  "lon": 11.1,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/westfalenhaus",
+  "email": "info-westfalenhaus@gmx.at",
+  "elevation": "2273"
+ },
+ {
+  "name": "Wildseeloderhaus",
+  "lat": 47.431817,
+  "lon": 12.539318,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/wildseeloderhaus",
+  "phone": "+43 664 3400717",
+  "email": "info@wildseeloderhaus.at",
+  "site": "https://www.wildseeloderhaus.at",
+  "elevation": "1854"
+ },
+ {
+  "name": "Willi-Merkl-Gedächtnis-Hütte",
+  "lat": 47.509166666667,
+  "lon": 10.616111111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/willi-merkl-gedaechtnis-huette",
+  "email": "willi-merkl-huette@alpenverein-friedberg.de",
+  "site": "https://www.alpenverein-friedberg.de",
+  "elevation": "1550"
+ },
+ {
+  "name": "Winnebachseehütte",
+  "lat": 47.0875,
+  "lon": 11.054444444444,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/winnebachseehuette",
+  "phone": "0043 5253 5197",
+  "email": "info@winnebachseehuette.com",
+  "site": "https://www.winnebachseehuette.com",
+  "elevation": "2362"
+ },
+ {
+  "name": "Wolfratshauser Hütte",
+  "lat": 47.391111111111,
+  "lon": 10.848611111111,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/wolfratshauser-huette",
+  "phone": "+43 650 956 8840",
+  "email": "info@wolfratshauserhuette.at",
+  "site": "https://www.wolfratshauserhuette.at",
+  "elevation": "1753"
+ },
+ {
+  "name": "Württemberger Haus",
+  "lat": 47.210277777778,
+  "lon": 10.535555555556,
+  "url": "https://www.tyrol.com/activities/sport/hiking/refuge-huts/all-huts/wuerttemberger-haus",
+  "phone": "+43 650 7538927",
+  "email": "info@dav-wuerttembergerhaus.de",
+  "site": "https://www.dav-wuerttembergerhaus.de",
+  "elevation": "2220"
+ }
+]

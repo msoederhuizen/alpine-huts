@@ -64,7 +64,17 @@
     "verify-photo-locations": "tsx scripts/verify-photo-locations.ts",
     "check-community-backend": "tsx scripts/check-community-backend.ts",
     "apply-photo-blocklist": "tsx scripts/apply-photo-blocklist.ts",
-    "warm-leg-cache": "tsx scripts/warm-leg-cache.ts"
+    "warm-leg-cache": "tsx scripts/warm-leg-cache.ts",
+    "photos-from-own-sites": "tsx scripts/photos-from-own-sites.ts",
+    "import-hut-database": "tsx scripts/import-hut-database.ts",
+    "import-alpenverein": "tsx scripts/import-alpenverein.ts",
+    "review-overlay": "tsx scripts/build-overlay-review.ts",
+    "import-tyrol": "tsx scripts/import-tyrol.ts",
+    "review-missing-huts": "tsx scripts/build-missing-huts-review.ts",
+    "import-refuges-info": "tsx scripts/import-refuges-info.ts",
+    "apply-refuges-csv": "tsx scripts/apply-refuges-info-csv.ts",
+    "check-regions": "tsx scripts/check-region-extent.ts",
+    "apply-register-csv": "tsx scripts/apply-register-csv.ts"
   },
   "private": true
 }

@@ -3,6 +3,7 @@
 import { REGIONS } from '../constants/region';
 import type { Hut } from '../types/hut';
 import type { Ride } from '../types/ride';
+import { isHidden, withContactOverlay, withCorrections } from './contactOverlay';
 
 interface RegionData {
   core: Hut[];
@@ -112,7 +113,26 @@ function regionData(regionId: string): RegionData | undefined {
   if (cached) return cached;
   const thunk = REGION_THUNKS[regionId];
   if (!thunk) return undefined;
-  const data = thunk() as unknown as RegionData;
+  const raw = thunk() as unknown as RegionData;
+  /**
+   * ⚠️ THE ONE PLACE THE CONTACT OVERLAY AND THE CORRECTIONS ARE APPLIED.
+   * Everything downstream — the detail screen, the id index, the cross-region
+   * name search, the route planner — reads a region through this function, so
+   * doing it here means no caller has to know either exists and none can forget
+   * them. It runs once per region, behind the same memo as the parse.
+   *
+   * ⚠️ ORDER MATTERS: overlay first, corrections second. The corrections exist
+   * precisely to undo things the overlay got from a bad source row, so they
+   * have to see the merged result and be the last word on it.
+   */
+  const prepare = (h: Hut) => withCorrections(withContactOverlay(h));
+  const visible = (h: Hut) => !isHidden(h.id);
+  const data: RegionData = {
+    core: raw.core.filter(visible).map(prepare),
+    accommodations: raw.accommodations.filter(visible).map(prepare),
+    villages: raw.villages.filter(visible).map(prepare),
+    rides: raw.rides,
+  };
   cache.set(regionId, data);
   return data;
 }

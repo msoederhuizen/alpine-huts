@@ -1,0 +1,511 @@
+[
+ {
+  "id": "register/47.34788,14.32638",
+  "regionId": "lower-austria-alps",
+  "name": "Ferienhütte Hansbauer",
+  "lat": 47.34788333,
+  "lon": 14.32638333,
+  "type": "alpine_hut",
+  "website": "http://www.urlaub-anbieter.com/ferienhuette.htm",
+  "elevation": 1200,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Ferienhütte Hansbauer",
+   "source": "alpenverein-register",
+   "website": "http://www.urlaub-anbieter.com/ferienhuette.htm",
+   "ele": "1200"
+  }
+ },
+ {
+  "id": "register/47.32105,12.07198",
+  "regionId": "hohe-tauern",
+  "name": "Erla Brennhutte",
+  "lat": 47.321052,
+  "lon": 12.071979,
+  "type": "alpine_hut",
+  "website": "https://www.kitzbueheler-alpen.com/de/hosa/infra/a-z/erla-brennhuette.html",
+  "elevation": 1220,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Erla Brennhutte",
+   "source": "alpenverein-register",
+   "website": "https://www.kitzbueheler-alpen.com/de/hosa/infra/a-z/erla-brennhuette.html",
+   "ele": "1220"
+  }
+ },
+ {
+  "id": "register/47.69218,13.71543",
+  "regionId": "salzburg-dachstein",
+  "name": "Gasthof Rettenbachalm",
+  "lat": 47.69218333,
+  "lon": 13.71543333,
+  "type": "guesthouse",
+  "website": "https://rettenbachalm.co.at/",
+  "elevation": 2138,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Gasthof Rettenbachalm",
+   "source": "alpenverein-register",
+   "website": "https://rettenbachalm.co.at/",
+   "phone": "3.12137E-06",
+   "ele": "2138"
+  }
+ },
+ {
+  "id": "register/47.33508,12.22267",
+  "regionId": "hohe-tauern",
+  "name": "Gamskogelhütte - Nagelhütte",
+  "lat": 47.33508333,
+  "lon": 12.22266667,
+  "type": "alpine_hut",
+  "website": "http://www.gamskogelhuette.com",
+  "elevation": 1095,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Gamskogelhütte - Nagelhütte",
+   "source": "alpenverein-register",
+   "website": "http://www.gamskogelhuette.com",
+   "ele": "1095"
+  }
+ },
+ {
+  "id": "register/46.89115,12.20227",
+  "regionId": "hohe-tauern",
+  "name": "Alpengasthaus Obersee",
+  "lat": 46.89115,
+  "lon": 12.20226667,
+  "type": "alpine_hut",
+  "website": "https://www.alpengasthaus-obersee.com/de",
+  "elevation": 2020,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Alpengasthaus Obersee",
+   "source": "alpenverein-register",
+   "website": "https://www.alpengasthaus-obersee.com/de",
+   "ele": "2020"
+  }
+ },
+ {
+  "id": "register/47.58013,15.11285",
+  "regionId": "lower-austria-alps",
+  "name": "Alpengasthof Bodenbauer",
+  "lat": 47.58013333,
+  "lon": 15.11285,
+  "type": "guesthouse",
+  "website": "http://www.der-bodenbauer.at/",
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Alpengasthof Bodenbauer",
+   "source": "alpenverein-register",
+   "website": "http://www.der-bodenbauer.at/",
+   "phone": "1.36987E-06"
+  }
+ },
+ {
+  "id": "register/47.07097,11.53792",
+  "regionId": "tirol-otztal-zillertal",
+  "name": "Saxerhof - Urlaub am Bauernhof",
+  "lat": 47.07096667,
+  "lon": 11.53791667,
+  "type": "guesthouse",
+  "website": "http://www.saxerhof.at",
+  "elevation": 1366,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Saxerhof - Urlaub am Bauernhof",
+   "source": "alpenverein-register",
+   "website": "http://www.saxerhof.at",
+   "phone": "+43/(0)5279/5358",
+   "ele": "1366"
+  }
+ },
+ {
+  "id": "register/47.40522,12.49152",
+  "regionId": "hohe-tauern",
+  "name": "Hochwildalmhütte",
+  "lat": 47.40521667,
+  "lon": 12.49151667,
+  "type": "alpine_hut",
+  "website": "http://www.hochwildalm-aurach.org",
+  "elevation": 1557,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Hochwildalmhütte",
+   "source": "alpenverein-register",
+   "website": "http://www.hochwildalm-aurach.org",
+   "phone": "+43 664 181 2762",
+   "ele": "1557"
+  }
+ },
+ {
+  "id": "register/46.89897,11.55123",
+  "regionId": "tirol-otztal-zillertal",
+  "name": "Simile-Mahd-Alm-Hütte",
+  "lat": 46.89897,
+  "lon": 11.551232,
+  "type": "alpine_hut",
+  "website": "https://www.similemahd-alm.com/",
+  "elevation": 2011,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Simile-Mahd-Alm-Hütte",
+   "source": "alpenverein-register",
+   "website": "https://www.similemahd-alm.com/",
+   "phone": "1.58432E-08",
+   "ele": "2011"
+  }
+ },
+ {
+  "id": "register/46.81252,11.50307",
+  "regionId": "dolomites",
+  "name": "Puntleider Seealm",
+  "lat": 46.812523,
+  "lon": 11.503068,
+  "type": "alpine_hut",
+  "website": "https://www.alpenvereinaktiv.com/de/bewirtschaftete-huette/puntleider-seealm/7204943/",
+  "elevation": 1777,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Puntleider Seealm",
+   "source": "alpenverein-register",
+   "website": "https://www.alpenvereinaktiv.com/de/bewirtschaftete-huette/puntleider-seealm/7204943/",
+   "phone": "2.17582E-08",
+   "ele": "1777"
+  }
+ },
+ {
+  "id": "register/46.80120,12.45162",
+  "regionId": "julian-carnic-alps",
+  "name": "Der Wurzerhof Osttirol",
+  "lat": 46.8012,
+  "lon": 12.45161667,
+  "type": "guesthouse",
+  "website": "http://www.wurzerhof.at",
+  "elevation": 1380,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Der Wurzerhof Osttirol",
+   "source": "alpenverein-register",
+   "website": "http://www.wurzerhof.at",
+   "phone": "+43/(0)4843/5481",
+   "ele": "1380"
+  }
+ },
+ {
+  "id": "register/46.97448,13.51185",
+  "regionId": "carinthia",
+  "name": "Leonhardhütte",
+  "lat": 46.97448333,
+  "lon": 13.51185,
+  "type": "alpine_hut",
+  "website": "https://www.leonhardhuette.at/",
+  "elevation": 1600,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Leonhardhütte",
+   "source": "alpenverein-register",
+   "website": "https://www.leonhardhuette.at/",
+   "phone": "3.75419E-05",
+   "ele": "1600"
+  }
+ },
+ {
+  "id": "register/47.06963,11.92092",
+  "regionId": "tirol-otztal-zillertal",
+  "name": "Grüne-Wand-Hütte",
+  "lat": 47.06963333,
+  "lon": 11.92091667,
+  "type": "alpine_hut",
+  "elevation": 1438,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Grüne-Wand-Hütte",
+   "source": "alpenverein-register",
+   "phone": "4.36641E+11",
+   "ele": "1438"
+  }
+ },
+ {
+  "id": "register/47.03217,11.77630",
+  "regionId": "tirol-otztal-zillertal",
+  "name": "Grawandhütte",
+  "lat": 47.03216667,
+  "lon": 11.7763,
+  "type": "alpine_hut",
+  "website": "https://grawandhuette.at/",
+  "elevation": 1636,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Grawandhütte",
+   "source": "alpenverein-register",
+   "website": "https://grawandhuette.at/",
+   "phone": "1.56046E-06",
+   "ele": "1636"
+  }
+ },
+ {
+  "id": "register/47.00130,12.59970",
+  "regionId": "hohe-tauern",
+  "name": "Kals-Matreier-Törl-Haus",
+  "lat": 47.0013,
+  "lon": 12.5997,
+  "type": "alpine_hut",
+  "website": "https://www.kalsmatreiertoerl.at/",
+  "elevation": 2207,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Kals-Matreier-Törl-Haus",
+   "source": "alpenverein-register",
+   "website": "https://www.kalsmatreiertoerl.at/",
+   "ele": "2207"
+  }
+ },
+ {
+  "id": "register/47.80745,15.83942",
+  "regionId": "lower-austria-alps",
+  "name": "Gasthaus Mamauwiese",
+  "lat": 47.80745,
+  "lon": 15.83941667,
+  "type": "alpine_hut",
+  "website": "https://www.mamauwiese.at/",
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Gasthaus Mamauwiese",
+   "source": "alpenverein-register",
+   "website": "https://www.mamauwiese.at/",
+   "phone": "2.1898E-06"
+  }
+ },
+ {
+  "id": "register/47.84188,13.57402",
+  "regionId": "salzburg-dachstein",
+  "name": "Feichtingerhof",
+  "lat": 47.84188333,
+  "lon": 13.57401667,
+  "type": "guesthouse",
+  "website": "http://www.bauernhof.at",
+  "elevation": 748,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Feichtingerhof",
+   "source": "alpenverein-register",
+   "website": "http://www.bauernhof.at",
+   "phone": "+43/(0)7663/259",
+   "ele": "748"
+  }
+ },
+ {
+  "id": "register/47.04460,11.53780",
+  "regionId": "tirol-otztal-zillertal",
+  "name": "Jörglerhof - Urlaub am Bauerhof",
+  "lat": 47.0446,
+  "lon": 11.5378,
+  "type": "guesthouse",
+  "website": "http://www.urlaubambauernhof.at",
+  "elevation": 932,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Jörglerhof - Urlaub am Bauerhof",
+   "source": "alpenverein-register",
+   "website": "http://www.urlaubambauernhof.at",
+   "phone": "+43/(0)5279/5341",
+   "ele": "932"
+  }
+ },
+ {
+  "id": "register/47.60140,10.44078",
+  "regionId": "allgau-werdenfels",
+  "name": "Berghaus Hinterreute",
+  "lat": 47.6014,
+  "lon": 10.44078333,
+  "type": "alpine_hut",
+  "website": "https://www.berghaus-hinterreute.com/",
+  "elevation": 1000,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Berghaus Hinterreute",
+   "source": "alpenverein-register",
+   "website": "https://www.berghaus-hinterreute.com/",
+   "phone": "49/711/7696366",
+   "ele": "1000"
+  }
+ },
+ {
+  "id": "register/47.11812,12.82925",
+  "regionId": "hohe-tauern",
+  "name": "Fuschertörlhaus",
+  "lat": 47.11811667,
+  "lon": 12.82925,
+  "type": "alpine_hut",
+  "website": "https://www.alpenverein.at/huetten/1295.php",
+  "elevation": 2445,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Fuschertörlhaus",
+   "source": "alpenverein-register",
+   "website": "https://www.alpenverein.at/huetten/1295.php",
+   "phone": "8.85431E-07",
+   "ele": "2445"
+  }
+ },
+ {
+  "id": "register/46.58471,11.87966",
+  "regionId": "dolomites",
+  "name": "Gardenaccia Hütte",
+  "lat": 46.584711,
+  "lon": 11.879656,
+  "type": "alpine_hut",
+  "website": "http://www.gardenacia.it",
+  "elevation": 2045,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Gardenaccia Hütte",
+   "source": "alpenverein-register",
+   "website": "http://www.gardenacia.it",
+   "phone": "9.85594E-08",
+   "ele": "2045"
+  }
+ },
+ {
+  "id": "register/46.69092,12.81985",
+  "regionId": "julian-carnic-alps",
+  "name": "Gästehaus Ortner",
+  "lat": 46.69091667,
+  "lon": 12.81985,
+  "type": "guesthouse",
+  "website": "http://www.gaestehaus-ortner.at",
+  "elevation": 1018,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Gästehaus Ortner",
+   "source": "alpenverein-register",
+   "website": "http://www.gaestehaus-ortner.at",
+   "phone": "+43/(0)4716/303",
+   "ele": "1018"
+  }
+ },
+ {
+  "id": "register/47.51657,15.99225",
+  "regionId": "lower-austria-alps",
+  "name": "Hallerhaus",
+  "lat": 47.51656667,
+  "lon": 15.99225,
+  "type": "alpine_hut",
+  "website": "http://www.hallerhaus.at",
+  "elevation": 1350,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Hallerhaus",
+   "source": "alpenverein-register",
+   "website": "http://www.hallerhaus.at",
+   "phone": "7.05763E-05",
+   "ele": "1350"
+  }
+ },
+ {
+  "id": "register/47.19505,11.31613",
+  "regionId": "tirol-otztal-zillertal",
+  "name": "Birgitzköpflhütte",
+  "lat": 47.19505,
+  "lon": 11.31613333,
+  "type": "alpine_hut",
+  "website": "https://www.axamer-lizum.at/",
+  "elevation": 2035,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Birgitzköpflhütte",
+   "source": "alpenverein-register",
+   "website": "https://www.axamer-lizum.at/",
+   "phone": "1.43773E-07",
+   "ele": "2035"
+  }
+ },
+ {
+  "id": "register/47.86050,13.95448",
+  "regionId": "salzburg-dachstein",
+  "name": "Pension Mittermayr",
+  "lat": 47.8605,
+  "lon": 13.95448333,
+  "type": "guesthouse",
+  "website": "https://pension-mittermayr.at/",
+  "elevation": 534,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Pension Mittermayr",
+   "source": "alpenverein-register",
+   "website": "https://pension-mittermayr.at/",
+   "phone": "+43/(0)7616/8631",
+   "ele": "534"
+  }
+ },
+ {
+  "id": "register/47.92105,14.29819",
+  "regionId": "lower-austria-alps",
+  "name": "Sulzboden-Hütte",
+  "lat": 47.921047,
+  "lon": 14.298187,
+  "type": "alpine_hut",
+  "website": "https://www.alpenverein.at/huetten/2151.php",
+  "elevation": 1111,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Sulzboden-Hütte",
+   "source": "alpenverein-register",
+   "website": "https://www.alpenverein.at/huetten/2151.php",
+   "ele": "1111"
+  }
+ },
+ {
+  "id": "register/47.70028,12.34972",
+  "regionId": "bavarian-alps-east",
+  "name": "Wuhrsteinalm",
+  "lat": 47.70027778,
+  "lon": 12.34972222,
+  "type": "alpine_hut",
+  "website": "http://www.wuhrsteinalm.de",
+  "elevation": 1120,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Wuhrsteinalm",
+   "source": "alpenverein-register",
+   "website": "http://www.wuhrsteinalm.de",
+   "phone": "08649/986384",
+   "ele": "1120"
+  }
+ },
+ {
+  "id": "register/46.80420,12.38390",
+  "regionId": "julian-carnic-alps",
+  "name": "Almhütte Alfenalm Mittergutnigg",
+  "lat": 46.8042,
+  "lon": 12.3839,
+  "type": "alpine_hut",
+  "website": "https://www.mittergutnigg-huette.at/",
+  "elevation": 1365,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Almhütte Alfenalm Mittergutnigg",
+   "source": "alpenverein-register",
+   "website": "https://www.mittergutnigg-huette.at/",
+   "phone": "+43/(0)664/394 8554",
+   "ele": "1365"
+  }
+ },
+ {
+  "id": "register/47.42224,12.71530",
+  "regionId": "hohe-tauern",
+  "name": "Finsterbach-Hütte",
+  "lat": 47.422239,
+  "lon": 12.715296,
+  "type": "wilderness_hut",
+  "website": "https://www.alpenverein.at/huetten/2145.php",
+  "elevation": 1420,
+  "bookingUrl": "https://www.hut-reservation.org/",
+  "tags": {
+   "name": "Finsterbach-Hütte",
+   "source": "alpenverein-register",
+   "website": "https://www.alpenverein.at/huetten/2145.php",
+   "ele": "1420"
+  }
+ }
+]

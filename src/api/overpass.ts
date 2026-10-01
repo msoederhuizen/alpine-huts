@@ -246,14 +246,23 @@ const bboxStr = (b: BBox) => `${b.south},${b.west},${b.north},${b.east}`;
  */
 function buildCoreQuery(box: BBox): string {
   const bbox = bboxStr(box);
+  // ⚠️ `nwr`, NOT node+way. A hut mapped as a multipolygon RELATION was
+  // invisible to this app: the Oberwalderhütte is relation/14435621, tagged
+  // tourism=alpine_hut, and a query asking only for nodes and ways cannot see
+  // it however many times you regenerate. `out center` already gives a
+  // relation a usable coordinate and the parser has always accepted the type,
+  // so this was purely a hole in the question being asked.
+  //
+  // Only the CORE query gets this. `buildAccommodationsQuery` deliberately
+  // stays on node+way — see the note there: scanning relations for the heavy
+  // name-regex was enough extra work to push the largest region past its
+  // timeout, and relation-mapped hotels are vanishingly rare. Huts are not:
+  // a refuge is a building, and buildings get mapped as multipolygons.
   return `[out:json][timeout:60];
 (
-  node["tourism"="alpine_hut"](${bbox});
-  way["tourism"="alpine_hut"](${bbox});
-  node["tourism"="wilderness_hut"](${bbox});
-  way["tourism"="wilderness_hut"](${bbox});
-  node["amenity"="shelter"]["shelter_type"~"^(${shelterTypes})$"](${bbox});
-  way["amenity"="shelter"]["shelter_type"~"^(${shelterTypes})$"](${bbox});
+  nwr["tourism"="alpine_hut"](${bbox});
+  nwr["tourism"="wilderness_hut"](${bbox});
+  nwr["amenity"="shelter"]["shelter_type"~"^(${shelterTypes})$"](${bbox});
 );
 out center tags;`;
 }

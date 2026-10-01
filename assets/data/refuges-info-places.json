@@ -1,0 +1,1743 @@
+[
+ {
+  "id": "refuges/9852",
+  "regionId": "aosta-valley",
+  "name": "Hospice du Petit Saint-Bernard",
+  "lat": 45.67149,
+  "lon": 6.87559,
+  "type": "guesthouse",
+  "website": "https://www.psbernard.com/",
+  "bookingUrl": "https://www.refuges.info/point/9852/gite-d-etape/hospice-du-Petit-Saint-Bernard/",
+  "tags": {
+   "name": "Hospice du Petit Saint-Bernard",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "28",
+   "website": "https://www.psbernard.com/"
+  }
+ },
+ {
+  "id": "refuges/4435",
+  "regionId": "valais-east",
+  "name": "Ochselägerhutte",
+  "lat": 46.22579,
+  "lon": 7.95374,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/4435/cabane-non-gardee/ochselagerhutte/",
+  "bookingUrl": "https://www.refuges.info/point/4435/cabane-non-gardee/ochselagerhutte/",
+  "tags": {
+   "name": "Ochselägerhutte",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/4435/cabane-non-gardee/ochselagerhutte/"
+  }
+ },
+ {
+  "id": "refuges/6860",
+  "regionId": "ecrins",
+  "name": "Cabane de la Valerette",
+  "lat": 44.72617,
+  "lon": 6.50137,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/6860/cabane-non-gardee/cabane-de-la-Valerette/",
+  "bookingUrl": "https://www.refuges.info/point/6860/cabane-non-gardee/cabane-de-la-Valerette/",
+  "tags": {
+   "name": "Cabane de la Valerette",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/6860/cabane-non-gardee/cabane-de-la-Valerette/"
+  }
+ },
+ {
+  "id": "refuges/4609",
+  "regionId": "ecrins",
+  "name": "Abri de Malpasset",
+  "lat": 45.17969,
+  "lon": 6.22236,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/4609/cabane-non-gardee/abri-de-Malpasset/",
+  "bookingUrl": "https://www.refuges.info/point/4609/cabane-non-gardee/abri-de-Malpasset/",
+  "tags": {
+   "name": "Abri de Malpasset",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/4609/cabane-non-gardee/abri-de-Malpasset/"
+  }
+ },
+ {
+  "id": "refuges/4300",
+  "regionId": "bernese-oberland",
+  "name": "Chalet de la Planche",
+  "lat": 46.50877,
+  "lon": 7.16838,
+  "type": "alpine_hut",
+  "website": "https://rougemont.ch/chalet-de-la-planche",
+  "bookingUrl": "https://www.refuges.info/point/4300/gite-d-etape/chalet-de-la-Planche/",
+  "tags": {
+   "name": "Chalet de la Planche",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://rougemont.ch/chalet-de-la-planche"
+  }
+ },
+ {
+  "id": "refuges/3512",
+  "regionId": "bernese-oberland",
+  "name": "La Tièche",
+  "lat": 46.35006,
+  "lon": 7.53643,
+  "type": "alpine_hut",
+  "website": "https://www.cabanetieche.ch/",
+  "bookingUrl": "https://www.refuges.info/point/3512/refuge-garde/la-Tieche/",
+  "tags": {
+   "name": "La Tièche",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "33",
+   "website": "https://www.cabanetieche.ch/"
+  }
+ },
+ {
+  "id": "refuges/10846",
+  "regionId": "valais-west",
+  "name": "Itre du Bouis",
+  "lat": 46.247,
+  "lon": 7.22242,
+  "type": "wilderness_hut",
+  "website": "https://www.lescoteauxdusoleil.ch/fr/itre-bouis-1784.html",
+  "bookingUrl": "https://www.refuges.info/point/10846/cabane-non-gardee/itre-du-Bouis/",
+  "tags": {
+   "name": "Itre du Bouis",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.lescoteauxdusoleil.ch/fr/itre-bouis-1784.html"
+  }
+ },
+ {
+  "id": "refuges/5387",
+  "regionId": "valais-west",
+  "name": "Abri arête de Prélet",
+  "lat": 46.12339,
+  "lon": 7.53833,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/5387/cabane-non-gardee/abri-arete-de-Prelet/",
+  "bookingUrl": "https://www.refuges.info/point/5387/cabane-non-gardee/abri-arete-de-Prelet/",
+  "tags": {
+   "name": "Abri arête de Prélet",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/5387/cabane-non-gardee/abri-arete-de-Prelet/"
+  }
+ },
+ {
+  "id": "refuges/4840",
+  "regionId": "pyrenees-bearn",
+  "name": "Gîte de'Estebenborda",
+  "lat": 43.26816,
+  "lon": -1.44063,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4840/gite-d-etape/gite-de-Estebenborda/",
+  "bookingUrl": "https://www.refuges.info/point/4840/gite-d-etape/gite-de-Estebenborda/",
+  "tags": {
+   "name": "Gîte de'Estebenborda",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "14",
+   "website": "https://www.refuges.info/point/4840/gite-d-etape/gite-de-Estebenborda/"
+  }
+ },
+ {
+  "id": "refuges/11001",
+  "regionId": "piedmont-alps",
+  "name": "Bivouac Salvasera",
+  "lat": 44.78543,
+  "lon": 7.00597,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/11001/cabane-non-gardee/bivouac-Salvasera/",
+  "bookingUrl": "https://www.refuges.info/point/11001/cabane-non-gardee/bivouac-Salvasera/",
+  "tags": {
+   "name": "Bivouac Salvasera",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/11001/cabane-non-gardee/bivouac-Salvasera/"
+  }
+ },
+ {
+  "id": "refuges/8653",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabane Salode",
+  "lat": 42.85709,
+  "lon": 0.65218,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/8653/cabane-non-gardee/cabane-Salode/",
+  "bookingUrl": "https://www.refuges.info/point/8653/cabane-non-gardee/cabane-Salode/",
+  "tags": {
+   "name": "Cabane Salode",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/8653/cabane-non-gardee/cabane-Salode/"
+  }
+ },
+ {
+  "id": "refuges/3092",
+  "regionId": "bernese-oberland",
+  "name": "Cabane de l'Oberegg",
+  "lat": 46.57142,
+  "lon": 7.32672,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3092/gite-d-etape/cabane-de-l-Oberegg/",
+  "bookingUrl": "https://www.refuges.info/point/3092/gite-d-etape/cabane-de-l-Oberegg/",
+  "tags": {
+   "name": "Cabane de l'Oberegg",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "15",
+   "website": "https://www.refuges.info/point/3092/gite-d-etape/cabane-de-l-Oberegg/"
+  }
+ },
+ {
+  "id": "refuges/126",
+  "regionId": "vanoise",
+  "name": "Chalet du Morbié",
+  "lat": 45.5831,
+  "lon": 6.1023,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/126/gite-d-etape/chalet-du-Morbie/",
+  "bookingUrl": "https://www.refuges.info/point/126/gite-d-etape/chalet-du-Morbie/",
+  "tags": {
+   "name": "Chalet du Morbié",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "15",
+   "website": "https://www.refuges.info/point/126/gite-d-etape/chalet-du-Morbie/"
+  }
+ },
+ {
+  "id": "refuges/4097",
+  "regionId": "valais-west",
+  "name": "Chalet de Chaude",
+  "lat": 46.4274,
+  "lon": 7.0028,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4097/gite-d-etape/chalet-de-Chaude/",
+  "bookingUrl": "https://www.refuges.info/point/4097/gite-d-etape/chalet-de-Chaude/",
+  "tags": {
+   "name": "Chalet de Chaude",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "5",
+   "website": "https://www.refuges.info/point/4097/gite-d-etape/chalet-de-Chaude/"
+  }
+ },
+ {
+  "id": "refuges/421",
+  "regionId": "vercors-chartreuse",
+  "name": "Grange de St Roman",
+  "lat": 44.77721,
+  "lon": 5.47036,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/421/cabane-non-gardee/grange-de-St-Roman/",
+  "bookingUrl": "https://www.refuges.info/point/421/cabane-non-gardee/grange-de-St-Roman/",
+  "tags": {
+   "name": "Grange de St Roman",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "40",
+   "website": "https://www.refuges.info/point/421/cabane-non-gardee/grange-de-St-Roman/"
+  }
+ },
+ {
+  "id": "refuges/6278",
+  "regionId": "pyrenees-ariege",
+  "name": "Refuge d'Eychouzé (Naguilhes)",
+  "lat": 42.6416,
+  "lon": 1.9198,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/6278/cabane-non-gardee/refuge-d-Eychouze-Naguilhes/",
+  "bookingUrl": "https://www.refuges.info/point/6278/cabane-non-gardee/refuge-d-Eychouze-Naguilhes/",
+  "tags": {
+   "name": "Refuge d'Eychouzé (Naguilhes)",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/6278/cabane-non-gardee/refuge-d-Eychouze-Naguilhes/"
+  }
+ },
+ {
+  "id": "refuges/3334",
+  "regionId": "valais-west",
+  "name": "Cabane de Prés Jordan",
+  "lat": 46.34266,
+  "lon": 7.18691,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/3334/cabane-non-gardee/cabane-de-Pres-Jordan/",
+  "bookingUrl": "https://www.refuges.info/point/3334/cabane-non-gardee/cabane-de-Pres-Jordan/",
+  "tags": {
+   "name": "Cabane de Prés Jordan",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/3334/cabane-non-gardee/cabane-de-Pres-Jordan/"
+  }
+ },
+ {
+  "id": "refuges/3970",
+  "regionId": "valais-west",
+  "name": "Cabane du glacier de Tortin",
+  "lat": 46.08491,
+  "lon": 7.31153,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3970/gite-d-etape/cabane-du-glacier-de-Tortin/",
+  "bookingUrl": "https://www.refuges.info/point/3970/gite-d-etape/cabane-du-glacier-de-Tortin/",
+  "tags": {
+   "name": "Cabane du glacier de Tortin",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/3970/gite-d-etape/cabane-du-glacier-de-Tortin/"
+  }
+ },
+ {
+  "id": "refuges/152",
+  "regionId": "vercors-chartreuse",
+  "name": "Gite du Goutarou",
+  "lat": 45.05707,
+  "lon": 5.47893,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/152/gite-d-etape/gite-du-Goutarou/",
+  "bookingUrl": "https://www.refuges.info/point/152/gite-d-etape/gite-du-Goutarou/",
+  "tags": {
+   "name": "Gite du Goutarou",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/152/gite-d-etape/gite-du-Goutarou/"
+  }
+ },
+ {
+  "id": "refuges/11561",
+  "regionId": "vercors-chartreuse",
+  "name": "Tente bivouac du Grand Cerf",
+  "lat": 45.33379,
+  "lon": 5.84005,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/11561/gite-d-etape/Tente-bivouac-du-Grand-Cerf/",
+  "bookingUrl": "https://www.refuges.info/point/11561/gite-d-etape/Tente-bivouac-du-Grand-Cerf/",
+  "tags": {
+   "name": "Tente bivouac du Grand Cerf",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "2",
+   "website": "https://www.refuges.info/point/11561/gite-d-etape/Tente-bivouac-du-Grand-Cerf/"
+  }
+ },
+ {
+  "id": "refuges/10050",
+  "regionId": "valais-west",
+  "name": "Cabane de la Chaux de Miex",
+  "lat": 46.30381,
+  "lon": 7.27049,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/10050/cabane-non-gardee/cabane-de-la-Chaux-de-Miex/",
+  "bookingUrl": "https://www.refuges.info/point/10050/cabane-non-gardee/cabane-de-la-Chaux-de-Miex/",
+  "tags": {
+   "name": "Cabane de la Chaux de Miex",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/10050/cabane-non-gardee/cabane-de-la-Chaux-de-Miex/"
+  }
+ },
+ {
+  "id": "refuges/314",
+  "regionId": "vercors-chartreuse",
+  "name": "Chalet de la Charmette",
+  "lat": 45.32489,
+  "lon": 5.73966,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/314/gite-d-etape/Chalet-de-la-Charmette/",
+  "bookingUrl": "https://www.refuges.info/point/314/gite-d-etape/Chalet-de-la-Charmette/",
+  "tags": {
+   "name": "Chalet de la Charmette",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "24",
+   "website": "https://www.refuges.info/point/314/gite-d-etape/Chalet-de-la-Charmette/"
+  }
+ },
+ {
+  "id": "refuges/2407",
+  "regionId": "vanoise",
+  "name": "Refuge de l'Alpage",
+  "lat": 45.6492,
+  "lon": 6.5649,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2407/gite-d-etape/refuge-de-l-Alpage/",
+  "bookingUrl": "https://www.refuges.info/point/2407/gite-d-etape/refuge-de-l-Alpage/",
+  "tags": {
+   "name": "Refuge de l'Alpage",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "28",
+   "website": "https://www.refuges.info/point/2407/gite-d-etape/refuge-de-l-Alpage/"
+  }
+ },
+ {
+  "id": "refuges/7635",
+  "regionId": "vercors-chartreuse",
+  "name": "Gîte communal Saint-Pancrasse",
+  "lat": 45.2912,
+  "lon": 5.859,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/7635/gite-d-etape/gite-communal-Saint-Pancrasse/",
+  "bookingUrl": "https://www.refuges.info/point/7635/gite-d-etape/gite-communal-Saint-Pancrasse/",
+  "tags": {
+   "name": "Gîte communal Saint-Pancrasse",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/7635/gite-d-etape/gite-communal-Saint-Pancrasse/"
+  }
+ },
+ {
+  "id": "refuges/5634",
+  "regionId": "mercantour",
+  "name": "Cabane forestière de l'Autapie",
+  "lat": 44.1995,
+  "lon": 6.6068,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/5634/cabane-non-gardee/cabane-forestiere-de-l-Autapie/",
+  "bookingUrl": "https://www.refuges.info/point/5634/cabane-non-gardee/cabane-forestiere-de-l-Autapie/",
+  "tags": {
+   "name": "Cabane forestière de l'Autapie",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/5634/cabane-non-gardee/cabane-forestiere-de-l-Autapie/"
+  }
+ },
+ {
+  "id": "refuges/3398",
+  "regionId": "vanoise",
+  "name": "La Cave",
+  "lat": 45.51307,
+  "lon": 6.41446,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/3398/cabane-non-gardee/la-Cave/",
+  "bookingUrl": "https://www.refuges.info/point/3398/cabane-non-gardee/la-Cave/",
+  "tags": {
+   "name": "La Cave",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "9",
+   "website": "https://www.refuges.info/point/3398/cabane-non-gardee/la-Cave/"
+  }
+ },
+ {
+  "id": "refuges/179",
+  "regionId": "mont-blanc-chablais",
+  "name": "Chalet d'Ablon",
+  "lat": 45.932,
+  "lon": 6.2821,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/179/gite-d-etape/chalet-d-Ablon/",
+  "bookingUrl": "https://www.refuges.info/point/179/gite-d-etape/chalet-d-Ablon/",
+  "tags": {
+   "name": "Chalet d'Ablon",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "40",
+   "website": "https://www.refuges.info/point/179/gite-d-etape/chalet-d-Ablon/"
+  }
+ },
+ {
+  "id": "refuges/2554",
+  "regionId": "vanoise",
+  "name": "Chalet de l'Hermettaz",
+  "lat": 45.61581,
+  "lon": 6.3721,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/2554/cabane-non-gardee/chalet-de-l-Hermettaz/",
+  "bookingUrl": "https://www.refuges.info/point/2554/cabane-non-gardee/chalet-de-l-Hermettaz/",
+  "tags": {
+   "name": "Chalet de l'Hermettaz",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/2554/cabane-non-gardee/chalet-de-l-Hermettaz/"
+  }
+ },
+ {
+  "id": "refuges/8746",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabane de Antenac inférieur ou Séridet",
+  "lat": 42.85283,
+  "lon": 0.57785,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/8746/cabane-non-gardee/cabane-de-Antenac-inferieur-ou-Seridet/",
+  "bookingUrl": "https://www.refuges.info/point/8746/cabane-non-gardee/cabane-de-Antenac-inferieur-ou-Seridet/",
+  "tags": {
+   "name": "Cabane de Antenac inférieur ou Séridet",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/8746/cabane-non-gardee/cabane-de-Antenac-inferieur-ou-Seridet/"
+  }
+ },
+ {
+  "id": "refuges/11528",
+  "regionId": "vanoise",
+  "name": "Chalets de la Grande Montagne d'Arvillard",
+  "lat": 45.423,
+  "lon": 6.16243,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/11528/cabane-non-gardee/Chalets-de-la-Grande-Montagne-d-Arvillard/",
+  "bookingUrl": "https://www.refuges.info/point/11528/cabane-non-gardee/Chalets-de-la-Grande-Montagne-d-Arvillard/",
+  "tags": {
+   "name": "Chalets de la Grande Montagne d'Arvillard",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/11528/cabane-non-gardee/Chalets-de-la-Grande-Montagne-d-Arvillard/"
+  }
+ },
+ {
+  "id": "refuges/4322",
+  "regionId": "bernese-oberland",
+  "name": "Restaurant du lac Lioson",
+  "lat": 46.38767,
+  "lon": 7.12766,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4322/gite-d-etape/restaurant-du-lac-Lioson/",
+  "bookingUrl": "https://www.refuges.info/point/4322/gite-d-etape/restaurant-du-lac-Lioson/",
+  "tags": {
+   "name": "Restaurant du lac Lioson",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "48",
+   "website": "https://www.refuges.info/point/4322/gite-d-etape/restaurant-du-lac-Lioson/"
+  }
+ },
+ {
+  "id": "refuges/2974",
+  "regionId": "ecrins",
+  "name": "Le Pas du Loup",
+  "lat": 44.8304,
+  "lon": 6.5643,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2974/gite-d-etape/le-Pas-du-Loup/",
+  "bookingUrl": "https://www.refuges.info/point/2974/gite-d-etape/le-Pas-du-Loup/",
+  "tags": {
+   "name": "Le Pas du Loup",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "30",
+   "website": "https://www.refuges.info/point/2974/gite-d-etape/le-Pas-du-Loup/"
+  }
+ },
+ {
+  "id": "refuges/9587",
+  "regionId": "piedmont-alps",
+  "name": "Cabane de Sommet Bucher",
+  "lat": 44.74249,
+  "lon": 6.80621,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/9587/cabane-non-gardee/cabane-de-Sommet-Bucher/",
+  "bookingUrl": "https://www.refuges.info/point/9587/cabane-non-gardee/cabane-de-Sommet-Bucher/",
+  "tags": {
+   "name": "Cabane de Sommet Bucher",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/9587/cabane-non-gardee/cabane-de-Sommet-Bucher/"
+  }
+ },
+ {
+  "id": "refuges/6105",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabanes du col de Jaüt",
+  "lat": 43.037,
+  "lon": -0.332,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/6105/cabane-non-gardee/cabanes-du-col-de-Jat/",
+  "bookingUrl": "https://www.refuges.info/point/6105/cabane-non-gardee/cabanes-du-col-de-Jat/",
+  "tags": {
+   "name": "Cabanes du col de Jaüt",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/6105/cabane-non-gardee/cabanes-du-col-de-Jat/"
+  }
+ },
+ {
+  "id": "refuges/9531",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabane de Cujalate",
+  "lat": 42.94492,
+  "lon": -0.48937,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/9531/cabane-non-gardee/cabane-de-Cujalate/",
+  "bookingUrl": "https://www.refuges.info/point/9531/cabane-non-gardee/cabane-de-Cujalate/",
+  "tags": {
+   "name": "Cabane de Cujalate",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/9531/cabane-non-gardee/cabane-de-Cujalate/"
+  }
+ },
+ {
+  "id": "refuges/9024",
+  "regionId": "valais-east",
+  "name": "Alpherberge Obern-Galm",
+  "lat": 46.3461,
+  "lon": 7.6771,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/9024/gite-d-etape/alpherberge-Obern-Galm/",
+  "bookingUrl": "https://www.refuges.info/point/9024/gite-d-etape/alpherberge-Obern-Galm/",
+  "tags": {
+   "name": "Alpherberge Obern-Galm",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/9024/gite-d-etape/alpherberge-Obern-Galm/"
+  }
+ },
+ {
+  "id": "refuges/11264",
+  "regionId": "vercors-chartreuse",
+  "name": "Le Plainie",
+  "lat": 44.73028,
+  "lon": 5.59553,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/11264/cabane-non-gardee/le-Plainie/",
+  "bookingUrl": "https://www.refuges.info/point/11264/cabane-non-gardee/le-Plainie/",
+  "tags": {
+   "name": "Le Plainie",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "12",
+   "website": "https://www.refuges.info/point/11264/cabane-non-gardee/le-Plainie/"
+  }
+ },
+ {
+  "id": "refuges/2265",
+  "regionId": "valais-east",
+  "name": "Lonza Biwak (Zmuttgrat)",
+  "lat": 45.98629,
+  "lon": 7.63475,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2265/gite-d-etape/lonza-Biwak-Zmuttgrat/",
+  "bookingUrl": "https://www.refuges.info/point/2265/gite-d-etape/lonza-Biwak-Zmuttgrat/",
+  "tags": {
+   "name": "Lonza Biwak (Zmuttgrat)",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/2265/gite-d-etape/lonza-Biwak-Zmuttgrat/"
+  }
+ },
+ {
+  "id": "refuges/3638",
+  "regionId": "valais-west",
+  "name": "Cabane de Bovinette",
+  "lat": 46.05972,
+  "lon": 7.06097,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3638/gite-d-etape/cabane-de-Bovinette/",
+  "bookingUrl": "https://www.refuges.info/point/3638/gite-d-etape/cabane-de-Bovinette/",
+  "tags": {
+   "name": "Cabane de Bovinette",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "15",
+   "website": "https://www.refuges.info/point/3638/gite-d-etape/cabane-de-Bovinette/"
+  }
+ },
+ {
+  "id": "refuges/4782",
+  "regionId": "piedmont-alps",
+  "name": "Cabane de Razis",
+  "lat": 44.61104,
+  "lon": 6.65023,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/4782/cabane-non-gardee/cabane-de-Razis/",
+  "bookingUrl": "https://www.refuges.info/point/4782/cabane-non-gardee/cabane-de-Razis/",
+  "tags": {
+   "name": "Cabane de Razis",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/4782/cabane-non-gardee/cabane-de-Razis/"
+  }
+ },
+ {
+  "id": "refuges/7934",
+  "regionId": "pyrenees-ariege",
+  "name": "Cabane de Gnioure",
+  "lat": 42.70476,
+  "lon": 1.53138,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/7934/cabane-non-gardee/cabane-de-Gnioure/",
+  "bookingUrl": "https://www.refuges.info/point/7934/cabane-non-gardee/cabane-de-Gnioure/",
+  "tags": {
+   "name": "Cabane de Gnioure",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/7934/cabane-non-gardee/cabane-de-Gnioure/"
+  }
+ },
+ {
+  "id": "refuges/7650",
+  "regionId": "mont-blanc-chablais",
+  "name": "Alpage du Freu",
+  "lat": 45.8193,
+  "lon": 6.40529,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/7650/gite-d-etape/alpage-du-Freu/",
+  "bookingUrl": "https://www.refuges.info/point/7650/gite-d-etape/alpage-du-Freu/",
+  "tags": {
+   "name": "Alpage du Freu",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "39",
+   "website": "https://www.refuges.info/point/7650/gite-d-etape/alpage-du-Freu/"
+  }
+ },
+ {
+  "id": "refuges/3733",
+  "regionId": "valais-west",
+  "name": "La Casita",
+  "lat": 46.06503,
+  "lon": 6.95677,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3733/gite-d-etape/la-Casita/",
+  "bookingUrl": "https://www.refuges.info/point/3733/gite-d-etape/la-Casita/",
+  "tags": {
+   "name": "La Casita",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "12",
+   "website": "https://www.refuges.info/point/3733/gite-d-etape/la-Casita/"
+  }
+ },
+ {
+  "id": "refuges/3606",
+  "regionId": "valais-west",
+  "name": "La Source",
+  "lat": 46.2751,
+  "lon": 7.08554,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3606/gite-d-etape/la-Source/",
+  "bookingUrl": "https://www.refuges.info/point/3606/gite-d-etape/la-Source/",
+  "tags": {
+   "name": "La Source",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "16",
+   "website": "https://www.refuges.info/point/3606/gite-d-etape/la-Source/"
+  }
+ },
+ {
+  "id": "refuges/43",
+  "regionId": "vercors-chartreuse",
+  "name": "Baraque Forestière d'Achieux",
+  "lat": 45.1174,
+  "lon": 5.5022,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/43/cabane-non-gardee/baraque-Forestiere-d-Achieux/",
+  "bookingUrl": "https://www.refuges.info/point/43/cabane-non-gardee/baraque-Forestiere-d-Achieux/",
+  "tags": {
+   "name": "Baraque Forestière d'Achieux",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "30",
+   "website": "https://www.refuges.info/point/43/cabane-non-gardee/baraque-Forestiere-d-Achieux/"
+  }
+ },
+ {
+  "id": "refuges/4256",
+  "regionId": "bernese-oberland",
+  "name": "Buvette des Petits Lacs",
+  "lat": 46.38535,
+  "lon": 7.11626,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4256/gite-d-etape/buvette-des-Petits-Lacs/",
+  "bookingUrl": "https://www.refuges.info/point/4256/gite-d-etape/buvette-des-Petits-Lacs/",
+  "tags": {
+   "name": "Buvette des Petits Lacs",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/4256/gite-d-etape/buvette-des-Petits-Lacs/"
+  }
+ },
+ {
+  "id": "refuges/8647",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabane de la Flache de Roumingau",
+  "lat": 42.71689,
+  "lon": 0.68203,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/8647/cabane-non-gardee/cabane-de-la-Flache-de-Roumingau/",
+  "bookingUrl": "https://www.refuges.info/point/8647/cabane-non-gardee/cabane-de-la-Flache-de-Roumingau/",
+  "tags": {
+   "name": "Cabane de la Flache de Roumingau",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "7",
+   "website": "https://www.refuges.info/point/8647/cabane-non-gardee/cabane-de-la-Flache-de-Roumingau/"
+  }
+ },
+ {
+  "id": "refuges/11630",
+  "regionId": "ecrins",
+  "name": "Gîte-auberge de Pinfol",
+  "lat": 44.6612,
+  "lon": 6.56837,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/11630/gite-d-etape/Gite-auberge-de-Pinfol/",
+  "bookingUrl": "https://www.refuges.info/point/11630/gite-d-etape/Gite-auberge-de-Pinfol/",
+  "tags": {
+   "name": "Gîte-auberge de Pinfol",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/11630/gite-d-etape/Gite-auberge-de-Pinfol/"
+  }
+ },
+ {
+  "id": "refuges/3089",
+  "regionId": "bernese-oberland",
+  "name": "Ratevel",
+  "lat": 46.4795,
+  "lon": 7.0706,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3089/gite-d-etape/ratevel/",
+  "bookingUrl": "https://www.refuges.info/point/3089/gite-d-etape/ratevel/",
+  "tags": {
+   "name": "Ratevel",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "25",
+   "website": "https://www.refuges.info/point/3089/gite-d-etape/ratevel/"
+  }
+ },
+ {
+  "id": "refuges/6605",
+  "regionId": "vercors-chartreuse",
+  "name": "Gîtes-Bivouac des Gabriels",
+  "lat": 44.97964,
+  "lon": 5.38502,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/6605/gite-d-etape/gites-Bivouac-des-Gabriels/",
+  "bookingUrl": "https://www.refuges.info/point/6605/gite-d-etape/gites-Bivouac-des-Gabriels/",
+  "tags": {
+   "name": "Gîtes-Bivouac des Gabriels",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/6605/gite-d-etape/gites-Bivouac-des-Gabriels/"
+  }
+ },
+ {
+  "id": "refuges/4282",
+  "regionId": "bernese-oberland",
+  "name": "Glunggmoos",
+  "lat": 46.69316,
+  "lon": 7.31339,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4282/gite-d-etape/glunggmoos/",
+  "bookingUrl": "https://www.refuges.info/point/4282/gite-d-etape/glunggmoos/",
+  "tags": {
+   "name": "Glunggmoos",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/4282/gite-d-etape/glunggmoos/"
+  }
+ },
+ {
+  "id": "refuges/3722",
+  "regionId": "valais-west",
+  "name": "Gîte d'alpage de Charamillon",
+  "lat": 46.01566,
+  "lon": 6.95877,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3722/gite-d-etape/gite-d-alpage-de-Charamillon/",
+  "bookingUrl": "https://www.refuges.info/point/3722/gite-d-etape/gite-d-alpage-de-Charamillon/",
+  "tags": {
+   "name": "Gîte d'alpage de Charamillon",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "19",
+   "website": "https://www.refuges.info/point/3722/gite-d-etape/gite-d-alpage-de-Charamillon/"
+  }
+ },
+ {
+  "id": "refuges/4260",
+  "regionId": "queyras-brianconnais",
+  "name": "Cabane des Aoupets",
+  "lat": 44.51356,
+  "lon": 6.83952,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/4260/cabane-non-gardee/cabane-des-Aoupets/",
+  "bookingUrl": "https://www.refuges.info/point/4260/cabane-non-gardee/cabane-des-Aoupets/",
+  "tags": {
+   "name": "Cabane des Aoupets",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/4260/cabane-non-gardee/cabane-des-Aoupets/"
+  }
+ },
+ {
+  "id": "refuges/6355",
+  "regionId": "valais-west",
+  "name": "Alpage de Chalavornaire",
+  "lat": 46.36479,
+  "lon": 6.85678,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/6355/gite-d-etape/alpage-de-Chalavornaire/",
+  "bookingUrl": "https://www.refuges.info/point/6355/gite-d-etape/alpage-de-Chalavornaire/",
+  "tags": {
+   "name": "Alpage de Chalavornaire",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "15",
+   "website": "https://www.refuges.info/point/6355/gite-d-etape/alpage-de-Chalavornaire/"
+  }
+ },
+ {
+  "id": "refuges/3022",
+  "regionId": "valais-west",
+  "name": "Chalet-Neuf",
+  "lat": 46.26294,
+  "lon": 6.87101,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3022/gite-d-etape/chalet-Neuf/",
+  "bookingUrl": "https://www.refuges.info/point/3022/gite-d-etape/chalet-Neuf/",
+  "tags": {
+   "name": "Chalet-Neuf",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "35",
+   "website": "https://www.refuges.info/point/3022/gite-d-etape/chalet-Neuf/"
+  }
+ },
+ {
+  "id": "refuges/11629",
+  "regionId": "vanoise",
+  "name": "Chalet forestier du Planet",
+  "lat": 45.36524,
+  "lon": 6.14347,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/11629/cabane-non-gardee/Chalet-forestier-du-Planet/",
+  "bookingUrl": "https://www.refuges.info/point/11629/cabane-non-gardee/Chalet-forestier-du-Planet/",
+  "tags": {
+   "name": "Chalet forestier du Planet",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/11629/cabane-non-gardee/Chalet-forestier-du-Planet/"
+  }
+ },
+ {
+  "id": "refuges/5837",
+  "regionId": "ecrins",
+  "name": "Chalet ONF de Val Froide",
+  "lat": 45.15314,
+  "lon": 6.28393,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/5837/cabane-non-gardee/chalet-ONF-de-Val-Froide/",
+  "bookingUrl": "https://www.refuges.info/point/5837/cabane-non-gardee/chalet-ONF-de-Val-Froide/",
+  "tags": {
+   "name": "Chalet ONF de Val Froide",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/5837/cabane-non-gardee/chalet-ONF-de-Val-Froide/"
+  }
+ },
+ {
+  "id": "refuges/87",
+  "regionId": "vercors-chartreuse",
+  "name": "Cabane de Girieux",
+  "lat": 45.29645,
+  "lon": 5.73341,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/87/cabane-non-gardee/cabane-de-Girieux/",
+  "bookingUrl": "https://www.refuges.info/point/87/cabane-non-gardee/cabane-de-Girieux/",
+  "tags": {
+   "name": "Cabane de Girieux",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/87/cabane-non-gardee/cabane-de-Girieux/"
+  }
+ },
+ {
+  "id": "refuges/11696",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabane de Sarnès",
+  "lat": 42.72458,
+  "lon": 0.53053,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/11696/cabane-non-gardee/Cabane-de-Sarnes/",
+  "bookingUrl": "https://www.refuges.info/point/11696/cabane-non-gardee/Cabane-de-Sarnes/",
+  "tags": {
+   "name": "Cabane de Sarnès",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/11696/cabane-non-gardee/Cabane-de-Sarnes/"
+  }
+ },
+ {
+  "id": "refuges/9995",
+  "regionId": "vanoise",
+  "name": "Abri sur la montée du Bozon",
+  "lat": 45.54575,
+  "lon": 6.53244,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/9995/cabane-non-gardee/abri-sur-la-montee-du-Bozon/",
+  "bookingUrl": "https://www.refuges.info/point/9995/cabane-non-gardee/abri-sur-la-montee-du-Bozon/",
+  "tags": {
+   "name": "Abri sur la montée du Bozon",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/9995/cabane-non-gardee/abri-sur-la-montee-du-Bozon/"
+  }
+ },
+ {
+  "id": "refuges/3601",
+  "regionId": "valais-west",
+  "name": "Gîte du Grenier de Cheville",
+  "lat": 46.28405,
+  "lon": 7.19831,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3601/gite-d-etape/gite-du-Grenier-de-Cheville/",
+  "bookingUrl": "https://www.refuges.info/point/3601/gite-d-etape/gite-du-Grenier-de-Cheville/",
+  "tags": {
+   "name": "Gîte du Grenier de Cheville",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/3601/gite-d-etape/gite-du-Grenier-de-Cheville/"
+  }
+ },
+ {
+  "id": "refuges/10028",
+  "regionId": "mercantour",
+  "name": "Les granges de la Brasque",
+  "lat": 44.00964,
+  "lon": 7.2476,
+  "type": "alpine_hut",
+  "website": "https://www.refuges.info/point/10028/refuge-garde/les-granges-de-la-Brasque/",
+  "bookingUrl": "https://www.refuges.info/point/10028/refuge-garde/les-granges-de-la-Brasque/",
+  "tags": {
+   "name": "Les granges de la Brasque",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "54",
+   "website": "https://www.refuges.info/point/10028/refuge-garde/les-granges-de-la-Brasque/"
+  }
+ },
+ {
+  "id": "refuges/1873",
+  "regionId": "vercors-chartreuse",
+  "name": "Abri et fontaine du Grand Ferrand",
+  "lat": 44.71433,
+  "lon": 5.76792,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/1873/cabane-non-gardee/abri-et-fontaine-du-Grand-Ferrand/",
+  "bookingUrl": "https://www.refuges.info/point/1873/cabane-non-gardee/abri-et-fontaine-du-Grand-Ferrand/",
+  "tags": {
+   "name": "Abri et fontaine du Grand Ferrand",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "12",
+   "website": "https://www.refuges.info/point/1873/cabane-non-gardee/abri-et-fontaine-du-Grand-Ferrand/"
+  }
+ },
+ {
+  "id": "refuges/153",
+  "regionId": "vercors-chartreuse",
+  "name": "Abbaye de Valcroissant",
+  "lat": 44.74639,
+  "lon": 5.43213,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/153/gite-d-etape/abbaye-de-Valcroissant/",
+  "bookingUrl": "https://www.refuges.info/point/153/gite-d-etape/abbaye-de-Valcroissant/",
+  "tags": {
+   "name": "Abbaye de Valcroissant",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "18",
+   "website": "https://www.refuges.info/point/153/gite-d-etape/abbaye-de-Valcroissant/"
+  }
+ },
+ {
+  "id": "refuges/10483",
+  "regionId": "mont-blanc-chablais",
+  "name": "Cabane des Conscrits",
+  "lat": 45.78977,
+  "lon": 6.78145,
+  "type": "alpine_hut",
+  "website": "https://www.refuges.info/point/10483/refuge-garde/cabane-des-Conscrits/",
+  "bookingUrl": "https://www.refuges.info/point/10483/refuge-garde/cabane-des-Conscrits/",
+  "tags": {
+   "name": "Cabane des Conscrits",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/10483/refuge-garde/cabane-des-Conscrits/"
+  }
+ },
+ {
+  "id": "refuges/1506",
+  "regionId": "vercors-chartreuse",
+  "name": "Refuge de La Sure",
+  "lat": 45.23004,
+  "lon": 5.58141,
+  "type": "alpine_hut",
+  "website": "https://www.refuges.info/point/1506/refuge-garde/refuge-de-La-Sure/",
+  "bookingUrl": "https://www.refuges.info/point/1506/refuge-garde/refuge-de-La-Sure/",
+  "tags": {
+   "name": "Refuge de La Sure",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/1506/refuge-garde/refuge-de-La-Sure/"
+  }
+ },
+ {
+  "id": "refuges/68",
+  "regionId": "vanoise",
+  "name": "Refuge d'Orgeval",
+  "lat": 45.67929,
+  "lon": 6.2389,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/68/gite-d-etape/refuge-d-Orgeval/",
+  "bookingUrl": "https://www.refuges.info/point/68/gite-d-etape/refuge-d-Orgeval/",
+  "tags": {
+   "name": "Refuge d'Orgeval",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/68/gite-d-etape/refuge-d-Orgeval/"
+  }
+ },
+ {
+  "id": "refuges/10240",
+  "regionId": "vercors-chartreuse",
+  "name": "Vercors Intense",
+  "lat": 44.85249,
+  "lon": 5.37372,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/10240/gite-d-etape/vercors-Intense/",
+  "bookingUrl": "https://www.refuges.info/point/10240/gite-d-etape/vercors-Intense/",
+  "tags": {
+   "name": "Vercors Intense",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "15",
+   "website": "https://www.refuges.info/point/10240/gite-d-etape/vercors-Intense/"
+  }
+ },
+ {
+  "id": "refuges/6251",
+  "regionId": "pyrenees-ariege",
+  "name": "Cabane de Cizarols",
+  "lat": 42.66596,
+  "lon": 1.87661,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/6251/cabane-non-gardee/cabane-de-Cizarols/",
+  "bookingUrl": "https://www.refuges.info/point/6251/cabane-non-gardee/cabane-de-Cizarols/",
+  "tags": {
+   "name": "Cabane de Cizarols",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/6251/cabane-non-gardee/cabane-de-Cizarols/"
+  }
+ },
+ {
+  "id": "refuges/4018",
+  "regionId": "valais-west",
+  "name": "Buvette d'Arbey",
+  "lat": 46.1127,
+  "lon": 7.47834,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4018/gite-d-etape/buvette-d-Arbey/",
+  "bookingUrl": "https://www.refuges.info/point/4018/gite-d-etape/buvette-d-Arbey/",
+  "tags": {
+   "name": "Buvette d'Arbey",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/4018/gite-d-etape/buvette-d-Arbey/"
+  }
+ },
+ {
+  "id": "refuges/10725",
+  "regionId": "ecrins",
+  "name": "Clos de l'Alpe",
+  "lat": 44.86711,
+  "lon": 5.93662,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/10725/cabane-non-gardee/clos-de-l-Alpe/",
+  "bookingUrl": "https://www.refuges.info/point/10725/cabane-non-gardee/clos-de-l-Alpe/",
+  "tags": {
+   "name": "Clos de l'Alpe",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "9",
+   "website": "https://www.refuges.info/point/10725/cabane-non-gardee/clos-de-l-Alpe/"
+  }
+ },
+ {
+  "id": "refuges/6306",
+  "regionId": "vercors-chartreuse",
+  "name": "Camping et refuge Les Pins",
+  "lat": 44.87509,
+  "lon": 5.37922,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/6306/gite-d-etape/camping-et-refuge-Les-Pins/",
+  "bookingUrl": "https://www.refuges.info/point/6306/gite-d-etape/camping-et-refuge-Les-Pins/",
+  "tags": {
+   "name": "Camping et refuge Les Pins",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/6306/gite-d-etape/camping-et-refuge-Les-Pins/"
+  }
+ },
+ {
+  "id": "refuges/1894",
+  "regionId": "vercors-chartreuse",
+  "name": "Baraque forestiere des Ponche",
+  "lat": 44.71008,
+  "lon": 5.78841,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/1894/cabane-non-gardee/baraque-forestiere-des-Ponche/",
+  "bookingUrl": "https://www.refuges.info/point/1894/cabane-non-gardee/baraque-forestiere-des-Ponche/",
+  "tags": {
+   "name": "Baraque forestiere des Ponche",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/1894/cabane-non-gardee/baraque-forestiere-des-Ponche/"
+  }
+ },
+ {
+  "id": "refuges/4283",
+  "regionId": "bernese-oberland",
+  "name": "Kneuwis",
+  "lat": 46.70397,
+  "lon": 7.30565,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4283/gite-d-etape/kneuwis/",
+  "bookingUrl": "https://www.refuges.info/point/4283/gite-d-etape/kneuwis/",
+  "tags": {
+   "name": "Kneuwis",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "25",
+   "website": "https://www.refuges.info/point/4283/gite-d-etape/kneuwis/"
+  }
+ },
+ {
+  "id": "refuges/5894",
+  "regionId": "piedmont-alps",
+  "name": "Refuge La Yourte des Ayes",
+  "lat": 44.83329,
+  "lon": 6.67265,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/5894/gite-d-etape/refuge-La-Yourte-des-Ayes/",
+  "bookingUrl": "https://www.refuges.info/point/5894/gite-d-etape/refuge-La-Yourte-des-Ayes/",
+  "tags": {
+   "name": "Refuge La Yourte des Ayes",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "12",
+   "website": "https://www.refuges.info/point/5894/gite-d-etape/refuge-La-Yourte-des-Ayes/"
+  }
+ },
+ {
+  "id": "refuges/2902",
+  "regionId": "valais-west",
+  "name": "Cabane de Planachaux",
+  "lat": 46.17514,
+  "lon": 6.83014,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2902/gite-d-etape/cabane-de-Planachaux/",
+  "bookingUrl": "https://www.refuges.info/point/2902/gite-d-etape/cabane-de-Planachaux/",
+  "tags": {
+   "name": "Cabane de Planachaux",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/2902/gite-d-etape/cabane-de-Planachaux/"
+  }
+ },
+ {
+  "id": "refuges/2179",
+  "regionId": "vanoise",
+  "name": "Ferme auberge du Gleyzin",
+  "lat": 45.33581,
+  "lon": 6.12028,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2179/gite-d-etape/ferme-auberge-du-Gleyzin/",
+  "bookingUrl": "https://www.refuges.info/point/2179/gite-d-etape/ferme-auberge-du-Gleyzin/",
+  "tags": {
+   "name": "Ferme auberge du Gleyzin",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/2179/gite-d-etape/ferme-auberge-du-Gleyzin/"
+  }
+ },
+ {
+  "id": "refuges/1677",
+  "regionId": "piedmont-alps",
+  "name": "Refuge-bivouac de Marinet",
+  "lat": 44.56112,
+  "lon": 6.86575,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/1677/cabane-non-gardee/refuge-bivouac-de-Marinet/",
+  "bookingUrl": "https://www.refuges.info/point/1677/cabane-non-gardee/refuge-bivouac-de-Marinet/",
+  "tags": {
+   "name": "Refuge-bivouac de Marinet",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/1677/cabane-non-gardee/refuge-bivouac-de-Marinet/"
+  }
+ },
+ {
+  "id": "refuges/3615",
+  "regionId": "valais-west",
+  "name": "Restaurant des Chaux",
+  "lat": 46.2958,
+  "lon": 7.103,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3615/gite-d-etape/restaurant-des-Chaux/",
+  "bookingUrl": "https://www.refuges.info/point/3615/gite-d-etape/restaurant-des-Chaux/",
+  "tags": {
+   "name": "Restaurant des Chaux",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "21",
+   "website": "https://www.refuges.info/point/3615/gite-d-etape/restaurant-des-Chaux/"
+  }
+ },
+ {
+  "id": "refuges/4585",
+  "regionId": "pyrenees-bearn",
+  "name": "Chalets d'Iraty",
+  "lat": 43.03876,
+  "lon": -1.02812,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4585/gite-d-etape/chalets-d-Iraty/",
+  "bookingUrl": "https://www.refuges.info/point/4585/gite-d-etape/chalets-d-Iraty/",
+  "tags": {
+   "name": "Chalets d'Iraty",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "25",
+   "website": "https://www.refuges.info/point/4585/gite-d-etape/chalets-d-Iraty/"
+  }
+ },
+ {
+  "id": "refuges/3581",
+  "regionId": "vanoise",
+  "name": "Grange des Garennes",
+  "lat": 45.7687,
+  "lon": 6.0869,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/3581/cabane-non-gardee/grange-des-Garennes/",
+  "bookingUrl": "https://www.refuges.info/point/3581/cabane-non-gardee/grange-des-Garennes/",
+  "tags": {
+   "name": "Grange des Garennes",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/3581/cabane-non-gardee/grange-des-Garennes/"
+  }
+ },
+ {
+  "id": "refuges/4032",
+  "regionId": "vercors-chartreuse",
+  "name": "Gîte La Batteuse",
+  "lat": 45.02291,
+  "lon": 5.45308,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4032/gite-d-etape/gite-La-Batteuse/",
+  "bookingUrl": "https://www.refuges.info/point/4032/gite-d-etape/gite-La-Batteuse/",
+  "tags": {
+   "name": "Gîte La Batteuse",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "35",
+   "website": "https://www.refuges.info/point/4032/gite-d-etape/gite-La-Batteuse/"
+  }
+ },
+ {
+  "id": "refuges/6458",
+  "regionId": "valais-west",
+  "name": "Chalet En Baye, Scouts de Montreux",
+  "lat": 46.45839,
+  "lon": 6.96721,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/6458/gite-d-etape/chalet-En-Baye-Scouts-de-Montreux/",
+  "bookingUrl": "https://www.refuges.info/point/6458/gite-d-etape/chalet-En-Baye-Scouts-de-Montreux/",
+  "tags": {
+   "name": "Chalet En Baye, Scouts de Montreux",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "21",
+   "website": "https://www.refuges.info/point/6458/gite-d-etape/chalet-En-Baye-Scouts-de-Montreux/"
+  }
+ },
+ {
+  "id": "refuges/3026",
+  "regionId": "valais-west",
+  "name": "Centre sportif des Jeurs",
+  "lat": 46.21562,
+  "lon": 6.96202,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3026/gite-d-etape/centre-sportif-des-Jeurs/",
+  "bookingUrl": "https://www.refuges.info/point/3026/gite-d-etape/centre-sportif-des-Jeurs/",
+  "tags": {
+   "name": "Centre sportif des Jeurs",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "100",
+   "website": "https://www.refuges.info/point/3026/gite-d-etape/centre-sportif-des-Jeurs/"
+  }
+ },
+ {
+  "id": "refuges/5872",
+  "regionId": "pyrenees-centrales",
+  "name": "Cabane del Tormo",
+  "lat": 42.66837,
+  "lon": 0.50853,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/5872/cabane-non-gardee/cabane-del-Tormo/",
+  "bookingUrl": "https://www.refuges.info/point/5872/cabane-non-gardee/cabane-del-Tormo/",
+  "tags": {
+   "name": "Cabane del Tormo",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "10",
+   "website": "https://www.refuges.info/point/5872/cabane-non-gardee/cabane-del-Tormo/"
+  }
+ },
+ {
+  "id": "refuges/483",
+  "regionId": "piedmont-alps",
+  "name": "Refuge de l'Aiguille de Doran",
+  "lat": 45.22256,
+  "lon": 6.67501,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/483/gite-d-etape/refuge-de-l-Aiguille-de-Doran/",
+  "bookingUrl": "https://www.refuges.info/point/483/gite-d-etape/refuge-de-l-Aiguille-de-Doran/",
+  "tags": {
+   "name": "Refuge de l'Aiguille de Doran",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "30",
+   "website": "https://www.refuges.info/point/483/gite-d-etape/refuge-de-l-Aiguille-de-Doran/"
+  }
+ },
+ {
+  "id": "refuges/4900",
+  "regionId": "pyrenees-bearn",
+  "name": "Cabane de Linza",
+  "lat": 42.90346,
+  "lon": -0.77269,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/4900/cabane-non-gardee/cabane-de-Linza/",
+  "bookingUrl": "https://www.refuges.info/point/4900/cabane-non-gardee/cabane-de-Linza/",
+  "tags": {
+   "name": "Cabane de Linza",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "6",
+   "website": "https://www.refuges.info/point/4900/cabane-non-gardee/cabane-de-Linza/"
+  }
+ },
+ {
+  "id": "refuges/6296",
+  "regionId": "ecrins",
+  "name": "Chalet Au Fil de l'Onde",
+  "lat": 44.8392,
+  "lon": 6.48847,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/6296/gite-d-etape/chalet-Au-Fil-de-l-Onde/",
+  "bookingUrl": "https://www.refuges.info/point/6296/gite-d-etape/chalet-Au-Fil-de-l-Onde/",
+  "tags": {
+   "name": "Chalet Au Fil de l'Onde",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "12",
+   "website": "https://www.refuges.info/point/6296/gite-d-etape/chalet-Au-Fil-de-l-Onde/"
+  }
+ },
+ {
+  "id": "refuges/299",
+  "regionId": "vanoise",
+  "name": "Refuge de Bornette",
+  "lat": 45.7311,
+  "lon": 6.1849,
+  "type": "alpine_hut",
+  "website": "https://www.refuges.info/point/299/refuge-garde/refuge-de-Bornette/",
+  "bookingUrl": "https://www.refuges.info/point/299/refuge-garde/refuge-de-Bornette/",
+  "tags": {
+   "name": "Refuge de Bornette",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/299/refuge-garde/refuge-de-Bornette/"
+  }
+ },
+ {
+  "id": "refuges/7925",
+  "regionId": "pyrenees-ariege",
+  "name": "Cabane de Balledreyt",
+  "lat": 42.7266,
+  "lon": 1.6264,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/7925/cabane-non-gardee/cabane-de-Balledreyt/",
+  "bookingUrl": "https://www.refuges.info/point/7925/cabane-non-gardee/cabane-de-Balledreyt/",
+  "tags": {
+   "name": "Cabane de Balledreyt",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/7925/cabane-non-gardee/cabane-de-Balledreyt/"
+  }
+ },
+ {
+  "id": "refuges/2900",
+  "regionId": "valais-west",
+  "name": "Chalet des Grands-Dessus",
+  "lat": 46.02297,
+  "lon": 7.00478,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2900/gite-d-etape/chalet-des-Grands-Dessus/",
+  "bookingUrl": "https://www.refuges.info/point/2900/gite-d-etape/chalet-des-Grands-Dessus/",
+  "tags": {
+   "name": "Chalet des Grands-Dessus",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "15",
+   "website": "https://www.refuges.info/point/2900/gite-d-etape/chalet-des-Grands-Dessus/"
+  }
+ },
+ {
+  "id": "refuges/4090",
+  "regionId": "queyras-brianconnais",
+  "name": "Le Belvédère de Sainte-Anne",
+  "lat": 44.47167,
+  "lon": 6.72444,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/4090/gite-d-etape/le-Belvedere-de-Sainte-Anne/",
+  "bookingUrl": "https://www.refuges.info/point/4090/gite-d-etape/le-Belvedere-de-Sainte-Anne/",
+  "tags": {
+   "name": "Le Belvédère de Sainte-Anne",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "16",
+   "website": "https://www.refuges.info/point/4090/gite-d-etape/le-Belvedere-de-Sainte-Anne/"
+  }
+ },
+ {
+  "id": "refuges/2317",
+  "regionId": "vanoise",
+  "name": "La Perrière (Feissons)",
+  "lat": 45.597,
+  "lon": 6.51427,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/2317/cabane-non-gardee/la-Perriere-Feissons/",
+  "bookingUrl": "https://www.refuges.info/point/2317/cabane-non-gardee/la-Perriere-Feissons/",
+  "tags": {
+   "name": "La Perrière (Feissons)",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "8",
+   "website": "https://www.refuges.info/point/2317/cabane-non-gardee/la-Perriere-Feissons/"
+  }
+ },
+ {
+  "id": "refuges/5379",
+  "regionId": "vanoise",
+  "name": "Refuge le Cormet",
+  "lat": 45.61359,
+  "lon": 6.60779,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/5379/cabane-non-gardee/refuge-le-Cormet/",
+  "bookingUrl": "https://www.refuges.info/point/5379/cabane-non-gardee/refuge-le-Cormet/",
+  "tags": {
+   "name": "Refuge le Cormet",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/5379/cabane-non-gardee/refuge-le-Cormet/"
+  }
+ },
+ {
+  "id": "refuges/5487",
+  "regionId": "valais-west",
+  "name": "Chalet refuge La Montagne",
+  "lat": 45.9331,
+  "lon": 6.8836,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/5487/gite-d-etape/chalet-refuge-La-Montagne/",
+  "bookingUrl": "https://www.refuges.info/point/5487/gite-d-etape/chalet-refuge-La-Montagne/",
+  "tags": {
+   "name": "Chalet refuge La Montagne",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "52",
+   "website": "https://www.refuges.info/point/5487/gite-d-etape/chalet-refuge-La-Montagne/"
+  }
+ },
+ {
+  "id": "refuges/2363",
+  "regionId": "ecrins",
+  "name": "Gîte-Refuge de la Juliane",
+  "lat": 44.8636,
+  "lon": 6.4963,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/2363/gite-d-etape/gite-Refuge-de-la-Juliane/",
+  "bookingUrl": "https://www.refuges.info/point/2363/gite-d-etape/gite-Refuge-de-la-Juliane/",
+  "tags": {
+   "name": "Gîte-Refuge de la Juliane",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "16",
+   "website": "https://www.refuges.info/point/2363/gite-d-etape/gite-Refuge-de-la-Juliane/"
+  }
+ },
+ {
+  "id": "refuges/5613",
+  "regionId": "vanoise",
+  "name": "Abri du Planay",
+  "lat": 45.7205,
+  "lon": 6.1977,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/5613/cabane-non-gardee/abri-du-Planay/",
+  "bookingUrl": "https://www.refuges.info/point/5613/cabane-non-gardee/abri-du-Planay/",
+  "tags": {
+   "name": "Abri du Planay",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "9",
+   "website": "https://www.refuges.info/point/5613/cabane-non-gardee/abri-du-Planay/"
+  }
+ },
+ {
+  "id": "refuges/11694",
+  "regionId": "pyrenees-centrales",
+  "name": "Baraquements de la Pique",
+  "lat": 42.71785,
+  "lon": 0.65179,
+  "type": "wilderness_hut",
+  "website": "https://www.refuges.info/point/11694/cabane-non-gardee/Baraquements-de-la-Pique/",
+  "bookingUrl": "https://www.refuges.info/point/11694/cabane-non-gardee/Baraquements-de-la-Pique/",
+  "tags": {
+   "name": "Baraquements de la Pique",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "20",
+   "website": "https://www.refuges.info/point/11694/cabane-non-gardee/Baraquements-de-la-Pique/"
+  }
+ },
+ {
+  "id": "refuges/3547",
+  "regionId": "ecrins",
+  "name": "Gîte d'étape L'Aiglière",
+  "lat": 44.84407,
+  "lon": 6.48403,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/3547/gite-d-etape/gite-d-etape-L-Aigliere/",
+  "bookingUrl": "https://www.refuges.info/point/3547/gite-d-etape/gite-d-etape-L-Aigliere/",
+  "tags": {
+   "name": "Gîte d'étape L'Aiglière",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "21",
+   "website": "https://www.refuges.info/point/3547/gite-d-etape/gite-d-etape-L-Aigliere/"
+  }
+ },
+ {
+  "id": "refuges/10713",
+  "regionId": "valais-west",
+  "name": "Chalet Le Dolent",
+  "lat": 45.92942,
+  "lon": 7.09638,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/10713/gite-d-etape/chalet-Le-Dolent/",
+  "bookingUrl": "https://www.refuges.info/point/10713/gite-d-etape/chalet-Le-Dolent/",
+  "tags": {
+   "name": "Chalet Le Dolent",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "30",
+   "website": "https://www.refuges.info/point/10713/gite-d-etape/chalet-Le-Dolent/"
+  }
+ },
+ {
+  "id": "refuges/404",
+  "regionId": "mont-blanc-chablais",
+  "name": "Chalet le Zaulay (ou Zolé)",
+  "lat": 46.2105,
+  "lon": 6.72522,
+  "type": "alpine_hut",
+  "website": "https://www.refuges.info/point/404/refuge-garde/chalet-le-Zaulay-ou-Zole/",
+  "bookingUrl": "https://www.refuges.info/point/404/refuge-garde/chalet-le-Zaulay-ou-Zole/",
+  "tags": {
+   "name": "Chalet le Zaulay (ou Zolé)",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "website": "https://www.refuges.info/point/404/refuge-garde/chalet-le-Zaulay-ou-Zole/"
+  }
+ },
+ {
+  "id": "refuges/8455",
+  "regionId": "vanoise",
+  "name": "Chalet du Berger",
+  "lat": 45.69369,
+  "lon": 6.67234,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/8455/gite-d-etape/chalet-du-Berger/",
+  "bookingUrl": "https://www.refuges.info/point/8455/gite-d-etape/chalet-du-Berger/",
+  "tags": {
+   "name": "Chalet du Berger",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "17",
+   "website": "https://www.refuges.info/point/8455/gite-d-etape/chalet-du-Berger/"
+  }
+ },
+ {
+  "id": "refuges/1131",
+  "regionId": "vanoise",
+  "name": "Gite des Landagnes",
+  "lat": 45.65069,
+  "lon": 6.16326,
+  "type": "guesthouse",
+  "website": "https://www.refuges.info/point/1131/gite-d-etape/gite-des-Landagnes/",
+  "bookingUrl": "https://www.refuges.info/point/1131/gite-d-etape/gite-des-Landagnes/",
+  "tags": {
+   "name": "Gite des Landagnes",
+   "source": "refuges.info",
+   "source:licence": "CC BY-SA 2.0",
+   "capacity": "19",
+   "website": "https://www.refuges.info/point/1131/gite-d-etape/gite-des-Landagnes/"
+  }
+ }
+]

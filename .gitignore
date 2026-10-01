@@ -67,3 +67,12 @@ unsearchable-places.csv
 photo-locations.json
 agg-verdicts.json
 leg-warm.done
+
+# Review aid written beside each overlay — regenerate with the importer.
+assets/data/*-provenance.json
+overlay-review.html
+missing-huts-review.html
+assets/data/missing-huts-osm.json
+missing-huts-to-check.csv
+refuges-info-missing.csv
+assets/data/refuges-info-points.json
