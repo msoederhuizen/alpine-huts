@@ -49,49 +49,82 @@
 <body>
 <main>
   <h1>Privacy Policy</h1>
-  <p class="lede">Alpine Huts &middot; last updated 28 September 2026</p>
+  <p class="lede">Alpine Huts &middot; last updated 1 October 2026</p>
 
   <div class="card">
-    <p><strong>The short version.</strong> Alpine Huts has no sign-up, no analytics and no advertising. Everything you plan,
-    save and photograph stays on your phone, and your location never leaves it.</p>
-    <p>There is one exception, and it only happens if you choose it: you can <strong>send a photo or a review</strong> to be
-    shared with other walkers. Doing that uploads what you wrote or photographed, and creates an anonymous identifier so the
-    contribution can be linked back to you &mdash; which is what lets you edit or delete it later. You can delete everything
-    you have sent, at any time, from inside the app.</p>
+    <p><strong>The short version.</strong> Alpine Huts has no analytics and no advertising. Looking at the map, the huts and
+    the trails needs no account at all, and your location never leaves your phone.</p>
+    <p>An <strong>account</strong> &mdash; an email address and a password, and nothing else &mdash; is needed to save a trip,
+    to share one with somebody, and to send in a photo or a review. It exists so that what you keep survives a new phone,
+    and so that what you share can be corrected or taken back. You can delete it, and everything you have sent, at any time
+    from inside the app.</p>
   </div>
 
   <h2>What stays on your device</h2>
   <p>These are stored only in the app's own storage on your phone. They are not transmitted, backed up to us, or shared:</p>
   <ul>
     <li>Notes you write about a hut</li>
-    <li>Routes and trips you plan or save</li>
+    <li>Routes and trips you plan or save &mdash; unless you choose to share one, which is covered below</li>
     <li>Your settings, such as your chosen region and difficulty ceiling</li>
     <li>Hut photographs the app has downloaded so they work without a signal</li>
   </ul>
   <p>Deleting the app removes all of it. There is no copy anywhere else &mdash; unless you have chosen to send something in,
   which is covered next.</p>
 
-  <h2>If you add a photo or leave a review</h2>
+  <h2>If you add a photo, leave a review or report something</h2>
   <p>This is entirely optional — the rest of the app works exactly the same if you never do.</p>
   <p><strong>Adding a photo to a hut shares it.</strong> There is no private-only option: every photo you add is sent to be
   checked and then shown to other walkers. A copy is also kept on your phone so you can see it straight away, and you can
   delete it at any time. If you would rather keep a photo to yourself, keep it in your own photo library rather than adding
   it here.</p>
+  <p><strong>Reports are different: they are never shown to anyone else.</strong> If you tell us a hut has closed, that a
+  photograph is wrong, or that a hut is missing from the map, that goes to one person who checks it. It is not published,
+  and no other walker sees it.</p>
+
+  <h3>Reporting a hut that is missing</h3>
+  <p>There are two ways to do this, and they differ in exactly one respect, so both are set out here.</p>
+  <p><strong>Pressing and holding the map</strong> sends <strong>the point you pressed</strong> — a place you chose. It is
+  not your own position, and the app does not read your location to do it.</p>
+  <p><strong>The button on the Account tab</strong> is for when you are standing at the hut, and it does read your position
+  — that is the whole point of it. It asks for permission first, takes one reading, and sends that single point with the
+  report. Nothing is tracked, nothing is kept, and refusing simply sends you to the press-and-hold method instead.</p>
+  <p>You can add a photograph, and it helps. If you do, <strong>the location recorded inside that photograph is removed on
+  your phone before it is sent.</strong> Phone cameras store where a picture was taken to within a few metres; you are
+  offering a picture of a hut, not a record of where you stood. Removing it after it arrived would still mean it had
+  arrived — so it is removed first. Photographs in a format we cannot do this to are refused rather than sent.</p>
 
   <h3>What is sent</h3>
   <ul>
     <li>The photograph itself, and any caption you write with it</li>
     <li>Your star rating and any comment you write</li>
     <li>Which hut it is about, and the date and time you sent it</li>
-    <li>An <strong>anonymous identifier</strong> created for your device</li>
+    <li>For a report: what you are reporting and anything you write about it</li>
+    <li>For a missing hut: its name, the point you marked on the map, and the type if you chose one</li>
+    <li>For a shared route: the huts on it, their order, and the trail between them</li>
+    <li>The identifier of your account &mdash; see below. Your email address is <em>not</em> attached to the contribution
+      itself and is never shown to other walkers</li>
   </ul>
 
-  <h3>The anonymous identifier</h3>
-  <p>The first time you send something, the app creates an account for you automatically. It has <strong>no email address,
-  no password and no name</strong> &mdash; it is a random identifier, nothing more. It exists so that your own contributions
-  can be shown back to you and so that you can edit or delete them afterwards. Under data-protection law it still counts as
-  personal data, which is why it is described here.</p>
-  <p>It belongs to that installation of the app. Reinstalling, or using a second phone, creates a different one.</p>
+  <h2>Your account</h2>
+  <p>You do not need an account to use the app. The map, every hut, every trail and every photograph are there the moment
+  you open it, with nothing asked for.</p>
+  <p>You do need one to <strong>save a trip</strong>, to <strong>share a route</strong>, and to <strong>send in a photo, a
+  review or a report</strong>. An account is an <strong>email address and a password</strong>. No name, no telephone
+  number, no date of birth, and nothing is ever asked of your contacts or your calendar.</p>
+  <p>Your address is used to let you sign in on a new phone, to send a password reset if you ask for one, and to reach you
+  if there is a question about something you shared. It is never shown to other walkers, never attached to a photograph or
+  a review, never sold, and never used to send you anything you did not ask for.</p>
+  <p>Accounts are handled by <a href="https://supabase.com/privacy">Supabase</a>, which stores the address and a secure
+  hash of your password &mdash; we never see the password itself.</p>
+  <p><strong>Deleting your account</strong> removes it, your email address and everything it holds, including any route you
+  have shared. <em>Account &rarr; Delete my data or my account</em>, in the app. You can also delete only what you have sent
+  in and keep the account.</p>
+
+  <h3>The identifier behind it</h3>
+  <p>The app creates a random identifier for your device before you have an account, so that it can talk to the server at
+  all. Adding an email address attaches it to that same identifier rather than starting a new one &mdash; which is what
+  keeps anything you had already sent. Under data-protection law the identifier counts as personal data, which is why it
+  is described here.</p>
 
   <h3>Where it is stored</h3>
   <p>Contributions are stored by <a href="https://supabase.com/privacy">Supabase</a>, which hosts the database and the
@@ -111,11 +144,27 @@
   <p>Because you chose to send it &mdash; consent, under Article 6(1)(a) of the UK and EU GDPR. You can withdraw that at any
   time by deleting what you sent, and doing so does not affect anything else in the app.</p>
 
+  <h2>Sharing a route with someone</h2>
+  <p>A saved trip stays on your phone unless you choose to share it. Sharing one uploads <strong>the route itself</strong>
+  &mdash; the huts you picked, the order you walk them in, and the trail between them &mdash; and gives you an
+  eight-character code.</p>
+  <p>Anyone you give that code to can open the route and keep their own copy. What they see is the walk and nothing else:
+  not your email address, not your name, and nothing about any other trip you have saved. The code is the only way in; a
+  route cannot be found by searching, and the list of shared routes is not public.</p>
+  <p><strong>You can stop sharing at any time</strong>, from the trip in your Saved trips, and the code stops working for
+  everyone. A copy someone already saved to their own phone is theirs and stays with them &mdash; the same as if you had
+  told them which huts to book.</p>
+  <p>Opening a route someone shared with you needs no account and tells them nothing about you.</p>
+
   <h2>Your location</h2>
   <p>If you allow it, the app asks for your location so the map can show where you are and you can check you are on the
   right trail. This is <strong>foreground only</strong> &mdash; the app does not track you in the background.</p>
-  <p>Your position is handed straight to the map to draw on screen. It is never sent to us or to anyone else, and it is
-  never stored. You can refuse the permission and the rest of the app works normally.</p>
+  <p>Your position is handed straight to the map to draw on screen. It is not sent to us or to anyone else, and it is not
+  stored. You can refuse the permission and the rest of the app works normally.</p>
+  <p>There is one deliberate exception, and you start it yourself: reporting a missing hut from the <em>Account</em> tab
+  takes a single reading of where you are and sends that one point with the report, because you are telling us a hut is
+  where you are standing. Reporting by pressing and holding the map does not read your position at all. Nothing else in
+  the app ever sends your location anywhere.</p>
 
   <h2>What the app connects to</h2>
   <p>Alpine Huts ships with its hut data and photo list built in, so most of it works offline. Some features do reach the
@@ -130,13 +179,15 @@
     <tr><td>refuges.info</td><td>Hut photographs</td><td>The image requested</td></tr>
     <tr><td>Photograph hosts</td><td>Showing a hut photo</td><td>The image requested. Photos come from many sites, including huts' and hotels' own websites</td></tr>
     <tr><td>hut-reservation.org</td><td>Only if you tap a booking link</td><td>Opens in your browser, which then applies its own policy</td></tr>
-    <tr><td>Supabase</td><td>Only if you send in a photo or review, or read other people's</td><td>The contribution itself, and your anonymous identifier &mdash; see above</td></tr>
+    <tr><td>Supabase</td><td>Signing in, saving or sharing a route, and sending or reading contributions</td><td>Your email address when you sign in; otherwise the contribution or route itself and your account identifier &mdash; see above</td></tr>
   </table>
   <p>Apple Maps or Google Maps draws the base map, under the policy of whichever your phone uses.</p>
 
   <h2>What we do not do</h2>
   <ul>
-    <li>No sign-up, email address or password &mdash; and no account at all unless you send something in</li>
+    <li>No account needed to look at anything &mdash; the map, the huts and the trails are open to everyone</li>
+    <li>No name, telephone number, date of birth, contacts or calendar &mdash; an account is an email address and a
+      password, and that is all we ever ask for</li>
     <li>No analytics, crash reporting, advertising or tracking of any kind</li>
     <li>No third-party software development kits that collect data</li>
     <li>No selling or sharing of personal information, ever</li>
@@ -155,11 +206,14 @@
   <ul>
     <li><strong>See it</strong> &mdash; your contributions are shown to you in the app, including any still being checked</li>
     <li><strong>Correct it</strong> &mdash; edit your review at any time; an edited review is checked again before it reappears</li>
-    <li><strong>Erase it</strong> &mdash; <em>About &rarr; Delete everything I have sent</em> removes your photographs, reviews
-      and reports permanently, and <em>Delete my account</em> removes the anonymous identifier with them</li>
+    <li><strong>Erase it</strong> &mdash; <em>Account &rarr; Delete my data or my account</em>. The first removes your
+      photographs, reviews, reports and shared routes permanently; the second removes the account and your email address
+      with them</li>
+    <li><strong>Take back a shared route</strong> &mdash; <em>Saved trips &rarr; share &rarr; Stop sharing</em>, and the code
+      stops working</li>
     <li><strong>Object, or withdraw consent</strong> &mdash; deleting your contributions does exactly that</li>
     <li><strong>Take it with you</strong> &mdash; ask at the address below and we will send you what we hold, which will be
-      the photographs and text you sent and their dates</li>
+      the photographs and text you sent, any point you marked on the map, and their dates</li>
   </ul>
   <p>You do not have to ask us to exercise any of these &mdash; they are all in the app. If you would rather write to us, or
   if something is not working, use the contact address below and we will act within one month.</p>

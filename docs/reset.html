@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Choose a new password &middot; Alpine Huts</title>
+<meta name="robots" content="noindex">
+<!--
+  Where a password-reset email lands.
+
+  ⚠️ THIS PAGE EXISTS BECAUSE THE APP CANNOT DO IT. Supabase sends a link that
+  redirects here carrying a short-lived recovery token in the URL FRAGMENT. The
+  app is built with `detectSessionInUrl: false` and has no deep-link callback,
+  so nothing in it can ever read that token. Without this page, "I have
+  forgotten my password" sent a real email to a real person who then arrived at
+  a homepage with nothing to do.
+
+  ⚠️ THE ANON KEY BELOW IS PUBLIC AND THAT IS FINE. It ships inside the app
+  bundle already and is an identifier, not a secret — every rule that matters is
+  enforced by row-level security on the server. The SERVICE key must never
+  appear here or anywhere else in this repository.
+
+  ⚠️ THE TOKEN IS WIPED FROM THE ADDRESS BAR BEFORE ANYTHING ELSE HAPPENS. It
+  grants a password change for a few minutes, and a URL is the most-copied,
+  most-logged, most-shoulder-surfed thing on a screen. It is read into a
+  variable and the fragment is replaced immediately — so a screenshot, a shared
+  link or a browser history entry carries nothing usable.
+-->
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1b1b1b; --muted: #5d5d5d;
+    --rule: #e4e4e4; --accent: #2f6d4f; --card: #f6f7f6; --bad: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14161a; --fg: #e9e9e9; --muted: #a6a6a6;
+      --rule: #2a2d33; --accent: #7fc09b; --card: #1c1f24; --bad: #f2b8b5;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #14161a; --fg: #e9e9e9; --muted: #a6a6a6;
+    --rule: #2a2d33; --accent: #7fc09b; --card: #1c1f24; --bad: #f2b8b5;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg); margin: 0; padding: 0 16px;
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 30rem; margin: 0 auto; padding: 3.5rem 0 4rem; }
+  h1 { font-size: 1.8rem; margin: 0 0 .4rem; line-height: 1.2; }
+  .lede { color: var(--muted); margin: 0 0 2rem; }
+  label { display: block; font-weight: 600; margin: 1.1rem 0 .35rem; }
+  input[type=password] {
+    width: 100%; padding: .7rem .8rem; font-size: 1rem; color: var(--fg);
+    background: var(--bg); border: 1.5px solid var(--rule); border-radius: 8px;
+  }
+  input[type=password]:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button {
+    margin-top: 1.5rem; width: 100%; padding: .8rem 1rem; font-size: 1rem; font-weight: 700;
+    color: #fff; background: var(--accent); border: 0; border-radius: 8px; cursor: pointer;
+  }
+  button[disabled] { opacity: .55; cursor: default; }
+  .hint { color: var(--muted); font-size: .9rem; margin-top: .4rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--rule);
+    border-radius: 10px; padding: 1rem 1.2rem; margin: 1.5rem 0;
+  }
+  .card p { margin: 0 0 .6rem; } .card p:last-child { margin-bottom: 0; }
+  .bad { color: var(--bad); font-weight: 600; }
+  a { color: var(--accent); }
+  [hidden] { display: none !important; }
+  footer { margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: .9rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Choose a new password</h1>
+  <p class="lede">For your Alpine Huts account.</p>
+
+  <!-- Shown only once a usable recovery token has been found in the link. -->
+  <form id="form" hidden>
+    <label for="pw">New password</label>
+    <input id="pw" type="password" autocomplete="new-password" minlength="8" required>
+    <p class="hint">At least 8 characters.</p>
+
+    <label for="pw2">Type it again</label>
+    <input id="pw2" type="password" autocomplete="new-password" minlength="8" required>
+
+    <button id="go" type="submit">Set my password</button>
+    <p id="formError" class="hint bad" hidden></p>
+  </form>
+
+  <div class="card" id="noToken" hidden>
+    <p class="bad" id="noTokenWhy">This link cannot be used.</p>
+    <p>Reset links last about an hour and work once. Open Alpine Huts, go to the
+    <strong>Account</strong> tab, choose <strong>I already have one</strong> and then
+    <strong>I have forgotten my password</strong> to get a fresh one.</p>
+  </div>
+
+  <div class="card" id="done" hidden>
+    <p><strong>Your password is changed.</strong></p>
+    <p>Go back to Alpine Huts, open the <strong>Account</strong> tab, and sign in with your email
+    address and the new password. You can close this page.</p>
+  </div>
+
+  <footer>
+    <p><a href="index.html">Alpine Huts</a> &middot; <a href="privacy.html">Privacy policy</a></p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var SUPABASE_URL = 'https://tfffpgucwajkdbklgemu.supabase.co';
+  var SUPABASE_ANON_KEY = 'sb_publishable_X9Ty7VEpb00voBCZ_LbZaQ_Pq8VR1_K';
+
+  var form = document.getElementById('form');
+  var noToken = document.getElementById('noToken');
+  var noTokenWhy = document.getElementById('noTokenWhy');
+  var done = document.getElementById('done');
+  var formError = document.getElementById('formError');
+  var go = document.getElementById('go');
+  var pw = document.getElementById('pw');
+  var pw2 = document.getElementById('pw2');
+
+  // ── Read the fragment, then destroy it ────────────────────────────────────
+  // Supabase redirects here as  …/reset.html#access_token=…&type=recovery
+  // (or #error=…&error_description=… when the link has expired).
+  var hash = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+  var token = hash.get('access_token');
+  var type = hash.get('type');
+  var errorText = hash.get('error_description') || hash.get('error');
+  try {
+    history.replaceState(null, '', location.pathname + location.search);
+  } catch (e) {
+    location.hash = '';
+  }
+
+  function show(el) { el.hidden = false; }
+  function fail(why) { noTokenWhy.textContent = why; show(noToken); }
+
+  if (errorText) {
+    fail(errorText.replace(/\+/g, ' '));
+  } else if (!token) {
+    fail('This link is missing its reset code, or it has already been used.');
+  } else if (type && type !== 'recovery') {
+    // A confirmation link landing here by mistake — say so rather than
+    // silently offering a password box that will not work.
+    fail('This link is not a password reset.');
+  } else {
+    show(form);
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    formError.hidden = true;
+
+    if (pw.value.length < 8) {
+      formError.textContent = 'Use at least 8 characters.';
+      formError.hidden = false;
+      return;
+    }
+    if (pw.value !== pw2.value) {
+      formError.textContent = 'Those two do not match.';
+      formError.hidden = false;
+      return;
+    }
+
+    go.disabled = true;
+    go.textContent = 'Saving…';
+
+    fetch(SUPABASE_URL + '/auth/v1/user', {
+      method: 'PUT',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ password: pw.value })
+    }).then(function (r) {
+      return r.json().then(function (body) { return { ok: r.ok, status: r.status, body: body }; });
+    }).then(function (res) {
+      if (res.ok) {
+        form.hidden = true;
+        show(done);
+        return;
+      }
+      go.disabled = false;
+      go.textContent = 'Set my password';
+      // 401/403 means the token has expired or been used — that is not a
+      // problem with what they typed, so it gets the whole explanation.
+      if (res.status === 401 || res.status === 403) {
+        form.hidden = true;
+        fail('This reset link has expired or has already been used.');
+        return;
+      }
+      var msg = (res.body && (res.body.msg || res.body.message || res.body.error_description)) || '';
+      formError.textContent = msg
+        ? msg.charAt(0).toUpperCase() + msg.slice(1)
+        : 'That did not work. Please try again.';
+      formError.hidden = false;
+    }).catch(function () {
+      go.disabled = false;
+      go.textContent = 'Set my password';
+      formError.textContent = 'No connection. Please try again.';
+      formError.hidden = false;
+    });
+  });
+})();
+</script>
+</body>
+</html>
