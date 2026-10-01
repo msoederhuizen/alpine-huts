@@ -53,7 +53,20 @@ async function fetchTile(w: number, s: number, e: number, n: number): Promise<Re
     `https://www.refuges.info/api/bbox?bbox=${w},${s},${e},${n}` +
     `&type_points=${TYPES}&format=geojson&detail=complet`;
   try {
-    const res = await fetch(url, { headers: { Accept: 'application/json' } });
+    /**
+     * ⚠️ NODE'S fetch HAS NO DEFAULT TIMEOUT, and this walks a grid of tiles —
+     * one host that accepts the connection and then goes quiet stops the whole
+     * import for ever, with no error to read. The photo index lost two full
+     * runs to exactly this before the cause was found: both sat for three hours
+     * on a handful of unresponsive hosts and had to be killed.
+     *
+     * 30 seconds is generous for a bbox query that normally answers in two, and
+     * a tile that fails is simply skipped rather than taking the run with it.
+     */
+    const res = await fetch(url, {
+      headers: { Accept: 'application/json' },
+      signal: AbortSignal.timeout(30_000),
+    });
     if (!res.ok) return [];
     const gj = (await res.json()) as { features?: Record<string, any>[] };
     const feats = gj.features ?? [];

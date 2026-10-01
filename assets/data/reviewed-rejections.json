@@ -110,5 +110,19 @@
     "lat": 47.2422,
     "lon": 9.911416667,
     "at": "2026-10-01"
+  },
+  {
+    "source": "refuges",
+    "name": "Refuge de la Pousterle",
+    "lat": 44.8008,
+    "lon": 6.5146,
+    "at": "2026-10-01"
+  },
+  {
+    "source": "refuges",
+    "name": "Roseyres",
+    "lat": 46.35978,
+    "lon": 7.19568,
+    "at": "2026-10-01"
   }
 ]

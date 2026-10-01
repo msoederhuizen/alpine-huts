@@ -24,6 +24,8 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { isRejected, readRejections } from './lib/reviewed-csv';
+
 import { REGIONS } from '../src/constants/region';
 import { appPlaces } from './lib/app-places';
 import { EXTENT, allPoints, type RefugePoint } from './lib/refuges-info';
@@ -162,16 +164,42 @@ async function main() {
    * and the unmanned cabins big enough to sleep a party: about 116 rows, which
    * includes every missing staffed refuge. `--all` writes the rest.
    */
-  const CABANE_MIN_PLACES = 6;
+  /**
+   * ⚠️ "NO CAPACITY RECORDED" AND "SLEEPS FOUR" ARE NOT THE SAME TIER, and the
+   * original all-or-nothing `--all` could not tell them apart. Of the 779
+   * missing cabanes, 582 record no capacity at all — those are the emergency
+   * shelters the comment above describes, and they stay out. The rest sleep a
+   * known number of people, and a cabane sleeping four is somewhere walkers
+   * genuinely plan around.
+   *
+   * `--min-places 1` therefore means "has a recorded capacity", which is the
+   * useful middle tier; the default of 6 keeps the first review small; `--all`
+   * still means everything, unknowns included.
+   */
+  const argMin = process.argv.indexOf('--min-places');
+  const CABANE_MIN_PLACES = argMin >= 0 ? Number(process.argv[argMin + 1]) : 6;
+  if (!Number.isFinite(CABANE_MIN_PLACES) || CABANE_MIN_PLACES < 0) {
+    console.error('--min-places needs a number, e.g. --min-places 1');
+    process.exit(1);
+  }
   const checkable = (m: (typeof missing)[number]) =>
     m.kind !== 'cabane non gardée' || (m.places ?? 0) >= CABANE_MIN_PLACES;
   const forCsv = process.argv.includes('--all') ? missing : missing.filter(checkable);
+
+  /**
+   * ⚠️ AND A ROW ALREADY REFUSED IS NEVER ASKED ABOUT AGAIN. Rejected places
+   * stay missing from the app for ever, so without this they reappear on every
+   * regeneration with a blank `keep?` cell — which means yes.
+   */
+  const rejected = readRejections();
+  const fresh = forCsv.filter((m) => !isRejected(rejected, { name: m.name, lat: m.lat, lon: m.lon }));
+  const alreadyRefused = forCsv.length - fresh.length;
   const held = missing.length - forCsv.length;
 
   const q = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
   const lines = [
     ['keep? (y/n)', 'type', 'name', 'latitude', 'longitude', 'elevation', 'sleeps', 'region', 'nearest app place', 'km away', 'refuges.info page', 'check on a map'].join(','),
-    ...forCsv.map((m) =>
+    ...fresh.map((m) =>
       [
         '',
         m.kind === 'refuge gardé' ? 'alpine_hut' : m.kind === 'gîte d\'étape' ? 'guesthouse' : 'wilderness_hut',
@@ -182,11 +210,15 @@ async function main() {
     ),
   ];
   writeFileSync(CSV, '﻿' + lines.join('\r\n'));
-  console.log(`\n-> ${CSV}   (${forCsv.length} rows to check)`);
+  console.log(`\n-> ${CSV}   (${fresh.length} rows to check)`);
+  if (alreadyRefused) {
+    console.log(`   ${alreadyRefused} left out — already refused in an earlier review.`);
+  }
   if (held) {
     console.log(
       `   ${held} unmanned cabanes sleeping under ${CABANE_MIN_PLACES}, or with no\n` +
-        `   capacity recorded at all, were held back — pass --all to include them.`,
+        `   capacity recorded at all, were held back.\n` +
+        `   --min-places 1 adds the ones with a recorded size; --all adds the rest.`,
     );
   }
   console.log('   Data: © refuges.info contributors, CC BY-SA 2.0');
